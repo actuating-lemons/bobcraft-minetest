@@ -95,3 +95,27 @@ minetest.register_abm({
 		end
 	end
 })
+
+-- Leaf decay
+minetest.register_abm({
+	label = "Leaf Decay",
+
+	-- ...Yeah I have no clue how MC does it.
+
+	interval = 1,
+	nodenames = {"bobcraft_blocks:leaves"},
+	chance = 10,
+	action = function(pos, node)
+		if minetest.find_node_near(pos, 4, "bobcraft_blocks:log") then
+			return
+		end
+		minetest.remove_node(pos)
+		local plant_sounds = bobcraft_sounds.node_sound_planty()
+		minetest.sound_play(plant_sounds.dug.name, {
+			pos = pos,
+			max_hear_distance = 16,
+			gain = plant_sounds.dug.gain
+		})
+	end
+
+})
