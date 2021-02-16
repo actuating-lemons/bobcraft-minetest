@@ -12,7 +12,7 @@ local drop_flyto_time = 80 -- In MC 1.2.5, it's 40 update calls. We do 80.
 local disable_physics = function(object, luaentity)
 	if luaentity.physical_state then
 		luaentity.physical_state = false
-		object:set_properties({physical = false})
+		object:set_properties({physical = true})
 		object:set_velocity({x=0, y=0, z=0})
 		object:set_acceleration({x=0, y=0, z=0})
 	end
@@ -98,6 +98,41 @@ local item_entity = { -- reference https://rubenwardy.com/minetest_modding_book/
 		self.object:set_acceleration({x = 0, y = -(gravity or 9.81), z = 0})
 		self:set_item()
 	end,
+
+	on_step = function(self, dtime, moveresult)
+		local our_pos = self.object:get_pos()
+		
+		local node = nil
+		if moveresult.touching_ground then
+			for i, info in ipairs(moveresult.collisions) do
+				if info.axis == "y" then
+					node = minetest.get_node(info.node_pos)
+					break
+				end
+			end
+		end
+
+		local def = node and minetest.registered_nodes[node.name]
+		local dont_stop = false
+		if def then
+			local slippy = minetest.get_item_group(node.name, "slippery")
+			local vel = self.object:get_velocity()
+			if slippy ~= 0 and (math.abs(vel.x) > 0.1 or math.abs(vel.z) > 0.1) then
+				local factor = math.min(4 / (slippery + 4) * dtime, 1)
+				self.object:set_velocity({
+					x = vel.x * (1 - factor),
+					y = 0,
+					z = vel.z * (1 - factor)
+				})
+				dont_stop = true
+			end
+
+			if not dont_stop then -- we've also probably landed
+				self.disable_physics(self)
+			end
+		end
+
+	end
 }
 
 -- item magnet
