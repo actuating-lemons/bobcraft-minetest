@@ -1,3 +1,6 @@
+
+local peak_digtime = 1 -- one second(?)
+
 -- the hand
 -- used the devgame for reference
 if minetest.settings:get_bool("creative_mode") then
@@ -28,7 +31,6 @@ if minetest.settings:get_bool("creative_mode") then
 		}
 	})
 else
-	local peak_digtime = 1 -- one second(?)
 	local caps = {
 		times = {[1] = peak_digtime*3, [2] = peak_digtime*3, [3] = peak_digtime*2},
 		uses = 0,
@@ -61,6 +63,7 @@ minetest.register_tool("bobcraft_tools:wood_axe", {
 		max_drop_level=0,
 		groupcaps={
 			choppy = {times={[2]=1.00, [3]=0.60}, uses=10, maxlevel=1},
+			axey = {[1] = peak_digtime*3, [2] = peak_digtime*3, [3] = peak_digtime*2}
 		},
 		damage_groups = {fleshy=2},
 	},
