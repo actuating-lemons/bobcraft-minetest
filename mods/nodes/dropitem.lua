@@ -5,6 +5,7 @@ local gravity = tonumber(core.settings:get("movement_gravity"))
 
 local item_scale = 0.25
 local item_grab_radius = 0.1 -- one tenth block?
+local item_flyto_radius = 2 -- two blocks?
 local break_flyto_time = 20 -- In MC 1.2.5 it's 10 update calls when a block breaks, we do 20
 
 local disable_physics = function(object, luanetity)
@@ -102,7 +103,7 @@ minetest.register_globalstep(function(dtime)
 
 		for j, object in ipairs(minetest.get_objects_inside_radius(pos, 16)) do
 			if not object:is_player() and object:get_luaentity() and object:get_luaentity().name == "__builtin:item" then
-				if object:get_luaentity().magnetting then
+				if object:get_luaentity().magnetting and vector.distance(pos, object:get_pos()) <= item_flyto_radius then
 					disable_physics(object, object:get_luaentity())
 
 					local old_pos = object:get_pos()
