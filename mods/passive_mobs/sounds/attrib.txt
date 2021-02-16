@@ -1,1 +1,3 @@
-cow_idle.1.ogg - a cropped sound from reinsambla https://freesound.org/people/reinsamba/sounds/57790/
+cow_idle.ogg - https://freesound.org/people/Zozzy/sounds/59245/
+pig_death.ogg - https://freesound.org/people/JarredGibb/sounds/233151/
+pig_idle.ogg - https://freesound.org/people/JarredGibb/sounds/233173/
