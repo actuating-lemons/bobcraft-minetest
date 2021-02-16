@@ -31,10 +31,4 @@ if minetest.settings:get_bool("creative_mode") then
 			return true
 		end
 	end)
-
-	-- And we don't pick up
-	-- TODO; change when we move to items
-	function minetest.handle_node_drops(pos, drops, digger)
-		return
-	end
 end
