@@ -21,7 +21,7 @@ If you can't even do that, you're the reason this isn't public domain in the fir
 
 ## What?
 This project is also self-hosting, in that every mod here was (at-least in part, with odd exception such as `mods/mobs`) made by me.\
-This includes textures. Sounds may have been sampled from [Free Sound](https://freesound.org/), but they were under the public domain (and probably filtered in some way).\
+This includes textures. Sounds may have been sampled from [Free Sound](https://freesound.org/), but they were under the public domain (those not are attributed) (and probably filtered in some way).\
 **This does however, mean that it is incompatible with most, if not all currently existing mods! This Project does NOT attempt to be compatible with currently existing content!**
 Minetest_Game is cool, but I can do it myself, thank-you-very much.
 
