@@ -6,7 +6,7 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = "bobcraft_items:sticks",
+	output = "bobcraft_items:sticks 4",
 	recipe = {
 		{"bobcraft_blocks:planks"},
 		{"bobcraft_blocks:planks"}
