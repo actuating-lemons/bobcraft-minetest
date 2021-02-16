@@ -4,8 +4,8 @@
 local gravity = tonumber(core.settings:get("movement_gravity"))
 
 local item_scale = 0.25
-local item_grab_radius = 1 -- one block?
-local break_flyto_time = 10 -- In MC 1.2.5 it's 10 update calls when a block breaks
+local item_grab_radius = 0.1 -- one tenth block?
+local break_flyto_time = 20 -- In MC 1.2.5 it's 10 update calls when a block breaks, we do 20
 
 local disable_physics = function(object, luanetity)
 	if luanetity.physical_state then
@@ -98,6 +98,7 @@ local item_entity = { -- reference https://rubenwardy.com/minetest_modding_book/
 minetest.register_globalstep(function(dtime)
 	for i, player in ipairs(minetest.get_connected_players()) do
 		local pos = player:get_pos()
+		local inv = player:get_inventory()
 
 		for j, object in ipairs(minetest.get_objects_inside_radius(pos, 16)) do
 			if not object:is_player() and object:get_luaentity() and object:get_luaentity().name == "__builtin:item" then
@@ -110,6 +111,18 @@ minetest.register_globalstep(function(dtime)
 					object:move_to(vec)
 
 					-- we also use magnetting as a rite of passage to picking up
+					if vector.distance(pos, object:get_pos()) <= item_grab_radius then
+						if object:get_luaentity().itemstring then
+							inv:add_item("main", ItemStack(object:get_luaentity().itemstring))
+							minetest.sound_play("item_pickup", {
+								pos = pos,
+								max_hear_distance = 5,
+								gain = 1.0
+							}, true)
+
+							object:remove()
+						end
+					end
 				elseif object:get_luaentity().magnettime <= 0 then
 					object:get_luaentity().magnetting = true
 				else
