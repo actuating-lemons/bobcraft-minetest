@@ -185,6 +185,9 @@ minetest.register_entity(":__builtin:item", item_entity)
 
 -- register the function
 function minetest.handle_node_drops(pos, drops, digger)
+	if digger and digger:is_player() and minetest.is_creative_enabled(digger:get_player_name() or "") then
+		return -- don't do it for creative players
+	end
 	for i, drop in ipairs(drops) do
 		local item_drop = ItemStack(drop)
 		local item_count = item_drop:get_count()
@@ -201,6 +204,7 @@ end
 -- for player dropping
 function minetest.item_drop(itemstack, dropper, pos)
 	if dropper and dropper:is_player() then
+		
 		local dir = dropper:get_look_dir()
 		local position = {x=pos.x, y=pos.y+1.2, z=pos.z}
 		local count = 1 -- TODO: stack dropping
