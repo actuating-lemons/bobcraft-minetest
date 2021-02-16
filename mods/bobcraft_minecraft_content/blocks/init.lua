@@ -238,4 +238,3 @@ minetest.register_node("bobcraft_blocks:cobblestone", {
 local modpath = minetest.get_modpath("bobcraft_blocks")
 dofile(modpath .. "/interactions.lua")
 dofile(modpath .. "/aliases.lua")
-dofile(modpath .. "/dropitem.lua")
