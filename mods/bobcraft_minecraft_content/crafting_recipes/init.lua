@@ -34,15 +34,15 @@ minetest.register_craft({
 	output = "bobcraft_tools:wood_pickaxe",
 	recipe = {
 		{"group:crafting_wood", "group:crafting_wood",  "group:crafting_wood"},
-		{"",                    "bobcraft_items:sticks"},
-		{"",                    "bobcraft_items:sticks"}
+		{"",                    "bobcraft_items:sticks",""},
+		{"",                    "bobcraft_items:sticks",""}
 	}
 })
 minetest.register_craft({
 	output = "bobcraft_tools:stone_pickaxe",
 	recipe = {
 		{"group:crafting_stone", "group:crafting_stone",  "group:crafting_stone"},
-		{"",                    "bobcraft_items:sticks"},
-		{"",                    "bobcraft_items:sticks"}
+		{"",                    "bobcraft_items:sticks",  ""},
+		{"",                    "bobcraft_items:sticks",  ""}
 	}
 })
