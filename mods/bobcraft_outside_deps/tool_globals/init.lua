@@ -12,6 +12,10 @@
 	The way I've added the hand means that there are
 	pickaxe_hand, hand_gold, etc.
 	it's fine though, I use hand_hand.
+	
+	Holy.... wow....
+	I have respect further respect for mineclone now.
+	This was a bitch to get working.
 ]]
 
 local materials = {
@@ -19,18 +23,16 @@ local materials = {
 	"stone",
 	"gold",
 	"iron",
-	"diamond",
-	"hand"
+	"diamond"
 }
 local tool_types = {
 	"pickaxe",
 	"axe",
-	"shovel",
-	"hand"
+	"shovel"
 }
 
 tool_values = {}
-tool_values.speed = {}
+tool_values.times = {}
 
 tool_values.material_mining_level =  {
 	wood = 0,
@@ -56,12 +58,12 @@ tool_values.correct_material_efficiency = {
 
 for i=1, #materials do
 	for j=1, #tool_types do
-		tool_values.speed[tool_types[j].."_"..materials[i]] = {}
+		tool_values.times[tool_types[j].."_"..materials[i]] = {}
 	end
 end
 
 local setup_values = function()
-	local function calculate_tool(hardness, material, tool, actual_rating, expected_rating)
+	local function calculate_tool(newgroups, hardness, material, tool, actual_rating, expected_rating)
 		-- Minecraft 1.2.5 has validity based on a list of blocks.
 		-- Sad!
 		-- I'm using MineClone 2's solution here, which seems to be basing it on the actual_rating of the tool vs. the expected_rating.
@@ -83,7 +85,7 @@ local setup_values = function()
 		end
 
 		table.insert(tool_values.times[tool .. "_" .. material], time)
-		newgroups[tool .. "_" .. material] = #tool_values.speed[tool .. "_" .. material]
+		newgroups[tool .. "_" .. material] = #tool_values.times[tool .. "_" .. material]
 		return newgroups
 	end
 
