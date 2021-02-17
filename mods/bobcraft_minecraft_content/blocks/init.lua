@@ -29,7 +29,7 @@ minetest.register_node("bobcraft_blocks:stone", {
 	sounds = bobcraft_sounds.node_sound_stone(),
 
 	hardness = 1.5,
-	groups = {pickaxe=1},
+	groups = {pickaxe=1, crafting_stone=1},
 	drop = "bobcraft_blocks:cobblestone"
 })
 
@@ -79,7 +79,7 @@ minetest.register_node("bobcraft_blocks:gravel", {
 	-- TODO: gravel/flint drops
 })
 minetest.register_node("bobcraft_blocks:sandstone", {
-	description = "Sand",
+	description = "Sandstone",
 	tiles = {"sandstone_top.png", "sandstone_bottom.png", "sandstone_side.png"},
 	sounds = bobcraft_sounds.node_sound_sandstone(),
 
@@ -223,7 +223,7 @@ minetest.register_node("bobcraft_blocks:planks", {
 	is_ground_content = false,
 	sounds = bobcraft_sounds.node_sound_wood(),
 
-	groups = {axe=1},
+	groups = {axe=1, crafting_wood=1},
 	hardness = 2
 })
 
@@ -268,7 +268,20 @@ minetest.register_node("bobcraft_blocks:cobblestone", {
 	sounds = bobcraft_sounds.node_sound_stone(),
 
 	hardness = 2, -- that's more than stone. interesting.
-	groups = {pickaxe=1}
+	groups = {pickaxe=1, crafting_stone=1}
+})
+
+----
+-- Ores
+----
+minetest.register_node("bobcraft_blocks:coal_ore", {
+	description = "Coal Ore",
+	tiles = {"coal_ore.png"},
+	is_ground_content = true,
+	sounds = bobcraft_sounds.node_sound_stone(),
+
+	hardness = 2, -- that's more than stone. interesting.
+	groups = {pickaxe=1, crafting_stone=1}
 })
 
 local modpath = minetest.get_modpath("bobcraft_blocks")
