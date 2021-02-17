@@ -109,6 +109,11 @@ tool_values.setup_values = function()
 				end
 			end
 
+			-- should we drop stuff after being mined by the hand?
+			if nodedef.groups.hand == 1 then
+				newgroups.hand_drop = 1
+			end
+
 			-- and now we do it for the hand
 			local hand_rating = nodedef.groups.hand or 0
 			newgroups = calculate_tool(newgroups, hardness, "hand", "hand", 1, hand_rating, "hand")

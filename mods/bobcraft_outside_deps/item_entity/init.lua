@@ -186,7 +186,7 @@ local tool_types = {"axe","pickaxe","shovel"}
 local materials = {"wood","stone","iron","diamond","gold"}
 -- Returns whether or not items should drop when breaking the give node, based on the tool's capabilities.
 local function should_drop(nodename, tool_capabilities)
-	local can_mine_hand = minetest.get_item_group(nodename, "hand")
+	local can_mine_hand = minetest.get_item_group(nodename, "hand_drop")
 	if can_mine_hand == 1 then
 		return true
 	end
