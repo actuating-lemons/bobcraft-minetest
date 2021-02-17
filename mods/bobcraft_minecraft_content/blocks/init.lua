@@ -238,3 +238,8 @@ minetest.register_node("bobcraft_blocks:cobblestone", {
 local modpath = minetest.get_modpath("bobcraft_blocks")
 dofile(modpath .. "/interactions.lua")
 dofile(modpath .. "/aliases.lua")
+
+-- Now that that's over, we ask tool_globals to setup the values for all blocks.
+-- If you're making an expansion, make sure your mod depends on bobcraft_blocks & also calls it.
+-- It'll introduce an unnecessary redefinition of groups, but hey, it works! 
+tool_values.setup_values()

@@ -62,7 +62,8 @@ for i=1, #materials do
 	end
 end
 
-local setup_values = function()
+-- Called as the last step in blocks/init.lua
+tool_values.setup_values = function()
 	local function calculate_tool(newgroups, hardness, material, tool, actual_rating, expected_rating)
 		-- Minecraft 1.2.5 has validity based on a list of blocks.
 		-- Sad!
@@ -111,6 +112,3 @@ local setup_values = function()
 		end
 	end
 end
-
--- Call as the last step after mods load
-minetest.register_on_mods_loaded(setup_values)
