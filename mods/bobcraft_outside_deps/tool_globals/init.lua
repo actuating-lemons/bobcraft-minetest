@@ -49,6 +49,7 @@ tool_values.material_max_uses = {
 	gold = 32
 }
 tool_values.correct_material_efficiency = {
+	hand = 1, -- HACK: the hand is not a material, but doing it this way merges it into the current setup nicely :-)
 	wood = 2,
 	stone = 4,
 	iron = 6,
@@ -61,6 +62,7 @@ for i=1, #materials do
 		tool_values.times[tool_types[j].."_"..materials[i]] = {}
 	end
 end
+tool_values.times["hand"] = {} -- do hand seperately
 
 -- Called as the last step in blocks/init.lua
 tool_values.setup_values = function()
@@ -95,14 +97,22 @@ tool_values.setup_values = function()
 		local changed = false
 		local newgroups = table.copy(nodedef.groups)
 		local hardness = nodedef.hardness or 0
-		for i, tool in pairs(tool_types) do
-			if nodedef.groups[tool] then
-				for j=1, #materials do
-					local toolstring = tool .. "_" .. materials[j]
-					newgroups = calculate_tool(newgroups, hardness, materials[j], tool, j, nodedef.groups[tool], toolstring)
-					changed = true
+
+		if hardness ~= -1 then
+			changed = true
+			for i, tool in pairs(tool_types) do
+				if nodedef.groups[tool] then
+					for j=1, #materials do
+						local toolstring = tool .. "_" .. materials[j]
+						newgroups = calculate_tool(newgroups, hardness, materials[j], tool, j, nodedef.groups[tool], toolstring)
+					end
 				end
 			end
+
+			-- and now we do it for the hand
+			local hand_rating = nodedef.groups.hand or 0
+			newgroups = calculate_tool(newgroups, hardness, "hand", "hand", 0, hand_rating, "hand")
+		
 		end
 
 		if changed then

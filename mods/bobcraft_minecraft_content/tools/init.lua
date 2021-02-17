@@ -17,14 +17,9 @@ if minetest.settings:get_bool("creative_mode") then
 			full_punch_interval = 0.5,
 			max_drop_level = 3,
 			groupcaps = {
-				crumbly = caps,
-				cracky = caps,
-				snappy = caps,
-				choppy = caps,
-				oddly_breakable_by_hand = caps,
-				dig_immediate = {
-					times = {[2] = digtime, [3] = 0},
-					uses = 0, maxlevel = 256
+				hand = {
+					times = tool_values.times.hand,
+					uses = 0
 				}
 			},
 			damage_groups = {fleshy = 10}
@@ -44,11 +39,10 @@ else
 			full_punch_interval = 1,
 			max_drop_level = 0,
 			groupcaps = {
-				crumbly = caps,
-				cracky = caps,
-				snappy = caps,
-				choppy = caps,
-				oddly_breakable_by_hand = {times = {[1] = peak_digtime, [2] = peak_digtime*0.5, [3] = peak_digtime*0.25}, uses = 0},
+				hand = {
+					times = tool_values.times.hand,
+					uses = 0
+				}
 			},
 			damage_groups = {fleshy = 1}
 		}
