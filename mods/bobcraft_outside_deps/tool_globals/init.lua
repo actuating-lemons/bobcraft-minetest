@@ -121,7 +121,6 @@ tool_values.setup_values = function()
 					groups = newgroups
 				}
 			)
-			minetest.log(dump(newgroups))
 		end
 	end
 end
