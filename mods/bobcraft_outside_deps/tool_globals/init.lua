@@ -62,8 +62,8 @@ for i=1, #materials do
 	end
 end
 
-tool_values.setup_group_values = function(nodename, nodedef)
-	local function calculate_tool(newgroups, hardness, material, tool, actual_rating, expected_rating, toolstring)
+local setup_values = function()
+	local function calculate_tool(newgroups, hardness, material, tool, actual_rating, expected_rating)
 		-- Minecraft 1.2.5 has validity based on a list of blocks.
 		-- Sad!
 		-- I'm using MineClone 2's solution here, which seems to be basing it on the actual_rating of the tool vs. the expected_rating.
@@ -72,39 +72,45 @@ tool_values.setup_group_values = function(nodename, nodedef)
 		local time = 1
 
 		if actual_rating >= expected_rating then
-			validity_factor = 1.5
+			validity_factor = 1
 		else
 			validity_factor = 5
 		end
 
 		local speed_multiplier = tool_values.correct_material_efficiency[material]
-		time = (hardness * validity_factor) / speed_multiplier
 		if time <= 0.05 then
 			time = 0
 		else
 			time = math.ceil(time * 20) / 20
 		end
 
-		table.insert(tool_values.times[toolstring], time)
-		newgroups[toolstring] = #tool_values.times[toolstring]
+		table.insert(tool_values.times[tool .. "_" .. material], time)
+		newgroups[tool .. "_" .. material] = #tool_values.times[tool .. "_" .. material]
 		return newgroups
 	end
-	local changed = false
-	local newgroups = table.copy(nodedef.groups)
-	local hardness = nodedef.hardness or 0
-	for i, tool in pairs(tool_types) do
-		if nodedef.groups[tool] then
-			for j=1, #materials do
-				local toolstring = tool .. "_" .. materials[j]
 
-				newgroups = calculate_tool(newgroups, hardness, materials[j], tool, j, nodedef.groups[tool], toolstring)
-				changed = true
+	for nodename, nodedef in pairs(minetest.registered_nodes) do
+		local changed = false
+		local newgroups = table.copy(nodedef.groups)
+		local hardness = nodedef.hardness or 0
+		for i, tool in pairs(tool_types) do
+			if nodedef.groups[tool] then
+				for j=1, #materials do
+					newgroups = calculate_tool(newgroups, hardness, materials[j], tool, j, nodedef.groups[tool])
+					changed = true
+				end
 			end
 		end
-	end
 
-	if changed then
-		nodedef.groups = newgroups
+		if changed then
+			minetest.override_item(
+				nodename, {
+					groups = newgroups
+				}
+			)
+		end
 	end
-	return nodedef
 end
+
+-- Call as the last step after mods load
+minetest.register_on_mods_loaded(setup_values)
