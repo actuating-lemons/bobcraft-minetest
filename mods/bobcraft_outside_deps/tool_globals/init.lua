@@ -111,7 +111,7 @@ tool_values.setup_values = function()
 
 			-- and now we do it for the hand
 			local hand_rating = nodedef.groups.hand or 0
-			newgroups = calculate_tool(newgroups, hardness, "hand", "hand", 0, hand_rating, "hand")
+			newgroups = calculate_tool(newgroups, hardness, "hand", "hand", 1, hand_rating, "hand")
 		
 		end
 
