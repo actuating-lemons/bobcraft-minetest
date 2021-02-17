@@ -10,6 +10,7 @@ minetest.register_node("bobcraft_blocks:bedrock", {
 		groups = {},
 		sounds = bobcraft_sounds.node_sound_stone()
 })
+
 register_block("bobcraft_blocks:stone", {
 	description = "Stone",
 	tiles = {"stone.png"},
@@ -17,7 +18,7 @@ register_block("bobcraft_blocks:stone", {
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_stone(),
 	
-	hardness = 1,
+	hardness = 1.5,
 	groups = {pickaxe=1}
 })
 
