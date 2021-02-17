@@ -64,7 +64,7 @@ end
 
 -- Called as the last step in blocks/init.lua
 tool_values.setup_values = function()
-	local function calculate_tool(newgroups, hardness, material, tool, actual_rating, expected_rating)
+	local function calculate_tool(newgroups, hardness, material, tool, actual_rating, expected_rating, toolstring)
 		-- Minecraft 1.2.5 has validity based on a list of blocks.
 		-- Sad!
 		-- I'm using MineClone 2's solution here, which seems to be basing it on the actual_rating of the tool vs. the expected_rating.
@@ -73,20 +73,21 @@ tool_values.setup_values = function()
 		local time = 1
 
 		if actual_rating >= expected_rating then
-			validity_factor = 1
+			validity_factor = 1.5
 		else
 			validity_factor = 5
 		end
 
 		local speed_multiplier = tool_values.correct_material_efficiency[material]
+		time = (hardness * validity_factor) / speed_multiplier
 		if time <= 0.05 then
 			time = 0
 		else
 			time = math.ceil(time * 20) / 20
 		end
 
-		table.insert(tool_values.times[tool .. "_" .. material], time)
-		newgroups[tool .. "_" .. material] = #tool_values.times[tool .. "_" .. material]
+		table.insert(tool_values.times[toolstring], time)
+		newgroups[toolstring] = #tool_values.times[toolstring]
 		return newgroups
 	end
 
@@ -97,7 +98,8 @@ tool_values.setup_values = function()
 		for i, tool in pairs(tool_types) do
 			if nodedef.groups[tool] then
 				for j=1, #materials do
-					newgroups = calculate_tool(newgroups, hardness, materials[j], tool, j, nodedef.groups[tool])
+					local toolstring = tool .. "_" .. materials[j]
+					newgroups = calculate_tool(newgroups, hardness, materials[j], tool, j, nodedef.groups[tool], toolstring)
 					changed = true
 				end
 			end
@@ -109,6 +111,7 @@ tool_values.setup_values = function()
 					groups = newgroups
 				}
 			)
+			minetest.log(dump(newgroups))
 		end
 	end
 end

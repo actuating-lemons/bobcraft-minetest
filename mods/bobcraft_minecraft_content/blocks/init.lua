@@ -195,8 +195,11 @@ minetest.register_node("bobcraft_blocks:planks", {
 	description = "Planks",
 	tiles = {"planks.png"},
 	is_ground_content = false,
-	groups = {choppy=2},
-	sounds = bobcraft_sounds.node_sound_wood()
+	sounds = bobcraft_sounds.node_sound_wood(),
+
+	--bobcraft values abound
+	groups = {axe=1},
+	hardness = 2
 })
 
 minetest.register_node("bobcraft_blocks:glass", {

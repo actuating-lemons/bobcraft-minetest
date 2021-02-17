@@ -60,10 +60,13 @@ minetest.register_tool("bobcraft_tools:wood_axe", {
 	inventory_image = "wood_axe.png",
 	tool_capabilities = {
 		full_punch_interval = 1.0,
-		max_drop_level=0,
+		max_drop_level=tool_values.material_mining_level.wood,
 		groupcaps={
-			choppy = {times={[2]=1.00, [3]=0.60}, uses=10, maxlevel=1},
-			axey = {[1] = peak_digtime*3, [2] = peak_digtime*3, [3] = peak_digtime*2}
+			axe_wood = {
+				times = tool_values.times.axe_wood,
+				uses = tool_values.material_max_uses.wood,
+				maxlevel = tool_values.material_mining_level.wood 
+			}
 		},
 		damage_groups = {fleshy=2},
 	},
