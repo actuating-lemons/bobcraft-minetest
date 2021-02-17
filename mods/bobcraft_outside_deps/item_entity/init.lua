@@ -180,6 +180,39 @@ minetest.register_globalstep(function(dtime)
 	end
 end)
 
+
+
+local tool_types = {"axe","pickaxe","shovel"}
+local materials = {"wood","stone","iron","diamond","gold"}
+-- Returns whether or not items should drop when breaking the give node, based on the tool's capabilities.
+local function should_drop(nodename, tool_capabilities)
+	local can_mine_hand = minetest.get_item_group(nodename, "hand")
+	if can_mine_hand == 1 then
+		return true
+	end
+
+	if tool_capabilities == nil then
+		return false
+	end
+
+	local tool_group_caps = tool_capabilities.groupcaps
+
+	for i=1, #tool_types do
+		local tool_type = tool_types[i]
+		local in_group = minetest.get_item_group(nodename, tool_type)
+		if in_group ~= 0 then
+			for m=1, #materials do
+				local material = tool_type .. "_" .. materials[m]
+				if tool_group_caps[material] then
+					return true
+				end
+			end
+		end
+	end
+
+	return false
+end
+
 -- register entity
 minetest.register_entity(":__builtin:item", item_entity)
 
@@ -188,6 +221,13 @@ function minetest.handle_node_drops(pos, drops, digger)
 	if digger and digger:is_player() and minetest.is_creative_enabled(digger:get_player_name() or "") then
 		return -- don't do it for creative players
 	end
+
+	local node_we_done_did_dug = minetest.get_node(pos)
+	local tool_we_done_did_use = digger:get_wielded_item()
+	if not should_drop(node_we_done_did_dug.name, tool_we_done_did_use:get_tool_capabilities()) then
+		return
+	end
+
 	for i, drop in ipairs(drops) do
 		local item_drop = ItemStack(drop)
 		local item_count = item_drop:get_count()
@@ -204,7 +244,6 @@ end
 -- for player dropping
 function minetest.item_drop(itemstack, dropper, pos)
 	if dropper and dropper:is_player() then
-		
 		local dir = dropper:get_look_dir()
 		local position = {x=pos.x, y=pos.y+1.2, z=pos.z}
 		local count = 1 -- TODO: stack dropping
