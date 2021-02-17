@@ -4,7 +4,7 @@ function bobcraft_sounds.node_sound_default(table)
 	table = table or {}
 
 	table.footstep = table.footstep or {name = "step_default", gain=0.2}
-	-- TODO: DIGGING SOUND (creation AND playing)
+	table.dig = table.dig or {name = "dig_default", gain = 0.2}
 	table.dug = table.dug or {name = "break_default", gain = 0.3}
 	table.place = table.place or {name = "place_default", gain = 1.0}
 
