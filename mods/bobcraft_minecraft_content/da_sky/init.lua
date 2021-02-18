@@ -67,7 +67,7 @@ local function get_sky_color(temp)
 	end
 
 	local color = hsv_rgb(
-		(2.4 - temp * 0.05)*100,
+		(2.2 - temp * 0.05)*100, -- Minecraft uses 0.62 here, but that was wrong and made the sky shit colour. So we use 2.2, because that's the rough hue i sampled from a screenshot. Wee!
 		(0.5 + temp * 0.1)*100,
 		100.0
 	)
