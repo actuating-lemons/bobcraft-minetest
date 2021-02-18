@@ -107,6 +107,10 @@ local function get_sky_color(temp)
 		color.b = 255
 	end
 
+	-- TODO: Sunrise
+	-- Of interest; WorldProvider.calcSunriseSunsetColors(float, float)
+	-- However, I don't see where this is called - if at all - and I don't know what the parameters are.
+
 	return color
 
 end
