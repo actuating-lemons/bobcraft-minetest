@@ -63,6 +63,7 @@ for i=1, #materials do
 	end
 end
 tool_values.times["hand"] = {} -- do hand seperately
+tool_values.times["creative_hand"] = {} -- do hand seperately
 
 -- Called as the last step in blocks/init.lua
 tool_values.setup_values = function()
@@ -117,6 +118,9 @@ tool_values.setup_values = function()
 			-- and now we do it for the hand
 			local hand_rating = nodedef.groups.hand or 0
 			newgroups = calculate_tool(newgroups, hardness, "hand", "hand", 1, hand_rating, "hand")
+
+			-- and the creative hand
+			newgroups = calculate_tool(newgroups, hardness, "hand", "creative_hand", 255, 1, "creative_hand")
 		
 		end
 

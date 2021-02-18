@@ -223,7 +223,7 @@ minetest.register_node("bobcraft_blocks:planks", {
 	is_ground_content = false,
 	sounds = bobcraft_sounds.node_sound_wood(),
 
-	groups = {axe=1, crafting_wood=1},
+	groups = {hand=1, axe=1, crafting_wood=1},
 	hardness = 2
 })
 
@@ -248,7 +248,7 @@ minetest.register_node("bobcraft_blocks:log", {
 	sounds = bobcraft_sounds.node_sound_wood(),
 
 	hardness = 2,
-	groups = {axe=1, hand=1}
+	groups = {hand=1, axe=1}
 })
 minetest.register_node("bobcraft_blocks:leaves", {
 	description = "Leaves",
@@ -280,8 +280,8 @@ minetest.register_node("bobcraft_blocks:coal_ore", {
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_stone(),
 
-	hardness = 2, -- that's more than stone. interesting.
-	groups = {pickaxe=1, crafting_stone=1}
+	hardness = 3,
+	groups = {pickaxe=1}
 })
 
 local modpath = minetest.get_modpath("bobcraft_blocks")

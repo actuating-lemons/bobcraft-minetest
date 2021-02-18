@@ -18,7 +18,7 @@ if minetest.settings:get_bool("creative_mode") then -- TODO: creative hand
 			max_drop_level = 3,
 			groupcaps = {
 				hand = {
-					times = tool_values.times.hand,
+					times = tool_values.times.creative_hand,
 					uses = 0
 				}
 			},
