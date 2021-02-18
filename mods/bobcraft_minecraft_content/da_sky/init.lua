@@ -9,39 +9,33 @@
 	It's all a  massive headache. but hey, if I got it working, I got it working.
 ]]
 
-local function hsv_rgb(hsv_colour)
+local function hsv_rgb(H,S,V)
 	-- wow this is turning out to be an expensive operation.
 
 	local r,g,b = 0,0,0
 
-	local H = hsv_colour[1]
-	local S = hsv_colour[2]
-	local V = hsv_colour[3]
+	local c = (V/100) * (S/100)
+	local x = c*(1 - math.abs((H/60) % 2 - 1))
+	local m = (V/100) - c
 
-	local c = (V) * (S)
-	local x = c*(1 - ((H/60) % 2) - 1)
-	local m = (V) - c
-
-	minetest.log(H)
-
-	if(H >= 0 and H < 0.6) then
+	if(H >= 0 and H < 60) then
 		r = c
 		g = x
 		b = 0    
-    elseif(H >= 0.6 and H < 1.2) then
+    elseif(H >= 60 and H < 120) then
 		r = x
 		g = c
 		b = 0    
-    elseif(H >= 1.2 and H < 1.8) then
+    elseif(H >= 120 and H < 180) then
 		r = 0
 		g = c
 		b = x
     
-    elseif(H >= 1.8 and H < 2.4) then
+    elseif(H >= 180 and H < 240) then
 		r = 0
 		g = x
 		b = c
-    elseif(H >= 2.4 and H < 3) then
+    elseif(H >= 240 and H < 300) then
 		r = x
 		g = 0
 		b = c
@@ -63,6 +57,7 @@ end
 local function get_sky_color(temp)
 	-- Temperature
 	temp = temp / 3
+	
 	if temp < -1 then
 		temp = -1
 	end
@@ -71,16 +66,14 @@ local function get_sky_color(temp)
 		temp = 1
 	end
 
-	local color = hsv_rgb({
-		0.62 - temp * 0.05,
-		0.5 + temp * 0.1,
-		1.0,
-	})
-
-	minetest.log(dump(color))
+	local color = hsv_rgb(
+		(2.4 - temp * 0.05)*100,
+		(0.5 + temp * 0.1)*100,
+		100.0
+	)
 	
 	-- Time of day
-	local whatever_this_is = minetest.get_timeofday()
+	local whatever_this_is = minetest.get_timeofday() -- TODO: too dark, what's the issue?
 
 	if whatever_this_is < 0 then
 		whatever_this_is = 0
@@ -88,9 +81,28 @@ local function get_sky_color(temp)
 		whatever_this_is = 1
 	end
 
-	color.r = (color.r * whatever_this_is) * 255
-	color.g = (color.g * whatever_this_is) * 255
-	color.b = (color.b * whatever_this_is) * 255
+	color.r = ((color.r * whatever_this_is) * 255)
+	color.g = ((color.g * whatever_this_is) * 255)
+	color.b = ((color.b * whatever_this_is) * 255)
+
+	if color.r < 0 then
+		color.r = 0
+	end
+	if color.r > 255 then
+		color.r = 255
+	end
+	if color.g < 0 then
+		color.g = 0
+	end
+	if color.g > 255 then
+		color.g = 255
+	end
+	if color.b < 0 then
+		color.b = 0
+	end
+	if color.b > 255 then
+		color.b = 255
+	end
 
 	return color
 
