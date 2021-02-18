@@ -127,7 +127,7 @@ local function set_player_skies()
 
 			player:set_sky({
 				base_color=get_sky_color(player_biome_temp), 
-				type="skybox"
+				type="plain"
 			})
 		end
 	end
