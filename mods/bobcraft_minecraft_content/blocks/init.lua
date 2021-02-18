@@ -284,6 +284,79 @@ minetest.register_node("bobcraft_blocks:coal_ore", {
 	groups = {pickaxe=1}
 })
 
+minetest.register_node("bobcraft_blocks:torch", {
+	description = "Torch",
+	tiles = {"torch.png"},
+	is_ground_content = false,
+	sounds = bobcraft_sounds.node_sound_wood(), -- TODO: torch sounds
+	drawtype = "mesh", -- We can't change the UV of nodeboxes sadly.
+	mesh = "torch_floor.obj",
+	selection_box = { -- But they make a good selection box!
+		type = "fixed",
+		fixed = {
+			-0.0625, -0.5, -0.0625,
+			0.0625, 0.125, 0.0625
+		}
+	},
+
+	groups = {hand=1},
+
+	paramtype = "light",
+	sunlight_propagates = true,
+	inventory_image = "torch.png",
+	wield_image = "torch.png",
+	light_source = 14,
+
+	walkable = false,
+
+	-- so we can become the wall torch
+	on_place = function (itemstack, placer, pointed_node)
+		local under_pointed_node = pointed_node.under
+		local above_pointed_node = pointed_node.above
+
+		local fakestack = itemstack
+		local wall_dir = minetest.dir_to_wallmounted(vector.subtract(under_pointed_node, above_pointed_node))
+		if wall_dir == 1 then
+			fakestack:set_name("bobcraft_blocks:torch")
+		elseif wall_dir ~= 0 then
+			fakestack:set_name("bobcraft_blocks:torch_wall")
+		else
+			return itemstack
+		end
+
+		itemstack = minetest.item_place(fakestack, placer, pointed_node, wall_dir)
+		itemstack:set_name("bobcraft_blocks:torch")
+
+		return itemstack
+	end
+})
+
+minetest.register_node("bobcraft_blocks:torch_wall", {
+	description = "Wall Torch",
+	tiles = {"torch.png"},
+	is_ground_content = false,
+	sounds = bobcraft_sounds.node_sound_wood(), -- TODO: torch sounds
+	drawtype = "mesh",
+	mesh = "torch_wall.obj", -- Unfortunately we need a mesh here.... pah!
+	selection_box = {
+		type = "wallmounted",
+		wall_side = {
+			-0.5, -0.3125, -0.0625,
+			-0.0625, 0.3125, 0.0625
+		}
+	},
+
+	groups = {hand=1, not_in_creative_inventory=1},
+	drop = "bobcraft_blocks:torch",
+
+	paramtype = "light",
+	paramtype2 = "wallmounted",
+	sunlight_propagates = true,
+	light_source = 14,
+
+	walkable = false,
+})
+
 local modpath = minetest.get_modpath("bobcraft_blocks")
 dofile(modpath .. "/interactions.lua")
 dofile(modpath .. "/aliases.lua")
