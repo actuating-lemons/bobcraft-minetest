@@ -15,6 +15,9 @@ minetest.register_biome({
 	heat_point = 50,
 	humidity_point = 35,
 	vertical_blend = 8,
+
+	-- used for the sky
+	_temperature = 0.8,
 })
 minetest.register_decoration({
 	deco_type = "simple",
@@ -49,6 +52,9 @@ minetest.register_biome({
 	heat_point = 60,
 	humidity_point = 68,
 	vertical_blend = 8,
+
+	-- used for the sky
+	_temperature = 0.7,
 })
 
 ----
@@ -66,6 +72,9 @@ minetest.register_biome({
 	humidity_point = 60,
 	heat_point = 50,
 	vertical_blend = 8,
+
+	-- used for the sky
+	_temperature = 0.8,
 })
 
 ----
@@ -83,6 +92,9 @@ minetest.register_biome({
 	heat_point = 92,
 	humidity_point = 16,
 	vertical_blend = 8,
+
+	-- used for the sky
+	_temperature = 2.0,
 })
 minetest.register_decoration({
     deco_type = "simple",
@@ -127,6 +139,9 @@ minetest.register_biome({
 	heat_point = 12,
 	humidity_point = 45,
 	vertical_blend = 8,
+
+	-- used for the sky
+	_temperature = 0.0,
 })
 ----
 -- Taiga
@@ -143,6 +158,9 @@ minetest.register_biome({
 	heat_point = 12,
 	humidity_point = 55,
 	vertical_blend = 8,
+
+	-- used for the sky
+	_temperature = 0.05,
 })
 ----
 -- Extreme Hills
@@ -159,6 +177,9 @@ minetest.register_biome({
 	heat_point = 50,
 	humidity_point = 45,
 	vertical_blend = 8,
+
+	-- used for the sky
+	_temperature = 0.2,
 })
 -- Extreme Hill peaks, to get snow on 'em
 minetest.register_biome({
@@ -174,6 +195,9 @@ minetest.register_biome({
 	heat_point = 35,
 	humidity_point = 45,
 	vertical_blend = 8,
+
+	-- used for the sky
+	_temperature = 0.2,
 })
 
 ----
@@ -192,6 +216,9 @@ minetest.register_biome({
 	heat_point = 50,
 	humidity_point = 50,
 	vertical_blend = 8,
+
+	-- used for the sky
+	_temperature = 0.5,
 })
 
 
