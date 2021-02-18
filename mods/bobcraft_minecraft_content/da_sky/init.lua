@@ -73,7 +73,10 @@ local function get_sky_color(temp)
 	)
 	
 	-- Time of day
-	local whatever_this_is = minetest.get_timeofday() -- TODO: too dark, what's the issue?
+	-- I don't understand the math here fully, I just threw things at a graph plotter until I was happy.
+	-- But the sky should start to lighten up at ~4am, and darken at 6pm.
+	local whatever_this_is = 0 - minetest.get_timeofday() * math.pi * 1.9 - 0.25
+	whatever_this_is = -math.cos(whatever_this_is) * 2 + 0.5
 
 	if whatever_this_is < 0 then
 		whatever_this_is = 0
