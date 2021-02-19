@@ -294,6 +294,26 @@ minetest.register_node("bobcraft_blocks:iron_ore", {
 	hardness = 3,
 	groups = {pickaxe=3}
 })
+minetest.register_node("bobcraft_blocks:gold_ore", {
+	description = "Gold Ore",
+	tiles = {"gold_ore.png"},
+	is_ground_content = true,
+	sounds = bobcraft_sounds.node_sound_stone(),
+
+	hardness = 3,
+	groups = {pickaxe=4}
+})
+minetest.register_node("bobcraft_blocks:diamond_ore", {
+	description = "Diamond Ore",
+	tiles = {"diamond_ore.png"},
+	is_ground_content = true,
+	sounds = bobcraft_sounds.node_sound_stone(),
+
+	drop = "bobcraft_items:diamond",
+
+	hardness = 3,
+	groups = {pickaxe=4}
+})
 
 ----
 -- Etc.

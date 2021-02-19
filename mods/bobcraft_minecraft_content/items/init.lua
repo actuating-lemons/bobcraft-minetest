@@ -14,6 +14,14 @@ minetest.register_craftitem("bobcraft_items:iron_ingot", {
 	description = "Iron Ingot",
 	inventory_image = "iron_ingot.png"
 })
+minetest.register_craftitem("bobcraft_items:gold_ingot", {
+	description = "Gold Ingot",
+	inventory_image = "gold_ingot.png"
+})
+minetest.register_craftitem("bobcraft_items:diamond", {
+	description = "Diamond",
+	inventory_image = "diamond.png"
+})
 
 -- Cooky
 minetest.register_craftitem("bobcraft_items:porkchop", {
