@@ -1,0 +1,6 @@
+# Made in Blockbench 3.7.5
+newmtl m_0
+map_Kd sheep.png 
+newmtl m_1
+map_Kd wool_white.png 
+newmtl none
