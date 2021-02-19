@@ -7,7 +7,8 @@ minetest.register_craftitem("bobcraft_items:sticks", {
 -- Smelty/Orey
 minetest.register_craftitem("bobcraft_items:coal", {
 	description = "Coal",
-	inventory_image = "coal.png"
+	inventory_image = "coal.png",
+	groups = {crafting_coal_like = 1}
 })
 minetest.register_craftitem("bobcraft_items:iron_ingot", {
 	description = "Iron Ingot",
