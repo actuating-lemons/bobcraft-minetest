@@ -123,12 +123,14 @@ local function set_player_skies()
 		if player_biome then
 			local player_biome_name = minetest.get_biome_name(player_biome.biome)
 			local player_biome_data = minetest.registered_biomes[player_biome_name]
-			local player_biome_temp = player_biome_data._temperature or 0.5
+			if player_biome_data ~= nil then
+				local player_biome_temp = player_biome_data._temperature or 0.5
 
-			player:set_sky({
-				base_color=get_sky_color(player_biome_temp), 
-				type="plain"
-			})
+				player:set_sky({
+					base_color=get_sky_color(player_biome_temp), 
+					type="plain"
+				})
+			end
 		end
 	end
 end
