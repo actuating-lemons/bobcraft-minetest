@@ -105,5 +105,22 @@ minetest.register_tool("bobcraft_tools:wood_pickaxe", {
 		},
 		damage_groups = {fleshy=2},
 	},
-	groups = {axe = 1, flammable = 2}
+	groups = {pickaxe = 1, flammable = 2}
+})
+minetest.register_tool("bobcraft_tools:stone_pickaxe", {
+	description = "Stone Pickaxe",
+	inventory_image = "stone_pickaxe.png",
+	tool_capabilities = {
+		full_punch_interval = 1.0,
+		max_drop_level=tool_values.material_mining_level.stone,
+		groupcaps={
+			pickaxe_stone = {
+				times = tool_values.times.pickaxe_stone,
+				uses = tool_values.material_max_uses.stone,
+				maxlevel = tool_values.material_mining_level.stone 
+			}
+		},
+		damage_groups = {fleshy=2},
+	},
+	groups = {pickaxe = 1}
 })
