@@ -7,6 +7,11 @@ minetest.register_craft({
 	recipe = "bobcraft_blocks:sand",
 })
 
+minetest.register_craft({
+	type = "cooking",
+	output = "bobcraft_items:iron_ingot",
+	recipe = "bobcraft_blocks:iron_ore",
+})
 
 ----
 -- Food

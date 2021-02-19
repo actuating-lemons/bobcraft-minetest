@@ -280,10 +280,24 @@ minetest.register_node("bobcraft_blocks:coal_ore", {
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_stone(),
 
+	drop = "bobcraft_items:coal",
+
 	hardness = 3,
 	groups = {pickaxe=1}
 })
+minetest.register_node("bobcraft_blocks:iron_ore", {
+	description = "Iron Ore",
+	tiles = {"iron_ore.png"},
+	is_ground_content = true,
+	sounds = bobcraft_sounds.node_sound_stone(),
 
+	hardness = 3,
+	groups = {pickaxe=3}
+})
+
+----
+-- Etc.
+----
 minetest.register_node("bobcraft_blocks:torch", {
 	description = "Torch",
 	tiles = {"torch.png"},
