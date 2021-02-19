@@ -46,3 +46,6 @@ minetest.register_craft({
 		{"",                    "bobcraft_items:sticks",  ""}
 	}
 })
+
+local modpath = minetest.get_modpath("bobcraft_crafting")
+dofile(modpath.."/cooking.lua")

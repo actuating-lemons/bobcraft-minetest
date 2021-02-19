@@ -360,6 +360,7 @@ minetest.register_node("bobcraft_blocks:torch_wall", {
 local modpath = minetest.get_modpath("bobcraft_blocks")
 dofile(modpath .. "/interactions.lua")
 dofile(modpath .. "/aliases.lua")
+dofile(modpath .. "/furnace.lua")
 
 -- Now that that's over, we ask tool_globals to setup the values for all blocks.
 -- If you're making an expansion, make sure your mod depends on bobcraft_blocks & also calls it.
