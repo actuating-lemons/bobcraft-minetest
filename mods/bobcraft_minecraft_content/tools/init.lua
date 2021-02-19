@@ -84,7 +84,24 @@ minetest.register_tool("bobcraft_tools:stone_axe", {
 		},
 		damage_groups = {fleshy=2},
 	},
-	groups = {axe = 1, flammable = 2}
+	groups = {axe = 1}
+})
+minetest.register_tool("bobcraft_tools:iron_axe", {
+	description = "Iron Axe",
+	inventory_image = "iron_axe.png",
+	tool_capabilities = {
+		full_punch_interval = 1.0,
+		max_drop_level=tool_values.material_mining_level.iron,
+		groupcaps={
+			axe_iron = {
+				times = tool_values.times.axe_iron,
+				uses = tool_values.material_max_uses.iron,
+				maxlevel = tool_values.material_mining_level.iron
+			}
+		},
+		damage_groups = {fleshy=2},
+	},
+	groups = {axe = 1,}
 })
 
 ----
@@ -118,6 +135,23 @@ minetest.register_tool("bobcraft_tools:stone_pickaxe", {
 				times = tool_values.times.pickaxe_stone,
 				uses = tool_values.material_max_uses.stone,
 				maxlevel = tool_values.material_mining_level.stone 
+			}
+		},
+		damage_groups = {fleshy=2},
+	},
+	groups = {pickaxe = 1}
+})
+minetest.register_tool("bobcraft_tools:iron_pickaxe", {
+	description = "Iron Pickaxe",
+	inventory_image = "iron_pickaxe.png",
+	tool_capabilities = {
+		full_punch_interval = 1.0,
+		max_drop_level=tool_values.material_mining_level.iron,
+		groupcaps={
+			pickaxe_iron = {
+				times = tool_values.times.pickaxe_iron,
+				uses = tool_values.material_max_uses.iron,
+				maxlevel = tool_values.material_mining_level.iron
 			}
 		},
 		damage_groups = {fleshy=2},
