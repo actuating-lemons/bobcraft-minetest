@@ -75,7 +75,14 @@ function bobcraft_sounds.node_sound_gravel(table)
 	return bobcraft_sounds.node_sound_default(table)
 end
 
+-- TODO: snow sounds
 function bobcraft_sounds.node_sound_snow(table)
+	table = table or {}
+	return bobcraft_sounds.node_sound_default(table)
+end
+
+-- TODO: wool sounds
+function bobcraft_sounds.node_sound_wool(table)
 	table = table or {}
 	return bobcraft_sounds.node_sound_default(table)
 end
