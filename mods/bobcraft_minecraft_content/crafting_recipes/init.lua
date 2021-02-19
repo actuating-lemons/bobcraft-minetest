@@ -1,3 +1,63 @@
+bobcraft_crafting = {}
+
+bobcraft_crafting.do_tool_recipes = function(tier, material)
+	-- ##
+	-- #:
+	--  :
+	minetest.register_craft({
+		output = "bobcraft_tools:"..tier.."_axe",
+		recipe = {
+			{material, material},
+			{material, "bobcraft_items:sticks"},
+			{"",       "bobcraft_items:sticks"}
+		}
+	})
+	--  ##
+	--  :#
+	--  :
+	minetest.register_craft({
+		output = "bobcraft_tools:"..tier.."_axe",
+		recipe = {
+			{material, material},
+			{"bobcraft_items:sticks", material},
+			{"bobcraft_items:sticks", ""}
+		}
+	})
+	-- ###
+	--  :
+	--  :
+	minetest.register_craft({
+		output = "bobcraft_tools:"..tier.."_pickaxe",
+		recipe = {
+			{material, material, material},
+			{"",       "bobcraft_items:sticks", ""},
+			{"",       "bobcraft_items:sticks", ""}
+		}
+	})
+	--  #
+	--  :
+	--  :
+	minetest.register_craft({
+		output = "bobcraft_tools:"..tier.."_shovel",
+		recipe = {
+			{material},
+			{"bobcraft_items:sticks"},
+			{"bobcraft_items:sticks"}
+		}
+	})
+	--  #
+	--  #
+	--  :
+	minetest.register_craft({
+		output = "bobcraft_tools:"..tier.."_sword",
+		recipe = {
+			{material},
+			{material},
+			{"bobcraft_items:sticks"}
+		}
+	})
+end
+
 minetest.register_craft({
 	output = "bobcraft_blocks:planks 4",
 	recipe = {
@@ -14,36 +74,10 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = "bobcraft_tools:wood_axe",
+	output = "bobcraft_blocks:torch 4",
 	recipe = {
-		{"group:crafting_wood", "group:crafting_wood"},
-		{"group:crafting_wood", "bobcraft_items:sticks"},
-		{"",                    "bobcraft_items:sticks"}
-	}
-})
-minetest.register_craft({
-	output = "bobcraft_tools:stone_axe",
-	recipe = {
-		{"group:crafting_stone", "group:crafting_stone"},
-		{"group:crafting_stone", "bobcraft_items:sticks"},
-		{"",                    "bobcraft_items:sticks"}
-	}
-})
-
-minetest.register_craft({
-	output = "bobcraft_tools:wood_pickaxe",
-	recipe = {
-		{"group:crafting_wood", "group:crafting_wood",  "group:crafting_wood"},
-		{"",                    "bobcraft_items:sticks",""},
-		{"",                    "bobcraft_items:sticks",""}
-	}
-})
-minetest.register_craft({
-	output = "bobcraft_tools:stone_pickaxe",
-	recipe = {
-		{"group:crafting_stone", "group:crafting_stone",  "group:crafting_stone"},
-		{"",                    "bobcraft_items:sticks",  ""},
-		{"",                    "bobcraft_items:sticks",  ""}
+		{"group:crafting_coal_like"},
+		{"bobcraft_items:sticks"}
 	}
 })
 

@@ -49,8 +49,10 @@ else
 	})
 end
 
--- registers the various tools for me based on tier so I don't have to type out like 50 different tool registrations
-local function register_tool_tier(tier)
+-- registers the various tools for me based on tier so I don't have to type out like 50 different tool registrations.
+-- material, if present, is the block/group to match against and do recipes for.
+-- It just invokes bobcraft_crafting.do_tool_recipes()....
+local function register_tool_tier(tier, material)
 	minetest.register_tool("bobcraft_tools:"..tier.."_axe", {
 		description = bobutil.titleize(tier).." Axe",
 		inventory_image = tier.."_axe.png",
@@ -119,10 +121,14 @@ local function register_tool_tier(tier)
 		},
 		groups = {sword = 1}
 	})
+	
+	if material then
+		bobcraft_crafting.do_tool_recipes(tier, material)
+	end
 end
 
-register_tool_tier("wood")
-register_tool_tier("stone")
-register_tool_tier("iron")
-register_tool_tier("gold")
-register_tool_tier("diamond")
+register_tool_tier("wood", "group:crafting_wood")
+register_tool_tier("stone", "group:crafting_stone")
+register_tool_tier("iron", "bobcraft_items:iron_ingot")
+register_tool_tier("gold", "bobcraft_items:gold_ingot")
+register_tool_tier("diamond", "bobcraft_items:diamond")
