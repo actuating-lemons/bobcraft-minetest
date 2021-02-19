@@ -60,6 +60,7 @@ function creative.get_creative_list(content)
 		creative_list[#creative_list+1] = name
 	end
 	
+	table.sort(creative_list)
 	return creative_list
 end
 
