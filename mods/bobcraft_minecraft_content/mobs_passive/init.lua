@@ -17,7 +17,7 @@ mobs:register_mob("bobcraft_passivemobs:pig", {
 	light_damage = 0,
 	on_rightclick = nil, -- TODO: breeding, riding, etc.
 
-	drops = "bobcraft_items:porkchop",
+	drops = {"bobcraft_items:porkchop"},
 
 	sounds = {
 		idle = {name = "pig_idle", gain = 0.2},
@@ -91,7 +91,7 @@ mobs:register_mob("bobcraft_passivemobs:sheep", {
 	light_damage = 0,
 	on_rightclick = nil, -- TODO: breeding, etc.
 
-	drops = "bobcraft_blocks:wool",
+	drops = {"bobcraft_blocks:wool"},
 
 	animation = {
 		speed_normal = 15,
