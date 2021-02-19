@@ -25,3 +25,13 @@ minetest.register_craftitem("bobcraft_items:cooked_porkchop", {
 	inventory_image = "cooked_porkchop.png",
 	on_use = minetest.item_eat(12.8)
 })
+minetest.register_craftitem("bobcraft_items:lemon", {
+	description = "Lemon",
+	inventory_image = "lemon.png",
+	on_use = minetest.item_eat(2)
+})
+minetest.register_craftitem("bobcraft_items:apple", {
+	description = "Green Apple",
+	inventory_image = "apple.png",
+	on_use = minetest.item_eat(2)
+})
