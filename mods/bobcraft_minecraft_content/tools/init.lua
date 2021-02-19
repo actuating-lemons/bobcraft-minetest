@@ -49,112 +49,80 @@ else
 	})
 end
 
-----
--- Axes
-----
-minetest.register_tool("bobcraft_tools:wood_axe", {
-	description = "Wooden Axe",
-	inventory_image = "wood_axe.png",
-	tool_capabilities = {
-		full_punch_interval = 1.0,
-		max_drop_level=tool_values.material_mining_level.wood,
-		groupcaps={
-			axe_wood = {
-				times = tool_values.times.axe_wood,
-				uses = tool_values.material_max_uses.wood,
-				maxlevel = tool_values.material_mining_level.wood 
-			}
+-- registers the various tools for me based on tier so I don't have to type out like 50 different tool registrations
+local function register_tool_tier(tier)
+	minetest.register_tool("bobcraft_tools:"..tier.."_axe", {
+		description = bobutil.titleize(tier).." Axe",
+		inventory_image = tier.."_axe.png",
+		tool_capabilities = {
+			full_punch_interval = 1.0,
+			max_drop_level=tool_values.material_mining_level[tier],
+			groupcaps={
+				["axe_"..tier] = {
+					times = tool_values.times["axe_"..tier],
+					uses = tool_values.material_max_uses[tier],
+					maxlevel = tool_values.material_mining_level[tier]
+				}
+			},
+			damage_groups = {fleshy=2},
 		},
-		damage_groups = {fleshy=2},
-	},
-	groups = {axe = 1, flammable = 2}
-})
-minetest.register_tool("bobcraft_tools:stone_axe", {
-	description = "Stone Axe",
-	inventory_image = "stone_axe.png",
-	tool_capabilities = {
-		full_punch_interval = 1.0,
-		max_drop_level=tool_values.material_mining_level.stone,
-		groupcaps={
-			axe_stone = {
-				times = tool_values.times.axe_stone,
-				uses = tool_values.material_max_uses.stone,
-				maxlevel = tool_values.material_mining_level.stone 
-			}
+		groups = {axe = 1}
+	})
+	minetest.register_tool("bobcraft_tools:"..tier.."_pickaxe", {
+		description = bobutil.titleize(tier).." Pickaxe",
+		inventory_image = tier.."_pickaxe.png",
+		tool_capabilities = {
+			full_punch_interval = 1.0,
+			max_drop_level=tool_values.material_mining_level[tier],
+			groupcaps={
+				["pickaxe_"..tier] = {
+					times = tool_values.times["pickaxe_"..tier],
+					uses = tool_values.material_max_uses[tier],
+					maxlevel = tool_values.material_mining_level[tier]
+				}
+			},
+			damage_groups = {fleshy=2},
 		},
-		damage_groups = {fleshy=2},
-	},
-	groups = {axe = 1}
-})
-minetest.register_tool("bobcraft_tools:iron_axe", {
-	description = "Iron Axe",
-	inventory_image = "iron_axe.png",
-	tool_capabilities = {
-		full_punch_interval = 1.0,
-		max_drop_level=tool_values.material_mining_level.iron,
-		groupcaps={
-			axe_iron = {
-				times = tool_values.times.axe_iron,
-				uses = tool_values.material_max_uses.iron,
-				maxlevel = tool_values.material_mining_level.iron
-			}
+		groups = {pickaxe = 1}
+	})
+	minetest.register_tool("bobcraft_tools:"..tier.."_shovel", {
+		description = bobutil.titleize(tier).." Shovel",
+		inventory_image = tier.."_shovel.png",
+		tool_capabilities = {
+			full_punch_interval = 1.0,
+			max_drop_level=tool_values.material_mining_level[tier],
+			groupcaps={
+				["shovel_"..tier] = {
+					times = tool_values.times["shovel_"..tier],
+					uses = tool_values.material_max_uses[tier],
+					maxlevel = tool_values.material_mining_level[tier]
+				}
+			},
+			damage_groups = {fleshy=2},
 		},
-		damage_groups = {fleshy=2},
-	},
-	groups = {axe = 1,}
-})
+		groups = {shovel = 1}
+	})
+	minetest.register_tool("bobcraft_tools:"..tier.."_sword", {
+		description = bobutil.titleize(tier).." Sword",
+		inventory_image = tier.."_sword.png",
+		tool_capabilities = {
+			full_punch_interval = 1.0,
+			max_drop_level=tool_values.material_mining_level[tier],
+			groupcaps={
+				["sword_"..tier] = {
+					times = tool_values.times["sword_"..tier],
+					uses = tool_values.material_max_uses[tier],
+					maxlevel = tool_values.material_mining_level[tier]
+				}
+			},
+			damage_groups = {fleshy=2},
+		},
+		groups = {sword = 1}
+	})
+end
 
-----
--- Pickaxes
-----
-minetest.register_tool("bobcraft_tools:wood_pickaxe", {
-	description = "Wooden Pickaxe",
-	inventory_image = "wood_pickaxe.png",
-	tool_capabilities = {
-		full_punch_interval = 1.0,
-		max_drop_level=tool_values.material_mining_level.wood,
-		groupcaps={
-			pickaxe_wood = {
-				times = tool_values.times.pickaxe_wood,
-				uses = tool_values.material_max_uses.wood,
-				maxlevel = tool_values.material_mining_level.wood 
-			}
-		},
-		damage_groups = {fleshy=2},
-	},
-	groups = {pickaxe = 1, flammable = 2}
-})
-minetest.register_tool("bobcraft_tools:stone_pickaxe", {
-	description = "Stone Pickaxe",
-	inventory_image = "stone_pickaxe.png",
-	tool_capabilities = {
-		full_punch_interval = 1.0,
-		max_drop_level=tool_values.material_mining_level.stone,
-		groupcaps={
-			pickaxe_stone = {
-				times = tool_values.times.pickaxe_stone,
-				uses = tool_values.material_max_uses.stone,
-				maxlevel = tool_values.material_mining_level.stone 
-			}
-		},
-		damage_groups = {fleshy=2},
-	},
-	groups = {pickaxe = 1}
-})
-minetest.register_tool("bobcraft_tools:iron_pickaxe", {
-	description = "Iron Pickaxe",
-	inventory_image = "iron_pickaxe.png",
-	tool_capabilities = {
-		full_punch_interval = 1.0,
-		max_drop_level=tool_values.material_mining_level.iron,
-		groupcaps={
-			pickaxe_iron = {
-				times = tool_values.times.pickaxe_iron,
-				uses = tool_values.material_max_uses.iron,
-				maxlevel = tool_values.material_mining_level.iron
-			}
-		},
-		damage_groups = {fleshy=2},
-	},
-	groups = {pickaxe = 1}
-})
+register_tool_tier("wood")
+register_tool_tier("stone")
+register_tool_tier("iron")
+register_tool_tier("gold")
+register_tool_tier("diamond")
