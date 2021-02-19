@@ -6,8 +6,8 @@ local function get_furnace_formspec()
 	return "size[8,8.5]"..
 		"list[context;src;2.75,0.5;1,1;]"..
 		"list[context;fuel;2.75,2.5;1,1;]"..
-		"image[2.75,1.5;1,1;default_furnace_fire_bg.png]"..
-		"image[3.75,1.5;1,1;gui_furnace_arrow_bg.png^[transformR270]"..
+		"image[2.75,1.5;1,1;furnace_fire_bg.png]"..
+		"image[3.75,1.5;1,1;arrow_bg.png^[transformR270]"..
 		"list[context;dst;5,1.5;1,1;]"..
 		"list[current_player;main;0,4.25;8,1;]"..
 		"list[current_player;main;0,5.5;8,3;8]"..
