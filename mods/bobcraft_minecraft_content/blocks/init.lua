@@ -33,34 +33,6 @@ minetest.register_node("bobcraft_blocks:stone", {
 	drop = "bobcraft_blocks:cobblestone"
 })
 
-minetest.register_node("bobcraft_blocks:rose", {
-	description = "Singular Rose",
-	tiles = {"rose.png"},
-	wield_image = "rose.png",
-	is_ground_content = true,
-	sounds = bobcraft_sounds.node_sound_planty(),
-	drawtype = "plantlike",
-	walkable = false,
-	selection_box = {
-		type = "fixed",
-		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 7 / 16, 4 / 16}
-	},
-	paramtype = "light",
-	sunlight_propagates = true,
-
-	groups = {hand=1},
-	hardness = 0,
-})
-
-minetest.register_node("bobcraft_blocks:cactus", {
-	description = "Cactus",
-	tiles = {"cactus_side.png"}, -- TODO: cactus model
-	sounds = bobcraft_sounds.node_sound_planty(),
-
-	groups = {hand=1},
-	hardness = 0.4,
-})
-
 minetest.register_node("bobcraft_blocks:sand", {
 	description = "Sand",
 	tiles = {"sand.png"},
@@ -389,6 +361,68 @@ minetest.register_node("bobcraft_blocks:torch_wall", {
 	light_source = 14,
 
 	walkable = false,
+})
+
+
+----
+-- Plants
+----
+minetest.register_node("bobcraft_blocks:rose", {
+	description = "Singular Rose",
+	tiles = {"rose.png"},
+	wield_image = "rose.png",
+	is_ground_content = true,
+	sounds = bobcraft_sounds.node_sound_planty(),
+	drawtype = "plantlike",
+	walkable = false,
+	selection_box = {
+		type = "fixed",
+		fixed = {-4 / 16, -0.5, -4 / 16, 4 / 16, 7 / 16, 4 / 16}
+	},
+	paramtype = "light",
+	sunlight_propagates = true,
+
+	groups = {hand=1},
+	hardness = 0,
+})
+
+minetest.register_node("bobcraft_blocks:cactus", {
+	description = "Cactus",
+	tiles = {"cactus_side.png"}, -- TODO: cactus model
+	sounds = bobcraft_sounds.node_sound_planty(),
+
+	groups = {hand=1},
+	hardness = 0.4,
+})
+
+minetest.register_node("bobcraft_blocks:grass", {
+	description = "Grass",
+	tiles = {"grass.png"},
+	wield_image = "grass.png",
+	is_ground_content = true,
+	sounds = bobcraft_sounds.node_sound_planty(),
+	drawtype = "plantlike",
+	walkable = false,
+	paramtype = "light",
+	sunlight_propagates = true,
+
+	paramtype2 = "color",
+	palette = bobutil.foliage_palette,
+	palette_index = 0,
+
+	on_construct = function(pos)
+		local self = minetest.get_node(pos)
+		if self.param2 == 0 then -- no colour set
+			local new_self = bobutil.get_new_biome_coloured_block(pos, self)
+
+			if new_self.param2 ~= 0 then
+				minetest.set_node(pos, new_self)
+			end
+		end
+	end,
+
+	groups = {hand=1},
+	hardness = 0,
 })
 
 local modpath = minetest.get_modpath("bobcraft_blocks")

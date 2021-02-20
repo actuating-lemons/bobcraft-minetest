@@ -18,6 +18,8 @@ minetest.register_biome({
 
 	-- used for the sky
 	_temperature = 0.8,
+	-- used for the plants
+	_palette_index = bobutil.foliage_palette_indices.plains,
 })
 minetest.register_decoration({
 	deco_type = "simple",
@@ -55,6 +57,8 @@ minetest.register_biome({
 
 	-- used for the sky
 	_temperature = 0.7,
+	-- used for the plants
+	_palette_index = bobutil.foliage_palette_indices.forest,
 })
 
 ----
@@ -75,6 +79,8 @@ minetest.register_biome({
 
 	-- used for the sky
 	_temperature = 0.8,
+	-- used for the plants
+	_palette_index = bobutil.foliage_palette_indices.swamp,
 })
 
 ----
@@ -95,6 +101,8 @@ minetest.register_biome({
 
 	-- used for the sky
 	_temperature = 2.0,
+	-- used for the plants
+	_palette_index = bobutil.foliage_palette_indices.desert,
 })
 minetest.register_decoration({
     deco_type = "simple",
@@ -142,6 +150,8 @@ minetest.register_biome({
 
 	-- used for the sky
 	_temperature = 0.0,
+	-- used for the plants
+	_palette_index = bobutil.foliage_palette_indices.tundra,
 })
 ----
 -- Taiga
@@ -161,6 +171,8 @@ minetest.register_biome({
 
 	-- used for the sky
 	_temperature = 0.05,
+	-- used for the plants
+	_palette_index = bobutil.foliage_palette_indices.taiga,
 })
 ----
 -- Extreme Hills
@@ -180,6 +192,8 @@ minetest.register_biome({
 
 	-- used for the sky
 	_temperature = 0.2,
+	-- used for the plants
+	_palette_index = bobutil.foliage_palette_indices.extreme_hills,
 })
 -- Extreme Hill peaks, to get snow on 'em
 minetest.register_biome({
@@ -198,6 +212,8 @@ minetest.register_biome({
 
 	-- used for the sky
 	_temperature = 0.2,
+	-- used for the plants
+	_palette_index = bobutil.foliage_palette_indices.extreme_hills,
 })
 
 ----
@@ -219,6 +235,8 @@ minetest.register_biome({
 
 	-- used for the sky
 	_temperature = 0.5,
+	-- used for the plants
+	_palette_index = bobutil.foliage_palette_indices.ocean,
 })
 
 
