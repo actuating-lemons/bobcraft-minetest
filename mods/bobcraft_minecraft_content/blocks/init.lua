@@ -240,6 +240,12 @@ minetest.register_node("bobcraft_blocks:leaves", {
 	tiles = {"leaves.png"},
 	is_ground_content = false,
 	sounds = bobcraft_sounds.node_sound_planty(),
+	
+	-- All of the colouring code
+	paramtype2 = "color",
+	palette = bobutil.foliage_palette,
+	param2 = 0,
+	on_construct = bobutil.foliage_block_figure,
 
 	hardness = 0.2,
 	groups = {hand=1} -- TODO: shears?
