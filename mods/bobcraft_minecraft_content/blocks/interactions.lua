@@ -90,7 +90,9 @@ minetest.register_abm({
 
 		local node_above = minetest.get_node(above).name
 		local node_def = minetest.registered_nodes[node_above]
-		if node_def and not node_def.sunlight_propagates then
+		if node_def and 
+		(not node_def.sunlight_propagates or
+		node_def.walkable) then -- If sunlight doesn't propagate, or we can walk on it
 			minetest.set_node(pos, {name="bobcraft_blocks:dirt"})
 		end
 	end
