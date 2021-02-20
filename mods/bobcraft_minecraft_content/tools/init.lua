@@ -131,7 +131,7 @@ local function register_tool_tier(tier, material, extragroups)
 	end
 end
 
-register_tool_tier("wood", "group:crafting_wood", {fuel=bobutil.fuel_times.small_wood})
+register_tool_tier("wood", "group:crafting_wood", {fuel=bobutil.fuel_times.medium_wood})
 register_tool_tier("stone", "group:crafting_stone")
 register_tool_tier("iron", "bobcraft_items:iron_ingot")
 register_tool_tier("gold", "bobcraft_items:gold_ingot")
