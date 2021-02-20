@@ -1,10 +1,8 @@
 -- Crafty/Naturaley
 minetest.register_craftitem("bobcraft_items:sticks", {
 	description = "Stick",
-	inventory_image = "sticks.png"
-	groups = {
-		fuel=bobutil.fuel_times.small_wood
-	}
+	inventory_image = "sticks.png",
+	groups = {fuel=bobutil.fuel_times.small_wood}
 })
 
 -- Smelty/Orey
