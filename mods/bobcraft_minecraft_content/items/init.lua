@@ -2,13 +2,16 @@
 minetest.register_craftitem("bobcraft_items:sticks", {
 	description = "Stick",
 	inventory_image = "sticks.png"
+	groups = {
+		fuel=bobutil.fuel_times.small_wood
+	}
 })
 
 -- Smelty/Orey
 minetest.register_craftitem("bobcraft_items:coal", {
 	description = "Coal",
 	inventory_image = "coal.png",
-	groups = {crafting_coal_like = 1, fuel=80*72}
+	groups = {crafting_coal_like = 1, fuel=bobutil.fuel_times.coal}
 })
 minetest.register_craftitem("bobcraft_items:iron_ingot", {
 	description = "Iron Ingot",

@@ -211,7 +211,7 @@ minetest.register_node("bobcraft_blocks:planks", {
 	is_ground_content = false,
 	sounds = bobcraft_sounds.node_sound_wood(),
 
-	groups = {hand=1, axe=1, crafting_wood=1},
+	groups = {hand=1, axe=1, crafting_wood=1, fuel=bobutil.fuel_times.wood},
 	hardness = 2
 })
 
@@ -252,7 +252,7 @@ minetest.register_node("bobcraft_blocks:leaves", {
 	on_construct = bobutil.foliage_block_figure,
 
 	hardness = 0.2,
-	groups = {hand=1} -- TODO: shears?
+	groups = {hand=1, fuel=bobutil.fuel_times.small_wood} -- TODO: shears?
 })
 
 minetest.register_node("bobcraft_blocks:cobblestone", {

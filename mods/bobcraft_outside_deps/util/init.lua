@@ -51,3 +51,13 @@ bobutil.foliage_block_figure = function(pos)
 	end
 	return
 end
+
+-- Fuel time
+-- Converted from minecraft ticks to seconds, as that's what the furnace uses.
+bobutil.fuel_times = {
+	wood = 15,
+	small_wood = 5, -- like sticks, saplings
+	coal = 80,
+	magma = 1000, -- truly impressive
+	firey = 120, -- such as blaze rods
+}
