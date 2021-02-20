@@ -81,5 +81,14 @@ minetest.register_craft({
 	}
 })
 
+minetest.register_craft({
+	output = "bobcraft_blocks:furnace",
+	recipe = {
+		{"group:crafting_stone", "group:crafting_stone", "group:crafting_stone"},
+		{"group:crafting_stone", "", "group:crafting_stone"},
+		{"group:crafting_stone", "group:crafting_stone", "group:crafting_stone"},
+	}
+})
+
 local modpath = minetest.get_modpath("bobcraft_crafting")
 dofile(modpath.."/cooking.lua")
