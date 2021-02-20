@@ -2,13 +2,25 @@
 
 minetest.register_node("bobcraft_blocks:grass_block", {
 	description = "Grass Block",
-	tiles = {"grass_top.png",
-	"dirt.png",
-	"grass_side.png"},
+	tiles = {
+		{name = "grass_block_top.png", color = "white"}, -- we do this to forcefully not colour it
+		{name = "dirt.png", color = "white"}, -- we do this to forcefully not colour it
+		{name = "grass_block_side.png", color = "white"}, -- we do this to forcefully not colour it
+	},
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_planty(),
 
-	groups = {hand=1, shovel=1},
+	-- All of the colouring code
+	paramtype2 = "color",
+	palette = bobutil.foliage_palette,
+	param2 = 0,
+	on_construct = bobutil.foliage_block_figure,
+	overlay_tiles = {"grass_block_top_overlay.png",
+	"",
+	"grass_block_side_overlay.png"},
+
+	-- foliage is a special group that we use to know if something needs biome colours
+	groups = {hand=1, shovel=1, foliage=1},
 	hardness = 0.6,
 })
 
@@ -85,9 +97,9 @@ minetest.register_node("bobcraft_blocks:snow_layer", {
 })
 minetest.register_node("bobcraft_blocks:snowy_grass_block", {
 	description = "Snow Covered Grass Block",
-	tiles = {"grass_top_snow.png",
+	tiles = {"grass_block_top_snow.png",
 	"dirt.png",
-	"grass_side_snow.png"},
+	"grass_block_side_snow.png"},
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_planty(),
 
@@ -406,22 +418,13 @@ minetest.register_node("bobcraft_blocks:grass", {
 	paramtype = "light",
 	sunlight_propagates = true,
 
+	-- All of the colouring code
 	paramtype2 = "color",
 	palette = bobutil.foliage_palette,
 	palette_index = 0,
+	on_construct = bobutil.foliage_block_figure,
 
-	on_construct = function(pos)
-		local self = minetest.get_node(pos)
-		if self.param2 == 0 then -- no colour set
-			local new_self = bobutil.get_new_biome_coloured_block(pos, self)
-
-			if new_self.param2 ~= 0 then
-				minetest.set_node(pos, new_self)
-			end
-		end
-	end,
-
-	groups = {hand=1},
+	groups = {hand=1, foliage=1},
 	hardness = 0,
 })
 

@@ -21,7 +21,7 @@ bobutil.foliage_palette_indices = {
 
 bobutil.get_new_biome_coloured_block = function(pos, block)
 	local biome_data = minetest.get_biome_data(pos)
-	local palette_index = 0
+	local palette_index = bobutil.foliage_palette_indices.plains
 	if biome_data then
 		local biome_name = minetest.get_biome_name(biome_data.biome)
 		local biome_def = minetest.registered_biomes[biome_name]
@@ -31,4 +31,13 @@ bobutil.get_new_biome_coloured_block = function(pos, block)
 	end
 
 	return {name = block.name, param2 = palette_index}
+end
+
+bobutil.foliage_block_figure = function(pos)
+	local self = minetest.get_node(pos)
+	if self.param2 == 0 then -- no colour set
+		local new_node = bobutil.get_new_biome_coloured_block(pos, self)
+		minetest.swap_node(pos, new_node)
+	end
+	return
 end
