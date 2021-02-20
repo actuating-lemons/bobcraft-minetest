@@ -240,7 +240,7 @@ minetest.register_node("bobcraft_blocks:active_furnace", {
 		"furnace_side.png", "furnace_front_active.png",
 	},
 	paramtype2 = "facedir",
-	groups = {pickaxe=1},
+	groups = {pickaxe=1, not_in_creative_inventory},
 	sounds = bobcraft_sounds.node_sound_stone(),
 	is_ground_content = false,
 	hardness = 3.5,
