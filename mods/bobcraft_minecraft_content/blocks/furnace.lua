@@ -80,7 +80,7 @@ local furnace_timer = function(pos, elapsed)
 
 	local srclist, fuellist
 	local cookable, cooked
-	local fueltime
+	local fueltime -- the fuel's time, not the fuel_totaltime or our stored left fuel_time.... don't mistake it!
 
 	local fuel_time = meta:get_float("fuel_time") or 0
 	local src_time = meta:get_float("src_time") or 0
@@ -101,7 +101,7 @@ local furnace_timer = function(pos, elapsed)
 		cookable = cooked.time ~= 0
 		
 		local elapse = math.min(elapsed, fuel_totaltime - fuel_time)
-		if cookable then -- fuel should last long enough
+		if cookable then -- fuel should last long enough, adjust to cooking time
 			elapse = math.min(elapse, cooked.time - src_time)
 		end
 
@@ -119,6 +119,7 @@ local furnace_timer = function(pos, elapsed)
 						inv:add_item("dst",cooked.item)
 						inv:set_stack("src", 1, aftercooked.items[1])
 						minetest.log("We should've cooked")
+						src_time = src_time - cooked.time
 						update = true
 					end
 				else
@@ -144,7 +145,7 @@ local furnace_timer = function(pos, elapsed)
 					inv:set_stack("fuel", 1, fuelstack)
 
 					update = true
-					fuel_totaltime = fuel_totaltime + fueltime
+					fuel_totaltime = fueltime + (fuel_totaltime - fuel_time)
 				end
 			else
 				-- but we don't care we ran out
@@ -182,6 +183,7 @@ local furnace_timer = function(pos, elapsed)
 
 	meta:set_string("formspec", formspec)
 	meta:set_float("fuel_time", fuel_time)
+	meta:set_float("fuel_totaltime", fuel_totaltime)
 	meta:set_float("src_time", src_time)
 
 	return true

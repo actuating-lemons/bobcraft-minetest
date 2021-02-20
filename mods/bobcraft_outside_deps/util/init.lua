@@ -5,6 +5,16 @@ bobutil.titleize = function(str)
 	return str:gsub("^%l", string.upper)
 end
 
+-- like minetest.swap_node, but only swaps if the name doesn't match
+bobutil.replace_node = function(pos, new_node)
+	local node = minetest.get_node(pos)
+	if node.name == new_node then
+		return
+	end
+	node.name = new_node
+	minetest.swap_node(pos, node)
+end
+
 -- Arguabely this falls under the jurisdiction of an inside dependency, but you can fight me on that.
 bobutil.foliage_palette = "foliage_palette.png"
 bobutil.foliage_palette_indices = {
