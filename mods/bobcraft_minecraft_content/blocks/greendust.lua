@@ -71,17 +71,7 @@ minetest.register_node("bobcraft_blocks:greendust", {
 		fixed = {-0.5, -0.5, -0.5, 0.5, -0.3, 0.5}
 	},
 
-	greendust = {
-		on_power = function(pos, node)
-			minetest.sound_play(pos, {name="greendust_active_loop"})
-		end
-	},
-
-	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
-		-- Power is 0-15
-		meta:set_int("power", 0)
-	end,
+	on_construct = greendust.conduit_change
 })
 
 minetest.register_node("bobcraft_blocks:greendust_source", {
