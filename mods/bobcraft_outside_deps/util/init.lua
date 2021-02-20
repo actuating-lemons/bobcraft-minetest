@@ -5,6 +5,13 @@ bobutil.titleize = function(str)
 	return str:gsub("^%l", string.upper)
 end
 
+bobutil.merge_tables = function(a,b)
+	for key, value in pairs(b) do
+		a[key] = value
+	end
+	return a
+end
+
 -- like minetest.swap_node, but only swaps if the name doesn't match
 bobutil.replace_node = function(pos, new_node)
 	local node = minetest.get_node(pos)
