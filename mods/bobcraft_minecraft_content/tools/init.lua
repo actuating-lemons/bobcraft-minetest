@@ -52,7 +52,11 @@ end
 -- registers the various tools for me based on tier so I don't have to type out like 50 different tool registrations.
 -- material, if present, is the block/group to match against and do recipes for.
 -- It just invokes bobcraft_crafting.do_tool_recipes()....
-local function register_tool_tier(tier, material)
+-- You can also use extragroups to add additional group values.
+-- Such as for wooden tools, which have fuel=bobutil.fuel_times.small_wood.
+local function register_tool_tier(tier, material, extragroups)
+	extragroups = extragroups or {}
+
 	minetest.register_tool("bobcraft_tools:"..tier.."_axe", {
 		description = bobutil.titleize(tier).." Axe",
 		inventory_image = tier.."_axe.png",
@@ -68,7 +72,7 @@ local function register_tool_tier(tier, material)
 			},
 			damage_groups = {fleshy=2},
 		},
-		groups = {axe = 1}
+		groups = bobutil.merge_tables({axe=1}, extragroups)
 	})
 	minetest.register_tool("bobcraft_tools:"..tier.."_pickaxe", {
 		description = bobutil.titleize(tier).." Pickaxe",
@@ -85,7 +89,7 @@ local function register_tool_tier(tier, material)
 			},
 			damage_groups = {fleshy=2},
 		},
-		groups = {pickaxe = 1}
+		groups = bobutil.merge_tables({pickaxe=1}, extragroups)
 	})
 	minetest.register_tool("bobcraft_tools:"..tier.."_shovel", {
 		description = bobutil.titleize(tier).." Shovel",
@@ -102,7 +106,7 @@ local function register_tool_tier(tier, material)
 			},
 			damage_groups = {fleshy=2},
 		},
-		groups = {shovel = 1}
+		groups = bobutil.merge_tables({shovel=1}, extragroups)
 	})
 	minetest.register_tool("bobcraft_tools:"..tier.."_sword", {
 		description = bobutil.titleize(tier).." Sword",
@@ -119,7 +123,7 @@ local function register_tool_tier(tier, material)
 			},
 			damage_groups = {fleshy=2},
 		},
-		groups = {sword = 1}
+		groups = bobutil.merge_tables({sword=1}, extragroups)
 	})
 	
 	if material then
@@ -127,7 +131,7 @@ local function register_tool_tier(tier, material)
 	end
 end
 
-register_tool_tier("wood", "group:crafting_wood")
+register_tool_tier("wood", "group:crafting_wood", {fuel=bobutil.fuel_times.small_wood})
 register_tool_tier("stone", "group:crafting_stone")
 register_tool_tier("iron", "bobcraft_items:iron_ingot")
 register_tool_tier("gold", "bobcraft_items:gold_ingot")
