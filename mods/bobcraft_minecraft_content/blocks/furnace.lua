@@ -118,13 +118,11 @@ local furnace_timer = function(pos, elapsed)
 					if inv:room_for_item("dst", cooked.item) then
 						inv:add_item("dst",cooked.item)
 						inv:set_stack("src", 1, aftercooked.items[1])
-						minetest.log("We should've cooked")
 						src_time = src_time - cooked.time
 						update = true
 					end
 				else
 					-- can't cook, did we have fuel?
-					minetest.log("can't cook, need fuel")
 					update = true
 				end
 			end
