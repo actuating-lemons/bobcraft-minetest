@@ -76,7 +76,9 @@ minetest.register_node("bobcraft_blocks:snow_layer", {
 	tiles = {"snow.png"},
 	sounds = bobcraft_sounds.node_sound_snow(),
 	paramtype = "light",
+	sunlight_propagates = true,
 	buildable_to = true,
+	walkable = false, -- we fall through, wee!
 	floodable = true,
 	drawtype = "nodebox",
 	node_box = {
@@ -103,10 +105,12 @@ minetest.register_node("bobcraft_blocks:snowy_grass_block", {
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_planty(),
 
-	on_construct = function(pos)
-		pos.y = pos.y - 1
-		if minetest.get_node(pos).name == "bobcraft_blocks:grass_block" then
-			minetest.set_node(pos, {name="bobcraft_blocks:snowy_grass_block"})
+	on_place = function(pos)
+		local under = pos
+		under.y = under.y - 1
+		if minetest.get_node(under).name == "bobcraft_blocks:grass_block" then
+			minetest.set_node(under, {name="bobcraft_blocks:snowy_grass_block"})
+			minetest.remove_node(pos) -- we delete ourselves, as in bobtest, snowy grass is different to grass!
 		end
 	end,
 
@@ -240,7 +244,7 @@ minetest.register_node("bobcraft_blocks:leaves", {
 	tiles = {"leaves.png"},
 	is_ground_content = false,
 	sounds = bobcraft_sounds.node_sound_planty(),
-	
+
 	-- All of the colouring code
 	paramtype2 = "color",
 	palette = bobutil.foliage_palette,
