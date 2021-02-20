@@ -28,13 +28,13 @@ minetest.register_decoration({
 	sidelen = 16,
 	noise_params = {
 		offset = 0.01,
-		scale = 0.01,
-		spread = {x = 125, y = 125, z = 125},
+		scale = 0.001,
+		spread = {x = 5, y = 5, z = 5},
 		seed = 5,
 		octaves = 3,
 		persist = 0.66
 	},
-	y_min = 3,
+	y_min = 0,
 	y_max = worldgen.overworld_top,
 	decoration = "bobcraft_blocks:rose"
 })
@@ -303,4 +303,27 @@ minetest.register_decoration({
 	y_max = worldgen.overworld_top,
 	schematic = "schematic/tree.mts",
 	flags = "place_center_x, place_center_z"
+})
+
+----
+-- Etc.
+----
+
+-- Let's dot some grass around
+minetest.register_decoration({
+	deco_type = "simple",
+	place_on = {"bobcraft_blocks:grass_block"},
+	biomes = {"Plains", "Taiga", "ExtremeHills", "Forest"},
+	sidelen = 16,
+	noise_params = {
+		offset = 0.01,
+		scale = 0.04,
+		spread = {x = 10, y = 10, z = 10},
+		seed = 5,
+		octaves = 3,
+		persist = 0.66
+	},
+	y_min = 0,
+	y_max = worldgen.overworld_top,
+	decoration = "bobcraft_blocks:grass"
 })
