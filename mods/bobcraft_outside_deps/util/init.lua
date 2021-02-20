@@ -69,3 +69,5 @@ bobutil.fuel_times = {
 	magma = 1000, -- truly impressive
 	firey = 120, -- such as blaze rods
 }
+
+bobutil.stack_max = 64 -- We do this here so If I wanna change it, it wouldn't be too difficult.

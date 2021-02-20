@@ -22,6 +22,7 @@ minetest.register_node("bobcraft_blocks:grass_block", {
 	-- foliage is a special group that we use to know if something needs biome colours
 	groups = {hand=1, shovel=1, foliage=1},
 	hardness = 0.6,
+	stack_max = bobutil.stack_max,
 })
 
 minetest.register_node("bobcraft_blocks:dirt", {
@@ -32,6 +33,7 @@ minetest.register_node("bobcraft_blocks:dirt", {
 
 	groups = {hand=1, shovel=1},
 	hardness = 0.5,
+	stack_max = bobutil.stack_max,
 })
 
 minetest.register_node("bobcraft_blocks:stone", {
@@ -42,7 +44,8 @@ minetest.register_node("bobcraft_blocks:stone", {
 
 	hardness = 1.5,
 	groups = {pickaxe=1, crafting_stone=1},
-	drop = "bobcraft_blocks:cobblestone"
+	drop = "bobcraft_blocks:cobblestone",
+	stack_max = bobutil.stack_max,
 })
 
 minetest.register_node("bobcraft_blocks:sand", {
@@ -52,6 +55,7 @@ minetest.register_node("bobcraft_blocks:sand", {
 
 	groups = {hand=1, shovel=1, falling_node=1},
 	hardness = 0.5,
+	stack_max = bobutil.stack_max,
 })
 minetest.register_node("bobcraft_blocks:gravel", {
 	description = "Gravel",
@@ -60,6 +64,7 @@ minetest.register_node("bobcraft_blocks:gravel", {
 
 	groups = {hand=1, shovel=1, falling_node=1},
 	hardness = 0.6,
+	stack_max = bobutil.stack_max,
 	-- TODO: gravel/flint drops
 })
 minetest.register_node("bobcraft_blocks:sandstone", {
@@ -69,6 +74,7 @@ minetest.register_node("bobcraft_blocks:sandstone", {
 
 	groups = {pickaxe=1},
 	hardness = 0.8,
+	stack_max = bobutil.stack_max,
 })
 
 minetest.register_node("bobcraft_blocks:snow_layer", {
@@ -96,6 +102,7 @@ minetest.register_node("bobcraft_blocks:snow_layer", {
 
 	groups = {shovel=1},
 	hardness = 0.1,
+	stack_max = bobutil.stack_max,
 })
 minetest.register_node("bobcraft_blocks:snowy_grass_block", {
 	description = "Snow Covered Grass Block",
@@ -116,6 +123,7 @@ minetest.register_node("bobcraft_blocks:snowy_grass_block", {
 
 	groups = {shovel=1, hand=1},
 	hardness = 0.6,
+	stack_max = bobutil.stack_max,
 })
 
 -- liquids
@@ -200,7 +208,8 @@ minetest.register_node("bobcraft_blocks:bedrock", {
 	is_ground_content = false, -- We *are* technically, but we also shouldn't be over-ridden
 	groups = bedrock_groups,
 	sounds = bobcraft_sounds.node_sound_stone(),
-	hardness = -1
+	hardness = -1,
+	stack_max = bobutil.stack_max,
 })
 
 -- Other blocks
@@ -212,7 +221,8 @@ minetest.register_node("bobcraft_blocks:planks", {
 	sounds = bobcraft_sounds.node_sound_wood(),
 
 	groups = {hand=1, axe=1, crafting_wood=1, fuel=bobutil.fuel_times.wood},
-	hardness = 2
+	hardness = 2,
+	stack_max = bobutil.stack_max,
 })
 
 minetest.register_node("bobcraft_blocks:glass", {
@@ -226,7 +236,8 @@ minetest.register_node("bobcraft_blocks:glass", {
 	sunlight_propagates = true,
 
 	hardness = 0.3,
-	groups = {pickaxe=1, hand=1, shovel=1, axe=1} -- TODO: I'm not sure what MC does here, but i mean, it's glass. Smashy smashy!
+	groups = {pickaxe=1, hand=1, shovel=1, axe=1}, -- TODO: I'm not sure what MC does here, but i mean, it's glass. Smashy smashy!
+	stack_max = bobutil.stack_max,
 })
 
 minetest.register_node("bobcraft_blocks:log", {
@@ -236,7 +247,8 @@ minetest.register_node("bobcraft_blocks:log", {
 	sounds = bobcraft_sounds.node_sound_wood(),
 
 	hardness = 2,
-	groups = {hand=1, axe=1}
+	groups = {hand=1, axe=1},
+	stack_max = bobutil.stack_max,
 })
 minetest.register_node("bobcraft_blocks:leaves", {
 	description = "Leaves",
@@ -252,7 +264,8 @@ minetest.register_node("bobcraft_blocks:leaves", {
 	on_construct = bobutil.foliage_block_figure,
 
 	hardness = 0.2,
-	groups = {hand=1, fuel=bobutil.fuel_times.small_wood} -- TODO: shears?
+	groups = {hand=1, fuel=bobutil.fuel_times.small_wood}, -- TODO: shears?
+	stack_max = bobutil.stack_max,
 })
 
 minetest.register_node("bobcraft_blocks:cobblestone", {
@@ -262,7 +275,8 @@ minetest.register_node("bobcraft_blocks:cobblestone", {
 	sounds = bobcraft_sounds.node_sound_stone(),
 
 	hardness = 2, -- that's more than stone. interesting.
-	groups = {pickaxe=1, crafting_stone=1}
+	groups = {pickaxe=1, crafting_stone=1},
+	stack_max = bobutil.stack_max,
 })
 
 ----
@@ -277,7 +291,8 @@ minetest.register_node("bobcraft_blocks:coal_ore", {
 	drop = "bobcraft_items:coal",
 
 	hardness = 3,
-	groups = {pickaxe=1}
+	groups = {pickaxe=1},
+	stack_max = bobutil.stack_max,
 })
 minetest.register_node("bobcraft_blocks:iron_ore", {
 	description = "Iron Ore",
@@ -286,7 +301,8 @@ minetest.register_node("bobcraft_blocks:iron_ore", {
 	sounds = bobcraft_sounds.node_sound_stone(),
 
 	hardness = 3,
-	groups = {pickaxe=3}
+	groups = {pickaxe=3},
+	stack_max = bobutil.stack_max,
 })
 minetest.register_node("bobcraft_blocks:gold_ore", {
 	description = "Gold Ore",
@@ -295,7 +311,8 @@ minetest.register_node("bobcraft_blocks:gold_ore", {
 	sounds = bobcraft_sounds.node_sound_stone(),
 
 	hardness = 3,
-	groups = {pickaxe=4}
+	groups = {pickaxe=4},
+	stack_max = bobutil.stack_max,
 })
 minetest.register_node("bobcraft_blocks:diamond_ore", {
 	description = "Diamond Ore",
@@ -306,7 +323,8 @@ minetest.register_node("bobcraft_blocks:diamond_ore", {
 	drop = "bobcraft_items:diamond",
 
 	hardness = 3,
-	groups = {pickaxe=4}
+	groups = {pickaxe=4},
+	stack_max = bobutil.stack_max,
 })
 
 ----
@@ -356,7 +374,8 @@ minetest.register_node("bobcraft_blocks:torch", {
 		itemstack:set_name("bobcraft_blocks:torch")
 
 		return itemstack
-	end
+	end,
+	stack_max = bobutil.stack_max,
 })
 
 minetest.register_node("bobcraft_blocks:torch_wall", {
@@ -383,6 +402,7 @@ minetest.register_node("bobcraft_blocks:torch_wall", {
 	light_source = 14,
 
 	walkable = false,
+	stack_max = bobutil.stack_max,
 })
 
 
@@ -406,6 +426,7 @@ minetest.register_node("bobcraft_blocks:rose", {
 
 	groups = {hand=1},
 	hardness = 0,
+	stack_max = bobutil.stack_max,
 })
 
 minetest.register_node("bobcraft_blocks:cactus", {
@@ -415,6 +436,7 @@ minetest.register_node("bobcraft_blocks:cactus", {
 
 	groups = {hand=1},
 	hardness = 0.4,
+	stack_max = bobutil.stack_max,
 })
 
 minetest.register_node("bobcraft_blocks:grass", {
@@ -436,6 +458,7 @@ minetest.register_node("bobcraft_blocks:grass", {
 
 	groups = {hand=1, foliage=1},
 	hardness = 0,
+	stack_max = bobutil.stack_max,
 })
 
 local modpath = minetest.get_modpath("bobcraft_blocks")
