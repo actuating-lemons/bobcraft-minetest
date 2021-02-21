@@ -90,4 +90,9 @@ minetest.register_node("bobcraft_blocks:greendust_source", {
 	palette = "magic.png",
 	param2 = 0,
 
+	on_construct = function(pos)
+		pos = {x=pos.x+1, y=pos.y, z=pos.z}
+		greendust.event_queue:add_action(pos, "empower", {15})
+	end,
+
 })

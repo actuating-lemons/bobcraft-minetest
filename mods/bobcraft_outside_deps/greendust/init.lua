@@ -27,13 +27,15 @@ greendust = {}
 
 greendust.event_queue = {}
 greendust.event_queue.actions = {}
+greendust.event_queue.functions = {}
 greendust.now = 0
 
 function greendust.event_queue:add_action(pos, func, params, time, overwrite_check, priority)
 	time = time or 0
 	priority = priority or 1
 	local action = {
-		action = func,
+		pos = pos,
+		func = func,
 		params = table.copy(params),
 		at = time,
 		overwrite = overwrite_check or nil,
@@ -68,7 +70,7 @@ local function update_conduit(pos)
 				for dy = -1, 1 do
 					local pos_here = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
 					if is_wire(pos_here) then
-						if is_wire(pos)
+						if is_wire(pos) then
 							table.insert(connections, pos_here)
 						else
 							-- we wanna tell the wire we just found that we're no longer a wire.
@@ -82,13 +84,33 @@ local function update_conduit(pos)
 
 	-- we should now have all the connections
 
-	if is_wire(pos)
+	if is_wire(pos) then
 		-- now we can set our meta
 		local meta = minetest.get_meta(pos)
 		meta:from_table({
 			connections = connections
 		})
 	end
+end
+
+-- Give the position some energy, recursively!
+local function empower(pos, energy, handled_pos)
+	local handled_pos = handled_pos or {}
+
+	if handled_pos[dump(pos)] then
+		return -- we've handled this place, don't do it again
+	end
+
+	handled_pos[dump(pos)] = true
+
+	if is_wire(pos) then
+		local node_meta = minetest.get_meta(node)
+
+		minetest.log(node_meta:to_table())
+	end
+end
+function greendust.event_queue.functions:empower(pos, power, handled_pos)
+	empower(pos, power, handled_pos)
 end
 
 function greendust.conduit_change(pos, node)
@@ -103,9 +125,21 @@ function greendust.conduit_change(pos, node)
 
 end
 
+-- Pulses some energy into the network.
+function greendust.impulse(pos, energy)
+	local energy = energy or 0
+
+	if energy > 15 then
+		energy = 15
+	end
+
+	empower(pos, energy)
+end
+
 -- Urban dictionary claims this is a word.
 function greendust.event_queue:actionate(action)
-	greendust.event_queue.functions[action.action](action.pos, unpack(action.params))
+	minetest.log(dump(action))
+	greendust.event_queue.functions[action.func](action.pos, unpack(action.params))
 end
 
 -- The meat & tatties of the whole operation.
@@ -129,7 +163,8 @@ minetest.register_globalstep(function(dtime)
 	end
 
 	for i = 1, #do_now do
-		greendust.event_queue.actionate(do_now[i])
+		local this = do_now[i]
+		greendust.event_queue:actionate(table.copy(this))
 		table.remove(do_now, i)
 	end
 end)
