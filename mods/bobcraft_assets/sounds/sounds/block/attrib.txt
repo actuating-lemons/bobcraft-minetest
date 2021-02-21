@@ -22,4 +22,5 @@ step_wood.ogg - https://freesound.org/people/yatoimtop/sounds/479445/
 step_wood.1.ogg - https://freesound.org/people/Rudmer_Rotteveel/sounds/502511/
 step_wood.2.ogg - https://freesound.org/people/yatoimtop/sounds/479445/
 
-greendust_active_loop.ogg - https://freesound.org/people/opticaillusions/sounds/554312/
+greendust_active_loop.ogg - https://freesound.org/people/opticaillusions/sounds/554312/]
+greendust_use.ogg - https://freesound.org/people/spookymodem/sounds/249819/
