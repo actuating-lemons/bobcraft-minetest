@@ -96,3 +96,23 @@ minetest.register_node("bobcraft_blocks:greendust_source", {
 	end,
 
 })
+
+-- Absorbs energy and doesn't do anything with it
+minetest.register_node("bobcraft_blocks:greendust_energy_sink", {
+	description = "Greendust Energy Sink",
+	tiles = {"stone.png"},
+
+	groups = {greendust=1, greendust_user=1},
+
+	on_construct = function(pos)
+		pos.x = pos.x + 1
+		greendust.event_queue:add_action(pos, "pull", {5})
+	end,
+	on_greendust_use = function(pos, node, energy_used)
+		minetest.sound_play({
+			name = "greendust_used"
+		},
+		{pos=pos})
+		minetest.log("used " .. tostring(energy_used) .. " greendust")
+	end,
+})

@@ -62,6 +62,19 @@ local function is_wire(pos)
 	return false
 end
 
+local function on_use(pos, energy_used)
+	local node = minetest.get_node(pos)
+
+	if node then
+		local nodedef = minetest.registered_nodes[node.name]
+		if nodedef then
+			if nodedef.on_greendust_use ~= nil then
+				nodedef.on_greendust_use(pos, node, energy_used)
+			end
+		end
+	end
+end
+
 -- we return a table here because we can't store a table in node metadata,
 -- and I'm losing hope.
 local function get_conduit_connections(pos)
@@ -110,6 +123,28 @@ function greendust.event_queue.functions:empower(pos, power, handled_pos)
 	empower(pos, power, handled_pos)
 end
 
+local function take_energy(pos, energy, handled_pos, prev_pos)
+	local handled_pos = handled_pos or {}
+	local prev_pos = prev_pos or pos
+
+	if handled_pos[dump(pos)] then
+		return -- we've handled this place, don't do it again
+	end
+
+	handled_pos[dump(pos)] = true
+
+	if is_wire(pos) then
+		local connections = get_conduit_connections(pos)
+		for i=1, #connections do
+			-- loop through the connections and steal their's
+			take_energy(connections[i], energy, handled_pos)
+		end
+	end
+
+	-- and now we can set our visual power
+	greendust.colour_from_power(pos, minetest.get_node(pos), greendust.get_energy(pos)-energy)
+end
+
 function greendust.conduit_change(pos, node)
 	-- Called whenever a conduit is changed.
 	-- If you want to register your own conduit, make sure to point on_place and on_dug here.
@@ -121,6 +156,12 @@ function greendust.conduit_change(pos, node)
 
 end
 
+function greendust.get_energy(pos)
+	if is_wire(pos) then
+		return minetest.get_node(pos).param2
+	end
+end
+
 -- Pulses some energy into the network.
 function greendust.impulse(pos, energy)
 	local energy = energy or 0
@@ -130,6 +171,17 @@ function greendust.impulse(pos, energy)
 	end
 
 	empower(pos, energy)
+end
+
+-- attempt to pull x energy from pos
+-- returns the energy we were able to take, and if it's all of what we wanted
+function greendust.pull(pos, energy)
+	local true_energy = take_energy(pos, energy)
+	return true_energy, energy == true_energy
+end
+function greendust.event_queue.functions:pull(pos, power)
+	power = greendust.pull(pos, power)
+	on_use(pos, power)
 end
 
 -- Urban dictionary claims this is a word.
