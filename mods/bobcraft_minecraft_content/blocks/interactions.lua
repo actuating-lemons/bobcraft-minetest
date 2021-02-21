@@ -122,3 +122,53 @@ minetest.register_abm({
 	end
 
 })
+
+minetest.register_abm({
+	label = "Lava & Water Interaction",
+
+	interval = 1,
+	chance = 1,
+
+	nodenames = {"group:lava"},
+	neighbours = {"group:water"},
+
+	action = function(pos, node)
+		local search_low = {x=pos.x-1,y=pos.y-1,z=pos.z-1}
+		local search_high = {x=pos.x+1,y=pos.y+1,z=pos.z+1}
+		local waters = minetest.find_nodes_in_area(search_low, search_high, "group:water") -- search high & low for water
+
+		local lavastate = minetest.registered_nodes[node.name].liquidtype
+
+		for i=1, #waters do
+			local waternode = minetest.get_node(waters[i])
+			local waterstate = minetest.registered_nodes[waternode.name]
+			local done_a_thing = false
+
+			if waters[i].y < pos.y and waters[i].x == pos.x and waters[i].z == pos.z then
+				-- If the water is below us directly
+				-- Turn the water into stone
+				minetest.set_node(waters[i], {name="bobcraft_blocks:stone"})
+				done_a_thing = true
+			elseif lavastate == "flowing" and waters[i].y == pos.y and (waters[i].x == pos.x or waters[i].z == pos.z) then
+				-- If we're flowing, and the water is next to us
+				-- Turn the lava into cobblestone
+				minetest.set_node(pos, {name="bobcraft_blocks:cobblestone"})
+				done_a_thing = true
+			elseif lavastate == "source" and
+				(waters[i].x == pos.x and waters[i].y > pos.y and waters[i].z == pos.z) then
+				-- If we're a source block, and there's water above us
+				--turn the lava into obsidian
+				minetest.set_node(pos, {name="bobcraft_blocks:obsidian"})
+				done_a_thing = true
+			elseif lavastate == "flowing" and waters[i].y > pos.y and waters[i].x == pos.x and waters[i].z == pos.z then
+				-- If there's water above flowing lava, turn the lava into cobblestone
+				minetest.set_node(pos, {name="bobcraft_blocks:cobblestone"})
+			end
+
+
+			if done_a_thing then
+				minetest.sound_play({name="fire_extinguish"}, {pos=pos, gain=0.1, max_hear_distance=16}, true)
+			end
+		end
+	end,
+})

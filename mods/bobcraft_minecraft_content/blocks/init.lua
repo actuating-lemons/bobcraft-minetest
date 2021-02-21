@@ -159,7 +159,7 @@ minetest.register_node("bobcraft_blocks:water_source",{
 	liquid_alternative_source = "bobcraft_blocks:water_source",
 	liquid_viscosity = 1,
 	sounds = bobcraft_sounds.node_sound_water(),
-	groups = {not_in_creative_inventory=1},
+	groups = {not_in_creative_inventory=1, water=1},
 
 	hardness = 100 -- minecraft sets this, why?
 })
@@ -192,7 +192,7 @@ minetest.register_node("bobcraft_blocks:water_flowing",{
 	liquid_alternative_source = "bobcraft_blocks:water_source",
 	liquid_viscosity = 1,
 	sounds = bobcraft_sounds.node_sound_water(),
-	groups = {not_in_creative_inventory=1},
+	groups = {not_in_creative_inventory=1, water=1},
 
 	hardness = 100 -- minecraft sets this, why?
 })
@@ -238,7 +238,7 @@ minetest.register_node("bobcraft_blocks:lava_source",{
 	sounds = bobcraft_sounds.node_sound_lava(),
 	damage_per_second = 4 * 2,
 	post_effect_color = {a = 191, r = 255, g = 64, b = 0},
-	groups = {not_in_creative_inventory=1},
+	groups = {not_in_creative_inventory=1, lava=1},
 
 	hardness = 100 -- minecraft sets this, why?
 })
@@ -284,7 +284,7 @@ minetest.register_node("bobcraft_blocks:lava_flowing",{
 	sounds = bobcraft_sounds.node_sound_lava(),
 	damage_per_second = 4 * 2,
 	post_effect_color = {a = 191, r = 255, g = 64, b = 0},
-	groups = {not_in_creative_inventory=1},
+	groups = {not_in_creative_inventory=1, lava=1},
 
 	hardness = 100 -- minecraft sets this, why?
 })
