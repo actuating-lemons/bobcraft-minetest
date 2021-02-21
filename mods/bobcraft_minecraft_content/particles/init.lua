@@ -3,22 +3,22 @@ bobticles.particle_spawns = {}
 
 bobticles.presets = {
 	lava = {
-		amount = 1,
+		amount = 0.01,
 		time = 0,
 		minsize = 3.0,
 		maxsize = 4.0,
-		minexptime = 2.0,
-		maxexptime = 4.0,
+		minexptime = 1.0,
+		maxexptime = 2.5,
 		minpos = {x = -0.45, y = -0.45, z = -0.45},
 		maxpos = {x = 0.45, y = 0.45, z = 0.45},
 		minvel = { x = 0, y = 0.5, z = 0 },
 		maxvel = { x = 0, y = 0.6, z = 0 },
-		texture = "smoke_animated.png^[colorize:#000000:127",
+		texture = "smoke_animated.png^[colorize:#000000:200",
 		animation = {
 			type = "vertical_frames",
 			aspect_w = 8,
 			aspect_h = 8,
-			length = 2.1
+			length = 1.5
 		}
 	}
 }
