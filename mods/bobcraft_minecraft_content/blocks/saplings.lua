@@ -48,4 +48,8 @@ minetest.register_node("bobcraft_blocks:sapling", {
 		minetest.get_node_timer(pos):start(math.random(300, 1500))
 		-- minetest.get_node_timer(pos):start(math.random(3, 15))
 	end,
+
+	on_place = function(itemstack, placer, pointed_thing)
+		return bobutil.on_plant(itemstack, placer, pointed_thing)
+	end,
 })

@@ -71,3 +71,30 @@ bobutil.fuel_times = {
 }
 
 bobutil.stack_max = 64 -- We do this here so If I wanna change it, it wouldn't be too difficult.
+
+-- Handles all the planting for us
+-- Doesn't let us place on non-plantable surfaces
+bobutil.on_plant = function(itemstack, placer, pointed_thing)
+	local pos = pointed_thing.under
+	local node = minetest.get_node_or_nil(pos)
+	if not node then
+		return itemstack
+	end
+	local nodedef = minetest.registered_nodes[node.name]
+	local plantable = minetest.get_node_group(node.name, "plantable")
+
+	minetest.log(dump(pos))
+	minetest.log(dump(node))
+	minetest.log(dump(nodedef))
+	minetest.log(dump(plantable))
+
+	-- we do the tricky stuff with the () to keep our default value of buildable_to as true
+	if not nodedef or not (nodedef.buildable_to or true) then
+		return itemstack
+	end
+
+	if plantable and plantable ~= 0 then
+		itemstack:take_item()
+		return itemstack
+	end
+end

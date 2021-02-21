@@ -20,7 +20,7 @@ minetest.register_node("bobcraft_blocks:grass_block", {
 	"grass_block_side_overlay.png"},
 
 	-- foliage is a special group that we use to know if something needs biome colours
-	groups = {hand=1, shovel=1, foliage=1},
+	groups = {hand=1, shovel=1, foliage=1, plantable=1},
 	hardness = 0.6,
 	stack_max = bobutil.stack_max,
 })
@@ -31,7 +31,7 @@ minetest.register_node("bobcraft_blocks:dirt", {
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_earthy(),
 
-	groups = {hand=1, shovel=1},
+	groups = {hand=1, shovel=1, plantable=1},
 	hardness = 0.5,
 	stack_max = bobutil.stack_max,
 })
@@ -509,6 +509,10 @@ minetest.register_node("bobcraft_blocks:rose", {
 	groups = {hand=1},
 	hardness = 0,
 	stack_max = bobutil.stack_max,
+
+	on_place = function(itemstack, placer, pointed_thing)
+		return bobutil.on_plant(itemstack, placer, pointed_thing)
+	end,
 })
 
 minetest.register_node("bobcraft_blocks:cactus", {
@@ -541,12 +545,18 @@ minetest.register_node("bobcraft_blocks:grass", {
 	groups = {hand=1, foliage=1},
 	hardness = 0,
 	stack_max = bobutil.stack_max,
+
+	on_place = function(itemstack, placer, pointed_thing)
+		return bobutil.on_plant(itemstack, placer, pointed_thing)
+	end,
 })
 
 minetest.register_node("bobcraft_blocks:deadbush", {
 	description = "Deadbush",
 	tiles = {"deadbush.png"},
 	drawtype = "plantlike",
+	inventory_image = "deadbush.png",
+	wield_image = "deadbush.png",
 	walkable = false,
 	sounds = bobcraft_sounds.node_sound_planty(),
 
