@@ -18,6 +18,7 @@ minetest.register_node("bobcraft_blocks:grass_block", {
 	overlay_tiles = {"grass_block_top_overlay.png",
 	"",
 	"grass_block_side_overlay.png"},
+	color = "#00ff00", -- HACK: make it green in the inventory
 
 	-- foliage is a special group that we use to know if something needs biome colours
 	groups = {hand=1, shovel=1, foliage=1, plantable=1},
@@ -542,6 +543,7 @@ minetest.register_node("bobcraft_blocks:grass", {
 	paramtype2 = "color",
 	palette = bobutil.foliage_palette,
 	palette_index = 0,
+	color = "#00ff00", -- HACK: make it green in the inventory
 	on_construct = bobutil.foliage_block_figure,
 
 	groups = {hand=1, foliage=1},
