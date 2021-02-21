@@ -29,3 +29,5 @@ step_grass.ogg - https://freesound.org/people/Snoman/sounds/9904/
 step_grass.1.ogg - https://freesound.org/people/Snoman/sounds/9905/
 step_grass.2.ogg - https://freesound.org/people/Snoman/sounds/9906/
 step_grass.3.ogg - https://freesound.org/people/Snoman/sounds/9907/
+
+fire_extinguish.ogg - https://freesound.org/people/Thingy17/sounds/470891/
