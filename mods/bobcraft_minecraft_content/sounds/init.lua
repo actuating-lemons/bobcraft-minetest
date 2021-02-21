@@ -54,6 +54,11 @@ function bobcraft_sounds.node_sound_water(table)
 	return bobcraft_sounds.node_sound_default(table)
 end
 
+function bobcraft_sounds.node_sound_lava(table)
+	table = table or {}
+	return bobcraft_sounds.node_sound_default(table)
+end
+
 function bobcraft_sounds.node_sound_sand(table)
 	table = table or {}
 	table.footstep = table.footstep or {name = "step_sand", gain = 0.2}

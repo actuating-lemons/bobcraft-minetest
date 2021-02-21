@@ -197,6 +197,100 @@ minetest.register_node("bobcraft_blocks:water_flowing",{
 	hardness = 100 -- minecraft sets this, why?
 })
 
+
+minetest.register_node("bobcraft_blocks:lava_source",{
+	description = S("Lava"),
+	drawtype = "liquid",
+	tiles = {
+		{
+			name = "lava_still.png",
+			backface_culling = false,
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 2,
+			},
+		},
+		{
+			name = "lava_still.png",
+			backface_culling = true,
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 2,
+			},
+		},
+	},
+	light_source = 13,
+	walkable = false,
+	pointable = false,
+	diggable = false,
+	buildable_to = true,
+	is_ground_content = false,
+	drop = "",
+	liquidtype = "source",
+	liquid_alternative_flowing = "bobcraft_blocks:lava_flowing",
+	liquid_alternative_source = "bobcraft_blocks:lava_source",
+	liquid_viscosity = 7,
+	liquid_renewable = false,
+	sounds = bobcraft_sounds.node_sound_lava(),
+	damage_per_second = 4 * 2,
+	post_effect_color = {a = 191, r = 255, g = 64, b = 0},
+	groups = {not_in_creative_inventory=1},
+
+	hardness = 100 -- minecraft sets this, why?
+})
+
+minetest.register_node("bobcraft_blocks:lava_flowing",{
+	description = S("Lava"),
+	drawtype = "flowingliquid",
+	tiles = {"lava_flow.png"},
+	special_tiles = {
+		{
+			name = "lava_flow.png",
+			backface_culling = false,
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 2,
+			},
+		},
+		{
+			name = "lava_flow.png",
+			backface_culling = true,
+			animation = {
+				type = "vertical_frames",
+				aspect_w = 16,
+				aspect_h = 16,
+				length = 2,
+			},
+		},
+	},
+	light_source = 13,
+	walkable = false,
+	pointable = false,
+	diggable = false,
+	buildable_to = true,
+	is_ground_content = false,
+	drop = "",
+	liquidtype = "flowing",
+	liquid_alternative_flowing = "bobcraft_blocks:lava_flowing",
+	liquid_alternative_source = "bobcraft_blocks:lava_source",
+	liquid_viscosity = 7,
+	liquid_renewable = false,
+	sounds = bobcraft_sounds.node_sound_lava(),
+	damage_per_second = 4 * 2,
+	post_effect_color = {a = 191, r = 255, g = 64, b = 0},
+	groups = {not_in_creative_inventory=1},
+
+	hardness = 100 -- minecraft sets this, why?
+})
+
+
+
 -- the token unbreakable block
 -- we have some code here to make it breakable in CREATIVE only
 local bedrock_groups
