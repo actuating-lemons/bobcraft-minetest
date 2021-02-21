@@ -128,6 +128,23 @@ minetest.register_decoration({ -- the mythical tall cactus
 	height = 10,
 	height_max = 29
 })
+minetest.register_decoration({
+	deco_type = "simple",
+	place_on = {"bobcraft_blocks:sand"},
+	biomes = {"Desert"},
+	sidelen = 16,
+	noise_params = {
+		offset = 0.01,
+		scale = 0.001,
+		spread = {x = 5, y = 5, z = 5},
+		seed = 5,
+		octaves = 3,
+		persist = 0.66
+	},
+	y_min = 0,
+	y_max = worldgen.overworld_top,
+	decoration = "bobcraft_blocks:deadbush"
+})
 
 ----
 -- Tundra
@@ -163,6 +180,8 @@ minetest.register_biome({
 	node_filler = "bobcraft_blocks:dirt",
 	depth_filler = 2,
 	node_stone = "bobcraft_blocks:stone",
+	node_water_top = "bobcraft_blocks:ice",
+	depth_water_top = 1,
 	y_min = 0,
 	y_max = worldgen.overworld_top,
 	heat_point = 12,
@@ -235,6 +254,27 @@ minetest.register_biome({
 
 	-- used for the sky
 	_temperature = 0.5,
+	-- used for the plants
+	_palette_index = bobutil.foliage_palette_indices.ocean,
+})
+minetest.register_biome({
+	name = "FrozenOcean",
+	node_top = "bobcraft_blocks:gravel",
+	depth_top = 1,
+	node_filler = "bobcraft_blocks:gravel",
+	depth_filler = 2,
+	node_stone = "bobcraft_blocks:stone",
+	node_water_top = "bobcraft_blocks:ice",
+	depth_water_top = 1,
+	y_min = SEA_FLOOR,
+	y_max = worldgen.overworld_sea_level,
+	-- The ocean is the mid point
+	heat_point = 12,
+	humidity_point = 50,
+	vertical_blend = 8,
+
+	-- used for the sky
+	_temperature = 0.0,
 	-- used for the plants
 	_palette_index = bobutil.foliage_palette_indices.ocean,
 })

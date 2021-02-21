@@ -1,5 +1,5 @@
 -- Crafty/Naturaley
-minetest.register_craftitem("bobcraft_items:sticks", {
+minetest.register_craftitem("bobcraft_items:stick", {
 	description = "Stick",
 	inventory_image = "sticks.png",
 	groups = {fuel=bobutil.fuel_times.small_wood},
@@ -26,6 +26,11 @@ minetest.register_craftitem("bobcraft_items:gold_ingot", {
 minetest.register_craftitem("bobcraft_items:diamond", {
 	description = "Diamond",
 	inventory_image = "diamond.png",
+	stack_max = bobutil.stack_max,
+})
+minetest.register_craftitem("bobcraft_items:clay", {
+	description = "Clay",
+	inventory_image = "clay_item.png",
 	stack_max = bobutil.stack_max,
 })
 

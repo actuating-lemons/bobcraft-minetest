@@ -147,7 +147,7 @@ minetest.register_node("bobcraft_blocks:water_source",{
 	walkable = false,
 	pointable = false,
 	diggable = false,
-	buildable_to = false,
+	buildable_to = true,
 	is_ground_content = false,
 	drop = "",
 	drowning = 1,
@@ -277,6 +277,80 @@ minetest.register_node("bobcraft_blocks:cobblestone", {
 	hardness = 2, -- that's more than stone. interesting.
 	groups = {pickaxe=1, crafting_stone=1},
 	stack_max = bobutil.stack_max,
+})
+
+minetest.register_node("bobcraft_blocks:bookshelf", {
+	description = "Bookshelves",
+	tiles = {"planks.png", "planks.png", "bookshelf.png"},
+	is_ground_content = false,
+	sounds = bobcraft_sounds.node_sound_wood(),
+
+	hardness = 1.5,
+	groups = {axe=1},
+	stack_max = bobutil.stack_max,
+})
+
+minetest.register_node("bobcraft_blocks:obsidian", {
+	description = "Obsidian",
+	tiles = {"obsidian.png"},
+	is_ground_content = true,
+	sounds = bobcraft_sounds.node_sound_stone(),
+
+	hardness = 50,
+	groups = {pickaxe=4},
+	stack_max = bobutil.stack_max,
+})
+
+minetest.register_node("bobcraft_blocks:watermelon", {
+	description = "Watermelon",
+	tiles = {"watermelon_top.png", "watermelon_top.png", "watermelon_side.png"},
+	is_ground_content = false,
+	sounds = bobcraft_sounds.node_sound_planty(),
+
+	hardness = 1,
+	groups = {hand=1},
+	stack_max = bobutil.stack_max,
+})
+
+minetest.register_node("bobcraft_blocks:clay", {
+	description = "Clay",
+	tiles = {"clay.png"},
+	is_ground_content = true,
+	sounds = bobcraft_sounds.node_sound_sand(),
+
+	drop = "bobcraft_items:clay 4",
+
+	hardness = 0.6,
+	groups = {hand=1, shovel=1},
+	stack_max = bobutil.stack_max,
+})
+
+minetest.register_node("bobcraft_blocks:ice", {
+	description = "Ice",
+	tiles = {"ice.png"},
+	is_ground_content = true,
+	sounds = bobcraft_sounds.node_sound_glass(),
+	drawtype = "glasslike",
+	use_texture_alpha = "blend",
+
+	drop = "",
+
+	hardness = 0.5,
+	groups = {hand=1, slippery=5},
+	stack_max = bobutil.stack_max,
+
+	after_dig_node = function(pos)
+		pos.y = pos.y -1
+		local node = minetest.get_node(pos)
+		if node then
+			local nodedef = minetest.registered_nodes[node.name]
+			if nodedef and nodedef.walkable then
+				-- place some water
+				pos.y = pos.y + 1
+				minetest.set_node(pos, {name="bobcraft_blocks:water_source"})
+			end
+		end
+	end
 })
 
 ----
@@ -457,6 +531,28 @@ minetest.register_node("bobcraft_blocks:grass", {
 	on_construct = bobutil.foliage_block_figure,
 
 	groups = {hand=1, foliage=1},
+	hardness = 0,
+	stack_max = bobutil.stack_max,
+})
+
+minetest.register_node("bobcraft_blocks:deadbush", {
+	description = "Deadbush",
+	tiles = {"deadbush.png"},
+	drawtype = "plantlike",
+	walkable = false,
+	sounds = bobcraft_sounds.node_sound_planty(),
+
+	-- drop = {
+	-- 	max_items = 4,
+	-- 	items = {
+	-- 		{ items = "bobcraft_items:stick", rarity = 2},
+	-- 		{ items = "bobcraft_items:stick", rarity = 5},
+	-- 	}
+	-- },
+
+	drop = "bobcraft_items:stick", -- TODO: random drops
+
+	groups = {hand=1},
 	hardness = 0,
 	stack_max = bobutil.stack_max,
 })

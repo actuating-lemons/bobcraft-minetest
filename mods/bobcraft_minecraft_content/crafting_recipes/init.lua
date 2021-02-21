@@ -8,8 +8,8 @@ bobcraft_crafting.do_tool_recipes = function(tier, material)
 		output = "bobcraft_tools:"..tier.."_axe",
 		recipe = {
 			{material, material},
-			{material, "bobcraft_items:sticks"},
-			{"",       "bobcraft_items:sticks"}
+			{material, "bobcraft_items:stick"},
+			{"",       "bobcraft_items:stick"}
 		}
 	})
 	--  ##
@@ -19,8 +19,8 @@ bobcraft_crafting.do_tool_recipes = function(tier, material)
 		output = "bobcraft_tools:"..tier.."_axe",
 		recipe = {
 			{material, material},
-			{"bobcraft_items:sticks", material},
-			{"bobcraft_items:sticks", ""}
+			{"bobcraft_items:stick", material},
+			{"bobcraft_items:stick", ""}
 		}
 	})
 	-- ###
@@ -30,8 +30,8 @@ bobcraft_crafting.do_tool_recipes = function(tier, material)
 		output = "bobcraft_tools:"..tier.."_pickaxe",
 		recipe = {
 			{material, material, material},
-			{"",       "bobcraft_items:sticks", ""},
-			{"",       "bobcraft_items:sticks", ""}
+			{"",       "bobcraft_items:stick", ""},
+			{"",       "bobcraft_items:stick", ""}
 		}
 	})
 	--  #
@@ -41,8 +41,8 @@ bobcraft_crafting.do_tool_recipes = function(tier, material)
 		output = "bobcraft_tools:"..tier.."_shovel",
 		recipe = {
 			{material},
-			{"bobcraft_items:sticks"},
-			{"bobcraft_items:sticks"}
+			{"bobcraft_items:stick"},
+			{"bobcraft_items:stick"}
 		}
 	})
 	--  #
@@ -53,7 +53,7 @@ bobcraft_crafting.do_tool_recipes = function(tier, material)
 		recipe = {
 			{material},
 			{material},
-			{"bobcraft_items:sticks"}
+			{"bobcraft_items:stick"}
 		}
 	})
 end
@@ -66,7 +66,7 @@ minetest.register_craft({
 })
 
 minetest.register_craft({
-	output = "bobcraft_items:sticks 4",
+	output = "bobcraft_items:stick 4",
 	recipe = {
 		{"group:crafting_wood"},
 		{"group:crafting_wood"}
@@ -77,7 +77,7 @@ minetest.register_craft({
 	output = "bobcraft_blocks:torch 4",
 	recipe = {
 		{"group:crafting_coal_like"},
-		{"bobcraft_items:sticks"}
+		{"bobcraft_items:stick"}
 	}
 })
 
