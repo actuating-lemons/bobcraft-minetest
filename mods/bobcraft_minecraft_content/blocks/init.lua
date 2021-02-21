@@ -263,6 +263,14 @@ minetest.register_node("bobcraft_blocks:leaves", {
 	param2 = 0,
 	on_construct = bobutil.foliage_block_figure,
 
+	drop = {
+		items = {
+			max_items = 1,
+			{ items = {"bobcraft_items:stick"}, rarity = 7},
+			{ items = {"bobcraft_blocks:sapling"}, rarity = 5},
+		}
+	},
+
 	hardness = 0.2,
 	groups = {hand=1, fuel=bobutil.fuel_times.small_wood}, -- TODO: shears?
 	stack_max = bobutil.stack_max,
@@ -542,13 +550,15 @@ minetest.register_node("bobcraft_blocks:deadbush", {
 	walkable = false,
 	sounds = bobcraft_sounds.node_sound_planty(),
 
-	-- drop = {
-	-- 	max_items = 4,
-	-- 	items = {
-	-- 		{ items = "bobcraft_items:stick", rarity = 2},
-	-- 		{ items = "bobcraft_items:stick", rarity = 5},
-	-- 	}
-	-- },
+	drop = {
+		items = {
+			max_items = 4,
+			items = {
+				{ items = "bobcraft_items:stick", rarity = 2},
+				{ items = "bobcraft_items:stick", rarity = 5},
+			}
+		}
+	},
 
 	drop = "bobcraft_items:stick", -- TODO: random drops
 
