@@ -125,30 +125,40 @@ local function take_energy(pos, energy, handled_pos, prev_pos)
 	local handled_pos = handled_pos or {}
 	local prev_pos = prev_pos or pos
 
-	local true_energy = greendust.get_energy(pos)
-
 	if handled_pos[dump(pos)] then
-		return 0 -- we've handled this place, don't do it again
+		return -1 -- we've handled this place, don't do it again
 	end
 
 	handled_pos[dump(pos)] = true
 
-	local connections = get_conduit_connections(pos)
-	for i=1, #connections do
-		-- loop through the connections and steal their's
-		true_energy = true_energy + take_energy(connections[i], energy, handled_pos, pos)
-	end
+	local current_energy = greendust.get_energy(pos)
+	local left_energy = current_energy - energy
+	local want_energy = current_energy - left_energy
+	local stolen_energy = 0
 
-	-- and now we can set our visual power
-	if is_wire(pos) then
-		greendust.colour_from_power(pos, minetest.get_node(pos), math.max(0, greendust.get_energy(pos) - energy))
+	-- we wanna return to current_energy, try stealing from our neighbours
+	if left_energy < current_energy then
+		connections = get_conduit_connections(pos)
+		for i = 1, #connections do
+			local steal_energy = take_energy(connections[i], want_energy, handled_pos, pos)
 
-		if prev_pos then
-			greendust.colour_from_power(prev_pos, minetest.get_node(prev_pos), math.min(math.max(15, true_energy),true_energy))
+			if steal_energy ~= -1 then
+				stolen_energy = stolen_energy + steal_energy
+				if stolen_energy >= current_energy then
+					break
+				end
+			end
 		end
 	end
 
-	return true_energy
+	minetest.log("we had " .. tostring(current_energy))
+	minetest.log("we have " .. tostring(left_energy))
+	minetest.log("we want " .. tostring(want_energy))
+	minetest.log("we took " .. tostring(stolen_energy))
+
+	greendust.colour_from_power(pos, minetest.get_node(pos), left_energy + stolen_energy)
+
+	return want_energy
 end
 
 function greendust.conduit_change(pos, node)
