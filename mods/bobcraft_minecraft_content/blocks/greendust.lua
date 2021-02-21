@@ -2,10 +2,11 @@
 -- We should probably move it to its' own mod, but right now, this does the ore and dust.
 -- Of-course, we're going to need to do a LOT to get a proper redstone system
 
+local S = minetest.get_translator("bobcraft_blocks")
 local kinetic_energy_keep_time = 2.5 -- how many seconds to glow after being punched or walked on
 
 minetest.register_node("bobcraft_blocks:greendust_ore", {
-	description = "Green Dust Ore",
+	description = S("Green Dust Ore"),
 	tiles = {"greendust_ore_inactive.png"},
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_stone(),
@@ -22,7 +23,7 @@ minetest.register_node("bobcraft_blocks:greendust_ore", {
 })
 
 minetest.register_node("bobcraft_blocks:activated_greendust_ore", {
-	description = "Green Dust Ore",
+	description = S("Green Dust Ore"),
 	tiles = {"greendust_ore_active.png"},
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_stone(),
@@ -44,7 +45,7 @@ minetest.register_node("bobcraft_blocks:activated_greendust_ore", {
 })
 
 minetest.register_node("bobcraft_blocks:greendust", {
-	description = "Green Dust",
+	description = S("Green Dust"),
 	wield_image = "greendust.png",
 	inventory_image = "greendust.png",
 	use_texture_alpha = "clip",

@@ -1,3 +1,5 @@
+local S = minetest.get_translator("bobcraft_blocks")
+
 local function can_grow_sapling(pos)
 	local lightlevel = minetest.get_node_light(pos)
 	minetest.log(dump(lightlevel))
@@ -30,7 +32,7 @@ local function grow_sapling(pos)
 end
 
 minetest.register_node("bobcraft_blocks:sapling", {
-	description = "Sapling",
+	description = S("Sapling"),
 	tiles = {"oak_sapling.png"},
 	wield_image = "oak_sapling.png",
 	inventory_image = "oak_sapling.png",

@@ -1,7 +1,9 @@
 -- Overworld blocks
 
+local S = minetest.get_translator("bobcraft_blocks")
+
 minetest.register_node("bobcraft_blocks:grass_block", {
-	description = "Grass Block",
+	description = S("Grass Block"),
 	tiles = {
 		{name = "grass_block_top.png", color = "white"}, -- we do this to forcefully not colour it
 		{name = "dirt.png", color = "white"}, -- we do this to forcefully not colour it
@@ -27,7 +29,7 @@ minetest.register_node("bobcraft_blocks:grass_block", {
 })
 
 minetest.register_node("bobcraft_blocks:dirt", {
-	description = "Dirt Block",
+	description = S("Dirt Block"),
 	tiles = {"dirt.png"},
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_earthy(),
@@ -38,7 +40,7 @@ minetest.register_node("bobcraft_blocks:dirt", {
 })
 
 minetest.register_node("bobcraft_blocks:stone", {
-	description = "Stone",
+	description = S("Stone"),
 	tiles = {"stone.png"},
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_stone(),
@@ -50,7 +52,7 @@ minetest.register_node("bobcraft_blocks:stone", {
 })
 
 minetest.register_node("bobcraft_blocks:sand", {
-	description = "Sand",
+	description = S("Sand"),
 	tiles = {"sand.png"},
 	sounds = bobcraft_sounds.node_sound_sand(),
 
@@ -59,7 +61,7 @@ minetest.register_node("bobcraft_blocks:sand", {
 	stack_max = bobutil.stack_max,
 })
 minetest.register_node("bobcraft_blocks:gravel", {
-	description = "Gravel",
+	description = S("Gravel"),
 	tiles = {"gravel.png"},
 	sounds = bobcraft_sounds.node_sound_gravel(),
 
@@ -69,7 +71,7 @@ minetest.register_node("bobcraft_blocks:gravel", {
 	-- TODO: gravel/flint drops
 })
 minetest.register_node("bobcraft_blocks:sandstone", {
-	description = "Sandstone",
+	description = S("Sandstone"),
 	tiles = {"sandstone_top.png", "sandstone_bottom.png", "sandstone_side.png"},
 	sounds = bobcraft_sounds.node_sound_sandstone(),
 
@@ -79,7 +81,7 @@ minetest.register_node("bobcraft_blocks:sandstone", {
 })
 
 minetest.register_node("bobcraft_blocks:snow_layer", {
-	description = "Snow",
+	description = S("Snow"),
 	tiles = {"snow.png"},
 	sounds = bobcraft_sounds.node_sound_snow(),
 	paramtype = "light",
@@ -106,7 +108,7 @@ minetest.register_node("bobcraft_blocks:snow_layer", {
 	stack_max = bobutil.stack_max,
 })
 minetest.register_node("bobcraft_blocks:snowy_grass_block", {
-	description = "Snow Covered Grass Block",
+	description = S("Snow Covered Grass Block"),
 	tiles = {"grass_block_top_snow.png",
 	"dirt.png",
 	"grass_block_side_snow.png"},
@@ -129,7 +131,7 @@ minetest.register_node("bobcraft_blocks:snowy_grass_block", {
 
 -- liquids
 minetest.register_node("bobcraft_blocks:water_source",{
-	description = "Water",
+	description = S("Water"),
 	drawtype = "liquid",
 	waving = 3,
 	tiles= {"water_still.png"},
@@ -162,7 +164,7 @@ minetest.register_node("bobcraft_blocks:water_source",{
 	hardness = 100 -- minecraft sets this, why?
 })
 minetest.register_node("bobcraft_blocks:water_flowing",{
-	description = "Water",
+	description = S("Flowing Water"),
 	drawtype = "flowingliquid",
 	waving = 3,
 	tiles= {"water_still.png"},
@@ -204,7 +206,7 @@ else
 	bedrock_groups = {}
 end
 minetest.register_node("bobcraft_blocks:bedrock", {
-	description = "Bedrock",
+	description = S("Bedrock"),
 	tiles = {"bedrock.png"},
 	is_ground_content = false, -- We *are* technically, but we also shouldn't be over-ridden
 	groups = bedrock_groups,
@@ -216,7 +218,7 @@ minetest.register_node("bobcraft_blocks:bedrock", {
 -- Other blocks
 
 minetest.register_node("bobcraft_blocks:planks", {
-	description = "Planks",
+	description = S("Planks"),
 	tiles = {"planks.png"},
 	is_ground_content = false,
 	sounds = bobcraft_sounds.node_sound_wood(),
@@ -227,7 +229,7 @@ minetest.register_node("bobcraft_blocks:planks", {
 })
 
 minetest.register_node("bobcraft_blocks:glass", {
-	description = "Glass Block",
+	description = S("Glass Block"),
 	tiles = {"glass.png"},
 	is_ground_content = false,
 	sounds = bobcraft_sounds.node_sound_glass(),
@@ -242,7 +244,7 @@ minetest.register_node("bobcraft_blocks:glass", {
 })
 
 minetest.register_node("bobcraft_blocks:log", {
-	description = "Log",
+	description = S("Log"),
 	tiles = {"log_top.png", "log_top.png", "log_side.png"},
 	is_ground_content = false,
 	sounds = bobcraft_sounds.node_sound_wood(),
@@ -252,7 +254,7 @@ minetest.register_node("bobcraft_blocks:log", {
 	stack_max = bobutil.stack_max,
 })
 minetest.register_node("bobcraft_blocks:leaves", {
-	description = "Leaves",
+	description = S("Leaves"),
 	drawtype = "allfaces_optional",
 	tiles = {"leaves.png"},
 	is_ground_content = false,
@@ -278,7 +280,7 @@ minetest.register_node("bobcraft_blocks:leaves", {
 })
 
 minetest.register_node("bobcraft_blocks:cobblestone", {
-	description = "Cobblestone",
+	description = S("Cobblestone"),
 	tiles = {"cobblestone.png"},
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_stone(),
@@ -289,7 +291,7 @@ minetest.register_node("bobcraft_blocks:cobblestone", {
 })
 
 minetest.register_node("bobcraft_blocks:bookshelf", {
-	description = "Bookshelves",
+	description = S("Bookshelves"),
 	tiles = {"planks.png", "planks.png", "bookshelf.png"},
 	is_ground_content = false,
 	sounds = bobcraft_sounds.node_sound_wood(),
@@ -300,7 +302,7 @@ minetest.register_node("bobcraft_blocks:bookshelf", {
 })
 
 minetest.register_node("bobcraft_blocks:obsidian", {
-	description = "Obsidian",
+	description = S("Obsidian"),
 	tiles = {"obsidian.png"},
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_stone(),
@@ -311,7 +313,7 @@ minetest.register_node("bobcraft_blocks:obsidian", {
 })
 
 minetest.register_node("bobcraft_blocks:watermelon", {
-	description = "Watermelon",
+	description = S("Watermelon"),
 	tiles = {"watermelon_top.png", "watermelon_top.png", "watermelon_side.png"},
 	is_ground_content = false,
 	sounds = bobcraft_sounds.node_sound_planty(),
@@ -322,7 +324,7 @@ minetest.register_node("bobcraft_blocks:watermelon", {
 })
 
 minetest.register_node("bobcraft_blocks:clay", {
-	description = "Clay",
+	description = S("Clay"),
 	tiles = {"clay.png"},
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_sand(),
@@ -335,7 +337,7 @@ minetest.register_node("bobcraft_blocks:clay", {
 })
 
 minetest.register_node("bobcraft_blocks:ice", {
-	description = "Ice",
+	description = S("Ice"),
 	tiles = {"ice.png"},
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_glass(),
@@ -366,7 +368,7 @@ minetest.register_node("bobcraft_blocks:ice", {
 -- Ores
 ----
 minetest.register_node("bobcraft_blocks:coal_ore", {
-	description = "Coal Ore",
+	description = S("Coal Ore"),
 	tiles = {"coal_ore.png"},
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_stone(),
@@ -378,7 +380,7 @@ minetest.register_node("bobcraft_blocks:coal_ore", {
 	stack_max = bobutil.stack_max,
 })
 minetest.register_node("bobcraft_blocks:iron_ore", {
-	description = "Iron Ore",
+	description = S("Iron Ore"),
 	tiles = {"iron_ore.png"},
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_stone(),
@@ -388,7 +390,7 @@ minetest.register_node("bobcraft_blocks:iron_ore", {
 	stack_max = bobutil.stack_max,
 })
 minetest.register_node("bobcraft_blocks:gold_ore", {
-	description = "Gold Ore",
+	description = S("Gold Ore"),
 	tiles = {"gold_ore.png"},
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_stone(),
@@ -398,7 +400,7 @@ minetest.register_node("bobcraft_blocks:gold_ore", {
 	stack_max = bobutil.stack_max,
 })
 minetest.register_node("bobcraft_blocks:diamond_ore", {
-	description = "Diamond Ore",
+	description = S("Diamond Ore"),
 	tiles = {"diamond_ore.png"},
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_stone(),
@@ -414,7 +416,7 @@ minetest.register_node("bobcraft_blocks:diamond_ore", {
 -- Etc.
 ----
 minetest.register_node("bobcraft_blocks:torch", {
-	description = "Torch",
+	description = S("Torch"),
 	tiles = {"torch.png"},
 	is_ground_content = false,
 	sounds = bobcraft_sounds.node_sound_wood(), -- TODO: torch sounds
@@ -462,7 +464,7 @@ minetest.register_node("bobcraft_blocks:torch", {
 })
 
 minetest.register_node("bobcraft_blocks:torch_wall", {
-	description = "Wall Torch",
+	description = S("Wall Torch"),
 	tiles = {"torch.png"},
 	is_ground_content = false,
 	sounds = bobcraft_sounds.node_sound_wood(), -- TODO: torch sounds
@@ -493,7 +495,7 @@ minetest.register_node("bobcraft_blocks:torch_wall", {
 -- Plants
 ----
 minetest.register_node("bobcraft_blocks:rose", {
-	description = "Singular Rose",
+	description = S("Singular Rose"),
 	tiles = {"rose.png"},
 	wield_image = "rose.png",
 	inventory_image = "rose.png",
@@ -518,7 +520,7 @@ minetest.register_node("bobcraft_blocks:rose", {
 })
 
 minetest.register_node("bobcraft_blocks:cactus", {
-	description = "Cactus",
+	description = S("Cactus"),
 	tiles = {"cactus_side.png"}, -- TODO: cactus model
 	sounds = bobcraft_sounds.node_sound_planty(),
 
@@ -528,7 +530,7 @@ minetest.register_node("bobcraft_blocks:cactus", {
 })
 
 minetest.register_node("bobcraft_blocks:grass", {
-	description = "Grass",
+	description = S("Grass"),
 	tiles = {"grass.png"},
 	wield_image = "grass.png",
 	inventory_image = "grass.png",
@@ -556,7 +558,7 @@ minetest.register_node("bobcraft_blocks:grass", {
 })
 
 minetest.register_node("bobcraft_blocks:deadbush", {
-	description = "Deadbush",
+	description = S("Deadbush"),
 	tiles = {"deadbush.png"},
 	drawtype = "plantlike",
 	inventory_image = "deadbush.png",

@@ -2,6 +2,8 @@
 	Referenced from the default:furnace in minetest_game
 ]]
 
+local S = minetest.get_translator("bobcraft_blocks")
+
 local function get_furnace_formspec()
 	return "size[8,8.5]"..
 		"list[context;src;2.75,0.5;1,1;]"..
@@ -188,7 +190,7 @@ local furnace_timer = function(pos, elapsed)
 end
 
 minetest.register_node("bobcraft_blocks:furnace", {
-	description = "Furnace",
+	description = S("Furnace"),
 	tiles = {
 		"furnace_top.png", "furnace_bottom.png",
 		"furnace_side.png", "furnace_side.png",
@@ -233,7 +235,7 @@ minetest.register_node("bobcraft_blocks:furnace", {
 })
 
 minetest.register_node("bobcraft_blocks:active_furnace", {
-	description = "Active Furnace",
+	description = S("Active Furnace"),
 	tiles = {
 		"furnace_top.png", "furnace_bottom.png",
 		"furnace_side.png", "furnace_side.png",
