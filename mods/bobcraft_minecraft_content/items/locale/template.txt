@@ -1,0 +1,9 @@
+Stick=
+Coal=
+Iron Ingot=
+Gold Ingot=
+Diamond=
+Raw Meat=
+Cooked Meat=
+Lemon=
+Green Apple=
