@@ -57,3 +57,20 @@ minetest.register_ore({
 	y_max = worldgen.overworld_bottom+16,
 	y_min = worldgen.overworld_bottom,
 })
+
+----
+-- We generate these like ores,
+-- But they're not technically ores.
+----
+
+-- Make pockets of lava
+minetest.register_ore({
+	ore_type       = "blob",
+	ore            = "bobcraft_blocks:lava_source",
+	wherein        = "bobcraft_blocks:stone",
+	clust_scarcity = 16*16*16,
+	clust_num_ores = 1,
+	clust_size     = 1,
+	y_max = worldgen.overworld_bottom+16,
+	y_min = worldgen.overworld_bottom,
+})
