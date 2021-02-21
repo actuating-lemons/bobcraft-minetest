@@ -8,4 +8,7 @@ For these, please get in contact with me (probably through GitHub) if you know h
    I don't see it being too difficult to convert, however. Decompile 1.2.5 with MCP, Look at the code, and convert it.\
    From there is an issue of handling random number generation. This could actually end up being too slow.\
    And then maybe some legal issuses lol
- - ## 
+ - ## Greendust
+   Magic redstone.
+   I want it to be energy based, and I did try, but it was turning out to be a huge development sink.
+   At the time of writing, I have a week to release this thing, and it wasn't worth it!
