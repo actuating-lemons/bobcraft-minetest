@@ -1,3 +1,4 @@
+CC-0:
 break_default.ogg - https://freesound.org/people/Kinoton/sounds/399080/
 break_glass.ogg - https://freesound.org/people/unfa/sounds/221528/
 break_sand.ogg - https://freesound.org/people/newagesoup/sounds/414310/ (i think)
@@ -11,8 +12,6 @@ step_default.[0-1].ogg - https://freesound.org/people/patchytherat/sounds/535052
 step_dirt.ogg - https://freesound.org/people/Fission9/sounds/521588/
 step_glass.ogg - https://freesound.org/people/Yoyodaman234/sounds/223152/
 step_glass.1.ogg - https://freesound.org/people/escobarrb26/sounds/538531/
-step_grass.ogg - https://freesound.org/people/Wdomino/sounds/517143/ (i think)
-step_grass.1.ogg - https://freesound.org/people/Wdomino/sounds/517129/ (i think)
 step_gravel.ogg - https://freesound.org/people/Ali_6868/sounds/384877/
 step_gravel.1.ogg - https://freesound.org/people/Ali_6868/sounds/384876/
 step_sand.ogg - https://freesound.org/people/savataivanov/sounds/384082/
@@ -24,3 +23,9 @@ step_wood.2.ogg - https://freesound.org/people/yatoimtop/sounds/479445/
 
 greendust_active_loop.ogg - https://freesound.org/people/opticaillusions/sounds/554312/]
 greendust_use.ogg - https://freesound.org/people/spookymodem/sounds/249819/
+
+CC-BY:
+step_grass.ogg - https://freesound.org/people/Snoman/sounds/9904/
+step_grass.1.ogg - https://freesound.org/people/Snoman/sounds/9905/
+step_grass.2.ogg - https://freesound.org/people/Snoman/sounds/9906/
+step_grass.3.ogg - https://freesound.org/people/Snoman/sounds/9907/
