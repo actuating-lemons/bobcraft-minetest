@@ -172,3 +172,17 @@ minetest.register_abm({
 		end
 	end,
 })
+
+
+----
+-- stuff
+----
+minetest.register_lbm({
+	label = "Lava Particles",
+	name = "bobcraft_blocks:lava_smoke",
+	nodenames = {"group:lava"},
+	run_at_every_load = true,
+	action = function(pos, node)
+		bobticles.register_node_particle_spawn(pos, bobticles.get_preset("lava"))
+	end
+})
