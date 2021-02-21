@@ -118,6 +118,7 @@ minetest.register_abm({
 			max_hear_distance = 16,
 			gain = plant_sounds.dug.gain
 		})
+		-- TODO: random drops
 	end
 
 })
