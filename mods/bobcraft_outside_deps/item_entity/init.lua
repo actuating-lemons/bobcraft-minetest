@@ -118,7 +118,7 @@ local item_entity = { -- reference https://rubenwardy.com/minetest_modding_book/
 			local slippy = minetest.get_item_group(node.name, "slippery")
 			local vel = self.object:get_velocity()
 			if slippy ~= 0 and (math.abs(vel.x) > 0.1 or math.abs(vel.z) > 0.1) then
-				local factor = math.min(4 / (slippery + 4) * dtime, 1)
+				local factor = math.min(4 / (slippy + 4) * dtime, 1)
 				self.object:set_velocity({
 					x = vel.x * (1 - factor),
 					y = 0,
