@@ -32,6 +32,8 @@ end
 minetest.register_node("bobcraft_blocks:sapling", {
 	description = "Sapling",
 	tiles = {"oak_sapling.png"},
+	wield_image = "oak_sapling.png",
+	inventory_image = "oak_sapling.png",
 	drawtype = "plantlike",
 	walkable = false,
 	sounds = bobcraft_sounds.node_sound_planty(),
