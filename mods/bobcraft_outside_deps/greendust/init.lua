@@ -62,7 +62,9 @@ local function is_wire(pos)
 	return false
 end
 
-local function update_conduit(pos)
+-- we return a table here because we can't store a table in node metadata,
+-- and I'm losing hope.
+local function get_conduit_connections(pos)
 	local connections = {}
 	for dx = -1, 1 do
 		for dz = -1, 1 do
@@ -72,9 +74,6 @@ local function update_conduit(pos)
 					if is_wire(pos_here) then
 						if is_wire(pos) then
 							table.insert(connections, pos_here)
-						else
-							-- we wanna tell the wire we just found that we're no longer a wire.
-							update_conduit(pos_here)
 						end
 					end
 				end
@@ -83,14 +82,7 @@ local function update_conduit(pos)
 	end
 
 	-- we should now have all the connections
-
-	if is_wire(pos) then
-		-- now we can set our meta
-		local meta = minetest.get_meta(pos)
-		meta:from_table({
-			connections = connections
-		})
-	end
+	return connections
 end
 
 -- Give the position some energy, recursively!
@@ -104,10 +96,15 @@ local function empower(pos, energy, handled_pos)
 	handled_pos[dump(pos)] = true
 
 	if is_wire(pos) then
-		local node_meta = minetest.get_meta(node)
-
-		minetest.log(node_meta:to_table())
+		local connections = get_conduit_connections(pos)
+		for i=1, #connections do
+			-- loop through the connections and empower them
+			empower(connections[i], energy-1, handled_pos)
+		end
 	end
+
+	-- and now we can set our visual power
+	greendust.colour_from_power(pos, minetest.get_node(pos), energy)
 end
 function greendust.event_queue.functions:empower(pos, power, handled_pos)
 	empower(pos, power, handled_pos)
@@ -120,7 +117,6 @@ function greendust.conduit_change(pos, node)
 	if minetest.registered_nodes[new_node.name] and
 	   is_wire(pos) then
 		-- if the new node is registered, and it's a conduit
-		update_conduit(pos)
 	end
 
 end
@@ -138,8 +134,8 @@ end
 
 -- Urban dictionary claims this is a word.
 function greendust.event_queue:actionate(action)
-	minetest.log(dump(action))
-	greendust.event_queue.functions[action.func](action.pos, unpack(action.params))
+	-- for some god-forsaken reason the first argument must be something other than what we want it to be.
+	greendust.event_queue.functions[action.func](nil, action.pos, unpack(action.params))
 end
 
 -- The meat & tatties of the whole operation.
