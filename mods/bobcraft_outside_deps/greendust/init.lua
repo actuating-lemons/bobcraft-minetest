@@ -85,7 +85,9 @@ local function get_conduit_connections(pos)
 				for dy = -1, 1 do
 					local pos_here = {x=pos.x+dx, y=pos.y+dy, z=pos.z+dz}
 					if is_wire(pos_here) then
-						table.insert(connections, pos_here)
+						if is_wire(pos) then
+							table.insert(connections, pos_here)
+						end
 					end
 				end
 			end
@@ -125,30 +127,22 @@ local function take_energy(pos, energy, handled_pos, prev_pos)
 	local handled_pos = handled_pos or {}
 	local prev_pos = prev_pos or pos
 
-	local true_energy = greendust.get_energy(pos)
-
 	if handled_pos[dump(pos)] then
-		return 0 -- we've handled this place, don't do it again
+		return -- we've handled this place, don't do it again
 	end
 
 	handled_pos[dump(pos)] = true
 
-	local connections = get_conduit_connections(pos)
-	for i=1, #connections do
-		-- loop through the connections and steal their's
-		true_energy = true_energy + take_energy(connections[i], energy, handled_pos, pos)
-	end
-
-	-- and now we can set our visual power
 	if is_wire(pos) then
-		greendust.colour_from_power(pos, minetest.get_node(pos), math.max(0, greendust.get_energy(pos) - energy))
-
-		if prev_pos then
-			greendust.colour_from_power(prev_pos, minetest.get_node(prev_pos), math.min(math.max(15, true_energy),true_energy))
+		local connections = get_conduit_connections(pos)
+		for i=1, #connections do
+			-- loop through the connections and steal their's
+			take_energy(connections[i], energy, handled_pos)
 		end
 	end
 
-	return true_energy
+	-- and now we can set our visual power
+	greendust.colour_from_power(pos, minetest.get_node(pos), greendust.get_energy(pos)-energy)
 end
 
 function greendust.conduit_change(pos, node)
@@ -164,9 +158,8 @@ end
 
 function greendust.get_energy(pos)
 	if is_wire(pos) then
-		return minetest.get_node(pos).param2 or 0
+		return minetest.get_node(pos).param2
 	end
-	return 0
 end
 
 -- Pulses some energy into the network.
