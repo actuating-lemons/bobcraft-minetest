@@ -12,28 +12,7 @@ function register_wool_colour(colour)
 end
 
 -- TODO: currently not all of these are obtainable.
-local colours = {
-	"black",
-	"dark_grey",
-	"grey",
-	"white",
-
-	"blue",
-	"cyan",
-	"picton", -- fancy blue
-
-	"green",
-	"lime",
-
-	"purple",
-	"pink",
-	"red",
-	"magenta",
-
-	"yellow",
-	"orange",
-	"brown",
-}
+local colours = dyes.colours
 
 for i, colour in ipairs(colours) do
 	register_wool_colour(colour)
