@@ -706,9 +706,24 @@ minetest.register_node("bobcraft_blocks:deadbush", {
 
 	drop = "bobcraft_items:stick", -- TODO: random drops
 
-	groups = {hand=1}, attached_node=1,
+	groups = {hand=1, attached_node=1},
 	hardness = 0,
 	stack_max = bobutil.stack_max,
+})
+
+minetest.register_node("bobcraft_blocks:sugarcane", {
+	description = S("Sugar-cane"),
+	tiles = {"sugarcane.png"},
+	drawtype = "plantlike",
+	walkable = false,
+	sounds = bobcraft_sounds.node_sound_planty(),
+	groups = {hand=1},
+
+	wield_image = "sugarcane_item.png",
+	inventory_image = "sugarcane_item.png",
+
+	hardness = 0,
+	stack_max = bobutil.stack_max
 })
 
 local modpath = minetest.get_modpath("bobcraft_blocks")
