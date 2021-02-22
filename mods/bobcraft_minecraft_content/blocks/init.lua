@@ -476,6 +476,22 @@ minetest.register_node("bobcraft_blocks:ice", {
 	end
 })
 
+minetest.register_node("bobcraft_blocks:fence", {
+	description = S("Fence"),
+	tiles = {"planks.png"},
+	drawtype = "fencelike",
+
+	paramtype="light",
+
+	sounds = bobcraft_sounds.node_sound_wood(),
+
+	-- TODO: change this dynamically based on connections, height remaining the same
+	collision_box = { -- HUH: there may be some issues relating to this, as it's more than a node tall. (https://github.com/minetest/minetest/issues/2612)
+		type = "fixed",
+		fixed = {-0.5,-0.5,-0.5, 0.5, 0.75, 0.5}
+	},
+})
+
 ----
 -- Ores
 ----
