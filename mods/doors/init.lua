@@ -1,5 +1,8 @@
 doors = {}
 
+-- TODO: door textures are currently.... kind-of strange.
+-- We need to flip them in a specific way.
+
 -- Registers a door
 function doors.register_door(name, def)
 	def.groups.not_in_creative_inventory = 1
