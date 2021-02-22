@@ -145,7 +145,7 @@ function doors.register_door(name, def)
 	end
 
 	minetest.register_node(name.."_b_1", {
-		tiles = {tb[2], tb[2], tb[2], tb[2], tb[1], tb[1].."^[transformfx"},
+		tiles = {tb[2], tb[2], tb[2], tb[2], tb[1], tb[1]},
 		paramtype = "light",
 		paramtype2 = "facedir",
 		drop = name,
@@ -177,7 +177,7 @@ function doors.register_door(name, def)
 	})
 
 	minetest.register_node(name.."_t_1", {
-		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1], tt[1].."^[transformfx"},
+		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1], tt[1]},
 		paramtype = "light",
 		paramtype2 = "facedir",
 		drop = "",
@@ -209,7 +209,7 @@ function doors.register_door(name, def)
 	})
 
 	minetest.register_node(name.."_b_2", {
-		tiles = {tb[2], tb[2], tb[2], tb[2], tb[1].."^[transformfx", tb[1]},
+		tiles = {tb[2], tb[2], tb[2], tb[2], tb[1], tb[1]},
 		paramtype = "light",
 		paramtype2 = "facedir",
 		drop = name,
@@ -241,7 +241,7 @@ function doors.register_door(name, def)
 	})
 
 	minetest.register_node(name.."_t_2", {
-		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1].."^[transformfx", tt[1]},
+		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1], tt[1]},
 		paramtype = "light",
 		paramtype2 = "facedir",
 		drop = "",
