@@ -569,6 +569,16 @@ minetest.register_node("bobcraft_blocks:torch", {
 		return itemstack
 	end,
 	stack_max = bobutil.stack_max,
+
+
+
+	on_construct = function(pos)
+		bobticles.register_node_particle_spawn(pos, bobticles.get_preset("torch_floor"))
+		bobticles.register_node_particle_spawn(pos, bobticles.get_preset("torch_floor_smoke"))
+	end,
+	on_destruct = function(pos)
+		bobticles.clear_node_particle_spawn(pos)
+	end,
 })
 
 minetest.register_node("bobcraft_blocks:torch_wall", {
@@ -596,6 +606,16 @@ minetest.register_node("bobcraft_blocks:torch_wall", {
 
 	walkable = false,
 	stack_max = bobutil.stack_max,
+
+
+
+	on_construct = function(pos)
+		bobticles.register_node_particle_spawn(pos, bobticles.get_preset("torch_wall"))
+		bobticles.register_node_particle_spawn(pos, bobticles.get_preset("torch_wall_smoke"))
+	end,
+	on_destruct = function(pos)
+		bobticles.clear_node_particle_spawn(pos)
+	end,
 })
 
 

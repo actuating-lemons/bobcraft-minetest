@@ -175,7 +175,7 @@ minetest.register_abm({
 
 
 ----
--- stuff
+-- LBM For particle-emitting blocks
 ----
 minetest.register_lbm({
 	label = "Lava Particles",
@@ -184,5 +184,25 @@ minetest.register_lbm({
 	run_at_every_load = true,
 	action = function(pos, node)
 		bobticles.register_node_particle_spawn(pos, bobticles.get_preset("lava"))
+	end
+})
+minetest.register_lbm({
+	label = "Wall-Torch Particles",
+	name = "bobcraft_blocks:wall_torch_particles",
+	nodenames = {"bobcraft_blocks:torch_wall"},
+	run_at_every_load = true,
+	action = function(pos, node)
+		bobticles.register_node_particle_spawn(pos, bobticles.get_preset("torch_wall"))
+		bobticles.register_node_particle_spawn(pos, bobticles.get_preset("torch_wall_smoke"))
+	end
+})
+minetest.register_lbm({
+	label = "Floor-Torch Particles",
+	name = "bobcraft_blocks:floor_torch_particles",
+	nodenames = {"bobcraft_blocks:torch"},
+	run_at_every_load = true,
+	action = function(pos, node)
+		bobticles.register_node_particle_spawn(pos, bobticles.get_preset("torch_floor"))
+		bobticles.register_node_particle_spawn(pos, bobticles.get_preset("torch_floor_smoke"))
 	end
 })

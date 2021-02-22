@@ -20,6 +20,75 @@ bobticles.presets = {
 			aspect_h = 8,
 			length = 1.5
 		}
+	},
+	-- the torch_* particles would look nicer if we could tell particles to shrink over time.
+	torch_floor = {
+		amount = 2,
+		time = 0,
+		minsize = 2.0,
+		maxsize = 4.0,
+		minexptime = 1,
+		maxexptime = 1.2,
+		minpos = {x = 0, y = 0.15, z = 0},
+		maxpos = {x = 0, y = 0.15, z = 0},
+		minvel = { x = 0, y = 0, z = 0 },
+		maxvel = { x = 0, y = 0, z = 0 },
+		texture = "flame_a.png",
+		glow = 14
+	},
+	torch_floor_smoke = {
+		amount = 2,
+		time = 0,
+		minsize = 0.5,
+		maxsize = 2.0,
+		minexptime = 0.5,
+		maxexptime = 1,
+		minpos = {x = 0, y = 0.15, z = 0},
+		maxpos = {x = 0, y = 0.15, z = 0},
+		minvel = { x = -0.1, y = 0.2, z = -0.1 },
+		maxvel = { x = 0.1, y = 0.2, z = 0.1 },
+		texture = "smoke_animated.png^[colorize:#000000:255",
+		animation = {
+			type = "vertical_frames",
+			aspect_w = 8,
+			aspect_h = 8,
+			length = 1.5
+		}
+	},
+	-- Same as their _floor brethren, but do it for the wall.
+	-- TODO: Their positions will be relative to their wall rotation, how the hell do we do that?
+	torch_wall = {
+		amount = 2,
+		time = 0,
+		minsize = 2.0,
+		maxsize = 4.0,
+		minexptime = 1,
+		maxexptime = 1.2,
+		minpos = {x = 0, y = 0.15, z = 0},
+		maxpos = {x = 0, y = 0.15, z = 0},
+		minvel = { x = 0, y = 0, z = 0 },
+		maxvel = { x = 0, y = 0, z = 0 },
+		texture = "flame_a.png",
+		glow = 14
+	},
+	torch_wall_smoke = {
+		amount = 2,
+		time = 0,
+		minsize = 0.5,
+		maxsize = 2.0,
+		minexptime = 0.5,
+		maxexptime = 1,
+		minpos = {x = 0, y = 0.15, z = 0},
+		maxpos = {x = 0, y = 0.15, z = 0},
+		minvel = { x = -0.1, y = 0.2, z = -0.1 },
+		maxvel = { x = 0.1, y = 0.2, z = 0.1 },
+		texture = "smoke_animated.png^[colorize:#000000:255",
+		animation = {
+			type = "vertical_frames",
+			aspect_w = 8,
+			aspect_h = 8,
+			length = 1.5
+		}
 	}
 }
 
