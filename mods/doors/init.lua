@@ -4,7 +4,7 @@ doors = {}
 function doors.register_door(name, def)
 	def.groups.not_in_creative_inventory = 1
 
-	local box = {{-0.5, -0.5, -0.5, 0.5, 0.5, -0.5+1.5/16}}
+	local box = {{-0.5, -0.5, -0.5, 0.5, 0.5, -0.5+3/16}}
 
 	if not def.node_box_bottom then
 		def.node_box_bottom = box
@@ -20,10 +20,10 @@ function doors.register_door(name, def)
 	end
 
 	if not def.sound_close_door then
-		def.sound_close_door = "doors_door_close"
+		def.sound_close_door = "door_close"
 	end
 	if not def.sound_open_door then
-		def.sound_open_door = "doors_door_open"
+		def.sound_open_door = "door_open"
 	end
 	
 	
