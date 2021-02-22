@@ -9,4 +9,5 @@ doors.register_door("bobcraft_blocks:door", {
 	tiles_bottom = {"door_bottom.png"},
 	sounds = bobcraft_sounds.node_sound_wood(),
 	sunlight = false,
+	hardness = 3
 })
