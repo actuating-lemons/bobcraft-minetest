@@ -72,11 +72,11 @@ function doors.register_door(name, def)
 				pt3.z = pt3.z-1
 			end
 			if minetest.get_item_group(minetest.get_node(pt3).name, "door") == 0 then
-				minetest.set_node(pt, {name=name.."_b_1", param2=p2})
-				minetest.set_node(pt2, {name=name.."_t_1", param2=p2})
+				minetest.set_node(pt, {name=name.."_bottom_closed", param2=p2})
+				minetest.set_node(pt2, {name=name.."_top_closed", param2=p2})
 			else
-				minetest.set_node(pt, {name=name.."_b_2", param2=p2})
-				minetest.set_node(pt2, {name=name.."_t_2", param2=p2})
+				minetest.set_node(pt, {name=name.."_bottom_open", param2=p2})
+				minetest.set_node(pt2, {name=name.."_top_open", param2=p2})
 				minetest.get_meta(pt):set_int("right", 1)
 				minetest.get_meta(pt2):set_int("right", 1)
 			end
@@ -144,7 +144,7 @@ function doors.register_door(name, def)
 		return meta:get_string("doors_owner") == pn
 	end
 
-	minetest.register_node(name.."_b_1", {
+	minetest.register_node(name.."_bottom_closed", {
 		tiles = {tb[2], tb[2], tb[2], tb[2], tb[1], tb[1]},
 		paramtype = "light",
 		paramtype2 = "facedir",
@@ -162,12 +162,12 @@ function doors.register_door(name, def)
 		
 		after_dig_node = function(pos, oldnode, oldmetadata, digger)
 			pos.y = pos.y+1
-			after_dig_node(pos, name.."_t_1", digger)
+			after_dig_node(pos, name.."_top_closed", digger)
 		end,
 		
 		on_rightclick = function(pos, node, clicker)
 			if check_player_priv(pos, clicker) then
-				on_rightclick(pos, 1, name.."_t_1", name.."_b_2", name.."_t_2", {1,2,3,0})
+				on_rightclick(pos, 1, name.."_top_closed", name.."_bottom_open", name.."_top_open", {1,2,3,0})
 			end
 		end,
 		
@@ -176,8 +176,8 @@ function doors.register_door(name, def)
         	sunlight_propagates = def.sunlight
 	})
 
-	minetest.register_node(name.."_t_1", {
-		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1], tt[1]},
+	minetest.register_node(name.."_top_closed", {
+		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1].."^[transformfx", tt[1]},
 		paramtype = "light",
 		paramtype2 = "facedir",
 		drop = "",
@@ -194,12 +194,12 @@ function doors.register_door(name, def)
 		
 		after_dig_node = function(pos, oldnode, oldmetadata, digger)
 			pos.y = pos.y-1
-			after_dig_node(pos, name.."_b_1", digger)
+			after_dig_node(pos, name.."_bottom_closed", digger)
 		end,
 		
 		on_rightclick = function(pos, node, clicker)
 			if check_player_priv(pos, clicker) then
-				on_rightclick(pos, -1, name.."_b_1", name.."_t_2", name.."_b_2", {1,2,3,0})
+				on_rightclick(pos, -1, name.."_bottom_closed", name.."_top_open", name.."_bottom_open", {1,2,3,0})
 			end
 		end,
 		
@@ -208,8 +208,8 @@ function doors.register_door(name, def)
         	sunlight_propagates = def.sunlight,
 	})
 
-	minetest.register_node(name.."_b_2", {
-		tiles = {tb[2], tb[2], tb[2], tb[2], tb[1], tb[1]},
+	minetest.register_node(name.."_bottom_open", {
+		tiles = {tb[2], tb[2], tb[2], tb[2], tb[1], tb[1].."^[transformfx"},
 		paramtype = "light",
 		paramtype2 = "facedir",
 		drop = name,
@@ -226,12 +226,12 @@ function doors.register_door(name, def)
 		
 		after_dig_node = function(pos, oldnode, oldmetadata, digger)
 			pos.y = pos.y+1
-			after_dig_node(pos, name.."_t_2", digger)
+			after_dig_node(pos, name.."_top_open", digger)
 		end,
 		
 		on_rightclick = function(pos, node, clicker)
 			if check_player_priv(pos, clicker) then
-				on_rightclick(pos, 1, name.."_t_2", name.."_b_1", name.."_t_1", {3,0,1,2})
+				on_rightclick(pos, 1, name.."_top_open", name.."_bottom_closed", name.."_top_closed", {3,0,1,2})
 			end
 		end,
 		
@@ -240,8 +240,8 @@ function doors.register_door(name, def)
         	sunlight_propagates = def.sunlight
 	})
 
-	minetest.register_node(name.."_t_2", {
-		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1], tt[1]},
+	minetest.register_node(name.."_top_open", {
+		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1], tt[1].."^[transformfx"},
 		paramtype = "light",
 		paramtype2 = "facedir",
 		drop = "",
@@ -258,12 +258,12 @@ function doors.register_door(name, def)
 		
 		after_dig_node = function(pos, oldnode, oldmetadata, digger)
 			pos.y = pos.y-1
-			after_dig_node(pos, name.."_b_2", digger)
+			after_dig_node(pos, name.."_bottom_open", digger)
 		end,
 		
 		on_rightclick = function(pos, node, clicker)
 			if check_player_priv(pos, clicker) then
-				on_rightclick(pos, -1, name.."_b_2", name.."_t_1", name.."_b_1", {3,0,1,2})
+				on_rightclick(pos, -1, name.."_bottom_open", name.."_top_closed", name.."_bottom_closed", {3,0,1,2})
 			end
 		end,
 		
