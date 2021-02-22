@@ -1,5 +1,7 @@
 local S = minetest.get_translator("bobcraft_blocks")
 
+wools = {}
+
 -- Because I'm lazy...
 function register_wool_colour(colour)
 	minetest.register_node("bobcraft_blocks:wool_"..colour, {
@@ -9,10 +11,12 @@ function register_wool_colour(colour)
 		groups = {shears=1, hand=1},
 		hardness = 0.8,
 	})
+
+	wools[colour] = "bobcraft_blocks:wool_"..colour
 end
 
 -- TODO: currently not all of these are obtainable.
-local colours = dyes.colours
+local colours = dyes.colour_names
 
 for i, colour in ipairs(colours) do
 	register_wool_colour(colour)
