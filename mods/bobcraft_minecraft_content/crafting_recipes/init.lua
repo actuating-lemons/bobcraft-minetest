@@ -126,8 +126,8 @@ minetest.register_craft({
 minetest.register_craft({
 	output = "bobcraft_blocks:book", -- No leather = suitable for vegans!
 	recipe = {
-		{"bobcraft_items:paper",}
-		{"bobcraft_items:paper",}
+		{"bobcraft_items:paper",},
+		{"bobcraft_items:paper",},
 		{"bobcraft_items:paper",}
 	}
 })
