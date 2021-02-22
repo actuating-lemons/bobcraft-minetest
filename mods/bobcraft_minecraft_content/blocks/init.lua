@@ -158,6 +158,7 @@ minetest.register_node("bobcraft_blocks:water_source",{
 	liquid_alternative_flowing = "bobcraft_blocks:water_flowing",
 	liquid_alternative_source = "bobcraft_blocks:water_source",
 	liquid_viscosity = 1,
+	liquid_range = 7,
 	sounds = bobcraft_sounds.node_sound_water(),
 	groups = {not_in_creative_inventory=1, water=1},
 
@@ -191,6 +192,7 @@ minetest.register_node("bobcraft_blocks:water_flowing",{
 	liquid_alternative_flowing = "bobcraft_blocks:water_flowing",
 	liquid_alternative_source = "bobcraft_blocks:water_source",
 	liquid_viscosity = 1,
+	liquid_range = 7,
 	sounds = bobcraft_sounds.node_sound_water(),
 	groups = {not_in_creative_inventory=1, water=1},
 
@@ -234,6 +236,7 @@ minetest.register_node("bobcraft_blocks:lava_source",{
 	liquid_alternative_flowing = "bobcraft_blocks:lava_flowing",
 	liquid_alternative_source = "bobcraft_blocks:lava_source",
 	liquid_viscosity = 7,
+	liquid_range = 3,
 	liquid_renewable = false,
 	sounds = bobcraft_sounds.node_sound_lava(),
 	damage_per_second = 4 * 2,
@@ -287,6 +290,7 @@ minetest.register_node("bobcraft_blocks:lava_flowing",{
 	liquid_alternative_flowing = "bobcraft_blocks:lava_flowing",
 	liquid_alternative_source = "bobcraft_blocks:lava_source",
 	liquid_viscosity = 7,
+	liquid_range = 3,
 	liquid_renewable = false,
 	sounds = bobcraft_sounds.node_sound_lava(),
 	damage_per_second = 4 * 2,
