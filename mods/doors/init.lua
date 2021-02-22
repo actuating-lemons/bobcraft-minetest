@@ -176,7 +176,8 @@ function doors.register_door(name, def)
 		
 		can_dig = check_player_priv,
 		sounds = def.sounds,
-        	sunlight_propagates = def.sunlight
+		sunlight_propagates = def.sunlight,
+		hardness = def.hardness
 	})
 
 	minetest.register_node(name.."_top_closed", {
@@ -208,7 +209,8 @@ function doors.register_door(name, def)
 		
 		can_dig = check_player_priv,
 		sounds = def.sounds,
-        	sunlight_propagates = def.sunlight,
+		sunlight_propagates = def.sunlight,
+		hardness = def.hardness
 	})
 
 	minetest.register_node(name.."_bottom_open", {
@@ -240,7 +242,8 @@ function doors.register_door(name, def)
 		
 		can_dig = check_player_priv,
 		sounds = def.sounds,
-        	sunlight_propagates = def.sunlight
+		sunlight_propagates = def.sunlight,
+		hardness = def.hardness
 	})
 
 	minetest.register_node(name.."_top_open", {
@@ -272,7 +275,8 @@ function doors.register_door(name, def)
 		
 		can_dig = check_player_priv,
 		sounds = def.sounds,
-        	sunlight_propagates = def.sunlight
+		sunlight_propagates = def.sunlight,
+		hardness = def.hardness
 	})
 
 end
