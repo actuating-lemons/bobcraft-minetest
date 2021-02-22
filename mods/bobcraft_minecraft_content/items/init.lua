@@ -7,6 +7,18 @@ minetest.register_craftitem("bobcraft_items:stick", {
 	groups = {fuel=bobutil.fuel_times.small_wood},
 	stack_max = bobutil.stack_max,
 })
+minetest.register_craftitem("bobcraft_items:paper", {
+	description = S("Sugar Paper"),
+	inventory_image = "paper.png",
+	-- groups = {fuel=bobutil.fuel_times.small_wood}, -- I don't know if sugar paper/construction paper burns.
+	stack_max = bobutil.stack_max,
+})
+minetest.register_craftitem("bobcraft_items:book", {
+	description = S("Book"),
+	inventory_image = "book.png",
+	-- groups = {fuel=bobutil.fuel_times.small_wood}, -- I don't know if sugar paper/construction paper burns.
+	stack_max = bobutil.stack_max,
+})
 
 -- Smelty/Orey
 minetest.register_craftitem("bobcraft_items:coal", {
