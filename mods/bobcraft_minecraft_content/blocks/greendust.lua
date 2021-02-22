@@ -54,7 +54,7 @@ minetest.register_node("bobcraft_blocks:greendust", {
 	paramtype = "light",
 	sunlight_propagates = true,
 
-	groups = {hand=1, greendust=1, greendust_conduit=1},
+	groups = {hand=1, attached_node=1, greendust=1, greendust_conduit=1},
 
 	paramtype2 = "color",
 	palette = "magic.png",

@@ -40,7 +40,7 @@ minetest.register_node("bobcraft_blocks:sapling", {
 	walkable = false,
 	sounds = bobcraft_sounds.node_sound_planty(),
 
-	groups = {hand=1},
+	groups = {hand=1, attached_node=1},
 	hardness = 0,
 	stack_max = bobutil.stack_max,
 

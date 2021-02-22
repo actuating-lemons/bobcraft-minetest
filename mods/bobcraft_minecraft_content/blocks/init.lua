@@ -538,7 +538,7 @@ minetest.register_node("bobcraft_blocks:torch", {
 		}
 	},
 
-	groups = {hand=1},
+	groups = {hand=1, attached_node = 1},
 
 	paramtype = "light",
 	sunlight_propagates = true,
@@ -596,7 +596,7 @@ minetest.register_node("bobcraft_blocks:torch_wall", {
 		}
 	},
 
-	groups = {hand=1, not_in_creative_inventory=1},
+	groups = {hand=1, not_in_creative_inventory=1, attached_node = 1},
 	drop = "bobcraft_blocks:torch",
 
 	paramtype = "light",
@@ -638,7 +638,7 @@ minetest.register_node("bobcraft_blocks:rose", {
 	paramtype = "light",
 	sunlight_propagates = true,
 
-	groups = {hand=1},
+	groups = {hand=1, attached_node=1},
 	hardness = 0,
 	stack_max = bobutil.stack_max,
 
@@ -652,7 +652,7 @@ minetest.register_node("bobcraft_blocks:cactus", {
 	tiles = {"cactus_side.png"}, -- TODO: cactus model
 	sounds = bobcraft_sounds.node_sound_planty(),
 
-	groups = {hand=1},
+	groups = {hand=1, attached_node=1},
 	hardness = 0.4,
 	stack_max = bobutil.stack_max,
 })
@@ -676,7 +676,7 @@ minetest.register_node("bobcraft_blocks:grass", {
 	color = "#00ff00", -- HACK: make it green in the inventory
 	on_construct = bobutil.foliage_block_figure,
 
-	groups = {hand=1, foliage=1},
+	groups = {hand=1, foliage=1, attached_node=1},
 	hardness = 0,
 	stack_max = bobutil.stack_max,
 
@@ -706,7 +706,7 @@ minetest.register_node("bobcraft_blocks:deadbush", {
 
 	drop = "bobcraft_items:stick", -- TODO: random drops
 
-	groups = {hand=1},
+	groups = {hand=1}, attached_node=1,
 	hardness = 0,
 	stack_max = bobutil.stack_max,
 })
