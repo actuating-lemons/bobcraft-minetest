@@ -34,6 +34,9 @@ minetest.register_node("bobcraft_blocks:sign", {
 
 	paramtype2 = "facedir",
 
+	wield_image = "sign.png",
+	inventory_image = "sign.png",
+
 	groups = {hand=1, attached_node=1},
 
 	on_construct = function(pos)
