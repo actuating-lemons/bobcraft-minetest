@@ -10,7 +10,7 @@ minetest.register_biome({
 	depth_filler = 2,
 	node_stone = "bobcraft_blocks:stone",
 	node_riverbed = "bobcraft_blocks:sand",
-	y_min = 3,
+	y_min = 0,
 	y_max = worldgen.overworld_top,
 	heat_point = 50,
 	humidity_point = 35,
@@ -49,7 +49,7 @@ minetest.register_biome({
 	node_filler = "bobcraft_blocks:dirt",
 	depth_filler = 2,
 	node_stone = "bobcraft_blocks:stone",
-	y_min = 3,
+	y_min = 0,
 	y_max = worldgen.overworld_top,
 	heat_point = 60,
 	humidity_point = 68,
@@ -71,7 +71,7 @@ minetest.register_biome({
 	node_filler = "bobcraft_blocks:dirt",
 	depth_filler = 2,
 	node_stone = "bobcraft_blocks:stone",
-	y_min = 2,
+	y_min = 0,
 	y_max = 23,
 	humidity_point = 60,
 	heat_point = 50,
@@ -366,4 +366,19 @@ minetest.register_decoration({
 	y_min = 0,
 	y_max = worldgen.overworld_top,
 	decoration = "bobcraft_blocks:grass"
+})
+
+-- Sugarcane!
+minetest.register_decoration({
+	deco_type = "simple",
+	place_on = {"bobcraft_blocks:dirt", "bobcraft_blocks:sand"},
+	sidelen = 16,
+	fill_ratio = 0.2, -- Average per chunk in MC is 0.8, 256 blocks on a flat chunk, on average it can cover 204 of those, 52 is the difference, which is 0.2% of 256.
+	y_min = 0,
+	y_max = worldgen.overworld_top,
+	height = 1,
+	height_max = 3,
+	decoration = "bobcraft_blocks:sugarcane",
+	spawn_by = {"bobcraft_blocks:water_source"},
+	num_spawn_by = 1,
 })
