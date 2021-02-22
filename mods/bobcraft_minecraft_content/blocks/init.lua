@@ -718,6 +718,7 @@ dofile(modpath .. "/furnace.lua")
 dofile(modpath .. "/wool.lua")
 dofile(modpath .. "/greendust.lua")
 dofile(modpath .. "/saplings.lua")
+dofile(modpath .. "/signs.lua")
 
 -- Now that that's over, we ask tool_globals to setup the values for all blocks.
 -- If you're making an expansion, make sure your mod depends on bobcraft_blocks & also calls it.
