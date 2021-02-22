@@ -111,7 +111,7 @@ minetest.register_craft({
 -----
 -- ###
 minetest.register_craft({
-	output = "bobcraft_blocks:paper 3",
+	output = "bobcraft_items:paper 3",
 	recipe = {
 		{"bobcraft_blocks:sugarcane","bobcraft_blocks:sugarcane","bobcraft_blocks:sugarcane",},
 	}
@@ -124,7 +124,7 @@ minetest.register_craft({
 -- #
 -- #
 minetest.register_craft({
-	output = "bobcraft_blocks:book", -- No leather = suitable for vegans!
+	output = "bobcraft_items:book", -- No leather = suitable for vegans!
 	recipe = {
 		{"bobcraft_items:paper",},
 		{"bobcraft_items:paper",},
@@ -137,6 +137,13 @@ minetest.register_craft({
 -----
 -- ###
 -- ###
+minetest.register_craft({
+	output = "bobcraft_blocks:fence",
+	recipe = {
+		{"bobcraft_items:stick","bobcraft_items:stick","bobcraft_items:stick",},
+		{"bobcraft_items:stick","bobcraft_items:stick","bobcraft_items:stick",},
+	}
+})
 
 -- netherfence
 -- # = nether brick
