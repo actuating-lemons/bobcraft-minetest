@@ -692,6 +692,8 @@ minetest.register_node("bobcraft_blocks:deadbush", {
 	inventory_image = "deadbush.png",
 	wield_image = "deadbush.png",
 	walkable = false,
+	paramtype = "light",
+	sunlight_propagates = true,
 	sounds = bobcraft_sounds.node_sound_planty(),
 
 	drop = {
@@ -716,6 +718,8 @@ minetest.register_node("bobcraft_blocks:sugarcane", {
 	tiles = {"sugarcane.png"},
 	drawtype = "plantlike",
 	walkable = false,
+	paramtype = "light",
+	sunlight_propagates = true,
 	sounds = bobcraft_sounds.node_sound_planty(),
 	groups = {hand=1},
 
