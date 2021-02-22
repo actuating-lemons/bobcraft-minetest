@@ -7,3 +7,5 @@ Raw Meat=
 Cooked Meat=
 Lemon=
 Green Apple=
+Paper=
+Book=

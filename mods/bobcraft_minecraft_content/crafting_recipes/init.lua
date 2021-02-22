@@ -110,6 +110,12 @@ minetest.register_craft({
 -- # = sugarcane
 -----
 -- ###
+minetest.register_craft({
+	output = "bobcraft_blocks:paper 3",
+	recipe = {
+		{"bobcraft_blocks:sugarcane","bobcraft_blocks:sugarcane","bobcraft_blocks:sugarcane",},
+	}
+})
 
 -- book
 -- # = paper
@@ -117,6 +123,14 @@ minetest.register_craft({
 -- #
 -- #
 -- #
+minetest.register_craft({
+	output = "bobcraft_blocks:book", -- No leather = suitable for vegans!
+	recipe = {
+		{"bobcraft_items:paper",}
+		{"bobcraft_items:paper",}
+		{"bobcraft_items:paper",}
+	}
+})
 
 -- fence
 -- # = stick
