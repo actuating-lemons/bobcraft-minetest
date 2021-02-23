@@ -2,8 +2,8 @@
 -- We grow with timers, although we may change to ABM depending on what's less resource intensive/more accurate
 
 local function tick_plant(pos)
-	-- minetest.get_node_timer(pos):start(math.random(67,69)) -- 67 -> 69 seconds
-	minetest.get_node_timer(pos):start(math.random(1,2)) -- for debugging, 1-2 seconds
+	minetest.get_node_timer(pos):start(math.random(67,69)) -- 67 -> 69 seconds
+	-- minetest.get_node_timer(pos):start(math.random(1,2)) -- for debugging, 1-2 seconds
 end
 
 local function plant_grow(pos, time)
