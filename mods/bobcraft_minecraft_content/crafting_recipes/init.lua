@@ -63,7 +63,7 @@ function bobcraft_crafting.register_stair_craft(stair, material)
 	-- ##
 	-- ###
 	minetest.register_craft({
-		output = stair,
+		output = stair .. " 4",
 		recipe = {
 			{material, "", ""},
 			{material, material, ""},
@@ -75,7 +75,7 @@ function bobcraft_crafting.register_stair_craft(stair, material)
 	--  ##
 	-- ###
 	minetest.register_craft({
-		output = stair,
+		output = stair .. " 4",
 		recipe = {
 			{"", "", material},
 			{"", material, material},
@@ -88,7 +88,7 @@ function bobcraft_crafting.register_slab_craft(slab, material)
 
 	-- ###
 	minetest.register_craft({
-		output = slab,
+		output = slab .. " 6",
 		recipe = {
 			{material, material, material}
 		}
