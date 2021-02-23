@@ -78,3 +78,15 @@ minetest.register_craftitem("bobcraft_items:apple", {
 	on_use = minetest.item_eat(2),
 	stack_max = bobutil.stack_max,
 })
+minetest.register_craftitem("bobcraft_items:bread", {
+	description = S("Bread"),
+	inventory_image = "bread.png",
+	on_use = minetest.item_eat(5),
+	stack_max = bobutil.stack_max,
+})
+minetest.register_craftitem("bobcraft_items:bread_dough", {
+	description = S("Bread Dough"),
+	inventory_image = "bread_dough.png",
+	on_use = minetest.item_eat(1),
+	stack_max = bobutil.stack_max,
+})

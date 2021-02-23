@@ -108,3 +108,13 @@ minetest.register_craft({
 	recipe = "bobcraft_items:porkchop",
 	cooktime = 10,
 })
+
+
+-- input bread dough
+-- get bread
+minetest.register_craft({
+	type = "cooking",
+	output = "bobcraft_items:bread",
+	recipe = "bobcraft_items:bread_dough",
+	cooktime = 10,
+})

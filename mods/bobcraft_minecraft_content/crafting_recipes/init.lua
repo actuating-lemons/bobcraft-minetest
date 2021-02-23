@@ -431,6 +431,12 @@ minetest.register_craft({
 -- # = wheat
 -----
 -- ###
+minetest.register_craft({
+	output = "bobcraft_items:bread_dough",
+	recipe = {
+		{"bobcraft_farming:wheat","bobcraft_farming:wheat","bobcraft_farming:wheat",},
+	}
+})
 
 -- fishing rod
 -- # = sticks, ~ = string
