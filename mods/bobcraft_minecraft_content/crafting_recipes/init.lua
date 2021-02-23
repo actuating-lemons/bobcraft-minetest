@@ -415,12 +415,6 @@ minetest.register_craft({
 --  #~
 -- # ~
 
--- boat
--- # = planks
------
--- # #
--- ###
-
 -- painting
 -- # = stick, x = wool
 -----
