@@ -46,6 +46,8 @@ local item_entity = { -- reference https://rubenwardy.com/minetest_modding_book/
 	magnetting = false,
 	magnettime = 0,
 
+	pointable = false,
+
 	set_item = function(self, item)
 		local stack = ItemStack(item or self.itemstring)
 		self.itemstring = stack:to_string()
