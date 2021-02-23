@@ -30,51 +30,28 @@ end
 
 -- the hand
 -- used the devgame for reference
-if minetest.settings:get_bool("creative_mode") then -- TODO: creative hand
-
-	local digtime = 50
-	local caps = {times = {digtime, digtime, digtime}, uses = 0, maxlevel = 256}
-
-	minetest.register_item(":", {
-		type = "none",
-		wield_image = "hand.png",
-		wield_scale = {x=1,y=1,z=4},
-		range = 10,
-		tool_capabilities = {
-			full_punch_interval = 0.5,
-			max_drop_level = 3,
-			groupcaps = {
-				hand = {
-					times = tool_values.times.creative_hand,
-					uses = 0
-				}
-			},
-			damage_groups = {fleshy = 10}
-		}
-	})
-else
-	local caps = {
-		times = {[1] = peak_digtime*3, [2] = peak_digtime*3, [3] = peak_digtime*2},
-		uses = 0,
-		maxlevel = 1
+-- TODO: CREATIVE HAND
+local caps = {
+	times = {[1] = peak_digtime*3, [2] = peak_digtime*3, [3] = peak_digtime*2},
+	uses = 0,
+	maxlevel = 1
+}
+minetest.register_item(":", {
+	type = "none",
+	wield_image = "hand.png",
+	wield_scale = {x=1,y=1,z=4},
+	tool_capabilities = {
+		full_punch_interval = 1,
+		max_drop_level = 0,
+		groupcaps = {
+			hand = {
+				times = tool_values.times.hand,
+				uses = 0
+			}
+		},
+		damage_groups = {fleshy = 1}
 	}
-	minetest.register_item(":", {
-		type = "none",
-		wield_image = "hand.png",
-		wield_scale = {x=1,y=1,z=4},
-		tool_capabilities = {
-			full_punch_interval = 1,
-			max_drop_level = 0,
-			groupcaps = {
-				hand = {
-					times = tool_values.times.hand,
-					uses = 0
-				}
-			},
-			damage_groups = {fleshy = 1}
-		}
-	})
-end
+})
 
 -- registers the various tools for me based on tier so I don't have to type out like 50 different tool registrations.
 -- material, if present, is the block/group to match against and do recipes for.
