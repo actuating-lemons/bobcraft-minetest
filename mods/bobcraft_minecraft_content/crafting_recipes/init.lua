@@ -58,6 +58,43 @@ bobcraft_crafting.do_tool_recipes = function(tier, material)
 	})
 end
 
+function bobcraft_crafting.register_stair_craft(stair, material)
+	-- #
+	-- ##
+	-- ###
+	minetest.register_craft({
+		output = stair,
+		recipe = {
+			{material, "", ""},
+			{material, material, ""},
+			{material, material, material}
+		}
+	})
+	-- Not sure if MC does this, but we do!
+	--   #
+	--  ##
+	-- ###
+	minetest.register_craft({
+		output = stair,
+		recipe = {
+			{"", "", material},
+			{"", material, material},
+			{material, material, material}
+		}
+	})
+end
+
+function bobcraft_crafting.register_slab_craft(slab, material)
+
+	-- ###
+	minetest.register_craft({
+		output = slab,
+		recipe = {
+			{material, material, material}
+		}
+	})
+end
+
 -- # = log
 -----
 -- #
