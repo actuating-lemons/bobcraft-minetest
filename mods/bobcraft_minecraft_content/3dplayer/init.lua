@@ -2,9 +2,26 @@
 
 player_model = {}
 player_model.models = {}
+player_model.players_model = {}
+player_model.players_animation = {}
 
 function player_model.register_model(name, def) 
 	player_model.models[name] = def
+end
+function player_model.get_model(playername) 
+	return player_model.players_model[playername]
+end
+
+function player_model.set_player_animation(player, animation_name) 
+	local playername = player:get_player_name()
+	local modelname = player_model.get_model(playername)
+	local model = player_model.models[modelname]
+	if not (model and model.animations[animation_name]) then
+		return
+	end
+
+	player_model.players_animation[playername] = animation_name
+	player:set_animation(anim, model.animation_speed, 0)
 end
 
 function player_model.set_model(player, modelname)
@@ -20,8 +37,29 @@ function player_model.set_model(player, modelname)
 			stepheight = 0.55,
 			eye_height = 1.7,
 		})
+		player_model.players_model[playername] = modelname
 	end
 end
+
+----
+-- Globalstep
+----
+minetest.register_globalstep(function()
+	for _, player in pairs(minetest.get_connected_players()) do
+		local player_name = player:get_player_name()
+		local model_name = player_model.get_model(player_name)
+		local model = model_name and player_model.models[model_name]
+		if model then
+			local controls = player:get_player_control()
+
+			if controls.up or controls.down or controls.right or controls.left then
+				player_model.set_player_animation(player, "walk")
+			else
+				player_model.set_player_animation(player, "walk")
+			end
+		end
+	end
+end)
 
 ----
 -- Default stuff
@@ -31,12 +69,12 @@ player_model.register_model("player.b3d", {
 	textures = {"aeternitas.png"},
 	animations = {
 		stand = {
-			s = 0,
-			e = 10
+			x = 0,
+			y = 10
 		},
 		walk = {
-			s = 15,
-			e = 25
+			x = 15,
+			y = 25
 		}
 	}
 })
