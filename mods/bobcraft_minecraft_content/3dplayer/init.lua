@@ -89,3 +89,7 @@ minetest.register_on_joinplayer(function(player)
 		15 -- FPS
 	)
 end)
+
+local path = minetest.get_modpath("3dplayer")
+
+dofile(path .. "/hand.lua")
