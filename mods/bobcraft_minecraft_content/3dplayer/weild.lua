@@ -6,14 +6,12 @@ wield3d = {}
 
 dofile(minetest.get_modpath(minetest.get_current_modname()).."/weild3dlocation.lua")
 
-local update_time_conf = 1
-local update_time = 1
 local timer = 0
 local player_wielding = {}
 local location = {
 	"arm_r",          -- default bone
-	{x=0, y=8.5, z=0},    -- default position
-	{x=0, y=0, z=0}, -- default rotation
+	{x=2, y=6, z=0},    -- default position
+	{x=0, y=0, z=-70}, -- default rotation
 	{x=0.25, y=0.25},     -- default scale
 }
 
@@ -56,10 +54,6 @@ minetest.register_entity("3dplayer:wield_entity", {
 })
 
 minetest.register_globalstep(function(dtime)
-	timer = timer + dtime
-	if timer < update_time then
-		return
-	end
 	local active_players = {}
 	for _, player in pairs(minetest.get_connected_players()) do
 		local name = player:get_player_name()
