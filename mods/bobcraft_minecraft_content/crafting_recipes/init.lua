@@ -226,12 +226,26 @@ minetest.register_craft({
 -----
 -- ##
 -- ##
+minetest.register_craft({
+	output = "bobcraft_blocks:clay",
+	recipe = {
+		{"bobcraft_items:clay","bobcraft_items:clay",},
+		{"bobcraft_items:clay","bobcraft_items:clay",},
+	}
+})
 
 -- brick block
 -- # = brick
 -----
 -- ##
 -- ##
+minetest.register_craft({
+	output = "bobcraft_blocks:bricks",
+	recipe = {
+		{"bobcraft_items:brick","bobcraft_items:brick",},
+		{"bobcraft_items:brick","bobcraft_items:brick",},
+	}
+})
 
 -- glowstone
 -- # = glowstone dust
@@ -251,20 +265,6 @@ minetest.register_craft({
 -- x#x
 -- #x#
 -- x#x
-
--- stair
--- note; stairs will probably be generated, so this recipe applies to all stairs
--- # = material
------
--- #
--- ##
--- ###
-
--- slab
--- note; slabs will probably be generated with stairs, so this recipe applies to all slabs
--- # = material
------
--- ###
 
 -- ladder
 -- # = stick

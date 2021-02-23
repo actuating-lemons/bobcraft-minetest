@@ -494,6 +494,17 @@ minetest.register_node("bobcraft_blocks:fence", {
 	hardness = 3,
 })
 
+minetest.register_node("bobcraft_blocks:bricks", {
+	description = S("Bricks"),
+	tiles = {"bricks.png"},
+	is_ground_content = true,
+	sounds = bobcraft_sounds.node_sound_stone(),
+
+	hardness = 3,
+	groups = {pickaxe=1},
+	stack_max = bobutil.stack_max,
+})
+
 ----
 -- Ores
 ----
