@@ -18,7 +18,7 @@ doors.register_door("bobcraft_blocks:door", {
 
 doors.register_trapdoor("bobcraft_blocks:trapdoor", {
 	description = "Wooden Trapdoor",
-	inventory_image = "item_trapdoor.png",
+	inventory_image = "trapdoor_item.png",
 	groups = {hand=1, axe=1, door=1, attached_node=1},
 	tiles = {"trapdoor.png"},
 	sounds = bobcraft_sounds.node_sound_wood(),
