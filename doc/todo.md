@@ -1,0 +1,141 @@
+# Thy TODO
+Things that need to be done, or I want to do at some point.
+  
+## Minecraft 1.2.5 Content
+ - [ ] Recipes
+   - [x] Tools' recipes
+   - [x] Log -> Planks
+   - [x] Planks -> Log
+   - [x] Coal, Stick -> Torch
+   - [x] Furnace
+   - [x] Paper
+   - [x] Book
+   - [x] Fence
+   - [ ] Nether-Fence (Not implemented)
+   - [ ] Fence Gate (Not Implemented)
+   - [ ] Juke Box (Not Implemented)
+   - [ ] Noteblock (Not Implemented)
+   - [ ] Bookshelf
+   - [x] Clay Block
+   - [x] Brick Block
+   - [ ] Glowstone (Not Implemented)
+   - [ ] String -> Wool
+   - [ ] TNT (Not Implemented)
+   - [ ] Ladder (Not Implemented)
+   - [ ] Wooden Door
+   - [x] Trapdoor
+   - [ ] Iron Door (Not Implemented)
+   - [ ] Sign
+   - [ ] Cake (Not Implemented)
+   - [ ] Sugar (Not Implemented)
+   - [ ] Bowl (Not Implemented)
+   - [ ] Glass Bottle (Not Implemented)
+   - [ ] Rail (Not Implemented)
+   - [ ] Powered Rail (Not Implemented)
+   - [ ] Detector Rail (Not Implemented)
+   - [ ] Minecart (Not Implemented)
+   - [ ] Cauldron (Not Implemented)
+   - [ ] Brewing Stand (Not Implemented)
+   - [ ] Jack-o-lantern (Not Implemented)
+   - [ ] Minecart w/ chest (Not Implemented)
+   - [ ] Minecart w/ furnace (Not Implemented)
+   - [ ] Boat (Not Implemented)
+   - [ ] Bucket (Not Implemented)
+   - [ ] Flint & Steel (Not Implemented)
+   - [ ] Bread (Not Implemented)
+   - [ ] Fishing Rod (Not Implemented)
+   - [ ] Painting (Not Implemented)
+   - [ ] Golden Apple (Not Implemented)
+   - [ ] Lever (Not Implemented)
+   - [ ] Greendust (redstone) Torch (Not Implemented)
+   - [ ] Greendust (redstone) Repeater (Not Implemented)
+   - [ ] Clock (Not Implemented)
+   - [ ] Compass (Not Implemented)
+   - [ ] Map (Not Implemented)
+   - [ ] Pressure Plate, Stone (Not Implemented)
+   - [ ] Pressure plate, Wood (Not Implemented)
+   - [ ] Dispenser (Not Implemented)
+   - [ ] Piston (Not Implemented)
+   - [ ] Sticky Piston (Not Implemented)
+   - [ ] Bed (Not Implemented)
+   - [ ] Eye of Ender (Not Implemented)
+   - [ ] Fireball (Not Implemented)
+   - [x] Wool Dying
+   - [ ] Dye Mixing
+ - [x] Furnace Recipes
+   - [x] Sand -> Glass
+   - [x] Ores -> Ore
+   - [x] Cobblestone -> stone
+   - [x] Clay -> brick
+   - [x] Cactus -> green dye
+   - [x] Log -> (char)coal
+   - [x] Food cooking
+ - [ ] Redstone System
+ - [ ] Farming
+ - [x] Water/Lava interaction
+ - [ ] Mobs
+   - [ ] Passive
+     - [ ] Chicken
+     - [ ] Cow
+     - [ ] Mooshroom
+     - [ ] Ocelot
+     - [ ] Pig
+     - [ ] Sheep
+     - [ ] Squid
+     - [ ] Villager
+   - [ ] Hostile
+     - [ ] Blaze
+     - [ ] Cave Spider
+     - [ ] Creeper
+     - [ ] Ghast
+     - [ ] Magma Cube
+     - [ ] Silverfish
+     - [ ] Skeleton
+     - [ ] Slime
+     - [ ] Spider
+     - [ ] Spider Jockey (isn't this just skeleton and spider?)
+     - [ ] Zombie
+   - [ ] Neutral
+     - [ ] Enderman
+     - [ ] Wolf
+     - [ ] Zombie Pigman
+     - [ ] Snowman
+     - [ ] Iron Golem
+ - [ ] Food
+   - [ ] Bread
+   - [ ] Cake
+   - [ ] Cookie
+   - [ ] Melon Slice
+   - [ ] Mushroom Stew
+   - [ ] Chicken
+   - [ ] Beef
+   - [x] Porkchop
+   - [ ] Fish
+   - [x] Apple
+   - [ ] Rotting Flesh
+   - [ ] Spider Eye
+ - [x] Biomes\
+       They currently exist, but do not generate in a way I am happy with.
+   - [x] Forest
+   - [x] Plains
+   - [x] Ocean
+   - [x] Tundra
+   - [x] Taiga
+   - [x] Extreme Hills
+   - [x] Desert
+   - [x] Swampland
+ - [ ] Generation Features
+   - [x] Sugarcane
+   - [x] Random lava pockets close to bedrock
+   - [ ] Bedrock randomness
+   - [x] Ores
+   - [ ] Structures
+     - [ ] Villages
+     - [ ] Dungeons
+     - [ ] Desert Temple
+     - [ ] Witch Hut
+
+## Original content
+I plan to add original content to the game.\
+This will replace the gap that the old minecraft version introduces.\
+Aside from Greendust and some vague thoughts I have, this is currently not the main focus, and no progress has been made.
