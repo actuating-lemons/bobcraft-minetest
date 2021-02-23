@@ -248,6 +248,13 @@ minetest.register_craft({
 -----
 -- ###
 -- ###
+minetest.register_craft({
+	output = "bobcraft_blocks:trapdoor",
+	recipe = {
+		{"group:crafting_wood","group:crafting_wood","group:crafting_wood",},
+		{"group:crafting_wood","group:crafting_wood","group:crafting_wood",},
+	}
+})
 
 -- iron door
 -- # = iron
