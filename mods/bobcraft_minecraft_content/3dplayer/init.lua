@@ -93,3 +93,4 @@ end)
 local path = minetest.get_modpath("3dplayer")
 
 dofile(path .. "/hand.lua")
+dofile(path .. "/weild.lua")
