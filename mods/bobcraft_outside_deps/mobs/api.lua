@@ -131,6 +131,8 @@ function mobs:register_mob(name, def)
 			if self.type == "monster" and minetest.setting_getbool("only_peaceful_mobs") then
 				self.object:remove()
 			end
+
+			return -- TODO: undo
 			
 			self.lifetimer = self.lifetimer - dtime
 			if self.lifetimer <= 0 and not self.tamed then
@@ -282,10 +284,12 @@ function mobs:register_mob(name, def)
 			if self.follow ~= "" and not self.following then
 				for _,player in pairs(minetest.get_connected_players()) do
 					local s = self.object:get_pos()
-					local p = player:get_pos()
-					local dist = ((p.x-s.x)^2 + (p.y-s.y)^2 + (p.z-s.z)^2)^0.5
-					if self.view_range and dist < self.view_range then
-						self.following = player
+					if s ~= nil then -- FIXME: this is a really annoying bug, and somehow s becomes nil? it crashes, and I can't be bothered debugging at the moment.
+						local p = player:get_pos()
+						local dist = ((p.x-s.x)^2 + (p.y-s.y)^2 + (p.z-s.z)^2)^0.5
+						if self.view_range and dist < self.view_range then
+							self.following = player
+						end
 					end
 				end
 			end
