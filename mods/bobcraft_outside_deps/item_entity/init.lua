@@ -225,9 +225,11 @@ function minetest.handle_node_drops(pos, drops, digger)
 	end
 
 	local node_we_done_did_dug = minetest.get_node(pos)
-	local tool_we_done_did_use = digger:get_wielded_item()
-	if not should_drop(node_we_done_did_dug.name, tool_we_done_did_use:get_tool_capabilities()) then
-		return
+	if digger ~= nil then
+		local tool_we_done_did_use = digger:get_wielded_item()
+		if not should_drop(node_we_done_did_dug.name, tool_we_done_did_use:get_tool_capabilities()) then
+			return
+		end
 	end
 
 	for i, drop in ipairs(drops) do
