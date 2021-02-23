@@ -32,7 +32,7 @@ function player_model.set_model(player, modelname)
 			mesh = modelname,
 			textures = model.textures,
 			visual = "mesh",
-			visual_size = {x=-1, y=1},
+			visual_size = {x=1, y=1},
 			collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
 			stepheight = 0.55,
 			eye_height = 1.7,
