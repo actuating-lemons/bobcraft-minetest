@@ -134,6 +134,7 @@ Things that need to be done, or I want to do at some point.
      - [ ] Dungeons
      - [ ] Desert Temple
      - [ ] Witch Hut
+ - [ ] 2x2 Crafting grid in inventory, becoming 3x3 with a workbench
 
 ## Original content
 I plan to add original content to the game.\
