@@ -1,6 +1,33 @@
 
 local peak_digtime = 1 -- one second(?)
 
+local function hoe_use(itemstack, placer, pointed_thing)
+	if not pointed_thing.type == "node" then
+		return itemstack
+	end
+
+	local pt = pointed_thing.under
+	local ptnode = minetest.get_node(pt)
+	local can_farmland = ptnode.name == "bobcraft_blocks:grass_block" or ptnode.name == "bobcraft_blocks:dirt"
+
+	if not can_farmland then
+		return itemstack	
+	end
+
+	minetest.set_node(pt, {name="bobcraft_blocks:farmland"})
+
+	if not minetest.setting_getbool("creative_mode") then
+		local toolname = itemstack:get_name()
+		local toolmaterial = minetest.registered_tools[toolname]._material
+		local max_uses = tool_values.material_max_uses[toolmaterial]
+		itemstack:add_wear(
+			65535 / (max_uses - 1)
+		)
+	end
+
+	return itemstack
+end
+
 -- the hand
 -- used the devgame for reference
 if minetest.settings:get_bool("creative_mode") then -- TODO: creative hand
@@ -72,7 +99,8 @@ local function register_tool_tier(tier, material, extragroups)
 			},
 			damage_groups = {fleshy=2},
 		},
-		groups = bobutil.merge_tables({axe=1}, extragroups)
+		groups = bobutil.merge_tables({axe=1}, extragroups),
+		_material = tier
 	})
 	minetest.register_tool("bobcraft_tools:"..tier.."_hoe", {
 		description = bobutil.titleize(tier).." Hoe",
@@ -89,7 +117,9 @@ local function register_tool_tier(tier, material, extragroups)
 			},
 			damage_groups = {fleshy=2},
 		},
-		groups = bobutil.merge_tables({hoe=1}, extragroups)
+		groups = bobutil.merge_tables({hoe=1}, extragroups),
+		on_place = hoe_use,
+		_material = tier
 	})
 	minetest.register_tool("bobcraft_tools:"..tier.."_pickaxe", {
 		description = bobutil.titleize(tier).." Pickaxe",
@@ -106,7 +136,8 @@ local function register_tool_tier(tier, material, extragroups)
 			},
 			damage_groups = {fleshy=2},
 		},
-		groups = bobutil.merge_tables({pickaxe=1}, extragroups)
+		groups = bobutil.merge_tables({pickaxe=1}, extragroups),
+		_material = tier
 	})
 	minetest.register_tool("bobcraft_tools:"..tier.."_shovel", {
 		description = bobutil.titleize(tier).." Shovel",
@@ -123,7 +154,8 @@ local function register_tool_tier(tier, material, extragroups)
 			},
 			damage_groups = {fleshy=2},
 		},
-		groups = bobutil.merge_tables({shovel=1}, extragroups)
+		groups = bobutil.merge_tables({shovel=1}, extragroups),
+		_material = tier
 	})
 	minetest.register_tool("bobcraft_tools:"..tier.."_sword", {
 		description = bobutil.titleize(tier).." Sword",
@@ -140,7 +172,8 @@ local function register_tool_tier(tier, material, extragroups)
 			},
 			damage_groups = {fleshy=2},
 		},
-		groups = bobutil.merge_tables({sword=1}, extragroups)
+		groups = bobutil.merge_tables({sword=1}, extragroups),
+		_material = tier
 	})
 	
 	if material then
