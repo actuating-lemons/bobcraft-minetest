@@ -15,17 +15,17 @@ Things that need to be done, or I want to do at some point.
    - [ ] Fence Gate (Not Implemented)
    - [ ] Juke Box (Not Implemented)
    - [ ] Noteblock (Not Implemented)
-   - [ ] Bookshelf
+   - [x] Bookshelf
    - [x] Clay Block
    - [x] Brick Block
    - [ ] Glowstone (Not Implemented)
    - [ ] String -> Wool
    - [ ] TNT (Not Implemented)
    - [ ] Ladder (Not Implemented)
-   - [ ] Wooden Door
+   - [x] Wooden Door
    - [x] Trapdoor
    - [ ] Iron Door (Not Implemented)
-   - [ ] Sign
+   - [x] Sign
    - [ ] Cake (Not Implemented)
    - [ ] Sugar (Not Implemented)
    - [ ] Bowl (Not Implemented)

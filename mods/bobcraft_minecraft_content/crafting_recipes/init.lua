@@ -214,6 +214,14 @@ minetest.register_craft({
 -- ###
 -- xxx
 -- ###
+minetest.register_craft({
+	output = "bobcraft_blocks:bookshelf",
+	recipe = {
+		{"group:crafting_wood","group:crafting_wood","group:crafting_wood",},
+		{"bobcraft_items:book","bobcraft_items:book","bobcraft_items:book",},
+		{"group:crafting_wood","group:crafting_wood","group:crafting_wood",},
+	}
+})
 
 -- snow block
 -- # = snowball
@@ -279,6 +287,14 @@ minetest.register_craft({
 -- ##
 -- ##
 -- ##
+minetest.register_craft({
+	output = "bobcraft_blocks:door",
+	recipe = {
+		{"group:crafting_wood","group:crafting_wood"},
+		{"group:crafting_wood","group:crafting_wood"},
+		{"group:crafting_wood","group:crafting_wood"},
+	}
+})
 
 -- trapdoor
 -- # = wood
@@ -306,6 +322,14 @@ minetest.register_craft({
 -- ###
 -- ###
 --  x
+minetest.register_craft({
+	output = "bobcraft_blocks:trapdoor",
+	recipe = {
+		{"group:crafting_wood","group:crafting_wood","group:crafting_wood",},
+		{"group:crafting_wood","group:crafting_wood","group:crafting_wood",},
+		{"","bobcraft_items:stick","",},
+	}
+})
 
 -- cake
 -- # = milk, x = sugar, e = egg, w = wheat
