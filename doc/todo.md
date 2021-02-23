@@ -42,7 +42,7 @@ Things that need to be done, or I want to do at some point.
    - [ ] Boat (Not Implemented)
    - [ ] Bucket (Not Implemented)
    - [ ] Flint & Steel (Not Implemented)
-   - [ ] Bread (Not Implemented)
+   - [x] Bread
    - [ ] Fishing Rod (Not Implemented)
    - [ ] Painting (Not Implemented)
    - [ ] Golden Apple (Not Implemented)
