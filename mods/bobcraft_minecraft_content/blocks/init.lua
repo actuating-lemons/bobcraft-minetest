@@ -530,7 +530,7 @@ minetest.register_node("bobcraft_blocks:farmland", {
 			{-0.5, -0.5, -0.5,
 		      0.5, 0.5-2/16, 0.5,}
 		}
-	}
+	},
 
 	groups = {hand=1, shovel=1, plantable=1, farm_plantable = 1},
 	hardness = 0.5,
@@ -551,9 +551,9 @@ minetest.register_node("bobcraft_blocks:farmland_wet", {
 			{-0.5, -0.5, -0.5,
 		      0.5, 0.5-2/16, 0.5,}
 		}
-	}
+	},
 
-	groups = {hand=1, shovel=1, plantable=1, farm_plantable = 1},
+	groups = {hand=1, shovel=1, plantable=1, farm_plantable = 2}, -- we use 2 for wet
 	hardness = 0.5,
 	stack_max = bobutil.stack_max,
 })
