@@ -51,7 +51,7 @@ local function register_extra_variants(namespace, blockname, blockdesc)
 
 		hardness = blockdef.hardness
 	})
-	bobcraft_crafting.register_slab_craft(namespace .. blockname .. "_stair", namespaced_blockname)
+	bobcraft_crafting.register_slab_craft(namespace .. blockname .. "_slab", namespaced_blockname)
 
 
 end
