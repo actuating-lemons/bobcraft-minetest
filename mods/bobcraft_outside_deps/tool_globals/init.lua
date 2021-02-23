@@ -28,6 +28,7 @@ local materials = {
 local tool_types = {
 	"pickaxe",
 	"axe",
+	"hoe",
 	"shovel"
 }
 

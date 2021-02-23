@@ -74,6 +74,23 @@ local function register_tool_tier(tier, material, extragroups)
 		},
 		groups = bobutil.merge_tables({axe=1}, extragroups)
 	})
+	minetest.register_tool("bobcraft_tools:"..tier.."_hoe", {
+		description = bobutil.titleize(tier).." Hoe",
+		inventory_image = tier.."_hoe.png",
+		tool_capabilities = {
+			full_punch_interval = 1.0,
+			max_drop_level=tool_values.material_mining_level[tier],
+			groupcaps={
+				["hoe_"..tier] = {
+					times = tool_values.times["hoe_"..tier],
+					uses = tool_values.material_max_uses[tier],
+					maxlevel = tool_values.material_mining_level[tier]
+				}
+			},
+			damage_groups = {fleshy=2},
+		},
+		groups = bobutil.merge_tables({hoe=1}, extragroups)
+	})
 	minetest.register_tool("bobcraft_tools:"..tier.."_pickaxe", {
 		description = bobutil.titleize(tier).." Pickaxe",
 		inventory_image = tier.."_pickaxe.png",

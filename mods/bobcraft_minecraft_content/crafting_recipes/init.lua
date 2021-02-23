@@ -23,6 +23,28 @@ bobcraft_crafting.do_tool_recipes = function(tier, material)
 			{"bobcraft_items:stick", ""}
 		}
 	})
+	-- ##
+	--  :
+	--  :
+	minetest.register_craft({
+		output = "bobcraft_tools:"..tier.."_hoe",
+		recipe = {
+			{material, material},
+			{"", "bobcraft_items:stick"},
+			{"",       "bobcraft_items:stick"}
+		}
+	})
+	--  ##
+	--  :
+	--  :
+	minetest.register_craft({
+		output = "bobcraft_tools:"..tier.."_hoe",
+		recipe = {
+			{material, material},
+			{"bobcraft_items:stick", ""},
+			{"bobcraft_items:stick", ""}
+		}
+	})
 	-- ###
 	--  :
 	--  :
