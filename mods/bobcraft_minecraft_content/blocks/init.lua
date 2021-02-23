@@ -490,6 +490,8 @@ minetest.register_node("bobcraft_blocks:fence", {
 		type = "fixed",
 		fixed = {-0.5,-0.5,-0.5, 0.5, 0.75, 0.5}
 	},
+
+	hardness = 3,
 })
 
 ----
