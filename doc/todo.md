@@ -71,7 +71,7 @@ Things that need to be done, or I want to do at some point.
    - [x] Log -> (char)coal
    - [x] Food cooking
  - [ ] Redstone System
- - [ ] Farming
+ - [x] Farming
  - [x] Water/Lava interaction
  - [ ] Mobs
    - [ ] Passive
@@ -102,7 +102,7 @@ Things that need to be done, or I want to do at some point.
      - [ ] Snowman
      - [ ] Iron Golem
  - [ ] Food
-   - [ ] Bread
+   - [x] Bread
    - [ ] Cake
    - [ ] Cookie
    - [ ] Melon Slice
