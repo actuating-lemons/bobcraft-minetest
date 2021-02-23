@@ -516,6 +516,48 @@ minetest.register_node("bobcraft_blocks:bricks", {
 	stack_max = bobutil.stack_max,
 })
 
+minetest.register_node("bobcraft_blocks:farmland", {
+	description = S("Farmland"),
+	tiles = {"farmland.png", "dirt.png"},
+	is_ground_content = false, -- we are, but we don't generate (or if we do in villages, we shouldn't cut a cave through one)
+	sounds = bobcraft_sounds.node_sound_earthy(),
+
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5,
+		      0.5, 0.5-2/16, 0.5,}
+		}
+	}
+
+	groups = {hand=1, shovel=1, plantable=1, farm_plantable = 1},
+	hardness = 0.5,
+	stack_max = bobutil.stack_max,
+})
+
+minetest.register_node("bobcraft_blocks:farmland_wet", {
+	description = S("Farmland"),
+	tiles = {"farmland_wet.png", "dirt.png"},
+	is_ground_content = false, -- we are, but we don't generate (or if we do in villages, we shouldn't cut a cave through one)
+	sounds = bobcraft_sounds.node_sound_earthy(),
+
+	paramtype = "light",
+	drawtype = "nodebox",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5,
+		      0.5, 0.5-2/16, 0.5,}
+		}
+	}
+
+	groups = {hand=1, shovel=1, plantable=1, farm_plantable = 1},
+	hardness = 0.5,
+	stack_max = bobutil.stack_max,
+})
+
 ----
 -- Ores
 ----
