@@ -65,6 +65,15 @@ minetest.register_node("bobcraft_blocks:gravel", {
 	tiles = {"gravel.png"},
 	sounds = bobcraft_sounds.node_sound_gravel(),
 
+	
+	drop = {
+		items = {
+			max_items = 1,
+			{ items = {"bobcraft_blocks:gravel"}},
+			{ items = {"bobcraft_items:flint"}, rarity = 10}, -- 1 in 10, 10% chance
+		}
+	},
+
 	groups = {hand=1, shovel=1, falling_node=1},
 	hardness = 0.6,
 	stack_max = bobutil.stack_max,
