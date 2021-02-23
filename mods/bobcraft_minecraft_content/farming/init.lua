@@ -114,7 +114,7 @@ local function plant_grow(pos, time)
 	-- "The growth probability is 1/(floor(25/points) + 1)"
 	-- We multiply it by 10 because math.random operates on integers
 	-- I've probably mi-understood this last bit.
-	local probability = ((math.floor(25 / points) + 1)) * 10
+	local probability = ((math.floor(25 / points) + 1))-- * 10
 	local grow = math.random(0, probability)
 
 	if grow == 0 then
