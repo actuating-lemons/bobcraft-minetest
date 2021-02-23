@@ -131,10 +131,12 @@ end
 local function register_farm_plant(name, def)
 	def.groups = def.groups or {}
 	def.groups.farm_plant = 1
+	def.groups.not_in_creative_inventory = 1
 
+	-- The seeds
 	minetest.register_craftitem(name .. "_seeds", {
-		description = def.description,
-		inventory_image = def.inventory_image,
+		description = def.description .. " Seeds",
+		inventory_image = def.seed_sprite,
 
 		on_place = function(itemstack, placer, pointed_thing)
 			if not pointed_thing.type == "node" then
@@ -160,9 +162,10 @@ local function register_farm_plant(name, def)
 			return itemstack
 		end
 	})
+	-- The plant and its' stages
 	for i = 1, def.stages do
 		minetest.register_node(name .. "_plant_" .. tostring(i), {
-			description = def.description,
+			description = def.description .. " Plant",
 			tiles = {def.tiles[i]},
 			drawtype = "plantlike",
 
@@ -180,11 +183,17 @@ local function register_farm_plant(name, def)
 			},
 		})
 	end
+	-- The rewards you get
+	minetest.register_craftitem(name, {
+		description = def.description,
+		inventory_image = def.sprite,
+	})
 end
 
 register_farm_plant("bobcraft_farming:wheat", {
 	description = "Wheat",
-	inventory_image = "seeds.png",
+	seed_sprite = "wheat_seeds.png",
+	sprite = "wheat_item.png",
 	groups = {hand=1, wheat=1},
 	hardness = 0,
 	walkable = false,
