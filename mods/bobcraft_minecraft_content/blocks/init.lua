@@ -314,7 +314,7 @@ minetest.register_node("bobcraft_blocks:lava_flowing",{
 local bedrock_groups, bedrock_hardness
 if minetest.settings:get_bool("creative_mode") then
 	bedrock_groups = {hand=1}
-	bedrock_hardness = 1
+	bedrock_hardness = 0.15
 else
 	bedrock_groups = {}
 	bedrock_hardness = -1
