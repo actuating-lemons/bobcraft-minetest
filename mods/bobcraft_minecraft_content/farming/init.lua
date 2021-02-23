@@ -116,7 +116,7 @@ local function plant_grow(pos, time)
 	-- I've probably mi-understood this last bit.
 	local probability = ((math.floor(25 / points) + 1)) * 10
 	local grow = math.random(0, probability)
-	
+
 	if grow == 0 then
 		bobutil.replace_node(pos, plantdef.farming.next_plant)
 	end
@@ -163,7 +163,7 @@ local function register_farm_plant(name, def)
 	for i = 1, def.stages do
 		minetest.register_node(name .. "_plant_" .. tostring(i), {
 			description = def.description,
-			tiles = def.tiles[i] or def.tiles[1],
+			tiles = {def.tiles[i]},
 			drawtype = "plantlike",
 
 			paramtype = "light",
@@ -189,7 +189,10 @@ register_farm_plant("bobcraft_farming:wheat", {
 	hardness = 0,
 	walkable = false,
 
-	tiles = {"dirt.png"},
+	tiles = {"wheat_plant_0.png","wheat_plant_1.png",
+	"wheat_plant_2.png","wheat_plant_3.png",
+	"wheat_plant_4.png","wheat_plant_5.png",
+	"wheat_plant_6.png",},
 
 	stages = 8, -- 8 stages, like mc
 })
