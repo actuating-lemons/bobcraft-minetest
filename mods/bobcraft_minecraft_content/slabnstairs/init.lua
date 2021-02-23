@@ -23,6 +23,7 @@ local function register_extra_variants(namespace, blockname, blockdesc)
 		},
 		
 		groups = blockdef.groups,
+		sounds = blockdef.sounds,
 
 		hardness = blockdef.hardness
 	})
@@ -46,6 +47,7 @@ local function register_extra_variants(namespace, blockname, blockdesc)
 		},
 		
 		groups = blockdef.groups,
+		sounds = blockdef.sounds,
 
 		hardness = blockdef.hardness
 	})
