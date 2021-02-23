@@ -311,11 +311,13 @@ minetest.register_node("bobcraft_blocks:lava_flowing",{
 
 -- the token unbreakable block
 -- we have some code here to make it breakable in CREATIVE only
-local bedrock_groups
+local bedrock_groups, bedrock_hardness
 if minetest.settings:get_bool("creative_mode") then
 	bedrock_groups = {hand=1}
+	bedrock_hardness = 1
 else
 	bedrock_groups = {}
+	bedrock_hardness = -1
 end
 minetest.register_node("bobcraft_blocks:bedrock", {
 	description = S("Bedrock"),
@@ -323,7 +325,7 @@ minetest.register_node("bobcraft_blocks:bedrock", {
 	is_ground_content = false, -- We *are* technically, but we also shouldn't be over-ridden
 	groups = bedrock_groups,
 	sounds = bobcraft_sounds.node_sound_stone(),
-	hardness = -1,
+	hardness = bedrock_hardness,
 	stack_max = bobutil.stack_max,
 })
 
