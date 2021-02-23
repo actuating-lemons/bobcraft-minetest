@@ -12,9 +12,9 @@ local timer = 0
 local player_wielding = {}
 local location = {
 	"arm_r",          -- default bone
-	{x=0, y=1, z=0},    -- default position
+	{x=0, y=8.5, z=0},    -- default position
 	{x=0, y=0, z=0}, -- default rotation
-	{x=0.025, y=0.025},     -- default scale
+	{x=0.25, y=0.25},     -- default scale
 }
 
 local function add_wield_entity(player)
