@@ -162,10 +162,6 @@ brpdinv.register_page(
 minetest.register_on_joinplayer(function(player)
 	-- TODO: allow disabling
 	brpdinv.set_player_inventory_formspec(player)
-
-	local inv = player:get_inventory()
-	inv:set_width("craft", 2)
-	inv:set_size("craft", 4)
 end)
 
 minetest.register_on_leaveplayer(function(player)

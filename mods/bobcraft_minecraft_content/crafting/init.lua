@@ -635,3 +635,4 @@ end
 
 local modpath = minetest.get_modpath("bobcraft_crafting")
 dofile(modpath.."/cooking.lua")
+dofile(modpath.."/grid.lua") -- modify the player's grid
