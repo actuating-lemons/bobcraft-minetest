@@ -769,6 +769,16 @@ minetest.register_node("bobcraft_blocks:grass", {
 	on_place = function(itemstack, placer, pointed_thing)
 		return bobutil.on_plant(itemstack, placer, pointed_thing)
 	end,
+
+
+	drop = {
+		items = {
+			max_items = 4,
+			items = {
+				{ items = "bobcraft_items:wheat_seeds", rarity = 10},
+			}
+		}
+	},
 })
 
 minetest.register_node("bobcraft_blocks:deadbush", {
