@@ -21,7 +21,7 @@ Things that need to be done, or I want to do at some point.
    - [ ] Glowstone (Not Implemented)
    - [ ] String -> Wool
    - [ ] TNT (Not Implemented)
-   - [ ] Ladder (Not Implemented)
+   - [x] Ladder
    - [x] Wooden Door
    - [x] Trapdoor
    - [ ] Iron Door (Not Implemented)

@@ -558,6 +558,34 @@ minetest.register_node("bobcraft_blocks:farmland_wet", {
 	stack_max = bobutil.stack_max,
 })
 
+minetest.register_node("bobcraft_blocks:ladder", {
+	description = S("Ladder"),
+	tiles = {"ladder.png"},
+	drawtype = "signlike", -- glue to the wall
+	is_ground_content = false,
+	sounds = bobcraft_sounds.node_sound_wood(),
+	walkable = false,
+
+	inventory_image = "ladder.png",
+	wield_image = "ladder.png",
+
+	paramtype = "light",
+	sunlight_propagates = true,
+	paramtype2 = "wallmounted",
+
+	selection_box = {
+		type = "fixed",
+		fixed = { -0.5, -0.5, -0.5, 
+		  0.5, -0.5+2/16, 0.5},
+	},
+
+	climbable = true,
+
+	groups = {hand=1, axe=1, crafting_wood=1, fuel=bobutil.fuel_times.wood, attached_node=1},
+	hardness = 0.4,
+	stack_max = bobutil.stack_max,
+})
+
 ----
 -- Ores
 ----

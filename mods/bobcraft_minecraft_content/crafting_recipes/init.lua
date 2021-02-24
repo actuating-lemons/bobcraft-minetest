@@ -302,6 +302,14 @@ minetest.register_craft({
 -- # #
 -- ###
 -- # #
+minetest.register_craft({
+	output = "bobcraft_blocks:door",
+	recipe = {
+		{"bobcraft_items:stick", "", "bobcraft_items:stick"},
+		{"bobcraft_items:stick","bobcraft_items:stick", "bobcraft_items:stick"},
+		{"bobcraft_items:stick", "", "bobcraft_items:stick"},
+	}
+})
 
 -- wooden door
 -- # = wood
