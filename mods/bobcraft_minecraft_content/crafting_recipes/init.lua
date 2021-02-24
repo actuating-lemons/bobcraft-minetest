@@ -290,6 +290,19 @@ minetest.register_craft({
 	}
 })
 
+-- chiseled stone brick
+-- # = stone brick slab
+-----
+-- #
+-- #
+minetest.register_craft({
+	output = "bobcraft_blocks:chiseled_stone_bricks",
+	recipe = {
+		{"bobcraft_blocks_xrta:stone_bricks_slab",},
+		{"bobcraft_blocks_xrta:stone_bricks_slab",},
+	}
+})
+
 -- glowstone
 -- # = glowstone dust
 -----

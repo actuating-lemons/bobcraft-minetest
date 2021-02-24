@@ -66,8 +66,10 @@ end
 
 register_extra_variants("bobcraft_blocks_xtra:","cobblestone", "Cobblestone")
 register_extra_variants("bobcraft_blocks_xtra:","planks", "Wood")
+register_extra_variants("bobcraft_blocks_xtra:","stone_bricks", "Stone Brick")
 
 -- stone slab/stair
+-- FIXME: these don't appear in the creative menu. Why?
 local stonedef = minetest.registered_nodes["bobcraft_blocks:stone"]
 register_stair("bobcraft_blocks_xtra:stone_stair",{
 	tiles = {"stone_slab_side.png","stone_slab_top.png",

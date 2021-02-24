@@ -598,6 +598,15 @@ minetest.register_node("bobcraft_blocks:stone_bricks", {
 	groups = {pickaxe=1},
 	stack_max = bobutil.stack_max,
 })
+minetest.register_node("bobcraft_blocks:chiseled_stone_bricks", {
+	description = S("Chiseled Stone Bricks"),
+	tiles = {"chiseled_stone_brick.png"},
+	sounds = bobcraft_sounds.node_sound_stone(),
+
+	hardness = 3,
+	groups = {pickaxe=1},
+	stack_max = bobutil.stack_max,
+})
 
 ----
 -- Ores
