@@ -89,55 +89,6 @@ function beds.register_bed(name, def)
 	})
 end
 
--- fancy shaped
-beds.register_bed("beds:fancy_bed", {
-	description = "Fancy Bed",
-	inventory_image = "beds_bed_fancy.png",
-	wield_image = "beds_bed_fancy.png",
-	tiles = {
-	    bottom = {
-		"beds_bed_top1.png",
-		"default_wood.png",
-		"beds_bed_side1.png",
-		"beds_bed_side1.png^[transformFX",
-		"default_wood.png",
-		"beds_bed_foot.png",
-	    },
-	    top = {
-		"beds_bed_top2.png",
-		"default_wood.png",
-		"beds_bed_side2.png",
-		"beds_bed_side2.png^[transformFX",
-		"beds_bed_head.png",
-		"default_wood.png",
-	    }
-	},
-	nodebox = {
-	    bottom = {
-		{-0.5, -0.5, -0.5, -0.375, -0.065, -0.4375},
-		{0.375, -0.5, -0.5, 0.5, -0.065, -0.4375},
-		{-0.5, -0.375, -0.5, 0.5, -0.125, -0.4375},
-		{-0.5, -0.375, -0.5, -0.4375, -0.125, 0.5},
-		{0.4375, -0.375, -0.5, 0.5, -0.125, 0.5},
-		{-0.4375, -0.3125, -0.4375, 0.4375, -0.0625, 0.5},
-	      },
-	      top = {
-		{-0.5, -0.5, 0.4375, -0.375, 0.1875, 0.5},
-		{0.375, -0.5, 0.4375, 0.5, 0.1875, 0.5},
-		{-0.5, 0, 0.4375, 0.5, 0.125, 0.5},
-		{-0.5, -0.375, 0.4375, 0.5, -0.125, 0.5},
-		{-0.5, -0.375, -0.5, -0.4375, -0.125, 0.5},
-		{0.4375, -0.375, -0.5, 0.5, -0.125, 0.5},
-		{-0.4375, -0.3125, -0.5, 0.4375, -0.0625, 0.4375},
-	      }
-	},
-	selectionbox = {-0.5, -0.5, -0.5, 0.5, 0.06, 1.5},
-	recipe = {
-		{"group:wool", "group:wool", "group:stick"},
-		{"group:wood", "group:wood", "group:wood"},
-	},
-})
-
 -- simple (default)
 beds.register_bed("beds:bed", {
 	description = "Simple Bed",
@@ -172,24 +123,3 @@ beds.register_bed("beds:bed", {
 	},
 
 })
-
--- aliases for PA's beds mod
-minetest.register_alias("beds:bed_bottom_red", "beds:bed_bottom")
-minetest.register_alias("beds:bed_bottom_orange", "beds:bed_bottom")
-minetest.register_alias("beds:bed_bottom_yellow", "beds:bed_bottom")
-minetest.register_alias("beds:bed_bottom_green", "beds:bed_bottom")
-minetest.register_alias("beds:bed_bottom_blue", "beds:bed_bottom")
-minetest.register_alias("beds:bed_bottom_violet", "beds:bed_bottom")
-minetest.register_alias("beds:bed_bottom_black", "beds:bed_bottom")
-minetest.register_alias("beds:bed_bottom_grey", "beds:bed_bottom")
-minetest.register_alias("beds:bed_bottom_white", "beds:bed_bottom")
-
-minetest.register_alias("beds:bed_top_red", "beds:bed_top")
-minetest.register_alias("beds:bed_top_orange", "beds:bed_top")
-minetest.register_alias("beds:bed_top_yellow", "beds:bed_top")
-minetest.register_alias("beds:bed_top_green", "beds:bed_top")
-minetest.register_alias("beds:bed_top_blue", "beds:bed_top")
-minetest.register_alias("beds:bed_top_violet", "beds:bed_top")
-minetest.register_alias("beds:bed_top_black", "beds:bed_top")
-minetest.register_alias("beds:bed_top_grey", "beds:bed_top")
-minetest.register_alias("beds:bed_top_white", "beds:bed_top")
