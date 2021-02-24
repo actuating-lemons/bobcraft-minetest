@@ -87,9 +87,9 @@ end
 
 -- simple (default)
 beds.register_bed("bobcraft_beds:bed", {
-	description = "Simple Bed",
-	inventory_image = "beds_bed.png",
-	wield_image = "beds_bed.png",
+	description = "Bed",
+	inventory_image = "bed_item.png",
+	wield_image = "bed_item.png",
 	tiles = {
 	    bottom = {
 		"bed_top_bottom.png^[transformR90",
