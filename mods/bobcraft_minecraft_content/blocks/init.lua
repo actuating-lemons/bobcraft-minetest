@@ -4,7 +4,7 @@
 local table_formspec = function()
 	return "size[8,7.5;]" ..
 	"list[current_player;main;0,3.5;8,4;]" ..
-	"list[current_player;craft;2,0;3,3;]" .. -- TODO: 2x2 grid
+	"list[current_player;craft;2,0;3,3;]" ..
 	"image[5,1;1,1;arrow_fg.png^[transformR270]"..
 	"list[current_player;craftpreview;6,1;1,1;]"
 end
