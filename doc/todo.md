@@ -57,7 +57,7 @@ Things that need to be done, or I want to do at some point.
    - [ ] Dispenser (Not Implemented)
    - [ ] Piston (Not Implemented)
    - [ ] Sticky Piston (Not Implemented)
-   - [ ] Bed (Not Implemented)
+   - [x] Bed
    - [ ] Eye of Ender (Not Implemented)
    - [ ] Fireball (Not Implemented)
    - [x] Wool Dying

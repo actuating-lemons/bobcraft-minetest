@@ -594,6 +594,14 @@ minetest.register_craft({
 -----
 -- www
 -- ###
+minetest.register_craft({
+	output = "bobcraft_blocks:chest",
+	recipe = {
+		{"group:crafting_wool", "group:crafting_wool", "group:crafting_wool"},
+		{"group:crafting_wood", "group:crafting_wood", "group:crafting_wood"},
+	}
+})
+
 
 -- chest
 -- # = wood

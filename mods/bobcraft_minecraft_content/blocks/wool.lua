@@ -8,7 +8,7 @@ function register_wool_colour(colour)
 		description = S(bobutil.titleize(colour) .. " Wool"),
 		tiles = {"wool_"..colour..".png"},
 		sounds = bobcraft_sounds.node_sound_wool(),
-		groups = {shears=1, hand=1},
+		groups = {shears=1, hand=1, crafting_wool=1},
 		hardness = 0.8,
 	})
 
