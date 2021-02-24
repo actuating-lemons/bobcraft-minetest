@@ -97,14 +97,14 @@ beds.register_bed("bobcraft_beds:bed", {
 		"bed_side_bottom.png",
 		"bed_side_bottom.png^[transformfx",
 		"blank.png",
-		"bed_side_bottom.png"
+		"bed_end_bottom.png"
 	    },
 	    top = {
 		"bed_top_top.png^[transformR90",
 		"planks.png", 
 		"bed_side_top.png",
 		"bed_side_top.png^[transformfx",
-		"bed_side_top.png",
+		"bed_end_top.png",
 		"blank.png",
 	    }
 	},
