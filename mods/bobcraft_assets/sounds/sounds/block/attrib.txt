@@ -36,3 +36,6 @@ lava_pops.[0-2].ogg - https://freesound.org/people/Angel_Perez_Grandi/sounds/693
 
 water_ambience.[0-4].ogg - https://freesound.org/people/mystiscool/sounds/7138/
 waterfall_ambience.ogg - https://freesound.org/people/mystiscool/sounds/7137/
+
+sponge_place.ogg - JenTheFox / Jenifar Shifaketro / Jen The Fox#9535
+sponge_break.ogg - JenTheFox / Jenifar Shifaketro / Jen The Fox#9535

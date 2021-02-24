@@ -634,7 +634,10 @@ minetest.register_node("bobcraft_blocks:iron_bars", {
 minetest.register_node("bobcraft_blocks:sponge", {
 	description = S("Sponge"),
 	tiles = {"sponge.png"},
-	sounds = bobcraft_sounds.node_sound_planty(),
+	sounds = bobcraft_sounds.node_sound_planty({
+		place = {name = "sponge_place", gain=0.3},
+		dug = {name = "sponge_break", gain=0.3}
+	}),
 
 	on_place = function(itemstack, placer, pointed_thing)
 		-- Absorbant!#
