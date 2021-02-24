@@ -21,6 +21,12 @@ step_wood.ogg - https://freesound.org/people/yatoimtop/sounds/479445/
 step_wood.1.ogg - https://freesound.org/people/Rudmer_Rotteveel/sounds/502511/
 step_wood.2.ogg - https://freesound.org/people/yatoimtop/sounds/479445/
 
+step_metal.ogg - https://freesound.org/people/GiocoSound/sounds/421134/
+step_metal.1.ogg - https://freesound.org/people/GiocoSound/sounds/421133/
+step_metal.2.ogg - https://freesound.org/people/GiocoSound/sounds/421132/
+break_metal.ogg - https://freesound.org/people/jorickhoofd/sounds/160045/
+place_metal.ogg - https://freesound.org/people/jorickhoofd/sounds/176676/
+
 greendust_active_loop.ogg - https://freesound.org/people/opticaillusions/sounds/554312/]
 greendust_use.ogg - https://freesound.org/people/spookymodem/sounds/249819/
 
