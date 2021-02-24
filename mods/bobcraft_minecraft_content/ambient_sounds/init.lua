@@ -22,13 +22,13 @@ local water_sounds = {
 	handler = {},
 	frequency = 750,
 	positioned = true,
-	{name="water_ambience", length=3, gain = 0.5}
+	{name="water_ambience", length=3, gain = 0.25}
 }
 local waterfall_sounds = {
 	handler = {},
 	frequency = 1000,
 	positioned = true,
-	{name="waterfall_ambience", length=2, gain = 0.5}
+	{name="waterfall_ambience", length=2, gain = 0.25}
 }
 
 local function get_ambience(player)
@@ -43,10 +43,17 @@ local function get_ambience(player)
 	local areamin = vector.subtract(ppos, audio_range)
 	local areamax = vector.add(ppos, audio_range)
 
-	local lava = minetest.find_node_near(player:get_pos(), 15, "group:lava")
-	if lava then
+	local lava = minetest.find_nodes_in_area(areamin, areamax, {"group:lava"}, true)
+	if next(lava) ~= nil then
 		table.lava = lava_sounds
-		table.lava.position = lava
+		-- calculate avg. position
+		local avges = {}
+		for blocks, _ in pairs(lava) do
+			for _, pos in pairs(lava[blocks]) do
+				avges[#avges+1] = pos
+			end
+		end
+		table.lava.position = bobutil.avg_pos(avges) -- the averages of the averages
 	end
 
 	local water = minetest.find_nodes_in_area(areamin, areamax, {"group:water_source"}, true)
