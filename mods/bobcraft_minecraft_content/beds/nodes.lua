@@ -42,7 +42,7 @@ function beds.register_bed(name, def)
 		paramtype2 = "facedir",
 		stack_max = 1,
 		groups = {snappy = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, bed = 1},
-		sounds = default.node_sound_wood_defaults(),
+		sounds = bobcraft_sounds.node_sound_wood(),
 		node_box = {
 			type = "fixed",
 			fixed = def.nodebox.bottom,
@@ -69,7 +69,7 @@ function beds.register_bed(name, def)
 		paramtype = "light",
 		paramtype2 = "facedir",
 		groups = {snappy = 1, choppy = 2, oddly_breakable_by_hand = 2, flammable = 3, bed = 2},
-		sounds = default.node_sound_wood_defaults(),
+		sounds = bobcraft_sounds.node_sound_wood(),
 		node_box = {
 			type = "fixed",
 			fixed = def.nodebox.top,
@@ -90,7 +90,7 @@ function beds.register_bed(name, def)
 end
 
 -- simple (default)
-beds.register_bed("beds:bed", {
+beds.register_bed("bobcraft_beds:bed", {
 	description = "Simple Bed",
 	inventory_image = "beds_bed.png",
 	wield_image = "beds_bed.png",
