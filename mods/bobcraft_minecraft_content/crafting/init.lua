@@ -620,6 +620,19 @@ minetest.register_craft({
 -- a = gunpowder, b = blazepowder, c = coal
 -----
 
+-- crafting table
+-- # = wood
+-----
+-- ##
+-- ##
+minetest.register_craft({
+	output = "bobcraft_blocks:crafting_table",
+	recipe = {
+		{"group:crafting_wood","group:crafting_wood",},
+		{"group:crafting_wood","group:crafting_wood",},
+	}
+})
+
 -- Shapeless wool dying
 -- TODO: should we move this to wool.lua?
 for i, colour in ipairs(dyes.colour_names) do
