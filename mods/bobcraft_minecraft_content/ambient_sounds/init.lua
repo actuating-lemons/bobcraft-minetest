@@ -21,9 +21,6 @@ local function get_ambience(player)
 	table.music = music
 
 	local lava = minetest.find_node_near(player:get_pos(), 15, "group:lava")
-
-	minetest.log(dump(lava))
-
 	if lava then
 		table.lava = lava_sounds
 		table.lava.position = lava
