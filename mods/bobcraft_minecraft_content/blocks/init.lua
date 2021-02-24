@@ -630,6 +630,31 @@ minetest.register_node("bobcraft_blocks:iron_bars", {
 	stack_max = bobutil.stack_max,
 })
 
+
+minetest.register_node("bobcraft_blocks:sponge", {
+	description = S("Sponge"),
+	tiles = {"sponge.png"},
+	sounds = bobcraft_sounds.node_sound_planty(),
+
+	on_place = function(itemstack, placer, pointed_thing)
+		-- Absorbant!#
+		local pos = pointed_thing.above
+		local low = {x=pos.x-5, y=pos.y-5, z=pos.z-5}
+		local high = {x=pos.x+5, y=pos.y+5, z=pos.z+5}
+
+		local water_near_us = minetest.find_nodes_in_area(low,high, "group:water")
+		for i=1, #water_near_us do
+			minetest.remove_node(water_near_us[i])
+		end
+
+		return minetest.item_place_node(itemstack, player, pointed_thing)
+	end,
+
+	hardness = 1,
+	groups = {pickaxe=1},
+	stack_max = bobutil.stack_max,
+})
+
 ----
 -- Ores
 ----
