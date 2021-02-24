@@ -14,6 +14,18 @@ local lava_sounds = {
 	positioned = true,
 	{name="lava_pops", length=3, gain = 0.5}
 }
+local water_sounds = {
+	handler = {},
+	frequency = 750,
+	positioned = true,
+	{name="water_ambience", length=3, gain = 0.5}
+}
+local waterfall_sounds = {
+	handler = {},
+	frequency = 1000,
+	positioned = true,
+	{name="waterfall_ambience", length=3, gain = 0.5}
+}
 
 local function get_ambience(player)
 	local table = {}
@@ -24,6 +36,17 @@ local function get_ambience(player)
 	if lava then
 		table.lava = lava_sounds
 		table.lava.position = lava
+	end
+
+	local water = minetest.find_node_near(player:get_pos(), 15, "group:water_source")
+	if water then
+		table.water = water_sounds
+		table.water.position = water
+	end
+	local waterfall = minetest.find_node_near(player:get_pos(), 15, "group:water_flow")
+	if water then
+		table.waterfall = waterfall_sounds
+		table.waterfall.position = waterfall
 	end
 
 	return table

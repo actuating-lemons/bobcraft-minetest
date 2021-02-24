@@ -33,3 +33,6 @@ step_grass.3.ogg - https://freesound.org/people/Snoman/sounds/9907/
 fire_extinguish.ogg - https://freesound.org/people/Thingy17/sounds/470891/
 
 lava_pops.[0-2].ogg - https://freesound.org/people/Angel_Perez_Grandi/sounds/69397/
+
+water_ambience.[0-4].ogg - https://freesound.org/people/mystiscool/sounds/7138/
+waterfall_ambience.ogg - https://freesound.org/people/mystiscool/sounds/7137/

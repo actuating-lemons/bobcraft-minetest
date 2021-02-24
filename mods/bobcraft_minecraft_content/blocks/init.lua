@@ -169,7 +169,7 @@ minetest.register_node("bobcraft_blocks:water_source",{
 	liquid_viscosity = 1,
 	liquid_range = 7,
 	sounds = bobcraft_sounds.node_sound_water(),
-	groups = {not_in_creative_inventory=1, water=1},
+	groups = {not_in_creative_inventory=1, water=1, water_source=1},
 
 	hardness = 100 -- minecraft sets this, why?
 })
@@ -203,7 +203,7 @@ minetest.register_node("bobcraft_blocks:water_flowing",{
 	liquid_viscosity = 1,
 	liquid_range = 7,
 	sounds = bobcraft_sounds.node_sound_water(),
-	groups = {not_in_creative_inventory=1, water=1},
+	groups = {not_in_creative_inventory=1, water=1, water_flow=1},
 
 	hardness = 100 -- minecraft sets this, why?
 })
