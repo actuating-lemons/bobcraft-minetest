@@ -32,7 +32,7 @@ local function play_sound(player, list, number)
 				local list = args[1]
 				local player_name = args[2]
 				if list.handler[player_name] ~= nil then
-					minetest.stop_sound(list.handler[player_name])
+					minetest.sound_stop(list.handler[player_name])
 					list.handler[player_name] = nil
 				end
 			end, {list, player_name})
