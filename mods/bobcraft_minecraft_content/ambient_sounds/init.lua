@@ -4,7 +4,15 @@
 local music = {
 	handler = {},
 	frequency = 1,
+	positioned = false,
 	{name="plainsong", length = 1*60 + 14, gain = 0.3}
+}
+
+local lava_sounds = {
+	handler = {},
+	frequency = 900,
+	positioned = true,
+	{name="lava_pops", length=3, gain = 0.5}
 }
 
 local function get_ambience(player)
@@ -12,10 +20,19 @@ local function get_ambience(player)
 
 	table.music = music
 
+	local lava = minetest.find_node_near(player:get_pos(), 15, "group:lava")
+
+	minetest.log(dump(lava))
+
+	if lava then
+		table.lava = lava_sounds
+		table.lava.position = lava
+	end
+
 	return table
 end
 
-local function play_sound(player, list, number)
+local function play_sound(player, list, number, pos)
 	local player_name = player:get_player_name()
 
 	if list.handler[player_name] == nil then
@@ -24,7 +41,8 @@ local function play_sound(player, list, number)
 			gain = list[number].gain
 		end
 
-		local handler = minetest.sound_play(list[number].name, {to_player=player_name, gain=gain})
+		local handler = minetest.sound_play(list[number].name, {to_player=player_name, gain=gain,
+		pos = list.position})
 
 		if handler ~= nil then
 			list.handler[player_name] = handler
@@ -51,8 +69,8 @@ minetest.register_globalstep(function(dtime)
 	for _,player in ipairs(minetest.get_connected_players()) do
 		local ambiences = get_ambience(player)
 		for _,ambience in pairs(ambiences) do
-			if math.random(1, 100) <= ambience.frequency then
-				play_sound(player, ambience, math.random(1, #ambience))
+			if math.random(1, 1000) <= ambience.frequency then
+				play_sound(player, ambience, math.random(1, #ambience), ambience.position)
 			end
 		end
 	end
