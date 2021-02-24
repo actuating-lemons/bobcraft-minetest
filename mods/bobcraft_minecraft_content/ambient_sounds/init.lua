@@ -28,7 +28,7 @@ local waterfall_sounds = {
 	handler = {},
 	frequency = 1000,
 	positioned = true,
-	{name="waterfall_ambience", length=3, gain = 0.5}
+	{name="waterfall_ambience", length=2, gain = 0.5}
 }
 
 local function get_ambience(player)
@@ -60,6 +60,19 @@ local function get_ambience(player)
 			end
 		end
 		table.water.position = bobutil.avg_pos(avges) -- the averages of the averages
+	end
+
+	local waterfall = minetest.find_nodes_in_area(areamin, areamax, {"group:water_flow"}, true)
+	if next(waterfall) ~= nil then
+		table.waterfall = waterfall_sounds
+		-- calculate avg. position
+		local avges = {}
+		for blocks, _ in pairs(waterfall) do
+			for _, pos in pairs(waterfall[blocks]) do
+				avges[#avges+1] = pos
+			end
+		end
+		table.waterfall.position = bobutil.avg_pos(avges) -- the averages of the averages
 	end
 
 	return table
