@@ -152,7 +152,7 @@ brpdinv.register_page(
 			"size[8,7.5;]" ..
 			"image[1,0.6;1,2;player.png]" ..
 			"list[current_player;main;0,3.5;8,4;]" ..
-			"list[current_player;craft;3,0;3,3;]" .. -- TODO: 2x2 grid
+			"list[current_player;craft;3,0;2,2;]" ..
 			"list[current_player;craftpreview;7,1;1,1;]"
 		)
 		end,
@@ -162,6 +162,10 @@ brpdinv.register_page(
 minetest.register_on_joinplayer(function(player)
 	-- TODO: allow disabling
 	brpdinv.set_player_inventory_formspec(player)
+
+	local inv = player:get_inventory()
+	inv:set_width("craft", 2)
+	inv:set_size("craft", 4)
 end)
 
 minetest.register_on_leaveplayer(function(player)
