@@ -1,5 +1,14 @@
 -- Overworld blocks
 
+-- Used for the crafting table
+local table_formspec = function()
+	return "size[8,7.5;]" ..
+	"list[current_player;main;0,3.5;8,4;]" ..
+	"list[current_player;craft;2,0;3,3;]" .. -- TODO: 2x2 grid
+	"image[5,1;1,1;arrow_fg.png^[transformR270]"..
+	"list[current_player;craftpreview;6,1;1,1;]"
+end
+
 local S = minetest.get_translator("bobcraft_blocks")
 
 minetest.register_node("bobcraft_blocks:grass_block", {
@@ -651,6 +660,27 @@ minetest.register_node("bobcraft_blocks:sponge", {
 		end
 
 		return minetest.item_place_node(itemstack, player, pointed_thing)
+	end,
+
+	hardness = 1,
+	groups = {pickaxe=1},
+	stack_max = bobutil.stack_max,
+})
+
+minetest.register_node("bobcraft_blocks:crafting_table", {
+	description = S("Crafting Table"),
+	tiles = {"crafting_table_top.png","chest_top.png","crafting_table_side.png"},
+	sounds = bobcraft_sounds.node_sound_wood(),
+
+	on_rightclick = function(pos, node, player)
+		player:get_inventory():set_width("craft", 3)
+		player:get_inventory():set_size("craft", 9)
+		minetest.show_formspec(player:get_player_name(), "bobcraft_blocks:crafting_table", table_formspec())
+	end,
+
+	on_recieve_fields = function(pos, formname, fields, sender)
+		sender:get_inventory():set_width("craft", 2)
+		sender:get_inventory():set_size("craft", 4)	
 	end,
 
 	hardness = 1,

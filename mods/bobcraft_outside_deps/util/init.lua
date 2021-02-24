@@ -118,3 +118,26 @@ bobutil.on_plant = function(itemstack, placer, pointed_thing)
 		return itemstack
 	end
 end
+
+-- Moves the items out of the inventory, into main.
+-- Also drops them if there's no room!
+function bobutil.move_item_outta(stack, player, inv)
+
+	if inv:room_for_item("main", stack) then
+		inv:add_item("main", stack)
+	else
+		minetest.add_item(player:get_pos(), stack)
+	end
+
+end
+function bobutil.move_items_outta(player, inventory)
+	local inv = player:get_inventory()
+	local list = inv:get_list(inventory)
+	if list ~= nil then
+		for i, stack in ipairs(list) do
+			bobutil.move_item_outta(stack, player, inv)
+			stack:clear()
+			inv:set_stack(inventory, i, stack)
+		end
+	end
+end
