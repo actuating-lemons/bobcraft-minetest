@@ -593,7 +593,7 @@ minetest.register_node("bobcraft_blocks:ladder", {
 
 	climbable = true,
 
-	groups = {hand=1, axe=1, crafting_wood=1, fuel=bobutil.fuel_times.wood, attached_node=1},
+	groups = {hand=1, axe=1, fuel=bobutil.fuel_times.wood, attached_node=1},
 	hardness = 0.4,
 	stack_max = bobutil.stack_max,
 })
@@ -663,7 +663,7 @@ minetest.register_node("bobcraft_blocks:sponge", {
 	end,
 
 	hardness = 1,
-	groups = {pickaxe=1},
+	groups = {hand=1},
 	stack_max = bobutil.stack_max,
 })
 
@@ -684,7 +684,7 @@ minetest.register_node("bobcraft_blocks:crafting_table", {
 	end,
 
 	hardness = 1,
-	groups = {pickaxe=1},
+	groups = {hand=1,axe=1},
 	stack_max = bobutil.stack_max,
 })
 
