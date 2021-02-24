@@ -26,7 +26,6 @@ end
 bobutil.avg_pos = function(list_of_pos)
 	local posav = {0, 0, 0}
 	local count = 0
-	minetest.log(dump(list_of_pos))
 	for i=1, #list_of_pos do
 		local p = list_of_pos[i]
 		posav[1] = posav[1] + p.x
@@ -36,7 +35,6 @@ bobutil.avg_pos = function(list_of_pos)
 	end
 
 	if count > 0 then
-		minetest.log("should be avg")
 		posav = vector.new(posav[1] / count, posav[2] / count,
 			posav[3] / count)
 	end

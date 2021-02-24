@@ -1,5 +1,9 @@
 -- Plays ambient sounds. Such as cave sounds, water, lava, music, etc.
 -- Reference taken from PilzAdam's ambient mod https://github.com/PilzAdam/MinetestAmbience/blob/master/init.lua
+-- And minetest_game's env_sounds mod
+
+-- The range we can hear ambient sounds from their source
+local audio_range = {x=16, y=16, z=16}
 
 local music = {
 	handler = {},
@@ -30,7 +34,14 @@ local waterfall_sounds = {
 local function get_ambience(player)
 	local table = {}
 
+	-- Music
 	table.music = music
+
+	-- Ambient Sounds
+	local ppos = player:get_pos()
+	ppos = vector.add(ppos, player:get_properties().eye_height)
+	local areamin = vector.subtract(ppos, audio_range)
+	local areamax = vector.add(ppos, audio_range)
 
 	local lava = minetest.find_node_near(player:get_pos(), 15, "group:lava")
 	if lava then
@@ -38,15 +49,17 @@ local function get_ambience(player)
 		table.lava.position = lava
 	end
 
-	local water = minetest.find_node_near(player:get_pos(), 15, "group:water_source")
-	if water then
+	local water = minetest.find_nodes_in_area(areamin, areamax, {"group:water_source"}, true)
+	if next(water) ~= nil then
 		table.water = water_sounds
-		table.water.position = water
-	end
-	local waterfall = minetest.find_node_near(player:get_pos(), 15, "group:water_flow")
-	if water then
-		table.waterfall = waterfall_sounds
-		table.waterfall.position = waterfall
+		-- calculate avg. position
+		local avges = {}
+		for blocks, _ in pairs(water) do
+			for _, pos in pairs(water[blocks]) do
+				avges[#avges+1] = pos
+			end
+		end
+		table.water.position = bobutil.avg_pos(avges) -- the averages of the averages
 	end
 
 	return table
