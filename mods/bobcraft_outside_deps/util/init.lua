@@ -22,6 +22,28 @@ bobutil.replace_node = function(pos, new_node)
 	minetest.swap_node(pos, node)
 end
 
+-- Returns the average of all positions
+bobutil.avg_pos = function(list_of_pos)
+	local posav = {0, 0, 0}
+	local count = 0
+	minetest.log(dump(list_of_pos))
+	for i=1, #list_of_pos do
+		local p = list_of_pos[i]
+		posav[1] = posav[1] + p.x
+		posav[2] = posav[2] + p.y
+		posav[3] = posav[3] + p.z
+		count = count + 1
+	end
+
+	if count > 0 then
+		minetest.log("should be avg")
+		posav = vector.new(posav[1] / count, posav[2] / count,
+			posav[3] / count)
+	end
+
+	return posav
+end
+
 -- Arguabely this falls under the jurisdiction of an inside dependency, but you can fight me on that.
 bobutil.foliage_palette = "foliage_palette.png"
 bobutil.foliage_palette_indices = {
