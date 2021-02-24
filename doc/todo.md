@@ -62,6 +62,7 @@ Things that need to be done, or I want to do at some point.
    - [ ] Fireball (Not Implemented)
    - [x] Wool Dying
    - [ ] Dye Mixing
+   - [x] Chest
  - [x] Furnace Recipes
    - [x] Sand -> Glass
    - [x] Ores -> Ore

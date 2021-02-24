@@ -569,6 +569,21 @@ minetest.register_craft({
 -- www
 -- ###
 
+-- chest
+-- # = wood
+-----
+-- ###
+-- # #
+-- ###
+minetest.register_craft({
+	output = "bobcraft_blocks:chest",
+	recipe = {
+		{"group:crafting_wood", "group:crafting_wood", "group:crafting_wood"},
+		{"group:crafting_wood", "", "group:crafting_wood"},
+		{"group:crafting_wood", "group:crafting_wood", "group:crafting_wood"},
+	}
+})
+
 -- all-seeing eye (eye of ender)
 -- (shapeless)
 -- a = eye, b = blazepowder
