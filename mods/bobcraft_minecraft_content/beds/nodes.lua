@@ -61,6 +61,7 @@ function beds.register_bed(name, def)
 		on_rightclick = function(pos, node, clicker)
 			beds.on_rightclick(pos, clicker)
 		end,
+		hardness = 0.2,
 	})
 
 	minetest.register_node(name .. "_top", {
@@ -78,15 +79,10 @@ function beds.register_bed(name, def)
 			type = "fixed",
 			fixed = {0, 0, 0, 0, 0, 0},
 		},
+		hardness = 0.2,
 	})
 
 	minetest.register_alias(name, name .. "_bottom")
-
-	-- register recipe
-	minetest.register_craft({
-		output = name,
-		recipe = def.recipe
-	})
 end
 
 -- simple (default)
@@ -96,30 +92,25 @@ beds.register_bed("bobcraft_beds:bed", {
 	wield_image = "beds_bed.png",
 	tiles = {
 	    bottom = {
-		"beds_bed_top_bottom.png^[transformR90",
-		"default_wood.png",
-		"beds_bed_side_bottom_r.png",
-		"beds_bed_side_bottom_r.png^[transformfx",
-		"beds_transparent.png",
-		"beds_bed_side_bottom.png"
+		"bed_top_bottom.png^[transformR90",
+		"planks.png",
+		"bed_side_bottom.png",
+		"bed_side_bottom.png^[transformfx",
+		"blank.png",
+		"bed_side_bottom.png"
 	    },
 	    top = {
-		"beds_bed_top_top.png^[transformR90",
-		"default_wood.png", 
-		"beds_bed_side_top_r.png",
-		"beds_bed_side_top_r.png^[transformfx",
-		"beds_bed_side_top.png",
-		"beds_transparent.png",
+		"bed_top_top.png^[transformR90",
+		"planks.png", 
+		"bed_side_top.png",
+		"bed_side_top.png^[transformfx",
+		"bed_side_top.png",
+		"blank.png",
 	    }
 	},
 	nodebox = {
 	    bottom = {-0.5, -0.5, -0.5, 0.5, 0.06, 0.5},
 	    top = {-0.5, -0.5, -0.5, 0.5, 0.06, 0.5},
 	},
-	selectionbox = {-0.5, -0.5, -0.5, 0.5, 0.06, 1.5},
-	recipe = {
-		{"group:wool", "group:wool", "group:wool"},
-		{"group:wood", "group:wood", "group:wood"}
-	},
-
+	selectionbox = {-0.5, -0.5, -0.5, 0.5, 0.06, 1.5}
 })
