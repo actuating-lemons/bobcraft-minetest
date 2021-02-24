@@ -277,6 +277,19 @@ minetest.register_craft({
 	}
 })
 
+-- stone brick
+-- # = stone
+-----
+-- ##
+-- ##
+minetest.register_craft({
+	output = "bobcraft_blocks:stone_bricks",
+	recipe = {
+		{"bobcraft_blocks:stone","bobcraft_blocks:stone",},
+		{"bobcraft_blocks:stone","bobcraft_blocks:stone",},
+	}
+})
+
 -- glowstone
 -- # = glowstone dust
 -----

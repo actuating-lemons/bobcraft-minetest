@@ -512,7 +512,6 @@ minetest.register_node("bobcraft_blocks:fence", {
 minetest.register_node("bobcraft_blocks:bricks", {
 	description = S("Bricks"),
 	tiles = {"bricks.png"},
-	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_stone(),
 
 	hardness = 3,
@@ -587,6 +586,16 @@ minetest.register_node("bobcraft_blocks:ladder", {
 
 	groups = {hand=1, axe=1, crafting_wood=1, fuel=bobutil.fuel_times.wood, attached_node=1},
 	hardness = 0.4,
+	stack_max = bobutil.stack_max,
+})
+
+minetest.register_node("bobcraft_blocks:stone_bricks", {
+	description = S("Stone Bricks"),
+	tiles = {"stone_brick.png"},
+	sounds = bobcraft_sounds.node_sound_stone(),
+
+	hardness = 3,
+	groups = {pickaxe=1},
 	stack_max = bobutil.stack_max,
 })
 
