@@ -20,6 +20,11 @@ function player_model.set_player_animation(player, animation_name)
 		return
 	end
 
+	if animation_name == player_model.players_animation then
+		return
+	end
+
+	local anim = model.animations[animation_name]
 	player_model.players_animation[playername] = animation_name
 	player:set_animation(anim, model.animation_speed, 0)
 end
@@ -51,11 +56,32 @@ minetest.register_globalstep(function()
 		local model = model_name and player_model.models[model_name]
 		if model then
 			local controls = player:get_player_control()
+			local speed = 15
 
 			if controls.up or controls.down or controls.right or controls.left then
-				player_model.set_player_animation(player, "walk")
+				-- Moving
+				if controls.sneak then
+					player_model.set_player_animation(player, "sneakwalk")
+				else
+					player_model.set_player_animation(player, "walk")
+				end
 			else
-				player_model.set_player_animation(player, "walk")
+				-- Standing Still
+				if controls.sneak then
+					-- Sneaking
+					if controls.dig or controls.place then 
+						player_model.set_player_animation(player, "sneakpunch")
+					else
+						player_model.set_player_animation(player, "sneak")
+					end
+				else
+					-- Not Sneaking
+					if controls.dig or controls.place then 
+						player_model.set_player_animation(player, "punch")
+					else
+						player_model.set_player_animation(player, "stand")
+					end
+				end
 			end
 		end
 	end
@@ -65,7 +91,7 @@ end)
 -- Default stuff
 ----
 player_model.register_model("player.b3d", {
-	animation_speed = 30,
+	animation_speed = 15,
 	textures = {"aeternitas.png"},
 	animations = {
 		stand = {
@@ -75,19 +101,37 @@ player_model.register_model("player.b3d", {
 		walk = {
 			x = 15,
 			y = 25
+		},
+		sneak = {
+			x = 30,
+			y = 40
+		},
+		sneakwalk = {
+			x = 45,
+			y = 55
+		},
+
+		punch = {
+			x = 65,
+			y = 70,
+		},
+		sneakpunch = {
+			x = 75,
+			y = 80,
 		}
 	}
 })
 
 minetest.register_on_joinplayer(function(player)
 	player_model.set_model(player, "player.b3d")
-	player:set_local_animation(
-		{x = 0, y = 10}, -- Idle/stand
-		{x = 15, y = 25}, -- Walk
-		{x = 65, y = 70}, -- Dig
-		{x = 0, y = 10}, -- WalkDig
-		15 -- FPS
-	)
+	-- Because of its' versatility, we want the server to handle the animations in all cases.
+	-- player:set_local_animation(
+	-- 	{x = 0, y = 10}, -- Idle/stand
+	-- 	{x = 15, y = 25}, -- Walk
+	-- 	{x = 65, y = 70}, -- Dig
+	-- 	{x = 0, y = 10}, -- WalkDig
+	-- 	15 -- FPS
+	-- )
 end)
 
 local path = minetest.get_modpath("3dplayer")
