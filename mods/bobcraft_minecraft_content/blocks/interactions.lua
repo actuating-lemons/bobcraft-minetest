@@ -82,18 +82,19 @@ minetest.register_abm(
 minetest.register_abm({
 	label = "Grass Death",
 
-	interval = 2.5,
+	interval = 2,
+	chance = 2, -- 1/2 chance
 	nodenames = {"bobcraft_blocks:grass_block", "bobcraft_blocks:snowy_grass_block"},
-	chance = 2, -- I don't get these chance values.
 	action = function(pos, node)
 		local above = {x=pos.x, y=pos.y+1, z=pos.z}
 
 		local node_above = minetest.get_node(above).name
 		local node_def = minetest.registered_nodes[node_above]
-		if node_def and 
-		(not node_def.sunlight_propagates or
-		node_def.walkable) then -- If sunlight doesn't propagate, or we can walk on it
-			minetest.set_node(pos, {name="bobcraft_blocks:dirt"})
+		if node_def and not ((node_def.sunlight_propagates or
+			node_def.paramtype == "light") and
+			node_def.liquidtype == "none") 
+		then
+			minetest.set_node(pos, {name = "bobcraft_blocks:dirt"})
 		end
 	end
 })
