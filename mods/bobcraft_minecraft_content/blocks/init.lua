@@ -383,6 +383,8 @@ minetest.register_node("bobcraft_blocks:leaves", {
 	is_ground_content = false,
 	sounds = bobcraft_sounds.node_sound_planty(),
 
+	paramtype = "light",
+
 	-- All of the colouring code
 	paramtype2 = "color",
 	palette = bobutil.foliage_palette,
@@ -400,6 +402,8 @@ minetest.register_node("bobcraft_blocks:leaves", {
 	hardness = 0.2,
 	groups = {hand=1, fuel=bobutil.fuel_times.small_wood}, -- TODO: shears?
 	stack_max = bobutil.stack_max,
+
+	waving = 2,
 })
 
 minetest.register_node("bobcraft_blocks:cobblestone", {
@@ -759,6 +763,8 @@ minetest.register_node("bobcraft_blocks:rose", {
 	on_place = function(itemstack, placer, pointed_thing)
 		return bobutil.on_plant(itemstack, placer, pointed_thing)
 	end,
+
+	waving = 1,
 })
 
 minetest.register_node("bobcraft_blocks:cactus", {
@@ -807,6 +813,8 @@ minetest.register_node("bobcraft_blocks:grass", {
 			}
 		}
 	},
+
+	waving = 1,
 })
 
 minetest.register_node("bobcraft_blocks:deadbush", {
@@ -835,6 +843,8 @@ minetest.register_node("bobcraft_blocks:deadbush", {
 	groups = {hand=1, attached_node=1},
 	hardness = 0,
 	stack_max = bobutil.stack_max,
+
+	waving = 1,
 })
 
 minetest.register_node("bobcraft_blocks:sugarcane", {
