@@ -737,6 +737,39 @@ minetest.register_node("bobcraft_blocks:diamond_ore", {
 })
 
 ----
+-- Mineral Blocks
+----
+minetest.register_node("bobcraft_blocks:iron_block", {
+	description = S("Iron Block"),
+	tiles = {"iron_block.png"},
+	sounds = bobcraft_sounds.node_sound_metal(),
+
+	groups = {pickaxe=1},
+	hardness = 5,
+	stack_max = bobutil.stack_max,
+})
+
+minetest.register_node("bobcraft_blocks:gold_block", {
+	description = S("Gold Block"),
+	tiles = {"gold_block.png"},
+	sounds = bobcraft_sounds.node_sound_metal(),
+
+	groups = {pickaxe=1},
+	hardness = 5,
+	stack_max = bobutil.stack_max,
+})
+
+minetest.register_node("bobcraft_blocks:diamond_block", {
+	description = S("Diamond Block"),
+	tiles = {"diamond_block.png"},
+	sounds = bobcraft_sounds.node_sound_stone(), -- TODO: Crystal sounds?
+
+	groups = {pickaxe=1},
+	hardness = 5,
+	stack_max = bobutil.stack_max,
+})
+
+----
 -- Etc.
 ----
 minetest.register_node("bobcraft_blocks:torch", {
