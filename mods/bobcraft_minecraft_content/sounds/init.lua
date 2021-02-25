@@ -106,3 +106,8 @@ function bobcraft_sounds.node_sound_wool(table)
 	table = table or {}
 	return bobcraft_sounds.node_sound_default(table)
 end
+
+-- Death sounds
+minetest.register_on_dieplayer(function(player, reason)
+	minetest.sound_play({name="player_death", gain=0.5, pos=player:get_pos()})
+end)

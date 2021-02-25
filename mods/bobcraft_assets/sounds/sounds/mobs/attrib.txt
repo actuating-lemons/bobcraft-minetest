@@ -1,3 +1,6 @@
 cow_idle.ogg - https://freesound.org/people/Zozzy/sounds/59245/
 pig_death.ogg - https://freesound.org/people/JarredGibb/sounds/233151/
 pig_idle.ogg - https://freesound.org/people/JarredGibb/sounds/233173/
+
+player_damage[0-2].ogg - https://freesound.org/people/kaldark/sounds/248269/
+player_death.ogg - https://freesound.org/people/kaldark/sounds/248269/
