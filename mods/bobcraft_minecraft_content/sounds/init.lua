@@ -20,6 +20,7 @@ end
 function bobcraft_sounds.node_sound_wood(table)
 	table = table or {}
 	table.footstep = table.footstep or {name = "step_wood", gain = 0.2}
+	table.dig = table.dig or {name = "dig_wood", gain = 0.3}
 	table.dug = table.dug or {name = "break_wood", gain = 0.3}
 	table.place = table.place or {name = "place_wood", gain = 1.0}
 	return bobcraft_sounds.node_sound_default(table)
@@ -38,12 +39,15 @@ end
 function bobcraft_sounds.node_sound_earthy(table)
 	table = table or {}
 	table.footstep = table.footstep or {name = "step_dirt", gain = 0.2}
+	table.dig = table.dig or {name = "dig_dirt", gain = 0.3}
 	return bobcraft_sounds.node_sound_default(table)
 end
 
 function bobcraft_sounds.node_sound_planty(table)
 	table = table or {}
 	table.footstep = table.footstep or {name = "step_grass", gain = 0.2}
+	table.dig = table.dig or {name = "dig_plant", gain = 0.3}
+	table.dug = table.dug or {name = "break_plant", gain = 0.3}
 	return bobcraft_sounds.node_sound_default(table)
 end
 
@@ -71,6 +75,7 @@ end
 function bobcraft_sounds.node_sound_sand(table)
 	table = table or {}
 	table.footstep = table.footstep or {name = "step_sand", gain = 0.2}
+	table.dig = table.dig or {name = "dig_loose", gain = 0.3}
 	table.dug = table.dug or {name = "break_sand", gain = 0.3}
 	table.place = table.place or {name = "place_sand", gain = 1.0}
 	return bobcraft_sounds.node_sound_default(table)
@@ -86,6 +91,7 @@ end
 function bobcraft_sounds.node_sound_gravel(table)
 	table = table or {}
 	table.footstep = table.footstep or {name = "step_gravel", gain = 0.2}
+	table.dig = table.dig or {name = "dig_loose", gain = 0.3}
 	return bobcraft_sounds.node_sound_default(table)
 end
 

@@ -28,6 +28,14 @@ step_metal.2.ogg - https://freesound.org/people/GiocoSound/sounds/421132/
 greendust_active_loop.ogg - https://freesound.org/people/opticaillusions/sounds/554312/]
 greendust_use.ogg - https://freesound.org/people/spookymodem/sounds/249819/
 
+dig_default.[0-1].ogg - https://freesound.org/people/jobel0092/sounds/268055/
+dig_wood.[0-1].ogg - https://freesound.org/people/SpliceSound/sounds/369638/
+dig_plant.[0-1].ogg - https://freesound.org/people/PorkMuncher/sounds/263676/
+break_plant.ogg - https://freesound.org/people/PorkMuncher/sounds/263676/
+dig_dirt.[0-1].ogg - https://freesound.org/people/FocusBay/sounds/210865/
+dig_loose.ogg - https://freesound.org/people/martinimeniscus/sounds/199333/
+
+
 CC-BY:
 step_grass.ogg - https://freesound.org/people/Snoman/sounds/9904/
 step_grass.1.ogg - https://freesound.org/people/Snoman/sounds/9905/
