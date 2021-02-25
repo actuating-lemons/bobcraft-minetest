@@ -46,3 +46,5 @@ sponge_break.ogg - JenTheFox / Jenifar Shifaketro / Jen The Fox#9535
 
 break_metal.ogg - https://freesound.org/people/jorickhoofd/sounds/160045/
 place_metal.ogg - https://freesound.org/people/jorickhoofd/sounds/176676/
+dig_metal.ogg - https://freesound.org/people/jorickhoofd/sounds/178588/
+dig_metal.1.ogg - https://freesound.org/people/jorickhoofd/sounds/178590/
