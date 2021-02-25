@@ -641,6 +641,51 @@ minetest.register_craft({
 	}
 })
 
+-- block of iron
+-- # = iron
+-----
+-- ###
+-- ###
+-- ###
+minetest.register_craft({
+	output = "bobcraft_blocks:iron_block",
+	recipe = {
+		{"bobcraft_items:iron_ingot", "bobcraft_items:iron_ingot", "bobcraft_items:iron_ingot"},
+		{"bobcraft_items:iron_ingot", "bobcraft_items:iron_ingot", "bobcraft_items:iron_ingot"},
+		{"bobcraft_items:iron_ingot", "bobcraft_items:iron_ingot", "bobcraft_items:iron_ingot"},
+	}
+})
+
+-- block of gold
+-- # = gold
+-----
+-- ###
+-- ###
+-- ###
+minetest.register_craft({
+	output = "bobcraft_blocks:gold_block",
+	recipe = {
+		{"bobcraft_items:gold_ingot", "bobcraft_items:gold_ingot", "bobcraft_items:gold_ingot"},
+		{"bobcraft_items:gold_ingot", "bobcraft_items:gold_ingot", "bobcraft_items:gold_ingot"},
+		{"bobcraft_items:gold_ingot", "bobcraft_items:gold_ingot", "bobcraft_items:gold_ingot"},
+	}
+})
+
+-- block of diamond
+-- # = diamond
+-----
+-- ###
+-- ###
+-- ###
+minetest.register_craft({
+	output = "bobcraft_blocks:diamond_block",
+	recipe = {
+		{"bobcraft_items:diamond", "bobcraft_items:diamond", "bobcraft_items:diamond"},
+		{"bobcraft_items:diamond", "bobcraft_items:diamond", "bobcraft_items:diamond"},
+		{"bobcraft_items:diamond", "bobcraft_items:diamond", "bobcraft_items:diamond"},
+	}
+})
+
 -- Shapeless wool dying
 -- TODO: should we move this to wool.lua?
 for i, colour in ipairs(dyes.colour_names) do
