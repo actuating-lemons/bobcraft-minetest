@@ -24,8 +24,6 @@ step_wood.2.ogg - https://freesound.org/people/yatoimtop/sounds/479445/
 step_metal.ogg - https://freesound.org/people/GiocoSound/sounds/421134/
 step_metal.1.ogg - https://freesound.org/people/GiocoSound/sounds/421133/
 step_metal.2.ogg - https://freesound.org/people/GiocoSound/sounds/421132/
-break_metal.ogg - https://freesound.org/people/jorickhoofd/sounds/160045/
-place_metal.ogg - https://freesound.org/people/jorickhoofd/sounds/176676/
 
 greendust_active_loop.ogg - https://freesound.org/people/opticaillusions/sounds/554312/]
 greendust_use.ogg - https://freesound.org/people/spookymodem/sounds/249819/
@@ -45,3 +43,6 @@ waterfall_ambience.ogg - https://freesound.org/people/mystiscool/sounds/7137/
 
 sponge_place.ogg - JenTheFox / Jenifar Shifaketro / Jen The Fox#9535
 sponge_break.ogg - JenTheFox / Jenifar Shifaketro / Jen The Fox#9535
+
+break_metal.ogg - https://freesound.org/people/jorickhoofd/sounds/160045/
+place_metal.ogg - https://freesound.org/people/jorickhoofd/sounds/176676/
