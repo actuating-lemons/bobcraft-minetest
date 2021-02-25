@@ -946,14 +946,7 @@ minetest.register_node("bobcraft_blocks:grass", {
 	end,
 
 
-	drop = {
-		items = {
-			max_items = 4,
-			items = {
-				{ items = "bobcraft_items:wheat_seeds", rarity = 10},
-			}
-		}
-	},
+	drop = "bobcraft_farming:wheat_seeds",
 
 	waving = 1,
 })
