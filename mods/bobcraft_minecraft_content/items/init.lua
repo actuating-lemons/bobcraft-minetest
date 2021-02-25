@@ -24,6 +24,11 @@ minetest.register_craftitem("bobcraft_items:flint", {
 	inventory_image = "flint.png",
 	stack_max = bobutil.stack_max,
 })
+minetest.register_craftitem("bobcraft_items:silk", {
+	description = S("Silk"),
+	inventory_image = "string.png",
+	stack_max = bobutil.stack_max,
+})
 
 -- Smelty/Orey
 minetest.register_craftitem("bobcraft_items:coal", {

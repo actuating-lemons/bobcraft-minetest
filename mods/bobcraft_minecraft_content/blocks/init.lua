@@ -698,6 +698,25 @@ minetest.register_node("bobcraft_blocks:crafting_table", {
 	stack_max = bobutil.stack_max,
 })
 
+minetest.register_node("bobcraft_blocks:cobweb", { -- TODO: how do we slow the player inside this
+	description = S("Cobweb"),
+	tiles = {"cobweb.png"},
+	drawtype = "plantlike",
+	walkable = false,
+	paramtype = "light",
+	sunlight_propagates = true,
+	sounds = bobcraft_sounds.node_sound_wool(),
+	groups = {hand=1},
+
+	wield_image = "cobweb.png",
+	inventory_image = "cobweb.png",
+
+	drop = "bobcraft_items:silk 4",
+
+	hardness = 0,
+	stack_max = bobutil.stack_max
+})
+
 ----
 -- Ores
 ----

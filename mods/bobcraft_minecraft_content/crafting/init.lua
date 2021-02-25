@@ -314,6 +314,13 @@ minetest.register_craft({
 -----
 -- ##
 -- ##
+minetest.register_craft({
+	output = "bobcraft_blocks:wool_white",
+	recipe = {
+		{"bobcraft_items:silk","bobcraft_items:silk"},
+		{"bobcraft_items:silk","bobcraft_items:silk"},
+	}
+})
 
 -- tnt
 -- # = sand, x = gunpowder
