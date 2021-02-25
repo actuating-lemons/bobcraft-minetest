@@ -103,11 +103,6 @@ bobutil.on_plant = function(itemstack, placer, pointed_thing)
 	local nodedef = minetest.registered_nodes[node.name]
 	local plantable = minetest.get_node_group(node.name, "plantable")
 
-	minetest.log(dump(pos))
-	minetest.log(dump(node))
-	minetest.log(dump(nodedef))
-	minetest.log(dump(plantable))
-
 	-- we do the tricky stuff with the () to keep our default value of buildable_to as true
 	if not nodedef or not (nodedef.buildable_to or true) then
 		return itemstack
