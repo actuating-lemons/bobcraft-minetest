@@ -31,6 +31,8 @@ minetest.register_node("bobcraft_blocks:grass_block", {
 	"grass_block_side_overlay.png"},
 	color = "#00ff00", -- HACK: make it green in the inventory
 
+	drop = "bobcraft_blocks:dirt",
+
 	-- foliage is a special group that we use to know if something needs biome colours
 	groups = {hand=1, shovel=1, foliage=1, plantable=1},
 	hardness = 0.6,
