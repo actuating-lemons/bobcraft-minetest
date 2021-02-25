@@ -32,7 +32,7 @@ minetest.register_node("bobcraft_blocks:chest", {
 	end,
 
 	on_rightclick = function(pos, node, player)
-		-- TODO: play open sound
+		minetest.sound_play({name="door_open", pos=pos})
 
 		minetest.show_formspec(player:get_player_name(), "bobcraft_blocks:chest", chest_formspec(pos))
 	end,
