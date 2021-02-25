@@ -83,6 +83,10 @@ minetest.register_globalstep(function()
 					end
 				end
 			end
+
+			if player:get_hp() == 0 then
+				player_model.set_player_animation(player, "lay")
+			end
 		end
 	end
 end)
@@ -118,6 +122,11 @@ player_model.register_model("player.b3d", {
 		sneakpunch = {
 			x = 75,
 			y = 80,
+		},
+
+		lay = { -- death, sleeping
+			x = 85,
+			y = 85,
 		}
 	}
 })
