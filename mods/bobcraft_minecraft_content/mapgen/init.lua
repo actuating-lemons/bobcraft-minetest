@@ -17,5 +17,6 @@ local path = minetest.get_modpath("bobcraft_worldgen")
 minetest.set_mapgen_setting("water_level", worldgen.overworld_sea_level, true)
 
 dofile(path .. "/worldgen_biomes.lua")
+dofile(path .. "/worldgen_undergroundbiomes.lua")
 dofile(path .. "/worldgen.lua")
 dofile(path .. "/ores.lua")
