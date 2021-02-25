@@ -998,6 +998,45 @@ minetest.register_node("bobcraft_blocks:sugarcane", {
 	stack_max = bobutil.stack_max
 })
 
+minetest.register_node("bobcraft_blocks:pumpkin", {
+	description = S("Pumpkin"),
+	tiles = {"pumpkin_top.png","pumpkin_top.png","pumpkin_side.png"},
+	sounds = bobcraft_sounds.node_sound_planty(),
+	groups = {hand=1},
+
+	hardness = 0,
+	stack_max = bobutil.stack_max
+})
+
+minetest.register_node("bobcraft_blocks:jackolantern", {
+	description = S("Carved Pumpkin"),
+	tiles = {"jackolantern_top.png","pumpkin_top.png",
+	"pumpkin_side.png","pumpkin_side.png",
+	"pumpkin_side.png","jackolantern_face.png"},
+	sounds = bobcraft_sounds.node_sound_planty(),
+	groups = {hand=1},
+
+	paramtype2 = "facedir",
+
+	hardness = 3,
+	stack_max = bobutil.stack_max
+})
+
+minetest.register_node("bobcraft_blocks:jackolantern_lit", {
+	description = S("Jack-o-lantern"),
+	tiles = {"jackolantern_top_lit.png","pumpkin_top.png",
+	"pumpkin_side.png","pumpkin_side.png",
+	"pumpkin_side.png","jackolantern_face_lit.png"},
+	sounds = bobcraft_sounds.node_sound_planty(),
+	groups = {hand=1},
+
+	paramtype2 = "facedir",
+
+	hardness = 3,
+	stack_max = bobutil.stack_max,
+	light_source = 12,
+})
+
 local modpath = minetest.get_modpath("bobcraft_blocks")
 dofile(modpath .. "/interactions.lua")
 dofile(modpath .. "/aliases.lua")
