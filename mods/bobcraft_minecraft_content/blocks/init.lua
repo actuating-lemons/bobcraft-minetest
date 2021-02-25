@@ -454,8 +454,16 @@ minetest.register_node("bobcraft_blocks:watermelon", {
 	is_ground_content = false,
 	sounds = bobcraft_sounds.node_sound_planty(),
 
+	drop = {
+		items = {
+			max_items = 3,
+			{ items = {"bobcraft_items:melon_slice"}},
+			{ items = {"bobcraft_items:melon_slice 2"}, rarity = 5},
+		}
+	},
+
 	hardness = 1,
-	groups = {hand=1},
+	groups = {hand=1, hoe=1},
 	stack_max = bobutil.stack_max,
 })
 
@@ -620,7 +628,7 @@ minetest.register_node("bobcraft_blocks:chiseled_stone_bricks", {
 minetest.register_node("bobcraft_blocks:iron_bars", {
 	description = S("Iron Bars"),
 	tiles = {"iron_bars_top.png", "iron_bars_top.png", "iron_bars.png"},
-	sounds = bobcraft_sounds.node_sound_stone(),
+	sounds = bobcraft_sounds.node_sound_metal(),
 
 	drawtype = "nodebox",
 	node_box = {

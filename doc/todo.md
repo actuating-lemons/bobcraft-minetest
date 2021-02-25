@@ -106,7 +106,7 @@ Things that need to be done, or I want to do at some point.
    - [x] Bread
    - [ ] Cake
    - [ ] Cookie
-   - [ ] Melon Slice
+   - [x] Melon Slice
    - [ ] Mushroom Stew
    - [ ] Chicken
    - [ ] Beef
