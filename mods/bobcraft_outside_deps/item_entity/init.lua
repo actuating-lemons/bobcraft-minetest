@@ -144,7 +144,7 @@ minetest.register_globalstep(function(dtime)
 		local inv = player:get_inventory()
 
 		for j, object in ipairs(minetest.get_objects_inside_radius(pos, 16)) do
-			if not object:is_player() and object:get_luaentity() and object:get_luaentity().name == "__builtin:item" then
+			if not object:is_player() and object:get_luaentity() and object:get_luaentity().name == "__builtin:item" and player:get_hp() > 0 then
 				if object:get_luaentity().magnetting and vector.distance(pos, object:get_pos()) <= item_flyto_radius and
 					inv:room_for_item("main", ItemStack(object:get_luaentity().itemstring)) then -- we pretend to not be in the radius if the player doesn't have space
 				disable_physics(object, object:get_luaentity())
@@ -263,3 +263,33 @@ function minetest.item_drop(itemstack, dropper, pos)
 		end
 	end
 end
+
+-- Blargh!!!!
+-- (used on death)
+function spew_inventory(player, name)
+	local inv = player:get_inventory()
+	local list = inv:get_list(name)
+	local pos = player:get_pos()
+	pos.y = pos.y + 1
+
+	if list ~= nil then
+		for i, stack in ipairs(list) do
+			local item = minetest.add_item(pos, stack)
+			if item ~= nil then
+				local vel = item:get_velocity()
+				vel.x = math.random(-4,4)
+				vel.y = math.random(-4,4)
+				vel.z = math.random(-4,4)
+				
+				item:set_velocity(vel)
+				item:get_luaentity().magnettime = drop_flyto_time
+			end
+			stack:clear()
+			inv:set_stack(name, i, stack)
+		end
+	end
+end
+
+minetest.register_on_dieplayer(function(player)
+	spew_inventory(player, "main")
+end)
