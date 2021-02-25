@@ -4,6 +4,7 @@ player_model = {}
 player_model.models = {}
 player_model.players_model = {}
 player_model.players_animation = {}
+player_model.dont_animate = {}
 
 function player_model.register_model(name, def) 
 	player_model.models[name] = def
@@ -58,34 +59,36 @@ minetest.register_globalstep(function()
 			local controls = player:get_player_control()
 			local speed = 15
 
-			if controls.up or controls.down or controls.right or controls.left then
-				-- Moving
-				if controls.sneak then
-					player_model.set_player_animation(player, "sneakwalk")
-				else
-					player_model.set_player_animation(player, "walk")
-				end
-			else
-				-- Standing Still
-				if controls.sneak then
-					-- Sneaking
-					if controls.dig or controls.place then 
-						player_model.set_player_animation(player, "sneakpunch")
+			if not player_model.dont_animate[player_name] then
+				if controls.up or controls.down or controls.right or controls.left then
+					-- Moving
+					if controls.sneak then
+						player_model.set_player_animation(player, "sneakwalk")
 					else
-						player_model.set_player_animation(player, "sneak")
+						player_model.set_player_animation(player, "walk")
 					end
 				else
-					-- Not Sneaking
-					if controls.dig or controls.place then 
-						player_model.set_player_animation(player, "punch")
+					-- Standing Still
+					if controls.sneak then
+						-- Sneaking
+						if controls.dig or controls.place then 
+							player_model.set_player_animation(player, "sneakpunch")
+						else
+							player_model.set_player_animation(player, "sneak")
+						end
 					else
-						player_model.set_player_animation(player, "stand")
+						-- Not Sneaking
+						if controls.dig or controls.place then 
+							player_model.set_player_animation(player, "punch")
+						else
+							player_model.set_player_animation(player, "stand")
+						end
 					end
 				end
-			end
 
-			if player:get_hp() == 0 then
-				player_model.set_player_animation(player, "lay")
+				if player:get_hp() == 0 then
+					player_model.set_player_animation(player, "lay")
+				end
 			end
 		end
 	end

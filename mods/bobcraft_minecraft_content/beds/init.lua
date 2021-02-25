@@ -68,7 +68,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		-- physics, eye_offset, etc
 		player:set_eye_offset({x=0,y=0,z=0}, {x=0,y=0,z=0})
 		player:set_look_yaw(math.random(1, 180)/100)
-		-- default.player_attached[name] = false
+		player_model.dont_animate[name] = false
 		player:set_physics_override(1, 1, 1)
 		hud_flags.wielditem = true
 		player_model.set_player_animation(player, "stand" , 30)
@@ -87,7 +87,7 @@ local function lay_down(player, pos, bed_pos, state, skip)
 		local p = {x=bed_pos.x+dir.x/2,y=bed_pos.y,z=bed_pos.z+dir.z/2}
 		player:set_physics_override(0, 0, 0)
 		player:setpos(p)
-		-- default.player_attached[name] = true
+		player_model.dont_animate[name] = true
 		hud_flags.wielditem = false
 		player_model.set_player_animation(player, "lay" , 0)
 	end
