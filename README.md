@@ -15,7 +15,7 @@ Although, it does also add features, that 1.2.5 didn't have. Not anything post-1
 ## Come again?
 *Note: this is the informal, comedic version. Please see the license section for a more legally binding notice.*\
 I was going to license this under the Unlicense (and indeed, the seperately licensed `mods/brpdinv` is), but I remembered the people on the internet suck.\
-So instead of doing that, This is licensed under CC-BY. That's right, literally the only thing I ask for is credit.
+So instead of doing that, This is licensed under the MIT License.
 
 ## What?
 This project is also self-hosting, in that every mod here was (at-least in part, with odd exception such as `mods/mobs`) made by me.\
@@ -26,7 +26,7 @@ Minetest_Game is cool, but I can do it myself, thank-you-very much.
 I will not take credit for all of the desgin, however. As certain mods (usually acknowleged in comments of the `.lua` files) have had inspiration drawn from minetest_game.
 
 ## License
-The code, with exception of BRPDINV, is licensed under the CC-BY License.\
-Media files, where not attributed to other individuals, is also CC-BY.\
+The code, with exception of BRPDINV, is licensed under the MIT License.\
+Media files, where not attributed to other individuals, is CC-BY-4.0.\
 Where applicable, you will find an `attrib.txt` file with attributions to the creators of the resources.\
 For code that has had reference/structure from other, existing mods, they are usually referenced in the lua source files.
