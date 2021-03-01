@@ -3,14 +3,29 @@ worldgen = {}
 worldgen.overworld_top = 256
 worldgen.overworld_bottom = 0
 
-np_base = {
+local c_wool = minetest.get_content_id("bobcraft_blocks:wool_green")
+
+local function get_perlin_map(noiseparam, sidelen, minp)
+	local pm = minetest.get_perlin_map(noiseparam, sidelen)
+    return pm:get_2d_map_flat({x = minp.x, y = minp.z, z = 0})
+end
+
+local np_base = {
 	offset = 0,
 	scale = 1,
-	spread = {x = 192, y = 192, z = 192},
-	octaves = 4,
-	persist = 0.6,
-	lacunarity = 2.0,
+	spread = {x=256, y=256, z=256},
+	seed = 69420,
+	octaves = 6,
+	persist = 0.5,
 }
+
+local function y_at_point(x, z, ni, noise1)
+	local y
+
+	y = 25 * noise1[ni] / 3
+
+	return y
+end
 
 minetest.register_on_generated(function(minp, maxp, blockseed)
 	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
@@ -28,26 +43,20 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 
 	local sidelen = x1 - x0 + 1
 
-	local noise_base = minetest.get_perlin_map(np_base, {x=sidelen,y=sidelen,z=sidelen})
-	local noise_map = noise_base:get_3d_map_flat(minpos)
+	local noise1 = get_perlin_map(np_base, {x=sidelen, y=sidelen, z=sidelen}, minp)
 
 	local heightmap = {}
 	
 
 	local ni = 1
 	for z = z0, z1 do
-		for y = y0, y1 do
-			local vi = area:index(x0, y, z)
-			for x = x0, x1 do
-				local base = noise_map[ni]
+		for x = x0, x1 do
+			y = math.floor(y_at_point(x, z, ni, noise1))
 
-				if base < -1 then
-					data[vi] = minetest.get_content_id("bobcraft_blocks:wool_red")
-				end
+			local vi = area:index(x, y, z)
+			data[vi] = c_wool
 
-				ni = ni + 1
-				vi = vi + 1
-			end
+			ni = ni + 1
 		end
 	end
 
