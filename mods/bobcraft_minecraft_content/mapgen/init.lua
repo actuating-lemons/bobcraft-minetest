@@ -68,21 +68,15 @@ local np_rainfall = {
 	persist = 0.5,
 }
 
-local function y_at_point(x, z, ni, biome, noise1, noise2)
+local function y_at_point(x, z, ni, biome, tempdiff, noise1, noise2)
 	local y
+	-- local y_effector = biome.y_effector * tempdiff
+	local y_effector = 1.0 -- TODO: Y_EFFCTOR TO MAKE BIOMES HAVE UNIQUE-ER LAND SCAPES
 
-	y = 32 * noise1[ni] / 4
-	y = y * noise2[ni] * 4
+	y = 32 * noise1[ni] / (4 * y_effector)
+	y = y * noise2[ni] * (4 * y_effector)
 
 	y = y + worldgen.overworld_sealevel
-
-	y = y * (1+biome.max_height_mult)
-
-	local min_y = (worldgen.overworld_sealevel * biome.min_height_mult)
-	local max_y = worldgen.overworld_sealevel + (worldgen.overworld_sealevel * biome.max_height_mult)
-
-	y = y + min_y
-	-- y = math.min(max_y, y)
 
 	return y
 end
@@ -110,8 +104,9 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 			local temperature = noise_temperature[ni]
 			local rainfall = noise_rainfall[ni]
 			local biome = worldgen.get_biome_nearest(temperature, rainfall)
+			local tempdiff = math.abs(biome.temperature - temperature)
 
-			local y = math.floor(y_at_point(x, z, ni, biome, noise_base, noise_overlay))
+			local y = math.floor(y_at_point(x, z, ni, biome, tempdiff, noise_base, noise_overlay))
 
 			top_node = biome.top
 			mid_node = biome.middle
