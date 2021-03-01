@@ -69,7 +69,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 				data[vi] = top_node
 			end
 
-			local tl = math.floor((noise_top_layer[ni] + 5) * 3)
+			local tl = math.floor((noise_top_layer[ni] + 1))
 			if y - tl - 1 <= maxp.y and y - 1 >= minp.y then
 				for yy = math.max(y - tl - 1, minp.y), math.min(y - 1, maxp.y) do
 					local vi = area:index(x, yy, z)
@@ -77,7 +77,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 				end
 			end
 
-			local sl = math.floor((noise_second_layer[ni] + 5) * 3)
+			local sl = math.floor((noise_second_layer[ni] + 1))
 			if y - sl - 2 >= minp.y then
 				for yy = minp.y, math.min(y - sl - 2, maxp.y) do
 					local vi = area:index(x, yy, z)
