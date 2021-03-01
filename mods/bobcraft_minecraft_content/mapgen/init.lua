@@ -66,9 +66,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 
 			if y <= maxp.y and y >= minp.y then
 				local vi = area:index(x, y, z)
-				if y < 0 then
-					data[vi] = top_node
-				end
+				data[vi] = top_node
 			end
 
 			local tl = math.floor((noise_top_layer[ni] + 5) * 3)
