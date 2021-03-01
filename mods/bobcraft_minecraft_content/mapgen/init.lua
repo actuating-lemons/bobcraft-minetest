@@ -23,7 +23,12 @@ local function get_perlin_map(noiseparam, sidelen, minp)
 	local pm = minetest.get_perlin_map(noiseparam, sidelen)
     return pm:get_2d_map_flat({x = minp.x, y = minp.z, z = 0})
 end
+local function get_perlin_map_3d(noiseparam, sidelen, minp)
+	local pm = minetest.get_perlin_map(noiseparam, sidelen)
+    return pm:get_3d_map_flat({x = minp.x, y = minp.z, z = 0})
+end
 
+-- Base - the meat of the y height
 local np_base = {
 	offset = 0,
 	scale = 1,
@@ -32,6 +37,7 @@ local np_base = {
 	octaves = 6,
 	persist = 0.5,
 }
+-- Overlay - applies on-top of the already set y height from Base
 local np_overlay = {
 	offset = 0,
 	scale = 1,
@@ -41,6 +47,7 @@ local np_overlay = {
 	persist = 0.5,
 }
 
+-- second layer - the shape of the dirt/stone mix, irrespective of surface
 local np_second_layer = {
 	offset = 0,
 	scale = 1,
@@ -50,6 +57,17 @@ local np_second_layer = {
 	persist = 0.5,
 }
 
+-- caves - we cut caves into the ground, 'nuff said
+local np_caves = {
+	offset = 0,
+	scale = 2,
+	spread = {x=32, y=16, z=32},
+	octaves = 4,
+	seed = -11842,
+	persist = 0.6
+}
+
+-- Temperature - How we generate temperature values
 local np_temperature = {
 	offset = 0,
 	scale = 2,
@@ -58,7 +76,7 @@ local np_temperature = {
 	octaves = 6,
 	persist = 0.5,
 }
-
+-- Rainfall - How we generate humidity values
 local np_rainfall = {
 	offset = 0,
 	scale = 2,
@@ -137,9 +155,9 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 				end
 			end
 
-			-- the sea
 			for yy = minp.y, maxp.y do
 				local vi = area:index(x, yy, z)
+				-- the sea
 				if yy <= worldgen.overworld_sealevel then
 					if data[vi] == c_air then
 						data[vi] = c_water
@@ -148,6 +166,27 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 			end
 
 			ni = ni + 1
+		end
+	end
+
+
+	local noise_caves = get_perlin_map_3d(np_caves, {x=sidelen, y=sidelen, z=sidelen}, minp)
+	local nixyz = 1
+	for z = minp.z, maxp.z do
+		for y = minp.y, maxp.y do
+			local vi = area:index(minp.x, y, z)
+			for x = minp.x, maxp.x do
+				local cave = noise_caves[nixyz]
+				
+				-- caves
+				if cave > 0.9 then
+					data[vi] = c_air
+				end
+
+
+				vi = vi + 1
+				nixyz = nixyz + 1
+			end
 		end
 	end
 
