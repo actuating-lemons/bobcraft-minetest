@@ -5,6 +5,10 @@ worldgen.overworld_bottom = 0
 -- Doubles as the surface height too
 worldgen.overworld_sealevel = 63
 
+
+local mp = minetest.get_modpath("bobcraft_worldgen")
+dofile(mp.."/ores.lua")
+
 local c_wool = minetest.get_content_id("bobcraft_blocks:wool_green")
 
 local c_air = minetest.get_content_id("air")
@@ -101,6 +105,10 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 			ni = ni + 1
 		end
 	end
+
+	-- Let minetest set the ores and decorations up
+	minetest.generate_ores(vm)
+	minetest.generate_decorations(vm)
 
 	vm:set_data(data)
 	vm:calc_lighting()
