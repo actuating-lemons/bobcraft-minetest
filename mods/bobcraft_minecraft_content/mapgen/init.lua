@@ -30,6 +30,14 @@ local np_base = {
 	octaves = 6,
 	persist = 0.5,
 }
+local np_overlay = {
+	offset = 0,
+	scale = 1,
+	spread = {x=512, y=512, z=512},
+	seed = 69420,
+	octaves = 6,
+	persist = 0.5,
+}
 
 local np_second_layer = {
 	offset = 0,
@@ -40,10 +48,11 @@ local np_second_layer = {
 	persist = 0.5,
 }
 
-local function y_at_point(x, z, ni, noise1)
+local function y_at_point(x, z, ni, noise1, noise2)
 	local y
 
-	y = 25 * noise1[ni] / 3
+	y = 32 * noise1[ni] / 4
+	y = y * noise2[ni] * 4
 
 	return y + worldgen.overworld_sealevel
 end
@@ -55,6 +64,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 
 	local sidelen = maxp.x - minp.x + 1
 	local noise_base = get_perlin_map(np_base, {x=sidelen, y=sidelen, z=sidelen}, minp)
+	local noise_overlay = get_perlin_map(np_overlay, {x=sidelen, y=sidelen, z=sidelen}, minp)
 
 	local noise_top_layer = get_perlin_map(np_second_layer, {x=sidelen, y=sidelen, z=sidelen}, minp)
 	local noise_second_layer = get_perlin_map(np_second_layer, {x=sidelen, y=sidelen, z=sidelen}, minp)
@@ -63,7 +73,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 	local ni = 1
 	for z = minp.z, maxp.z do
 		for x = minp.x, maxp.x do
-			y = math.floor(y_at_point(x, z, ni, noise_base))
+			local y = math.floor(y_at_point(x, z, ni, noise_base, noise_overlay))
 
 			local top_node, mid_node, bottom_node
 
@@ -73,7 +83,11 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 
 			if y <= maxp.y and y >= minp.y then
 				local vi = area:index(x, y, z)
-				data[vi] = top_node
+				if y < worldgen.overworld_sealevel then
+					data[vi] = mid_node
+				else
+					data[vi] = top_node
+				end
 			end
 
 			local tl = math.floor((noise_top_layer[ni] + 1))
