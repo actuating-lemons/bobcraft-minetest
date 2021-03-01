@@ -118,6 +118,16 @@ local function y_at_point(x, z, ni, biome, tempdiff, noise1, noise2)
 	return y
 end
 
+-- Returns the biome at the pos.
+function worldgen.get_biome(pos)
+	local noise_temperature = get_perlin_map(np_temperature, {x=1, y=1, z=1}, pos)
+	local noise_rainfall = get_perlin_map(np_rainfall, {x=1, y=1, z=1}, pos)
+	local temperature = noise_temperature[1]
+	local rainfall = noise_rainfall[ni]
+
+	return worldgen.get_biome_nearest(temperature, rainfall)
+end
+
 minetest.register_on_generated(function(minp, maxp, blockseed)
 	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
 	local data = vm:get_data()

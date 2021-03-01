@@ -118,19 +118,15 @@ end
 local function set_player_skies()
 	for _, player in ipairs(minetest.get_connected_players()) do
 		local player_pos = player:get_pos()
-		local player_biome = minetest.get_biome_data(player_pos)
+		local player_biome = worldgen.get_biome(player_pos)
 
 		if player_biome then
-			local player_biome_name = minetest.get_biome_name(player_biome.biome)
-			local player_biome_data = minetest.registered_biomes[player_biome_name]
-			if player_biome_data ~= nil then
-				local player_biome_temp = player_biome_data._temperature or 0.5
+			local player_biome_temp = player_biome.temperature
 
-				player:set_sky({
-					base_color=get_sky_color(player_biome_temp), 
-					type="plain"
-				})
-			end
+			player:set_sky({
+				base_color=get_sky_color(player_biome_temp), 
+				type="plain"
+			})
 		end
 	end
 end
