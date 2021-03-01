@@ -1,4 +1,4 @@
-local SEA_FLOOR = worldgen.overworld_sea_level - 19
+local SEA_FLOOR = worldgen.overworld_sealevel - 19
 ----
 -- Plains
 ----
@@ -10,7 +10,7 @@ minetest.register_biome({
 	depth_filler = 2,
 	node_stone = "bobcraft_blocks:stone",
 	node_riverbed = "bobcraft_blocks:sand",
-	y_min = 0,
+	y_min = worldgen.overworld_bottom,
 	y_max = worldgen.overworld_top,
 	heat_point = 50,
 	humidity_point = 35,
@@ -34,7 +34,7 @@ minetest.register_decoration({
 		octaves = 3,
 		persist = 0.66
 	},
-	y_min = 0,
+	y_min = worldgen.overworld_bottom,
 	y_max = worldgen.overworld_top,
 	decoration = "bobcraft_blocks:rose"
 })
@@ -49,7 +49,7 @@ minetest.register_biome({
 	node_filler = "bobcraft_blocks:dirt",
 	depth_filler = 2,
 	node_stone = "bobcraft_blocks:stone",
-	y_min = 0,
+	y_min = worldgen.overworld_bottom,
 	y_max = worldgen.overworld_top,
 	heat_point = 60,
 	humidity_point = 68,
@@ -71,8 +71,8 @@ minetest.register_biome({
 	node_filler = "bobcraft_blocks:dirt",
 	depth_filler = 2,
 	node_stone = "bobcraft_blocks:stone",
-	y_min = 0,
-	y_max = 23,
+	y_min = worldgen.overworld_bottom,
+	y_max = worldgen.overworld_top,
 	humidity_point = 60,
 	heat_point = 50,
 	vertical_blend = 8,
@@ -93,7 +93,7 @@ minetest.register_biome({
 	node_filler = "bobcraft_blocks:sand",
 	depth_filler = 2,
 	node_stone = "bobcraft_blocks:sandstone",
-	y_min = 0,
+	y_min = worldgen.overworld_bottom,
 	y_max = worldgen.overworld_top,
 	heat_point = 92,
 	humidity_point = 16,
@@ -111,7 +111,7 @@ minetest.register_decoration({
     fill_ratio = 0.002,
     biomes = {"Desert"},
     y_max = worldgen.overworld_top,
-    y_min = 0,
+    y_min = worldgen.overworld_bottom,
 	decoration = "bobcraft_blocks:cactus",
 	height = 2,
 	height_max = 5
@@ -123,7 +123,7 @@ minetest.register_decoration({ -- the mythical tall cactus
     fill_ratio = 0.00000005,
     biomes = {"Desert"},
     y_max = worldgen.overworld_top,
-    y_min = 0,
+    y_min = worldgen.overworld_bottom,
 	decoration = "bobcraft_blocks:cactus",
 	height = 10,
 	height_max = 29
@@ -141,7 +141,7 @@ minetest.register_decoration({
 		octaves = 3,
 		persist = 0.66
 	},
-	y_min = 0,
+	y_min = worldgen.overworld_bottom,
 	y_max = worldgen.overworld_top,
 	decoration = "bobcraft_blocks:deadbush"
 })
@@ -159,7 +159,7 @@ minetest.register_biome({
 	node_water_top = "bobcraft_blocks:ice",
 	depth_water_top = 1,
 	node_dust = "bobcraft_blocks:snow_layer",
-	y_min = 0,
+	y_min = worldgen.overworld_bottom,
 	y_max = worldgen.overworld_top,
 	heat_point = 12,
 	humidity_point = 45,
@@ -182,7 +182,7 @@ minetest.register_biome({
 	node_stone = "bobcraft_blocks:stone",
 	node_water_top = "bobcraft_blocks:ice",
 	depth_water_top = 1,
-	y_min = 0,
+	y_min = worldgen.overworld_bottom,
 	y_max = worldgen.overworld_top,
 	heat_point = 12,
 	humidity_point = 55,
@@ -203,7 +203,7 @@ minetest.register_biome({
 	node_filler = "bobcraft_blocks:dirt",
 	depth_filler = 2,
 	node_stone = "bobcraft_blocks:stone",
-	y_min = 40,
+	y_min = worldgen.overworld_bottom,
 	y_max = worldgen.overworld_top,
 	heat_point = 50,
 	humidity_point = 45,
@@ -223,7 +223,7 @@ minetest.register_biome({
 	depth_filler = 2,
 	node_stone = "bobcraft_blocks:stone",
 	node_dust = "bobcraft_blocks:snow_layer",
-	y_min = 60,
+	y_min = worldgen.overworld_bottom,
 	y_max = worldgen.overworld_top,
 	heat_point = 35,
 	humidity_point = 45,
@@ -245,8 +245,8 @@ minetest.register_biome({
 	node_filler = "bobcraft_blocks:gravel",
 	depth_filler = 2,
 	node_stone = "bobcraft_blocks:stone",
-	y_min = SEA_FLOOR,
-	y_max = worldgen.overworld_sea_level,
+	y_min = worldgen.overworld_bottom,
+	y_max = worldgen.overworld_top,
 	-- The ocean is the mid point
 	heat_point = 50,
 	humidity_point = 50,
@@ -266,8 +266,8 @@ minetest.register_biome({
 	node_stone = "bobcraft_blocks:stone",
 	node_water_top = "bobcraft_blocks:ice",
 	depth_water_top = 1,
-	y_min = SEA_FLOOR,
-	y_max = worldgen.overworld_sea_level,
+	y_min = worldgen.overworld_bottom,
+	y_max = worldgen.overworld_top,
 	-- The ocean is the mid point
 	heat_point = 12,
 	humidity_point = 50,
@@ -296,7 +296,7 @@ minetest.register_decoration({
 		octaves = 3,
 		persist = 0.66
 	},
-	y_min = 3,
+	y_min = worldgen.overworld_bottom,
 	y_max = worldgen.overworld_top,
 	schematic = "schematic/tree.mts",
 	flags = "place_center_x, place_center_z"
@@ -308,7 +308,7 @@ minetest.register_decoration({
 	biomes = {"Plains"},
 	sidelen = 16,
 	fill_ratio = 0.0025,
-	y_min = 3,
+	y_min = worldgen.overworld_bottom,
 	y_max = worldgen.overworld_top,
 	schematic = "schematic/tree.mts",
 	flags = "place_center_x, place_center_z"
@@ -320,7 +320,7 @@ minetest.register_decoration({
 	biomes = {"Tundra"},
 	sidelen = 16,
 	fill_ratio = 0.0025,
-	y_min = 3,
+	y_min = worldgen.overworld_bottom,
 	y_max = worldgen.overworld_top,
 	schematic = "schematic/tree_spruce.mts",
 	flags = "place_center_x, place_center_z"
@@ -339,7 +339,7 @@ minetest.register_decoration({
 		octaves = 3,
 		persist = 0.66
 	},
-	y_min = 3,
+	y_min = worldgen.overworld_bottom,
 	y_max = worldgen.overworld_top,
 	schematic = "schematic/tree.mts",
 	flags = "place_center_x, place_center_z"
@@ -363,7 +363,7 @@ minetest.register_decoration({
 		octaves = 3,
 		persist = 0.66
 	},
-	y_min = 0,
+	y_min = worldgen.overworld_bottom,
 	y_max = worldgen.overworld_top,
 	decoration = "bobcraft_blocks:grass"
 })
@@ -374,7 +374,7 @@ minetest.register_decoration({
 	place_on = {"bobcraft_blocks:dirt", "bobcraft_blocks:sand"},
 	sidelen = 16,
 	fill_ratio = 0.2, -- Average per chunk in MC is 0.8, 256 blocks on a flat chunk, on average it can cover 204 of those, 52 is the difference, which is 0.2% of 256.
-	y_min = 0,
+	y_min = worldgen.overworld_bottom,
 	y_max = worldgen.overworld_top,
 	height = 1,
 	height_max = 3,
