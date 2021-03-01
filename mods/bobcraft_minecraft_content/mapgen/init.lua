@@ -2,6 +2,8 @@ worldgen = {}
 
 worldgen.overworld_top = 256
 worldgen.overworld_bottom = 0
+-- Doubles as the surface height too
+worldgen.overworld_sealevel = 63
 
 local c_wool = minetest.get_content_id("bobcraft_blocks:wool_green")
 
@@ -9,6 +11,7 @@ local c_air = minetest.get_content_id("air")
 local c_grass = minetest.get_content_id("bobcraft_blocks:grass_block")
 local c_dirt = minetest.get_content_id("bobcraft_blocks:dirt")
 local c_stone = minetest.get_content_id("bobcraft_blocks:stone")
+local c_water = minetest.get_content_id("bobcraft_blocks:water_source")
 
 local function get_perlin_map(noiseparam, sidelen, minp)
 	local pm = minetest.get_perlin_map(noiseparam, sidelen)
@@ -38,7 +41,7 @@ local function y_at_point(x, z, ni, noise1)
 
 	y = 25 * noise1[ni] / 3
 
-	return y
+	return y + worldgen.overworld_sealevel
 end
 
 minetest.register_on_generated(function(minp, maxp, blockseed)
@@ -82,6 +85,16 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 				for yy = minp.y, math.min(y - sl - 2, maxp.y) do
 					local vi = area:index(x, yy, z)
 					data[vi] = bottom_node
+				end
+			end
+
+			-- the sea
+			for yy = minp.y, maxp.y do
+				local vi = area:index(x, yy, z)
+				if yy <= worldgen.overworld_sealevel then
+					if data[vi] == c_air then
+						data[vi] = c_water
+					end
 				end
 			end
 
