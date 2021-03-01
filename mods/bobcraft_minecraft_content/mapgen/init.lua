@@ -8,6 +8,7 @@ worldgen.overworld_sealevel = 63
 
 local mp = minetest.get_modpath("bobcraft_worldgen")
 dofile(mp.."/ores.lua")
+dofile(mp.."/decorations.lua")
 
 local c_wool = minetest.get_content_id("bobcraft_blocks:wool_green")
 
