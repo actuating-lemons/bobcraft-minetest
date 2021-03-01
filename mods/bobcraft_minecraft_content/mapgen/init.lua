@@ -61,10 +61,29 @@ local np_second_layer = {
 local np_caves = {
 	offset = 0,
 	scale = 2,
-	spread = {x=32, y=16, z=32},
+	spread = {x=32, y=32, z=32},
 	octaves = 4,
-	seed = -11842,
-	persist = 0.6
+	seed = 1867986957268147339, -- "cave!"
+	persist = 0.5,
+	lacunarity = 2,
+}
+local np_caves2 = {
+	offset = 0,
+	scale = 2,
+	spread = {x=32, y=32, z=32},
+	octaves = 4,
+	seed = -6644799973611538138, -- "cave?"
+	persist = 0.5,
+	lacunarity = 2,
+}
+local np_caves3 = {
+	offset = 0,
+	scale = 2,
+	spread = {x=32, y=32, z=32},
+	octaves = 4,
+	seed = -4674843423187234620, -- "cave..."
+	persist = 0.5,
+	lacunarity = 2,
 }
 
 -- Temperature - How we generate temperature values
@@ -171,20 +190,20 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 
 
 	local noise_caves = get_perlin_map_3d(np_caves, {x=sidelen, y=sidelen, z=sidelen}, minp)
+	local noise_caves2 = get_perlin_map_3d(np_caves2, {x=sidelen, y=sidelen, z=sidelen}, minp)
+	local noise_caves3 = get_perlin_map_3d(np_caves2, {x=sidelen, y=sidelen, z=sidelen}, minp)
 	local nixyz = 1
-	for z = minp.z, maxp.z do
+	for x = minp.x, maxp.x do
 		for y = minp.y, maxp.y do
-			local vi = area:index(minp.x, y, z)
-			for x = minp.x, maxp.x do
-				local cave = noise_caves[nixyz]
-				
-				-- caves
-				if cave > 0.9 then
+			for z = minp.z, maxp.z do
+				local vi = area:index(x, y, z)
+
+				local cave, cave2, cave3 = noise_caves[nixyz], noise_caves2[nixyz], noise_caves3[nixyz]
+
+				if (cave ^ 2 + cave2 ^ 2 + cave3 ^ 2) < 0.04 then
 					data[vi] = c_air
 				end
 
-
-				vi = vi + 1
 				nixyz = nixyz + 1
 			end
 		end
@@ -196,6 +215,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 	minetest.generate_ores(vm)
 	minetest.generate_decorations(vm)
 
+	vm:set_lighting({day=0, night=0})
 	vm:calc_lighting()
 	vm:write_to_map()
 	vm:update_liquids()
