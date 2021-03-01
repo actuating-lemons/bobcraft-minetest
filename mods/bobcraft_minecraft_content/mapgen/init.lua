@@ -7,6 +7,7 @@ worldgen.overworld_sealevel = 63
 
 
 local mp = minetest.get_modpath("bobcraft_worldgen")
+dofile(mp.."/biomes.lua")
 dofile(mp.."/ores.lua")
 dofile(mp.."/decorations.lua")
 
@@ -49,6 +50,15 @@ local np_second_layer = {
 	persist = 0.5,
 }
 
+local np_temperature = {
+	offset = 0,
+	scale = 2,
+	spread = {x=256, y=256, z=256},
+	seed = -5012447954499666283, -- python's hash() function returned this for "temperature"
+	octaves = 2,
+	persist = 0.5,
+}
+
 local function y_at_point(x, z, ni, noise1, noise2)
 	local y
 
@@ -69,6 +79,8 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 
 	local noise_top_layer = get_perlin_map(np_second_layer, {x=sidelen, y=sidelen, z=sidelen}, minp)
 	local noise_second_layer = get_perlin_map(np_second_layer, {x=sidelen, y=sidelen, z=sidelen}, minp)
+
+	local noise_temperature = get_perlin_map(np_temperature, {x=sidelen, y=sidelen, z=sidelen}, minp)
 	
 
 	local ni = 1
@@ -78,9 +90,13 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 
 			local top_node, mid_node, bottom_node
 
-			top_node = c_grass
-			mid_node = c_dirt
-			bottom_node = c_stone
+			local temperature = noise_temperature[ni]
+			local rainfall = 0 -- TODO: RAINFALL
+			local biome = worldgen.get_biome_nearest(temperature, rainfall)
+
+			top_node = biome.top
+			mid_node = biome.middle
+			bottom_node = biome.bottom
 
 			if y <= maxp.y and y >= minp.y then
 				local vi = area:index(x, y, z)
