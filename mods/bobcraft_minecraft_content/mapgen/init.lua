@@ -121,11 +121,12 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 		end
 	end
 
+	vm:set_data(data)
+
 	-- Let minetest set the ores and decorations up
 	minetest.generate_ores(vm)
 	minetest.generate_decorations(vm)
 
-	vm:set_data(data)
 	vm:calc_lighting()
 	vm:write_to_map()
 	vm:update_liquids()
