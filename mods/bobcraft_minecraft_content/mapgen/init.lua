@@ -55,17 +55,36 @@ local np_temperature = {
 	scale = 2,
 	spread = {x=256, y=256, z=256},
 	seed = -5012447954499666283, -- python's hash() function returned this for "temperature"
+	octaves = 6,
+	persist = 0.5,
+}
+
+local np_rainfall = {
+	offset = 0,
+	scale = 2,
+	spread = {x=256, y=256, z=256},
+	seed = -5394576791132434734, -- python's hash() function returned this for "rainfall"
 	octaves = 2,
 	persist = 0.5,
 }
 
-local function y_at_point(x, z, ni, noise1, noise2)
+local function y_at_point(x, z, ni, biome, noise1, noise2)
 	local y
 
 	y = 32 * noise1[ni] / 4
 	y = y * noise2[ni] * 4
 
-	return y + worldgen.overworld_sealevel
+	y = y + worldgen.overworld_sealevel
+
+	y = y * (1+biome.max_height_mult)
+
+	local min_y = (worldgen.overworld_sealevel * biome.min_height_mult)
+	local max_y = worldgen.overworld_sealevel + (worldgen.overworld_sealevel * biome.max_height_mult)
+
+	y = y + min_y
+	-- y = math.min(max_y, y)
+
+	return y
 end
 
 minetest.register_on_generated(function(minp, maxp, blockseed)
@@ -81,18 +100,18 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 	local noise_second_layer = get_perlin_map(np_second_layer, {x=sidelen, y=sidelen, z=sidelen}, minp)
 
 	local noise_temperature = get_perlin_map(np_temperature, {x=sidelen, y=sidelen, z=sidelen}, minp)
+	local noise_rainfall = get_perlin_map(np_rainfall, {x=sidelen, y=sidelen, z=sidelen}, minp)
 	
 
 	local ni = 1
 	for z = minp.z, maxp.z do
 		for x = minp.x, maxp.x do
-			local y = math.floor(y_at_point(x, z, ni, noise_base, noise_overlay))
-
 			local top_node, mid_node, bottom_node
-
 			local temperature = noise_temperature[ni]
-			local rainfall = 0 -- TODO: RAINFALL
+			local rainfall = noise_rainfall[ni]
 			local biome = worldgen.get_biome_nearest(temperature, rainfall)
+
+			local y = math.floor(y_at_point(x, z, ni, biome, noise_base, noise_overlay))
 
 			top_node = biome.top
 			mid_node = biome.middle

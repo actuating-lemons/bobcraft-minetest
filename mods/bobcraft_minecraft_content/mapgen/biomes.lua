@@ -19,6 +19,10 @@ function worldgen.register_biome(def)
 	def.temperature = def.temperature or 0.8
 	def.rainfall = def.rainfall or 0.4
 
+	-- Values will be clamped to n% of the surface height
+	def.min_height_mult = def.min_height_mult or 0.1
+	def.max_height_mult = def.max_height_mult or 0.3
+
 	-- Translate values into IDs
 	def.top = minetest.get_content_id(def.top)
 	def.middle = minetest.get_content_id(def.middle)
@@ -55,5 +59,8 @@ worldgen.register_biome({
 
 	top = "bobcraft_blocks:sand",
 	middle = "bobcraft_blocks:sand",
-	bottom = "bobcraft_blocks:sandstone"
+	bottom = "bobcraft_blocks:sandstone",
+
+	min_height_mult = 0.1,
+	max_height_mult = 0.2,
 })
