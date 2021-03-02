@@ -220,7 +220,14 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 
 				if (cave ^ 2 + cave2 ^ 2 + cave3 ^ 2) < 0.04 then
 					if data[vi] ~= air then
-						data[vi] = c_air
+						-- If it's ground content, smash our way through it
+						if data[vi] == c_stone or
+						data[vi] == c_dirt or
+						data[vi] == c_grass or
+						data[vi] == c_sand or
+						data[vi] == c_sandstone then
+							data[vi] = c_air
+						end
 					end
 				end
 
