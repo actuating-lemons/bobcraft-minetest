@@ -169,7 +169,7 @@ worldgen.register_dimension({
 	y_max = worldgen.hell_top,
 
 	biome_list = {
-		worldgen.biome("worldgen:biome_hell_wastes")
+		worldgen.biome("worldgen:biome_hell_wastes"),
 	},
 
 	gen_func = function(minp, maxp, blockseed, vm, area, data)

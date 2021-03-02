@@ -54,7 +54,11 @@ local function hsv_rgb(H,S,V)
 
 end
 
-local function get_sky_color(temp)
+local function get_sky_color(temp, h, s, v)
+	h = h or 2.2
+	s = s or 0.5
+	v = v or 100
+
 	-- Temperature
 	temp = temp / 3
 	
@@ -67,9 +71,9 @@ local function get_sky_color(temp)
 	end
 
 	local color = hsv_rgb(
-		(2.2 - temp * 0.05)*100, -- Minecraft uses 0.62 here, but that was wrong and made the sky shit colour. So we use 2.2, because that's the rough hue i sampled from a screenshot. Wee!
-		(0.5 + temp * 0.1)*100,
-		100.0
+		(h - temp * 0.05)*100, -- Minecraft uses 0.62 here, but that was wrong and made the sky shit colour. So we use 2.2, because that's the rough hue i sampled from a screenshot. Wee!
+		(s + temp * 0.1)*100,
+		v
 	)
 	
 	-- Time of day
@@ -123,7 +127,7 @@ local function set_player_skies()
 		if player_biome then
 			local player_biome_temp = player_biome.temperature
 
-			local color = get_sky_color(player_biome_temp)
+			local color = get_sky_color(player_biome_temp, player_biome.h_override, player_biome.s_override, player_biome.v_override)
 			local bright_color = table.copy(color)
 
 			bright_color.r = math.min(bright_color.r + 64, 255)

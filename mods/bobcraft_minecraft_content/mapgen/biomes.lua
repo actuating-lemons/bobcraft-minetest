@@ -21,6 +21,12 @@ function worldgen.register_biome(def)
 	def.temperature = def.temperature or 0.8
 	def.rainfall = def.rainfall or 0.4
 
+	-- Values that we accept, but have no default value;
+	-- H/S/V Sky Overriders
+	-- def.h_override
+	-- def.s_override
+	-- dev.v_override
+
 	-- How extreme the generated height variation is
 	def.y_effector = 1.0
 
@@ -85,5 +91,6 @@ worldgen.register_biome({
 
 worldgen.register_biome({
 	name = "worldgen:biome_hell_wastes",
-	temperature = 4.0,
+	temperature = 1.0,
+	h_override = 3.6,
 })
