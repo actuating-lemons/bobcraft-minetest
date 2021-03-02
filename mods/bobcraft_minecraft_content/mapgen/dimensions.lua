@@ -179,15 +179,11 @@ worldgen.register_dimension({
 						end
 					end
 
-					for yy = minp.y, maxp.y do
-						local vi = area:index(x, yy, z)
-						-- the lavasea
-						if yy <= worldgen.hell_sealevel and yy >= worldgen.hell_bottom then
-							if data[vi] == c_air then
+					if y <= worldgen.hell_sealevel and y >= worldgen.hell_bottom then
+						if data[vi] == c_air then
+							data[vi] = c_lava
+							if y == worldgen.overworld_sealevel then
 								data[vi] = c_lava
-								if yy == worldgen.overworld_sealevel then
-									data[vi] = c_lava
-								end
 							end
 						end
 					end
