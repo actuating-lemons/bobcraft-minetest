@@ -1056,6 +1056,49 @@ minetest.register_node("bobcraft_blocks:jackolantern_lit", {
 	light_source = 12,
 })
 
+----
+-- Hell
+----
+
+minetest.register_node("bobcraft_blocks:hellstone", {
+	description = S("Hellstone"),
+	tiles = {"hellstone.png"},
+	sounds = bobcraft_sounds.node_sound_stone(),
+	groups = {pickaxe=1},
+
+	hardness = 0.6,
+	stack_max = bobutil.stack_max,
+})
+-- Glowstone
+minetest.register_node("bobcraft_blocks:vibrantstone", {
+	description = S("Vibrant Stone"),
+	tiles = {"vibrantstone.png"},
+	sounds = bobcraft_sounds.node_sound_glass(),
+	groups = {hand=1},
+
+	hardness = 0.3,
+	stack_max = bobutil.stack_max,
+	light_source = 15,
+})
+-- soulsand
+minetest.register_node("bobcraft_blocks:hellsand", {
+	description = S("Hell Sand"),
+	tiles = {"hellsand.png"},
+	sounds = bobcraft_sounds.node_sound_sand(),
+	groups = {hand=1, shovel=1},
+
+	collision_box = {
+		type = "fixed",
+		fixed = {
+			-0.5, -0.5, -0.5,
+			0.5, 0.5 - 1 /16, 0.5,
+		}
+	},
+
+	hardness = 1,
+	stack_max = bobutil.stack_max
+})
+
 local modpath = minetest.get_modpath("bobcraft_blocks")
 dofile(modpath .. "/interactions.lua")
 dofile(modpath .. "/aliases.lua")
