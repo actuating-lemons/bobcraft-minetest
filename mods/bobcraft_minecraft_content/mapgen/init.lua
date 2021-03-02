@@ -18,6 +18,7 @@ local c_grass = minetest.get_content_id("bobcraft_blocks:grass_block")
 local c_dirt = minetest.get_content_id("bobcraft_blocks:dirt")
 local c_stone = minetest.get_content_id("bobcraft_blocks:stone")
 local c_water = minetest.get_content_id("bobcraft_blocks:water_source")
+local c_bedrock = minetest.get_content_id("bobcraft_blocks:bedrock")
 
 local function get_perlin_map(noiseparam, sidelen, minp)
 	local pm = minetest.get_perlin_map(noiseparam, sidelen)
@@ -186,14 +187,16 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 				if y - sl - 2 >= minp.y then
 					for yy = minp.y, math.min(y - sl - 2, maxp.y) do
 						local vi = area:index(x, yy, z)
-						data[vi] = bottom_node
+						if yy >= worldgen.overworld_bottom then
+							data[vi] = bottom_node
+						end
 					end
 				end
 
 				for yy = minp.y, maxp.y do
 					local vi = area:index(x, yy, z)
 					-- the sea
-					if yy <= worldgen.overworld_sealevel then
+					if yy <= worldgen.overworld_sealevel and yy >= worldgen.overworld_bottom then
 						if data[vi] == c_air then
 							data[vi] = biome.liquid
 							if yy == worldgen.overworld_sealevel then
@@ -233,6 +236,17 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 				end
 
 				nixyz = nixyz + 1
+			end
+		end
+	end
+
+	-- The very last step is to set the bedrock up
+	if maxp.y >= worldgen.overworld_bottom and minp.y <= worldgen.overworld_bottom then
+		for x = minp.x, maxp.x do
+			for z = minp.z, maxp.z do
+				local vi = area:index(x, worldgen.overworld_bottom, z)
+				
+				data[vi] = c_bedrock
 			end
 		end
 	end
