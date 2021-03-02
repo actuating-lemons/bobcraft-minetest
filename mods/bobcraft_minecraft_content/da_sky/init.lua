@@ -123,9 +123,33 @@ local function set_player_skies()
 		if player_biome then
 			local player_biome_temp = player_biome.temperature
 
+			local color = get_sky_color(player_biome_temp)
+			local bright_color = table.copy(color)
+
+			bright_color.r = math.min(bright_color.r + 64, 255)
+			bright_color.g = math.min(bright_color.g + 64, 255)
+			bright_color.b = math.min(bright_color.b + 64, 255)
+
 			player:set_sky({
-				base_color=get_sky_color(player_biome_temp), 
-				type="plain"
+				type="regular",
+
+				sky_color = {
+					day_sky = color,
+					dawn_sky = color,
+					night_sky = color,
+
+					day_horizon = bright_color,
+					dawn_horizon = bright_color,
+					night_horizon = bright_color,
+				}
+			})
+
+			player:set_clouds({
+				density = 0.5,
+				color = "#ffffffcc",
+				height = 132,
+				thickness = 4,
+				speed = {x=2, z=0}
 			})
 		end
 	end
