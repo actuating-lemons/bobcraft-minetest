@@ -134,23 +134,36 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
 	local data = vm:get_data()
 	local area = VoxelArea:new({MinEdge=emin, MaxEdge=emax})
+
+	local function set_layers(block, min, max, minp, maxp)
+		if (maxp.y >= min and minp.y <= max) then
+			for y = min, max do
+				for x = minp.x, maxp.x do
+					for z = minp.z, maxp.z do
+						local pos = area:index(x,y,z)
+						data[pos] = block
+					end
+				end
+			end
+			write = true
+		end
+	end
 	
 	for i = 1, #worldgen.registered_dimensions do
 		local dim = worldgen.registered_dimensions[i]
-		if minp.y >= dim.y_min and maxp.y <= dim.y_max then
+		if maxp.y >= dim.y_min and minp.y <= dim.y_max then
 			data = dim.gen_func(minp, maxp, blockseed, vm, area, data)
 		end
-	end
 
-	-- The very last step is to set the bedrock up
-	if maxp.y >= worldgen.overworld_bottom and minp.y <= worldgen.overworld_bottom then
-		for x = minp.x, maxp.x do
-			for z = minp.z, maxp.z do
-				local vi = area:index(x, worldgen.overworld_bottom, z)
-				
-				data[vi] = c_bedrock
-			end
+		-- The very last step is to set the bedrock up
+		-- TODO: jittery bedrock
+		if dim.seal_top then
+			set_layers(dim.seal_node, dim.y_max, dim.y_max, minp, maxp)
 		end
+		if dim.seal_bottom then
+			set_layers(dim.seal_node, dim.y_min, dim.y_min, minp, maxp)
+		end
+		
 	end
 
 	vm:set_data(data)

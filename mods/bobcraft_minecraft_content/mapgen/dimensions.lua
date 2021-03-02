@@ -32,6 +32,9 @@ function worldgen.register_dimension(def)
 	-- Basically the table passed into worldgen.get_biome_nearest
 	def.biome_list = def.biome_list or worldgen.registered_biomes
 
+	-- Fix-up node ids
+	def.seal_node = minetest.get_content_id(def.seal_node)
+
 	table.insert(worldgen.registered_dimensions, def)
 	worldgen.named_dimensions[def.name] = def
 end
