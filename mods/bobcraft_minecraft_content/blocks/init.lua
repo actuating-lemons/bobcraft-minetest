@@ -263,12 +263,12 @@ minetest.register_node("bobcraft_blocks:lava_source",{
 	post_effect_color = {a = 191, r = 255, g = 64, b = 0},
 	groups = {not_in_creative_inventory=1, lava=1},
 
-	on_construct = function(pos)
-		bobticles.register_node_particle_spawn(pos, bobticles.get_preset("lava"))
-	end,
-	on_destruct = function(pos)
-		bobticles.clear_node_particle_spawn(pos)
-	end,
+	-- on_construct = function(pos)
+	-- 	bobticles.register_node_particle_spawn(pos, bobticles.get_preset("lava"))
+	-- end,
+	-- on_destruct = function(pos)
+	-- 	bobticles.clear_node_particle_spawn(pos)
+	-- end,
 
 	hardness = 100 -- minecraft sets this, why?
 })
@@ -317,12 +317,12 @@ minetest.register_node("bobcraft_blocks:lava_flowing",{
 	post_effect_color = {a = 191, r = 255, g = 64, b = 0},
 	groups = {not_in_creative_inventory=1, lava=1},
 
-	on_construct = function(pos)
-		bobticles.register_node_particle_spawn(pos, bobticles.get_preset("lava"))
-	end,
-	on_destruct = function(pos)
-		bobticles.clear_node_particle_spawn(pos)
-	end,
+	-- on_construct = function(pos)
+	-- 	bobticles.register_node_particle_spawn(pos, bobticles.get_preset("lava"))
+	-- end,
+	-- on_destruct = function(pos)
+	-- 	bobticles.clear_node_particle_spawn(pos)
+	-- end,
 
 	hardness = 100 -- minecraft sets this, why?
 })
