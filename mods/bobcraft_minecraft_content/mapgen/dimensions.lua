@@ -10,6 +10,7 @@ local c_grass = minetest.get_content_id("bobcraft_blocks:grass_block")
 local c_dirt = minetest.get_content_id("bobcraft_blocks:dirt")
 local c_stone = minetest.get_content_id("bobcraft_blocks:stone")
 local c_water = minetest.get_content_id("bobcraft_blocks:water_source")
+local c_lava = minetest.get_content_id("bobcraft_blocks:lava_source")
 local c_bedrock = minetest.get_content_id("bobcraft_blocks:bedrock")
 
 local c_hellstone = minetest.get_content_id("bobcraft_blocks:wool_red")
@@ -175,6 +176,19 @@ worldgen.register_dimension({
 					if cave < 0.1 then
 						if y > worldgen.hell_bottom and y < worldgen.hell_top then
 							data[vi] = c_hellstone
+						end
+					end
+
+					for yy = minp.y, maxp.y do
+						local vi = area:index(x, yy, z)
+						-- the lavasea
+						if yy <= worldgen.hell_sealevel and yy >= worldgen.hell_bottom then
+							if data[vi] == c_air then
+								data[vi] = c_lava
+								if yy == worldgen.overworld_sealevel then
+									data[vi] = c_lava
+								end
+							end
 						end
 					end
 

@@ -3,10 +3,11 @@ worldgen = {}
 worldgen.overworld_top = 256
 worldgen.overworld_bottom = 0
 -- Doubles as the surface height too
-worldgen.overworld_sealevel = 63
+worldgen.overworld_sealevel = worldgen.overworld_bottom + 63
 
 worldgen.hell_top = worldgen.overworld_bottom - 128 -- 128 block seperation between biomes
 worldgen.hell_bottom = worldgen.hell_top - 128 -- 128 blocks tall hell
+worldgen.hell_sealevel = worldgen.hell_bottom + 63
 
 local c_wool = minetest.get_content_id("bobcraft_blocks:wool_green")
 
