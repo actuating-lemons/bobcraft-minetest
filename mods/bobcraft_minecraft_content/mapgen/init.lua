@@ -158,7 +158,6 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 					end
 				end
 			end
-			write = true
 		end
 	end
 	
