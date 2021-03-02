@@ -45,7 +45,7 @@ end
 -- I am a lazy typer.
 -- Equivalent to worldgen.registered_biomes[name]
 function worldgen.biome(name)
-	return worldgen.registered_biomes[name]
+	return worldgen.named_biomes[name]
 end
 
 -- Returns the biome that is closest to the temperature and rainfall values
@@ -93,4 +93,6 @@ worldgen.register_biome({
 	name = "worldgen:biome_hell_wastes",
 	temperature = 1.0,
 	h_override = 3.6,
+	s_override = 1.0,
+	v_override = 25,
 })

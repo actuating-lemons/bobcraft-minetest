@@ -146,10 +146,7 @@ function worldgen.get_nearest_dimension(pos)
 		end
 	end
 
-	local a = worldgen.registered_dimensions[key]
-	minetest.log(a.name)
-
-	return a
+	return worldgen.registered_dimensions[key]
 end
 
 -- Returns the biome at the pos.
@@ -158,9 +155,10 @@ function worldgen.get_biome(pos)
 	local noise_rainfall = worldgen.get_perlin_map(worldgen.np_rainfall, {x=1, y=1, z=1}, pos)
 	local temperature = noise_temperature[1]
 	local rainfall = noise_rainfall[ni]
-	local biomes = worldgen.get_nearest_dimension(pos).biome_list
+	local dimension = worldgen.get_nearest_dimension(pos)
+	local biome = worldgen.get_biome_nearest(temperature, rainfall, dimension.biome_list)
 
-	return worldgen.get_biome_nearest(temperature, rainfall)
+	return biome
 end
 
 minetest.register_on_generated(function(minp, maxp, blockseed)

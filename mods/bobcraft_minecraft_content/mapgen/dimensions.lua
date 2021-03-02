@@ -33,7 +33,7 @@ function worldgen.register_dimension(def)
 
 	-- The biomes we are allowed to generate in this dimension
 	-- Basically the table passed into worldgen.get_biome_nearest
-	def.biome_list = def.biome_list or worldgen.registered_biomes
+	def.biome_list = def.biome_list
 
 	-- Fix-up node ids
 	def.seal_node = minetest.get_content_id(def.seal_node)
