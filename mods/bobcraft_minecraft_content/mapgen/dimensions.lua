@@ -13,7 +13,7 @@ local c_water = minetest.get_content_id("bobcraft_blocks:water_source")
 local c_lava = minetest.get_content_id("bobcraft_blocks:lava_source")
 local c_bedrock = minetest.get_content_id("bobcraft_blocks:bedrock")
 
-local c_hellstone = minetest.get_content_id("bobcraft_blocks:wool_red")
+local c_hellstone = minetest.get_content_id("bobcraft_blocks:hellstone")
 
 function worldgen.register_dimension(def)
 	-- y_min is where the dimension starts generating in y levels,
