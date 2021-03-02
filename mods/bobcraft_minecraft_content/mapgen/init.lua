@@ -147,61 +147,62 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 	local ni = 1
 	for z = minp.z, maxp.z do
 		for x = minp.x, maxp.x do
-			local top_node, mid_node, bottom_node
-			local temperature = noise_temperature[ni]
-			local rainfall = noise_rainfall[ni]
-			local biome = worldgen.get_biome_nearest(temperature, rainfall)
-			local tempdiff = math.abs(biome.temperature - temperature)
+			if maxp.y >= worldgen.overworld_bottom then 
+				local top_node, mid_node, bottom_node
+				local temperature = noise_temperature[ni]
+				local rainfall = noise_rainfall[ni]
+				local biome = worldgen.get_biome_nearest(temperature, rainfall)
+				local tempdiff = math.abs(biome.temperature - temperature)
 
-			local y = math.floor(y_at_point(x, z, ni, biome, tempdiff, noise_base, noise_overlay))
+				local y = math.floor(y_at_point(x, z, ni, biome, tempdiff, noise_base, noise_overlay))
 
-			above_node = biome.above
-			top_node = biome.top
-			mid_node = biome.middle
-			bottom_node = biome.bottom
+				above_node = biome.above
+				top_node = biome.top
+				mid_node = biome.middle
+				bottom_node = biome.bottom
 
-			if y <= maxp.y and y >= minp.y then
-				local vi = area:index(x, y, z)
-				local via = area:index(x, y+1, z) -- vi-above
-				if y < worldgen.overworld_sealevel then
-					data[vi] = mid_node
-				else
-					data[vi] = top_node
-					if above_node ~= c_air then
-						data[via] = above_node
+				if y <= maxp.y and y >= minp.y then
+					local vi = area:index(x, y, z)
+					local via = area:index(x, y+1, z) -- vi-above
+					if y < worldgen.overworld_sealevel then
+						data[vi] = mid_node
+					else
+						data[vi] = top_node
+						if above_node ~= c_air then
+							data[via] = above_node
+						end
 					end
 				end
-			end
 
-			local tl = math.floor((noise_top_layer[ni] + 1))
-			if y - tl - 1 <= maxp.y and y - 1 >= minp.y then
-				for yy = math.max(y - tl - 1, minp.y), math.min(y - 1, maxp.y) do
-					local vi = area:index(x, yy, z)
-					data[vi] = mid_node
+				local tl = math.floor((noise_top_layer[ni] + 1))
+				if y - tl - 1 <= maxp.y and y - 1 >= minp.y then
+					for yy = math.max(y - tl - 1, minp.y), math.min(y - 1, maxp.y) do
+						local vi = area:index(x, yy, z)
+						data[vi] = mid_node
+					end
 				end
-			end
 
-			local sl = math.floor((noise_second_layer[ni] + 1))
-			if y - sl - 2 >= minp.y then
-				for yy = minp.y, math.min(y - sl - 2, maxp.y) do
-					local vi = area:index(x, yy, z)
-					data[vi] = bottom_node
+				local sl = math.floor((noise_second_layer[ni] + 1))
+				if y - sl - 2 >= minp.y then
+					for yy = minp.y, math.min(y - sl - 2, maxp.y) do
+						local vi = area:index(x, yy, z)
+						data[vi] = bottom_node
+					end
 				end
-			end
 
-			for yy = minp.y, maxp.y do
-				local vi = area:index(x, yy, z)
-				-- the sea
-				if yy <= worldgen.overworld_sealevel then
-					if data[vi] == c_air then
-						data[vi] = biome.liquid
-						if yy == worldgen.overworld_sealevel then
-							data[vi] = biome.liquid_top
+				for yy = minp.y, maxp.y do
+					local vi = area:index(x, yy, z)
+					-- the sea
+					if yy <= worldgen.overworld_sealevel then
+						if data[vi] == c_air then
+							data[vi] = biome.liquid
+							if yy == worldgen.overworld_sealevel then
+								data[vi] = biome.liquid_top
+							end
 						end
 					end
 				end
 			end
-
 			ni = ni + 1
 		end
 	end
