@@ -48,6 +48,12 @@ worldgen.register_dimension({
 	y_max = worldgen.overworld_top,
 	seal_top = false,
 
+	biome_list = {
+		worldgen.biome("worldgen:biome_plains"),
+		worldgen.biome("worldgen:biome_desert"),
+		worldgen.biome("worldgen:biome_tundra"),
+	},
+
 	gen_func = function(minp, maxp, blockseed, vm, area, data)
 		local sidelen = maxp.x - minp.x + 1
 		local noise_base = worldgen.get_perlin_map(worldgen.np_base, {x=sidelen, y=sidelen, z=sidelen}, minp)
@@ -161,6 +167,10 @@ worldgen.register_dimension({
 	name = "worldgen:dimension_hell",
 	y_min = worldgen.hell_bottom,
 	y_max = worldgen.hell_top,
+
+	biome_list = {
+		worldgen.biome("worldgen:biome_hell_wastes")
+	},
 
 	gen_func = function(minp, maxp, blockseed, vm, area, data)
 		local sidelen = maxp.x - minp.x + 1

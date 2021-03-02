@@ -36,20 +36,28 @@ function worldgen.register_biome(def)
 	worldgen.named_biomes[def.name] = def
 end
 
+-- I am a lazy typer.
+-- Equivalent to worldgen.registered_biomes[name]
+function worldgen.biome(name)
+	return worldgen.registered_biomes[name]
+end
+
 -- Returns the biome that is closest to the temperature and rainfall values
 -- SO https://stackoverflow.com/questions/29987249/find-the-nearest-value
 -- FIXME: Currently only cares about temperature, MC Cares about rainfall too!
-function worldgen.get_biome_nearest(temperature, rainfall)
+function worldgen.get_biome_nearest(temperature, rainfall, biome_list)
+	biome_list = biome_list or worldgen.registered_biomes
+
 	local smallest_so_far
 	local key = -1
-	for biomeid, def in ipairs(worldgen.registered_biomes) do
+	for biomeid, def in ipairs(biome_list) do
 		if not smallest_so_far or (math.abs(temperature - def.temperature) < smallest_so_far) then
 			smallest_so_far = math.abs(temperature - def.temperature)
 			key = biomeid
 		end
 	end
 
-	return worldgen.registered_biomes[key]
+	return biome_list[key]
 end
 
 -- API out of the way, register biomes
@@ -73,4 +81,9 @@ worldgen.register_biome({
 	top = "bobcraft_blocks:snowy_grass_block",
 	above = "bobcraft_blocks:snow_layer",
 	liquid_top = "bobcraft_blocks:ice",
+})
+
+worldgen.register_biome({
+	name = "worldgen:biome_hell_wastes",
+	temperature = 4.0,
 })
