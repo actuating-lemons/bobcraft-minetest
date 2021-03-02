@@ -11,8 +11,10 @@ function worldgen.register_biome(def)
 	def.top = def.top or "bobcraft_blocks:grass_block"
 	def.middle = def.middle or "bobcraft_blocks:dirt"
 	def.bottom = def.bottom or "bobcraft_blocks:stone"
+	def.above = def.above or "air"
 
 	def.liquid = def.liquid or "bobcraft_blocks:water_source"
+	def.liquid_top = def.liquid_top or def.liquid
 
 	def.palette_index = def.palette_index or bobutil.foliage_palette_indices.plains
 
@@ -27,6 +29,8 @@ function worldgen.register_biome(def)
 	def.middle = minetest.get_content_id(def.middle)
 	def.bottom = minetest.get_content_id(def.bottom)
 	def.liquid = minetest.get_content_id(def.liquid)
+	def.liquid_top = minetest.get_content_id(def.liquid_top)
+	def.above = minetest.get_content_id(def.above)
 
 	table.insert(worldgen.registered_biomes, def)
 	worldgen.named_biomes[def.name] = def
@@ -61,4 +65,12 @@ worldgen.register_biome({
 	bottom = "bobcraft_blocks:sandstone",
 
 	y_effector = 0.25,
+})
+worldgen.register_biome({
+	name = "tundra",
+	temperature = 0.0,
+
+	top = "bobcraft_blocks:snowy_grass_block",
+	above = "bobcraft_blocks:snow_layer",
+	liquid_top = "bobcraft_blocks:ice",
 })

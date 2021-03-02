@@ -155,16 +155,21 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 
 			local y = math.floor(y_at_point(x, z, ni, biome, tempdiff, noise_base, noise_overlay))
 
+			above_node = biome.above
 			top_node = biome.top
 			mid_node = biome.middle
 			bottom_node = biome.bottom
 
 			if y <= maxp.y and y >= minp.y then
 				local vi = area:index(x, y, z)
+				local via = area:index(x, y+1, z) -- vi-above
 				if y < worldgen.overworld_sealevel then
 					data[vi] = mid_node
 				else
 					data[vi] = top_node
+					if above_node ~= c_air then
+						data[via] = above_node
+					end
 				end
 			end
 
@@ -189,7 +194,10 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 				-- the sea
 				if yy <= worldgen.overworld_sealevel then
 					if data[vi] == c_air then
-						data[vi] = c_water
+						data[vi] = biome.liquid
+						if yy == worldgen.overworld_sealevel then
+							data[vi] = biome.liquid_top
+						end
 					end
 				end
 			end
@@ -211,7 +219,9 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 				local cave, cave2, cave3 = noise_caves[nixyz], noise_caves2[nixyz], noise_caves3[nixyz]
 
 				if (cave ^ 2 + cave2 ^ 2 + cave3 ^ 2) < 0.04 then
-					data[vi] = c_air
+					if data[vi] ~= air then
+						data[vi] = c_air
+					end
 				end
 
 				nixyz = nixyz + 1
