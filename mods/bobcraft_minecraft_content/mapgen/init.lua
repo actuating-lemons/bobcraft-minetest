@@ -84,6 +84,15 @@ worldgen.np_caves3 = {
 	persist = 0.5,
 	lacunarity = 2,
 }
+-- The hell 'caves'
+worldgen.np_caves_hell = {
+	offset = 0,
+	scale = 1,
+	spread = {x=256, y=128, z=256},
+	octaves = 4,
+	seed = 410430084494322969, -- "SATANSATANSATAN"
+	persist = 0.6,
+}
 
 -- Temperature - How we generate temperature values
 worldgen.np_temperature = {
@@ -174,9 +183,10 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 	-- Let minetest set the ores and decorations up
 	minetest.generate_ores(vm)
 	minetest.generate_decorations(vm)
-
+	
 	vm:set_lighting({day=0, night=0})
 	vm:calc_lighting()
+
 	vm:write_to_map()
 	vm:update_liquids()
 end)

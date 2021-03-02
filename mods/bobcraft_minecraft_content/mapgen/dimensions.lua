@@ -12,6 +12,8 @@ local c_stone = minetest.get_content_id("bobcraft_blocks:stone")
 local c_water = minetest.get_content_id("bobcraft_blocks:water_source")
 local c_bedrock = minetest.get_content_id("bobcraft_blocks:bedrock")
 
+local c_hellstone = minetest.get_content_id("bobcraft_blocks:wool_red")
+
 function worldgen.register_dimension(def)
 	-- y_min is where the dimension starts generating in y levels,
 	-- y_max is wheret the dimension stops generating in y levels
@@ -150,8 +152,6 @@ worldgen.register_dimension({
 				end
 			end
 		end
-
-
 		return data
 	end
 })
@@ -160,4 +160,29 @@ worldgen.register_dimension({
 	name = "worldgen:dimension_hell",
 	y_min = worldgen.hell_bottom,
 	y_max = worldgen.hell_top,
+
+	gen_func = function(minp, maxp, blockseed, vm, area, data)
+		local sidelen = maxp.x - minp.x + 1
+		local noise_caves = worldgen.get_perlin_map_3d(worldgen.np_caves_hell, {x=sidelen, y=sidelen, z=sidelen}, minp)
+		local nixyz = 1
+		for x = minp.x, maxp.x do
+			for y = minp.y, maxp.y do
+				for z = minp.z, maxp.z do
+					local vi = area:index(x, y, z)
+
+					local cave = noise_caves[nixyz]
+
+					if cave < 0.1 then
+						if y > worldgen.hell_bottom and y < worldgen.hell_top then
+							data[vi] = c_hellstone
+						end
+					end
+
+					nixyz = nixyz + 1
+				end
+			end
+		end
+
+		return data
+	end
 })
