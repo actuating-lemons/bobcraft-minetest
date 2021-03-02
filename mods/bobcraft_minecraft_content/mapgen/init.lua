@@ -7,6 +7,7 @@ worldgen.overworld_sealevel = 63
 
 local c_wool = minetest.get_content_id("bobcraft_blocks:wool_green")
 
+-- Commonly used content ids
 local c_air = minetest.get_content_id("air")
 local c_grass = minetest.get_content_id("bobcraft_blocks:grass_block")
 local c_dirt = minetest.get_content_id("bobcraft_blocks:dirt")

@@ -4,6 +4,14 @@
 worldgen.registered_dimensions = {}
 worldgen.named_dimensions = {} -- TODO: Better name, as this just stores a dimension name -> dimension def table
 
+-- Commonly used content ids
+local c_air = minetest.get_content_id("air")
+local c_grass = minetest.get_content_id("bobcraft_blocks:grass_block")
+local c_dirt = minetest.get_content_id("bobcraft_blocks:dirt")
+local c_stone = minetest.get_content_id("bobcraft_blocks:stone")
+local c_water = minetest.get_content_id("bobcraft_blocks:water_source")
+local c_bedrock = minetest.get_content_id("bobcraft_blocks:bedrock")
+
 function worldgen.register_dimension(def)
 	-- y_min is where the dimension starts generating in y levels,
 	-- y_max is wheret the dimension stops generating in y levels
