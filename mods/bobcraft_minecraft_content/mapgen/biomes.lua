@@ -25,7 +25,8 @@ function worldgen.register_biome(def)
 	-- H/S/V Sky Overriders
 	-- def.h_override
 	-- def.s_override
-	-- dev.v_override
+	-- def.v_override
+	-- def.sky_force_underground -- If true, will force the sky to be the color, even indoors.
 
 	-- How extreme the generated height variation is
 	def.y_effector = 1.0
@@ -95,4 +96,5 @@ worldgen.register_biome({
 	h_override = 3.6,
 	s_override = 1.0,
 	v_override = 25,
+	sky_force_underground = true,
 })

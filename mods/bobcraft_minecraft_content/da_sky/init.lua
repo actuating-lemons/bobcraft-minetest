@@ -134,18 +134,24 @@ local function set_player_skies()
 			bright_color.g = math.min(bright_color.g + 64, 255)
 			bright_color.b = math.min(bright_color.b + 64, 255)
 
+			local color_table = {
+				day_sky = color,
+				dawn_sky = color,
+				night_sky = color,
+
+				day_horizon = bright_color,
+				dawn_horizon = bright_color,
+				night_horizon = bright_color,
+			}
+
+			if player_biome.sky_force_underground then
+				color_table.indoors = color
+			end
+
 			player:set_sky({
 				type="regular",
 
-				sky_color = {
-					day_sky = color,
-					dawn_sky = color,
-					night_sky = color,
-
-					day_horizon = bright_color,
-					dawn_horizon = bright_color,
-					night_horizon = bright_color,
-				}
+				sky_color = color_table
 			})
 
 			player:set_clouds({
