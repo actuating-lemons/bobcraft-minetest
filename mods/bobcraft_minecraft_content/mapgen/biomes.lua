@@ -54,10 +54,10 @@ end
 
 -- API out of the way, register biomes
 worldgen.register_biome({
-	name = "plains"
+	name = "worldgen:biome_plains"
 })
 worldgen.register_biome({
-	name = "desert",
+	name = "worldgen:biome_desert",
 	temperature = 2.0,
 
 	top = "bobcraft_blocks:sand",
@@ -67,7 +67,7 @@ worldgen.register_biome({
 	y_effector = 0.25,
 })
 worldgen.register_biome({
-	name = "tundra",
+	name = "worldgen:biome_tundra",
 	temperature = 0.0,
 
 	top = "bobcraft_blocks:snowy_grass_block",
