@@ -145,7 +145,7 @@ local function set_player_skies()
 			})
 
 			player:set_clouds({
-				density = 0.5,
+				density = 0.35,
 				color = "#ffffffcc",
 				height = 132,
 				thickness = 4,
