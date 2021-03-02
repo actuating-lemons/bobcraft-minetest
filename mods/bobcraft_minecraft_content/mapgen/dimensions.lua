@@ -19,7 +19,7 @@ function worldgen.register_dimension(def)
 	def.y_max = def.y_max or 256
 
 	-- The function we run when we're told to generate for a given minp/maxp
-	def.gen_func = def.gen_func or function(minp, maxp, blockseed, vm, area) end
+	def.gen_func = def.gen_func or function(minp, maxp, blockseed, vm, area, data) return data end
 
 	-- The sealing
 	-- Done AFTER the gen_func is called
@@ -154,4 +154,10 @@ worldgen.register_dimension({
 
 		return data
 	end
+})
+
+worldgen.register_dimension({
+	name = "worldgen:dimension_hell",
+	y_min = worldgen.hell_bottom,
+	y_max = worldgen.hell_top,
 })

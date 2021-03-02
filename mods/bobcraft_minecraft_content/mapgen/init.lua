@@ -5,6 +5,9 @@ worldgen.overworld_bottom = 0
 -- Doubles as the surface height too
 worldgen.overworld_sealevel = 63
 
+worldgen.hell_top = worldgen.overworld_bottom - 128 -- 128 block seperation between biomes
+worldgen.hell_bottom = worldgen.hell_top - 128 -- 128 blocks tall hell
+
 local c_wool = minetest.get_content_id("bobcraft_blocks:wool_green")
 
 -- Commonly used content ids
@@ -163,7 +166,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 		if dim.seal_bottom then
 			set_layers(dim.seal_node, dim.y_min, dim.y_min, minp, maxp)
 		end
-		
+
 	end
 
 	vm:set_data(data)
