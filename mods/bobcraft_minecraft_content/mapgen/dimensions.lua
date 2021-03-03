@@ -17,7 +17,7 @@ local c_hellstone = minetest.get_content_id("bobcraft_blocks:hellstone")
 
 function worldgen.register_dimension(def)
 	-- y_min is where the dimension starts generating in y levels,
-	-- y_max is wheret the dimension stops generating in y levels
+	-- y_max is where the dimension stops generating in y levels
 	def.y_min = def.y_min or 0
 	def.y_max = def.y_max or 256
 
@@ -34,6 +34,13 @@ function worldgen.register_dimension(def)
 	-- The biomes we are allowed to generate in this dimension
 	-- Basically the table passed into worldgen.get_biome_nearest
 	def.biome_list = def.biome_list
+
+	-- The compression factor to apply when transporting in or out of the dimension
+	-- ex. when entering, the coords are divided by the compression_factor
+	-- and when leaving, the coords are multiplied by the compression_factor
+	-- so at 8, when entering at {8,8,8} you end up at {1,1,1}
+	-- and when leaving at {8,8,8} you end up at {64,64,64}
+	def.compression_factor = def.compression_factor or 1
 
 	-- Fix-up node ids
 	def.seal_node = minetest.get_content_id(def.seal_node)
@@ -53,6 +60,8 @@ worldgen.register_dimension({
 		worldgen.biome("worldgen:biome_desert"),
 		worldgen.biome("worldgen:biome_tundra"),
 	},
+
+	compression_factor = 1,
 
 	gen_func = function(minp, maxp, blockseed, vm, area, data)
 		local sidelen = maxp.x - minp.x + 1
@@ -172,6 +181,8 @@ worldgen.register_dimension({
 		worldgen.biome("worldgen:biome_hell_wastes"),
 	},
 
+	compression_factor = 8,
+
 	gen_func = function(minp, maxp, blockseed, vm, area, data)
 		local sidelen = maxp.x - minp.x + 1
 		local noise_caves = worldgen.get_perlin_map_3d(worldgen.np_caves_hell, {x=sidelen, y=sidelen, z=sidelen}, minp)
@@ -206,3 +217,24 @@ worldgen.register_dimension({
 		return data
 	end
 })
+
+
+--[[
+! WHEN THE
+	⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣤⣤⣤⣤⣶⣦⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⡿⠛⠉⠙⠛⠛⠛⠛⠻⢿⣿⣷⣤⡀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣼⣿⠋⠀⠀⠀⠀⠀⠀⠀⢀⣀⣀⠈⢻⣿⣿⡄⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣸⣿⡏⠀⠀⠀⣠⣶⣾⣿⣿⣿⠿⠿⠿⢿⣿⣿⣿⣄⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣿⣿⠁⠀⠀⢰⣿⣿⣯⠁⠀⠀⠀⠀⠀⠀⠀⠈⠙⢿⣷⡄⠀
+⠀⠀⣀⣤⣴⣶⣶⣿⡟⠀⠀⠀⢸⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣷⠀
+⠀⢰⣿⡟⠋⠉⣹⣿⡇⠀⠀⠀⠘⣿⣿⣿⣿⣷⣦⣤⣤⣤⣶⣶⣶⣶⣿⣿⣿⠀
+⠀⢸⣿⡇⠀⠀⣿⣿⡇⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃⠀
+⠀⣸⣿⡇⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠉⠻⠿⣿⣿⣿⣿⡿⠿⠿⠛⢻⣿⡇⠀⠀
+⠀⠸⣿⣧⡀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⠃⠀⠀
+⠀⠀⠛⢿⣿⣿⣿⣿⣇⠀⠀⠀⠀⠀⣰⣿⣿⣷⣶⣶⣶⣶⠶⠀⢠⣿⣿⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀⣿⣿⡇⠀⣽⣿⡏⠁⠀⠀⢸⣿⡇⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⣿⣿⠀⠀⠀⠀⠀⣿⣿⡇⠀⢹⣿⡆⠀⠀⠀⣸⣿⠇⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⢿⣿⣦⣄⣀⣠⣴⣿⣿⠁⠀⠈⠻⣿⣿⣿⣿⡿⠏⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠈⠛⠻⠿⠿⠿⠿⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+! BOTTOM TEXT⠀⠀ 
+]]
