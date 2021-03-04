@@ -1,6 +1,8 @@
 -- Dimensions API.
 -- Specifies y top and bottom values, and a function to run on a generation step for the area
 
+dofile(minetest.get_modpath("bobcraft_worldgen") .. "/portals.lua")
+
 worldgen.registered_dimensions = {}
 worldgen.named_dimensions = {} -- TODO: Better name, as this just stores a dimension name -> dimension def table
 
@@ -181,7 +183,9 @@ worldgen.register_dimension({
 		worldgen.biome("worldgen:biome_hell_wastes"),
 	},
 
-	compression_factor = 8,
+	-- We are *more* compressed than the nether, as it makes sense in the minetest world, chunks being 5x5x5.
+	-- It also means that working out distances can be done in your head!
+	compression_factor = 10,
 
 	gen_func = function(minp, maxp, blockseed, vm, area, data)
 		local sidelen = maxp.x - minp.x + 1
