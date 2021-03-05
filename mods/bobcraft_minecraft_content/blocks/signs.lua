@@ -8,6 +8,20 @@
 -- It's also a bit hacky, and while I've done hacky things (see foliage colouring), entities for signs is a bit much.
 -- How the hell is this issue not solved, it's got a $550 bounty for crying out loud.
 
+-- These are random messages that have a 1 in 1000 chance to appear on a sign when you place it.
+-- If you want to keep the mystery, skip to line #
+local random_messages = {
+	"Help, I'm trapped in a sign!",
+	"-From God",
+	"help how did I get here I'm not good with computer",
+	"I was looking for po-... illicit material!",
+	"Hang on, isn't this just the splash text but on signs?",
+	"Hello, World!",
+	"Goodbye, World!",
+	"Excuse me, do you have the time?",
+	
+}
+
 local S = minetest.get_translator("bobcraft_blocks")
 
 minetest.register_node("bobcraft_blocks:sign", {
@@ -42,12 +56,17 @@ minetest.register_node("bobcraft_blocks:sign", {
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
 		meta:set_string("formspec", "field[text;;${text}]")
+
+		-- Set the random text
+		if math.random(0,1000) == 0 then
+			meta:set_string("infotext", random_messages[math.random(#random_messages)])
+		end
 	end,
 	on_receive_fields = function(pos, formname, fields, sender)
 		local text = fields.text
 		local meta = minetest.get_meta(pos)
 
-		if #text > 0 then
+		if text and #text > 0 then
 			meta:set_string("infotext", S('"@1"', text))
 		else
 			meta:set_string("infotext", '')
