@@ -149,9 +149,9 @@ brpdinv.register_page(
 		title = "Inventory",
 		get = function(self, player, context)
 			return brpdinv.make_formspec(player, context,
-			"size[8,7.5;]" ..
+			"size[9,7.5;]" ..
 			"image[0.5,0.2;1.5,3;player.png]" ..
-			"list[current_player;main;0,3.5;8,4;]" ..
+			"list[current_player;main;0,3.5;9,4;]" ..
 			"list[current_player;craft;4,0.5;2,2;]" ..
 			"list[current_player;craftpreview;7,1;1,1;]"..
 			"image[6,1;1,1;arrow_fg.png^[transformR270]"
