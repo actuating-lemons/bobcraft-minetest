@@ -3,10 +3,10 @@ local S = minetest.get_translator("bobcraft_blocks")
 local function chest_formspec(chest_pos)
 	local pos = chest_pos.x .. "," .. chest_pos.y .. "," .. chest_pos.z
 	local formspec =
-		"size[8,9]" ..
-		"list[nodemeta:" .. pos .. ";main;0,0.3;8,4;]" ..
-		"list[current_player;main;0,4.85;8,1;]" ..
-		"list[current_player;main;0,6.08;8,3;8]" ..
+		"size[9,9]" ..
+		"list[nodemeta:" .. pos .. ";main;0,0.3;9,4;]" ..
+		"list[current_player;main;0,4.85;9,1;]" ..
+		"list[current_player;main;0,6.08;9,3;8]" ..
 		"listring[nodemeta:" .. pos .. ";main]" ..
 		"listring[current_player;main]"
 	return formspec
@@ -28,7 +28,7 @@ minetest.register_node("bobcraft_blocks:chest", {
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
 		local inv = meta:get_inventory()
-		inv:set_size('main', 8*4)
+		inv:set_size('main', 9*4)
 	end,
 
 	on_rightclick = function(pos, node, player)
