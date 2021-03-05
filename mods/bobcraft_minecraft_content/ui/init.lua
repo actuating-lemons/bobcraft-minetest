@@ -10,4 +10,7 @@ minetest.register_on_joinplayer(function(player)
 	"style_type[textarea;textcolor=#000000]" ..
 	"style_type[checkbox;textcolor=#000000]"
 	)
+	player:hud_set_hotbar_image("hotbar_bg.png")
+	player:hud_set_hotbar_selected_image("hotbar_fg.png")
+	player:hud_set_hotbar_itemcount(9) -- NOTE: we set the hotbar item count here
 end)
