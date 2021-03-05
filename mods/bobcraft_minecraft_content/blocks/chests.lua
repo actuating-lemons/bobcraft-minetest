@@ -6,7 +6,7 @@ local function chest_formspec(chest_pos)
 		"size[9,9]" ..
 		"list[nodemeta:" .. pos .. ";main;0,0.3;9,4;]" ..
 		"list[current_player;main;0,4.85;9,1;]" ..
-		"list[current_player;main;0,6.08;9,3;8]" ..
+		"list[current_player;main;0,6.08;9,3;9]" ..
 		"listring[nodemeta:" .. pos .. ";main]" ..
 		"listring[current_player;main]"
 	return formspec
