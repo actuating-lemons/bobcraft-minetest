@@ -87,7 +87,7 @@ end
 
 function brpdinv.make_formspec(player, context, content, show_inv, size)
 
-	size = size or "size[9,9.1]"
+	size = size or "size[9,9]"
 
 	local formspec = ""
 	formspec = formspec .. size
@@ -151,7 +151,8 @@ brpdinv.register_page(
 			return brpdinv.make_formspec(player, context,
 			"size[9,7.5;]" ..
 			"image[0.5,0.2;1.5,3;player.png]" ..
-			"list[current_player;main;0,3.5;9,4;]" ..
+			"list[current_player;main;0,3;9,3;9]" ..
+			"list[current_player;main;0,6.85;9,1;]" ..
 			"list[current_player;craft;4,0.5;2,2;]" ..
 			"list[current_player;craftpreview;7,1;1,1;]"..
 			"image[6,1;1,1;arrow_fg.png^[transformR270]"
