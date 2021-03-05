@@ -87,7 +87,7 @@ end
 
 function brpdinv.make_formspec(player, context, content, show_inv, size)
 
-	size = size or "size[8,9.1]"
+	size = size or "size[9,9.1]"
 
 	local formspec = ""
 	formspec = formspec .. size

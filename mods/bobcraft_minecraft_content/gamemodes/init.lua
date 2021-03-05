@@ -22,7 +22,7 @@ if minetest.settings:get_bool("creative_mode") then
 
 	end)
 
-	dofile(minetest.get_modpath("bobcraft_creative") .. "/inventory.lua")
+	dofile(minetest.get_modpath("bobcraft_gamemodes") .. "/inventory.lua")
 
 
 	-- Unlimited node placement
@@ -31,4 +31,11 @@ if minetest.settings:get_bool("creative_mode") then
 			return true
 		end
 	end)
+else -- Survival
 end
+
+-- Default
+minetest.register_on_joinplayer(function(player)
+	-- Set the main inventory size
+	player:get_inventory():set_size("main", 9*4)
+end)

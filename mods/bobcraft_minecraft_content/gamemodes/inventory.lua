@@ -86,7 +86,7 @@ function creative.register_tab(name, title, items)
 			creative.update_inventory(player_name, items)
 			local inv = inventories[player_name]
 			return brpdinv.make_formspec(player, context,
-				"list[current_player;main;0,5;8,4;]" ..
+				"list[current_player;main;0,5;9,4;]" ..
 				"listring[detached:creative_" .. player_name .. ";main]" ..
 				"scrollbar[7,0;1,4;vertical;creative_scroll;]" ..
 				"scroll_container[0,0;9,5;creative_scroll;vertical;]" ..
