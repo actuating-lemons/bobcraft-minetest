@@ -120,13 +120,16 @@ dofile(mp.."/dimensions.lua")
 dofile(mp.."/ores.lua")
 dofile(mp.."/decorations.lua")
 
-function worldgen.y_at_point(x, z, ni, biome, tempdiff, noise1, noise2)
+function worldgen.y_at_point(x, z, ni, biome, tempdiff, noise1, noise2) -- TODO: this is overworld specific, should we move this to dimensions?
 	local y
-	-- local y_effector = biome.y_effector * tempdiff
-	local y_effector = 1.0 -- TODO: Y_EFFCTOR TO MAKE BIOMES HAVE UNIQUE-ER LAND SCAPES
 
-	y = 32 * noise1[ni] / (4 * y_effector)
-	y = y * noise2[ni] * (4 * y_effector)
+	-- With the help of desmos again, if the temp difference is within -0.4, +0.4 - we use it to scale our y effector
+	local effector = math.cos(tempdiff * 4)
+	-- we then scale the biome's effector by the new effector
+	effector = biome.y_effector * effector
+
+	y = 32 * (noise1[ni]*effector) / 4
+	y = y * (noise2[ni]*effector) * 4
 
 	y = y + worldgen.overworld_sealevel
 

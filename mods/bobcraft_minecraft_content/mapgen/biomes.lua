@@ -29,7 +29,7 @@ function worldgen.register_biome(def)
 	-- def.sky_force_underground -- If true, will force the sky to be the color, even indoors.
 
 	-- How extreme the generated height variation is
-	def.y_effector = 1.0
+	def.y_effector = def.y_effector or 1
 
 	-- Translate values into IDs
 	def.top = minetest.get_content_id(def.top)

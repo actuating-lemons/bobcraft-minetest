@@ -86,6 +86,12 @@ worldgen.register_dimension({
 					local biome = worldgen.get_biome_nearest(temperature, rainfall)
 					local tempdiff = math.abs(biome.temperature - temperature)
 
+					if tempdiff > 1.0 then
+						tempdiff = 1.0
+					elseif tempdiff < 0.0 then
+						tempdiff = 0.0
+					end
+
 					local y = math.floor(worldgen.y_at_point(x, z, ni, biome, tempdiff, noise_base, noise_overlay))
 
 					above_node = biome.above
