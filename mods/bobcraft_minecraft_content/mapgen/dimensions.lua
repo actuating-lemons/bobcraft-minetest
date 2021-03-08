@@ -240,6 +240,7 @@ worldgen.register_dimension({
 	end
 })
 
+-- Respawning on the surface
 minetest.register_on_respawnplayer(function(player)
 	local name = player:get_player_name()
 	local has = beds.spawn[name] or nil
@@ -247,11 +248,16 @@ minetest.register_on_respawnplayer(function(player)
 		return true
 	end
 
-	local pos = bobutil.search_for_spawn({x=0,y=60,z=0})
+	local pos = bobutil.search_for_spawn({x=0, y=worldgen.overworld_top, z=0}, {x=0,y=60,z=0})
 	player:set_pos(pos)
 
 	return true
 
+end)
+-- Spawning at all on the surface
+minetest.register_on_newplayer(function(player)
+	local pos = bobutil.search_for_spawn({x=0, y=worldgen.overworld_top, z=0}, {x=0,y=60,z=0})
+	player:set_pos(pos)
 end)
 
 
