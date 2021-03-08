@@ -136,3 +136,20 @@ function bobutil.move_items_outta(player, inventory)
 		end
 	end
 end
+
+function bobutil.search_for_spawn(pos)
+
+	minetest.log(dump(pos))
+
+	minetest.emerge_area(pos, pos)
+	local node = minetest.get_node(pos)
+
+	local use = (node.name == "air" or node.name == "ignore")
+	
+	if use then
+		return pos
+	else
+		pos.y = pos.y + 1
+		return bobutil.search_for_spawn(pos)
+	end
+end

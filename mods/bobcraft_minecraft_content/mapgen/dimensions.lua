@@ -240,6 +240,20 @@ worldgen.register_dimension({
 	end
 })
 
+minetest.register_on_respawnplayer(function(player)
+	local name = player:get_player_name()
+	local has = beds.spawn[name] or nil
+	if has then
+		return true
+	end
+
+	local pos = bobutil.search_for_spawn({x=0,y=60,z=0})
+	player:set_pos(pos)
+
+	return true
+
+end)
+
 
 --[[
 ! WHEN THE
