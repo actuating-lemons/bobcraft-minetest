@@ -248,7 +248,7 @@ minetest.register_on_respawnplayer(function(player)
 		return true
 	end
 
-	local pos = bobutil.search_for_spawn({x=0, y=worldgen.overworld_top, z=0}, {x=0,y=60,z=0})
+	local pos = bobutil.search_for_spawn({x=0, y=70, z=0}, {x=0,y=60,z=0})
 	player:set_pos(pos)
 
 	return true
@@ -256,7 +256,7 @@ minetest.register_on_respawnplayer(function(player)
 end)
 -- Spawning at all on the surface
 minetest.register_on_newplayer(function(player)
-	local pos = bobutil.search_for_spawn({x=0, y=worldgen.overworld_top, z=0}, {x=0,y=60,z=0})
+	local pos = bobutil.search_for_spawn({x=0, y=70, z=0}, {x=0,y=60,z=0})
 	player:set_pos(pos)
 end)
 

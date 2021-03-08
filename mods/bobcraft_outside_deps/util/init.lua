@@ -138,6 +138,7 @@ function bobutil.move_items_outta(player, inventory)
 end
 
 function bobutil.search_for_spawn(from, to)
+	minetest.emerge_area(from, to)
 	local _, npos = minetest.line_of_sight(from, to)
 	return npos
 end
