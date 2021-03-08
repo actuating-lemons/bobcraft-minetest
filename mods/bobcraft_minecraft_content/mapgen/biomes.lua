@@ -79,7 +79,7 @@ worldgen.register_biome({
 	middle = "bobcraft_blocks:sand",
 	bottom = "bobcraft_blocks:sandstone",
 
-	y_effector = 0.25,
+	y_effector = 0.75,
 })
 worldgen.register_biome({
 	name = "worldgen:biome_tundra",

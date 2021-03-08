@@ -124,7 +124,8 @@ function worldgen.y_at_point(x, z, ni, biome, tempdiff, noise1, noise2) -- TODO:
 	local y
 
 	-- With the help of desmos again, if the temp difference is within -0.4, +0.4 - we use it to scale our y effector
-	local effector = math.cos(tempdiff * 4)
+	-- up to 80% TODO: should biomes be able to choose how far they will mix?
+	local effector = math.cos(tempdiff * 4) * 0.8
 	-- we then scale the biome's effector by the new effector
 	effector = biome.y_effector * effector
 
