@@ -28,10 +28,14 @@ function worldgen.register_dimension(def)
 
 	-- The sealing
 	-- Done AFTER the gen_func is called
-	def.seal_bottom = def.seal_bottom
-	def.seal_top = def.seal_top
+	if def.seal_bottom == nil then
+		def.seal_bottom = true
+	end
+	if def.seal_top == nil then
+		def.seal_top = true
+	end
 	def.seal_node = def.seal_node or "bobcraft_blocks:bedrock"
-	def.seal_range = def.seal_range or 3 -- How many blocks the sealer will 'jitter'
+	def.seal_thickness = def.seal_thickness or 1 -- How many blocks the sealer will 'jitter'
 
 	-- The biomes we are allowed to generate in this dimension
 	-- Basically the table passed into worldgen.get_biome_nearest
@@ -56,6 +60,8 @@ worldgen.register_dimension({
 	y_min = worldgen.overworld_bottom,
 	y_max = worldgen.overworld_top,
 	seal_top = false,
+
+	seal_thickness = 2,
 
 	biome_list = {
 		worldgen.biome("worldgen:biome_plains"),
@@ -188,6 +194,8 @@ worldgen.register_dimension({
 	name = "worldgen:dimension_hell",
 	y_min = worldgen.hell_bottom,
 	y_max = worldgen.hell_top,
+
+	seal_thickness = 4,
 
 	biome_list = {
 		worldgen.biome("worldgen:biome_hell_wastes"),

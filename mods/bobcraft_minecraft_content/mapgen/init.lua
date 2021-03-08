@@ -227,11 +227,11 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 		-- TODO: jittery bedrock
 		if dim.seal_top then
 			set_layers(dim.seal_node, nil, dim.y_max, dim.y_max, minp, maxp)
-			set_layers(dim.seal_node, worldgen.np_bedrock, dim.y_max-1, dim.y_max-1, minp, maxp)
+			set_layers(dim.seal_node, worldgen.np_bedrock, dim.y_max-dim.seal_thickness, dim.y_max, minp, maxp)
 		end
 		if dim.seal_bottom then
 			set_layers(dim.seal_node, nil, dim.y_min, dim.y_min, minp, maxp)
-			set_layers(dim.seal_node, worldgen.np_bedrock, dim.y_min+1, dim.y_min+1, minp, maxp)
+			set_layers(dim.seal_node, worldgen.np_bedrock, dim.y_min, dim.y_min+dim.seal_thickness, minp, maxp)
 		end
 
 	end
