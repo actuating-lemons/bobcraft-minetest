@@ -186,7 +186,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 	for i = 1, #worldgen.registered_dimensions do
 		local dim = worldgen.registered_dimensions[i]
 		if maxp.y >= dim.y_min and minp.y <= dim.y_max then
-			data = dim.gen_func(minp, maxp, blockseed, vm, area, data)
+			data = dim.gen_func(dim, minp, maxp, blockseed, vm, area, data)
 		end
 
 		-- The very last step is to set the bedrock up

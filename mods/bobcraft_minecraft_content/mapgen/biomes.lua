@@ -64,7 +64,35 @@ function worldgen.get_biome_nearest(temperature, rainfall, biome_list)
 		end
 	end
 
-	return biome_list[key]
+	return biome_list[key], key
+end
+
+-- Returns the tempdiff that would've been needed to get to the nearest other biome...
+-- Expects biome_list to not contain biome
+function worldgen.tempdiff(temperature, biome, biome_list)
+	biome_list = biome_list or worldgen.registered_biomes
+
+	local otherbiome
+
+	local smallest_so_far
+	local key = -1
+	for id, def in ipairs(biome_list) do
+		if not smallest_so_far or (math.abs(temperature - def.temperature) < smallest_so_far) then
+			smallest_so_far = math.abs(temperature - def.temperature)
+			key = id
+		end
+	end
+
+	otherbiome = biome_list[key]
+
+	if not otherbiome then
+		return 0
+	end
+
+	local temp
+	temp = math.abs(biome.temperature - otherbiome.temperature)
+
+	return temp
 end
 
 -- API out of the way, register biomes

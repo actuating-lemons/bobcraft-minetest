@@ -24,7 +24,7 @@ function worldgen.register_dimension(def)
 	def.y_max = def.y_max or 256
 
 	-- The function we run when we're told to generate for a given minp/maxp
-	def.gen_func = def.gen_func or function(minp, maxp, blockseed, vm, area, data) return data end
+	def.gen_func = def.gen_func or function(this, minp, maxp, blockseed, vm, area, data) return data end
 
 	-- The sealing
 	-- Done AFTER the gen_func is called
@@ -65,7 +65,7 @@ worldgen.register_dimension({
 
 	compression_factor = 1,
 
-	gen_func = function(minp, maxp, blockseed, vm, area, data)
+	gen_func = function(this, minp, maxp, blockseed, vm, area, data)
 		local sidelen = maxp.x - minp.x + 1
 		local noise_base = worldgen.get_perlin_map(worldgen.np_base, {x=sidelen, y=sidelen, z=sidelen}, minp)
 		local noise_overlay = worldgen.get_perlin_map(worldgen.np_overlay, {x=sidelen, y=sidelen, z=sidelen}, minp)
@@ -76,21 +76,21 @@ worldgen.register_dimension({
 		local noise_temperature = worldgen.get_perlin_map(worldgen.np_temperature, {x=sidelen, y=sidelen, z=sidelen}, minp)
 		local noise_rainfall = worldgen.get_perlin_map(worldgen.np_rainfall, {x=sidelen, y=sidelen, z=sidelen}, minp)
 
+		-- minetest.log(dump(this))
+
 		local ni = 1
 		for z = minp.z, maxp.z do
 			for x = minp.x, maxp.x do
 				if maxp.y >= worldgen.overworld_bottom then 
-					local top_node, mid_node, bottom_node
+					local top_node, mid_node, bottom_node, above_node
 					local temperature = noise_temperature[ni]
 					local rainfall = noise_rainfall[ni]
-					local biome = worldgen.get_biome_nearest(temperature, rainfall)
-					local tempdiff = math.abs(biome.temperature - temperature)
+					local biome, h = worldgen.get_biome_nearest(temperature, rainfall, this.biome_list)
 
-					if tempdiff > 1.0 then
-						tempdiff = 1.0
-					elseif tempdiff < 0.0 then
-						tempdiff = 0.0
-					end
+					local listwithoutbiome = table.copy(this.biome_list)
+					listwithoutbiome[h] = nil
+
+					local tempdiff = worldgen.tempdiff(temperature, biome, listwithoutbiome)
 
 					local y = math.floor(worldgen.y_at_point(x, z, ni, biome, tempdiff, noise_base, noise_overlay))
 
@@ -193,7 +193,7 @@ worldgen.register_dimension({
 	-- It also means that working out distances can be done in your head!
 	compression_factor = 10,
 
-	gen_func = function(minp, maxp, blockseed, vm, area, data)
+	gen_func = function(this, minp, maxp, blockseed, vm, area, data)
 		local sidelen = maxp.x - minp.x + 1
 		local noise_caves = worldgen.get_perlin_map_3d(worldgen.np_caves_hell, {x=sidelen, y=sidelen, z=sidelen}, minp)
 		local nixyz = 1
