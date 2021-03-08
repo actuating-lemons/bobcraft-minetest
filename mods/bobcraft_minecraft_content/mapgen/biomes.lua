@@ -71,23 +71,8 @@ end
 -- Expects biome_list to not contain biome
 function worldgen.tempdiff(temperature, biome, biome_list)
 	biome_list = biome_list or worldgen.registered_biomes
-
-	local otherbiome
-
-	local smallest_so_far
-	local key = -1
-	for id, def in ipairs(biome_list) do
-		if not smallest_so_far or (math.abs(temperature - def.temperature) < smallest_so_far) then
-			smallest_so_far = math.abs(temperature - def.temperature)
-			key = id
-		end
-	end
-
-	otherbiome = biome_list[key]
-
-	if not otherbiome then
-		return 0
-	end
+	-- TODO: rainfall
+	local otherbiome = worldgen.get_biome_nearest(temperature, 0, biome_list)
 
 	local temp
 	temp = math.abs(biome.temperature - otherbiome.temperature)
@@ -116,6 +101,8 @@ worldgen.register_biome({
 	top = "bobcraft_blocks:snowy_grass_block",
 	above = "bobcraft_blocks:snow_layer",
 	liquid_top = "bobcraft_blocks:ice",
+
+	y_effector = 2,
 })
 
 worldgen.register_biome({

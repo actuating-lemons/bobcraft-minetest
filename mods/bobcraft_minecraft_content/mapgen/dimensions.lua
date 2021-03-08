@@ -85,7 +85,7 @@ worldgen.register_dimension({
 					local rainfall = noise_rainfall[ni]
 					local biome, h = worldgen.get_biome_nearest(temperature, rainfall, this.biome_list)
 					local listwithoutbiome = table.copy(this.biome_list)
-					listwithoutbiome[h] = nil
+					table.remove(listwithoutbiome, h)
 
 					local tempdiff = worldgen.tempdiff(temperature, biome, listwithoutbiome)
 
