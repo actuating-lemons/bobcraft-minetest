@@ -33,7 +33,7 @@ worldgen.np_bedrock = {
 	offset = 0,
 	scale = 10,
 	spread = {x=1, y=1, z=1},
-	seed = 465464656, -- keymash
+	seed = -minetest.get_mapgen_setting("seed"), -- we get the inverse of the map's seed, to make the bedrock ALWAYS generate with seed 0. A quirk (bug?) minecraft has that is pretty neat.
 	octaves = 1,
 	persist = 0.5,
 }
