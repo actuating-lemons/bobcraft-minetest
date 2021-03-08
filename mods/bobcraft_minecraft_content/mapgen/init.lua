@@ -25,8 +25,18 @@ function worldgen.get_perlin_map(noiseparam, sidelen, minp)
 end
 function worldgen.get_perlin_map_3d(noiseparam, sidelen, minp)
 	local pm = minetest.get_perlin_map(noiseparam, sidelen)
-    return pm:get_3d_map_flat({x = minp.x, y = minp.z, z = 0})
+    return pm:get_3d_map_flat({x = minp.x, y = minp.y, z = minp.z})
 end
+
+-- Used for smittering the bedrock
+worldgen.np_bedrock = {
+	offset = 0,
+	scale = 10,
+	spread = {x=1, y=1, z=1},
+	seed = 465464656, -- keymash
+	octaves = 1,
+	persist = 0.5,
+}
 
 -- TODO: the following nose parameters are ALL for the overworld.
 -- This doesn't seem right with the concept of dimensions, so we need to move them to dimension specific areas.
@@ -180,13 +190,27 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 	local data = vm:get_data()
 	local area = VoxelArea:new({MinEdge=emin, MaxEdge=emax})
 
-	local function set_layers(block, min, max, minp, maxp)
+	local function set_layers(block, noise, min, max, minp, maxp)
+		local nixyz = 1
+		if noise ~= nil then
+			local h = maxp.x - minp.x + 1
+			noise = worldgen.get_perlin_map_3d(noise, {x=h,y=h,z=h}, minp)
+		end
 		if (maxp.y >= min and minp.y <= max) then
 			for y = min, max do
 				for x = minp.x, maxp.x do
 					for z = minp.z, maxp.z do
-						local pos = area:index(x,y,z)
-						data[pos] = block
+						local vi = area:index(x,y,z)
+
+						if noise == nil then
+							data[vi] = block
+						else
+							if noise[nixyz] > 0.5 then
+								data[vi] = block
+							end
+						end
+
+						nixyz = nixyz + 1
 					end
 				end
 			end
@@ -202,10 +226,12 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 		-- The very last step is to set the bedrock up
 		-- TODO: jittery bedrock
 		if dim.seal_top then
-			set_layers(dim.seal_node, dim.y_max, dim.y_max, minp, maxp)
+			set_layers(dim.seal_node, nil, dim.y_max, dim.y_max, minp, maxp)
+			set_layers(dim.seal_node, worldgen.np_bedrock, dim.y_max-1, dim.y_max-1, minp, maxp)
 		end
 		if dim.seal_bottom then
-			set_layers(dim.seal_node, dim.y_min, dim.y_min, minp, maxp)
+			set_layers(dim.seal_node, nil, dim.y_min, dim.y_min, minp, maxp)
+			set_layers(dim.seal_node, worldgen.np_bedrock, dim.y_min+1, dim.y_min+1, minp, maxp)
 		end
 
 	end
