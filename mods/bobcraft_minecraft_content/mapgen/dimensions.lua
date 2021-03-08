@@ -76,8 +76,6 @@ worldgen.register_dimension({
 		local noise_temperature = worldgen.get_perlin_map(worldgen.np_temperature, {x=sidelen, y=sidelen, z=sidelen}, minp)
 		local noise_rainfall = worldgen.get_perlin_map(worldgen.np_rainfall, {x=sidelen, y=sidelen, z=sidelen}, minp)
 
-		-- minetest.log(dump(this))
-
 		local ni = 1
 		for z = minp.z, maxp.z do
 			for x = minp.x, maxp.x do
@@ -86,11 +84,16 @@ worldgen.register_dimension({
 					local temperature = noise_temperature[ni]
 					local rainfall = noise_rainfall[ni]
 					local biome, h = worldgen.get_biome_nearest(temperature, rainfall, this.biome_list)
-
 					local listwithoutbiome = table.copy(this.biome_list)
 					listwithoutbiome[h] = nil
 
 					local tempdiff = worldgen.tempdiff(temperature, biome, listwithoutbiome)
+
+					if tempdiff < 0 then
+						tempdiff = 0
+					elseif tempdiff > 1 then
+						tempdiff = 1
+					end
 
 					local y = math.floor(worldgen.y_at_point(x, z, ni, biome, tempdiff, noise_base, noise_overlay))
 
