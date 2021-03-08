@@ -28,8 +28,8 @@ function worldgen.register_dimension(def)
 
 	-- The sealing
 	-- Done AFTER the gen_func is called
-	def.seal_bottom = def.seal_bottom or true
-	def.seal_top = def.seal_top or true
+	def.seal_bottom = def.seal_bottom
+	def.seal_top = def.seal_top
 	def.seal_node = def.seal_node or "bobcraft_blocks:bedrock"
 	def.seal_range = def.seal_range or 3 -- How many blocks the sealer will 'jitter'
 
