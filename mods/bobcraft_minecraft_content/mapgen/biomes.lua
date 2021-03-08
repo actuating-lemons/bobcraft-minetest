@@ -28,9 +28,6 @@ function worldgen.register_biome(def)
 	-- def.v_override
 	-- def.sky_force_underground -- If true, will force the sky to be the color, even indoors.
 
-	-- How extreme the generated height variation is
-	def.y_effector = def.y_effector or 1
-
 	-- Translate values into IDs
 	def.top = minetest.get_content_id(def.top)
 	def.middle = minetest.get_content_id(def.middle)
@@ -91,8 +88,6 @@ worldgen.register_biome({
 	top = "bobcraft_blocks:sand",
 	middle = "bobcraft_blocks:sand",
 	bottom = "bobcraft_blocks:sandstone",
-
-	y_effector = 0.75,
 })
 worldgen.register_biome({
 	name = "worldgen:biome_tundra",
@@ -101,8 +96,6 @@ worldgen.register_biome({
 	top = "bobcraft_blocks:snowy_grass_block",
 	above = "bobcraft_blocks:snow_layer",
 	liquid_top = "bobcraft_blocks:ice",
-
-	y_effector = 2,
 })
 
 worldgen.register_biome({
