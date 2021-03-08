@@ -69,6 +69,7 @@ worldgen.register_dimension({
 		local sidelen = maxp.x - minp.x + 1
 		local noise_base = worldgen.get_perlin_map(worldgen.np_base, {x=sidelen, y=sidelen, z=sidelen}, minp)
 		local noise_overlay = worldgen.get_perlin_map(worldgen.np_overlay, {x=sidelen, y=sidelen, z=sidelen}, minp)
+		local noise_overlay2 = worldgen.get_perlin_map(worldgen.np_overlay2, {x=sidelen, y=sidelen, z=sidelen}, minp)
 	
 		local noise_top_layer = worldgen.get_perlin_map(worldgen.np_second_layer, {x=sidelen, y=sidelen, z=sidelen}, minp)
 		local noise_second_layer = worldgen.get_perlin_map(worldgen.np_second_layer, {x=sidelen, y=sidelen, z=sidelen}, minp)
@@ -95,7 +96,7 @@ worldgen.register_dimension({
 						tempdiff = 1
 					end
 
-					local y = math.floor(worldgen.y_at_point(x, z, ni, biome, tempdiff, noise_base, noise_overlay))
+					local y = math.floor(worldgen.y_at_point(x, z, ni, biome, tempdiff, noise_base, noise_overlay, noise_overlay2))
 
 					above_node = biome.above
 					top_node = biome.top

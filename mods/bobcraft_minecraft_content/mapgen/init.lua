@@ -28,6 +28,9 @@ function worldgen.get_perlin_map_3d(noiseparam, sidelen, minp)
     return pm:get_3d_map_flat({x = minp.x, y = minp.z, z = 0})
 end
 
+-- TODO: the following nose parameters are ALL for the overworld.
+-- This doesn't seem right with the concept of dimensions, so we need to move them to dimension specific areas.
+
 -- Base - the meat of the y height
 worldgen.np_base = {
 	offset = 0,
@@ -37,12 +40,21 @@ worldgen.np_base = {
 	octaves = 6,
 	persist = 0.5,
 }
--- Overlay - applies on-top of the already set y height from Base
+-- Overlay - multiplies on-top of the already set y height from Base
 worldgen.np_overlay = {
 	offset = 0,
 	scale = 1,
 	spread = {x=512, y=512, z=512},
-	seed = 69420,
+	seed = 42078,
+	octaves = 6,
+	persist = 0.5,
+}
+-- Overlay2 - removes from the base + overlay1
+worldgen.np_overlay2 = {
+	offset = 0,
+	scale = 1,
+	spread = {x=512, y=512, z=512},
+	seed = 47238239, -- key mash
 	octaves = 6,
 	persist = 0.5,
 }
@@ -120,13 +132,15 @@ dofile(mp.."/dimensions.lua")
 dofile(mp.."/ores.lua")
 dofile(mp.."/decorations.lua")
 
-function worldgen.y_at_point(x, z, ni, biome, tempdiff, noise1, noise2) -- TODO: this is overworld specific, should we move this to dimensions?
+function worldgen.y_at_point(x, z, ni, biome, tempdiff, noise1, noise2, noise3) -- TODO: this is overworld specific, should we move this to dimensions?
 	local y
 
-	local effector = 1
+	local effector = 1.1
 
 	y = 8 * (noise1[ni]*effector)
 	y = y * (noise2[ni]*effector) * 4
+
+	y = y - (noise3[ni] * effector) * 8
 
 	y = y + worldgen.overworld_sealevel
 
