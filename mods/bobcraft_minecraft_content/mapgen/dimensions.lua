@@ -299,7 +299,7 @@ portals.register_portal("hell_portal", {
 		local factor = worldgen.named_dimensions["worldgen:dimension_hell"].compression_factor
 		local factor2 = worldgen.named_dimensions["worldgen:dimension_overworld"].compression_factor
 
-		local dest = vector.divide(surface_anchorPos, factor)
+		local dest = vector.divide(realm_anchorPos, factor)
 		dest = vector.multiply(dest, factor2)
 
 		-- TODO: Clip to world
