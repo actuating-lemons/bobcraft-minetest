@@ -29,3 +29,19 @@ doors.register_trapdoor("bobcraft_blocks:trapdoor", {
 
 	hardness = 3,
 })
+
+-- A special, un-craftable door that appears in temples.
+doors.register_door("bobcraft_blocks:temple_door", {
+	description = "Temple Door",
+	inventory_image = "item_door_temple.png",
+	groups = {pickaxe=1, door=1, attached_node=1},
+	tiles_top = {"door_temple.png^[verticalframe:2:0"},
+	tiles_bottom = {"door_temple.png^[verticalframe:2:1"},
+	sounds = bobcraft_sounds.node_sound_stone(),
+	sunlight = false,
+	
+	sound_open_door = "door_open",
+	sound_close_door = "door_close",
+	
+	hardness = 3
+})
