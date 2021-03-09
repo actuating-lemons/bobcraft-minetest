@@ -693,6 +693,19 @@ minetest.register_craft({
 	}
 })
 
+-- greendust rod
+-- # = greendust
+-----
+-- #
+-- #
+minetest.register_craft({
+	output = "bobcraft_tools:greendust_rod",
+	recipe = {
+		{"bobcraft_blocks:greendust",},
+		{"bobcraft_blocks:greendust",}
+	}
+})
+
 -- Shapeless wool dying
 -- TODO: should we move this to wool.lua?
 for i, colour in ipairs(dyes.colour_names) do
