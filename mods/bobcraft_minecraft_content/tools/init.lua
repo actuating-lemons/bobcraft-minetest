@@ -64,6 +64,7 @@ local function register_tool_tier(tier, material, extragroups)
 	minetest.register_tool("bobcraft_tools:"..tier.."_axe", {
 		description = bobutil.titleize(tier).." Axe",
 		inventory_image = tier.."_axe.png",
+		wield_scale = bobutil.wield_scale,
 		tool_capabilities = {
 			full_punch_interval = 1.0,
 			max_drop_level=tool_values.material_mining_level[tier],
@@ -82,6 +83,7 @@ local function register_tool_tier(tier, material, extragroups)
 	minetest.register_tool("bobcraft_tools:"..tier.."_hoe", {
 		description = bobutil.titleize(tier).." Hoe",
 		inventory_image = tier.."_hoe.png",
+		wield_scale = bobutil.wield_scale,
 		tool_capabilities = {
 			full_punch_interval = 1.0,
 			max_drop_level=tool_values.material_mining_level[tier],
@@ -101,6 +103,7 @@ local function register_tool_tier(tier, material, extragroups)
 	minetest.register_tool("bobcraft_tools:"..tier.."_pickaxe", {
 		description = bobutil.titleize(tier).." Pickaxe",
 		inventory_image = tier.."_pickaxe.png",
+		wield_scale = bobutil.wield_scale,
 		tool_capabilities = {
 			full_punch_interval = 1.0,
 			max_drop_level=tool_values.material_mining_level[tier],
@@ -119,6 +122,7 @@ local function register_tool_tier(tier, material, extragroups)
 	minetest.register_tool("bobcraft_tools:"..tier.."_shovel", {
 		description = bobutil.titleize(tier).." Shovel",
 		inventory_image = tier.."_shovel.png",
+		wield_scale = bobutil.wield_scale,
 		tool_capabilities = {
 			full_punch_interval = 1.0,
 			max_drop_level=tool_values.material_mining_level[tier],
@@ -137,6 +141,7 @@ local function register_tool_tier(tier, material, extragroups)
 	minetest.register_tool("bobcraft_tools:"..tier.."_sword", {
 		description = bobutil.titleize(tier).." Sword",
 		inventory_image = tier.."_sword.png",
+		wield_scale = bobutil.wield_scale,
 		tool_capabilities = {
 			full_punch_interval = 1.0,
 			max_drop_level=tool_values.material_mining_level[tier],
@@ -166,6 +171,7 @@ register_tool_tier("diamond", "bobcraft_items:diamond")
 
 minetest.register_tool("bobcraft_tools:greendust_rod", {
 	inventory_image = "greendust_igniter.png",
+	wield_scale = bobutil.wield_scale,
 	description = "Greendust Rod"
 })
 portals.register_portal_ignition_item(

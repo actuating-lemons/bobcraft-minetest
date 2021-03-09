@@ -92,6 +92,9 @@ bobutil.fuel_times = {
 
 bobutil.stack_max = 64 -- We do this here so If I wanna change it, it wouldn't be too difficult.
 
+-- The default wield scale is puny, this is a more minecraft size.
+bobutil.wield_scale = {x=1.5,y=1.5,z=1.5}
+
 -- Handles all the planting for us
 -- Doesn't let us place on non-plantable surfaces
 bobutil.on_plant = function(itemstack, placer, pointed_thing)
