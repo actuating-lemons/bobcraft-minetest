@@ -281,7 +281,7 @@ portals.register_portal("hell_portal", {
 		dest.x = math.floor(dest.x)
 		dest.z = math.floor(dest.z)
 		-- Get the middle of the dimension
-		dest.y = math.floor((worldgen.nether_top+worldgen.overworld_bottom)/2)
+		dest.y = math.floor((worldgen.hell_top+worldgen.hell_bottom)/2)
 		
 		-- search for existing portals
 		local existing_portal_location, existing_portal_orientation = portals.find_nearest_working_portal("hell_portal", dest, factor, 0)
@@ -319,7 +319,7 @@ portals.register_portal("hell_portal", {
 	on_ignite = function(portal_def, anchor_pos, orientation)
 		-- TODO: particles
 	end,
-	
+
 })
 
 --[[

@@ -124,18 +124,18 @@ local facedir_up, facedir_north, facedir_south, facedir_east, facedir_west, face
 
 local __  = {name = "air", prob = 0}
 local AA  = {name = "air", prob = 255, force_place = true}
-local ON  = {name = "default:obsidian", facedir = facedir_north + 0, prob = 255, force_place = true}
-local ON2 = {name = "default:obsidian", facedir = facedir_north + 1, prob = 255, force_place = true}
-local ON3 = {name = "default:obsidian", facedir = facedir_north + 2, prob = 255, force_place = true}
-local ON4 = {name = "default:obsidian", facedir = facedir_north + 3, prob = 255, force_place = true}
-local OS  = {name = "default:obsidian", facedir = facedir_south,     prob = 255, force_place = true}
-local OE  = {name = "default:obsidian", facedir = facedir_east,      prob = 255, force_place = true}
-local OW  = {name = "default:obsidian", facedir = facedir_west,      prob = 255, force_place = true}
-local OU  = {name = "default:obsidian", facedir = facedir_up + 0,    prob = 255, force_place = true}
-local OU2 = {name = "default:obsidian", facedir = facedir_up + 1,    prob = 255, force_place = true}
-local OU3 = {name = "default:obsidian", facedir = facedir_up + 2,    prob = 255, force_place = true}
-local OU4 = {name = "default:obsidian", facedir = facedir_up + 3,    prob = 255, force_place = true}
-local OD  = {name = "default:obsidian", facedir = facedir_down,      prob = 255, force_place = true}
+local ON  = {name = "bobcraft_blocks:obsidian", facedir = facedir_north + 0, prob = 255, force_place = true}
+local ON2 = {name = "bobcraft_blocks:obsidian", facedir = facedir_north + 1, prob = 255, force_place = true}
+local ON3 = {name = "bobcraft_blocks:obsidian", facedir = facedir_north + 2, prob = 255, force_place = true}
+local ON4 = {name = "bobcraft_blocks:obsidian", facedir = facedir_north + 3, prob = 255, force_place = true}
+local OS  = {name = "bobcraft_blocks:obsidian", facedir = facedir_south,     prob = 255, force_place = true}
+local OE  = {name = "bobcraft_blocks:obsidian", facedir = facedir_east,      prob = 255, force_place = true}
+local OW  = {name = "bobcraft_blocks:obsidian", facedir = facedir_west,      prob = 255, force_place = true}
+local OU  = {name = "bobcraft_blocks:obsidian", facedir = facedir_up + 0,    prob = 255, force_place = true}
+local OU2 = {name = "bobcraft_blocks:obsidian", facedir = facedir_up + 1,    prob = 255, force_place = true}
+local OU3 = {name = "bobcraft_blocks:obsidian", facedir = facedir_up + 2,    prob = 255, force_place = true}
+local OU4 = {name = "bobcraft_blocks:obsidian", facedir = facedir_up + 3,    prob = 255, force_place = true}
+local OD  = {name = "bobcraft_blocks:obsidian", facedir = facedir_down,      prob = 255, force_place = true}
 
 -- facedirNodeList is a list of node references which should have their facedir value copied into
 -- param2 before placing a schematic. The facedir values will only be copied when the portal's frame
@@ -1195,7 +1195,7 @@ local function build_portal(portal_definition, anchorPos, orientation, destinati
 		portal_definition.shape.schematic,
 		orientation,
 		{ -- node replacements
-			["default:obsidian"] = portal_definition.frame_node_name,
+			["bobcraft_blocks:obsidian"] = portal_definition.frame_node_name,
 		},
 		true
 	)
@@ -2051,7 +2051,7 @@ local portaldef_default = {
 	shape                        = portals.PortalShape_Traditional,
 	wormhole_node_name           = "portal_api:portal",
 	wormhole_node_color          = 0,
-	frame_node_name              = "default:obsidian",
+	frame_node_name              = "bobcraft_blocks:obsidian",
 	particle_texture             = "nether_particle.png",
 	particle_texture_animation   = nil,
 	particle_texture_scale       = 1,
