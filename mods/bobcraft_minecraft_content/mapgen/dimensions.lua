@@ -53,6 +53,7 @@ function worldgen.register_dimension(def)
 	worldgen.named_dimensions[def.name] = def
 end
 
+-- Overworld
 worldgen.register_dimension({
 	name = "worldgen:dimension_overworld",
 	y_min = worldgen.overworld_bottom,
@@ -258,6 +259,68 @@ minetest.register_on_newplayer(function(player)
 	player:set_pos(pos)
 end)
 
+-- Portal to hell
+portals.register_portal("hell_portal", {
+	shape = portals.PortalShape_Traditional,
+	frame_node_name = "bobcraft_blocks:obsidian",
+	wormhole_node_color = 0,
+	title = "Hell Portal",
+
+	is_within_realm = function(pos)
+		return pos.y > worldgen.hell_bottom and pos.y < worldgen.hell_top
+	end,
+
+	find_realm_anchorPos = function(surface_anchorPos, player_name)
+		-- divide x and z by hell's shrink factor
+		local factor = worldgen.named_dimensions["worldgen:dimension_hell"].compression_factor
+		local factor2 = worldgen.named_dimensions["worldgen:dimension_overworld"].compression_factor
+
+		local dest = vector.multiply(surface_anchorPos, factor2)
+		dest = vector.divide(dest, factor)
+
+		dest.x = math.floor(dest.x)
+		dest.z = math.floor(dest.z)
+		-- Get the middle of the dimension
+		dest.y = math.floor((worldgen.nether_top+worldgen.overworld_bottom)/2)
+		
+		-- search for existing portals
+		local existing_portal_location, existing_portal_orientation = portals.find_nearest_working_portal("hell_portal", dest, factor, 0)
+
+		if existing_portal_location ~= nil then
+			return existing_portal_location, existing_portal_orientation
+		else
+			local y = math.random(worldgen.hell_bottom+25, worldgen.hell_top+25)
+			dest.y = y
+			return dest
+		end
+	end,
+
+	find_surface_anchorPos = function (realm_anchorPos, player_name)
+		local factor = worldgen.named_dimensions["worldgen:dimension_hell"].compression_factor
+		local factor2 = worldgen.named_dimensions["worldgen:dimension_overworld"].compression_factor
+
+		local dest = vector.divide(surface_anchorPos, factor)
+		dest = vector.multiply(dest, factor2)
+
+		-- TODO: Clip to world
+		dest.y = math.floor((worldgen.overworld_top+worldgen.overworld_bottom)/2)
+
+		local existing_portal_location, existing_portal_orientation = portals.find_nearest_working_portal("hell_portal", dest, factor*factor2, 0)
+
+		if existing_portal_location ~= nil then
+			return existing_portal_location, existing_portal_orientation
+		else
+			-- TODO: actually find surface
+			dest.y = 100
+			return dest
+		end
+	end,
+
+	on_ignite = function(portal_def, anchor_pos, orientation)
+		-- TODO: particles
+	end,
+	
+})
 
 --[[
 ! WHEN THE
