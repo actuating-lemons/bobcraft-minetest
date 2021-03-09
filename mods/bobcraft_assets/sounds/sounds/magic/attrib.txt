@@ -3,4 +3,6 @@ magic_portal_actiavte.ogg - https://freesound.org/people/Spennnyyy/sounds/323502
 magic_poof.ogg - https://freesound.org/people/Saviraz/sounds/512217/
 
 magic_active_ambient, magic_portal_ambient.ogg, magic_portal_ambient.1.ogg - https://freesound.org/people/humanoide9000/sounds/329028/
-magic_fizzle - https://freesound.org/people/Iridiuss/sounds/519414/
+magic_fizzle.ogg - https://freesound.org/people/Iridiuss/sounds/519414/
+
+magic_fail.ogg - https://freesound.org/people/bolkmar/sounds/503475/

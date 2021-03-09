@@ -170,5 +170,5 @@ minetest.register_tool("bobcraft_tools:flint_and_steel", {
 })
 portals.register_portal_ignition_item(
 	"bobcraft_tools:flint_and_steel",
-	{name = "", gain = 0.3}
+	{name = "magic_fail", gain = 0.3}
 )
