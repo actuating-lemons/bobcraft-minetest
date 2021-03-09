@@ -1,8 +1,6 @@
 -- Dimensions API.
 -- Specifies y top and bottom values, and a function to run on a generation step for the area
 
-dofile(minetest.get_modpath("bobcraft_worldgen") .. "/portals.lua")
-
 worldgen.registered_dimensions = {}
 worldgen.named_dimensions = {} -- TODO: Better name, as this just stores a dimension name -> dimension def table
 
