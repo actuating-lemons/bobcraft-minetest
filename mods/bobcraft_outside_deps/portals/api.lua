@@ -38,14 +38,7 @@ portals.is_frame_node = {}
 -- gives the colour values in nether_portals_palette.png that are used by the wormhole colorfacedir
 -- hardware colouring.
 portals.portals_palette = {
-	[0] = {r = 128, g =   0, b = 128, asString = "#800080"}, -- traditional/magenta
-	[1] = {r =   0, g =   0, b =   0, asString = "#000000"}, -- black
-	[2] = {r =  19, g =  19, b = 255, asString = "#1313FF"}, -- blue
-	[3] = {r =  55, g = 168, b =   0, asString = "#37A800"}, -- green
-	[4] = {r = 141, g = 237, b = 255, asString = "#8DEDFF"}, -- cyan
-	[5] = {r = 221, g =   0, b =   0, asString = "#DD0000"}, -- red
-	[6] = {r = 255, g = 240, b =   0, asString = "#FFF000"}, -- yellow
-	[7] = {r = 255, g = 255, b = 255, asString = "#FFFFFF"}  -- white
+	[0] = {r = 128, g =   0, b = 128, asString = "#377400"}, -- traditional/green
 }
 
 
@@ -1969,12 +1962,12 @@ minetest.register_lbm({
 local wormhole_nodedef_default = {
 	description = S("Portal wormhole"),
 	tiles = {
-		"nether_transparent.png",
-		"nether_transparent.png",
-		"nether_transparent.png",
-		"nether_transparent.png",
+		"blank.png",
+		"blank.png",
+		"blank.png",
+		"blank.png",
 		{
-			name = "nether_portal.png",
+			name = "portal.png",
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
@@ -1983,7 +1976,7 @@ local wormhole_nodedef_default = {
 			},
 		},
 		{
-			name = "nether_portal.png",
+			name = "portal.png",
 			animation = {
 				type = "vertical_frames",
 				aspect_w = 16,
@@ -1995,7 +1988,7 @@ local wormhole_nodedef_default = {
 	drawtype = "nodebox",
 	paramtype = "light",
 	paramtype2 = "colorfacedir",
-	palette = "nether_portals_palette.png",
+	palette = "magic_small.png",
 	post_effect_color = {
 		-- post_effect_color can't be changed dynamically in Minetest like the portal colour is.
 		-- If you need a different post_effect_color then use register_wormhole_node() to create
@@ -2005,7 +1998,7 @@ local wormhole_nodedef_default = {
 		-- portals, close enough to red to work for a red portal, and also close enough to red to
 		-- work with blue & cyan portals - since blue portals are sometimes portrayed as being red
 		-- from the opposite side / from the inside.
-		a = 160, r = 128, g = 0, b = 80
+		a = 160, r = 0, g = 128, b = 80
 	},
 	sunlight_propagates = true,
 	use_texture_alpha = true,
@@ -2020,7 +2013,7 @@ local wormhole_nodedef_default = {
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.5, -0.5, -0.1,  0.5, 0.5, 0.1},
+			{-0.5, -0.5, -1/16,  0.5, 0.5, 1/16},
 		},
 	},
 	groups = {not_in_creative_inventory = 1},
@@ -2052,14 +2045,19 @@ local portaldef_default = {
 	wormhole_node_name           = "portal_api:portal",
 	wormhole_node_color          = 0,
 	frame_node_name              = "bobcraft_blocks:obsidian",
-	particle_texture             = "nether_particle.png",
-	particle_texture_animation   = nil,
+	particle_texture             = "magic_particle_animated.png",
+	particle_texture_animation   = {
+		type = "vertical_frames",
+		aspect_w = 8,
+		aspect_h = 8,
+		length = 1.0,
+	},
 	particle_texture_scale       = 1,
 	sounds = {
-		ambient    = {name = "nether_portal_ambient",    gain = 0.6, length = 3},
-		ignite     = {name = "nether_portal_ignite",     gain = 0.7},
-		extinguish = {name = "nether_portal_extinguish", gain = 0.6},
-		teleport   = {name = "nether_portal_teleport",   gain = 0.3}
+		ambient    = {name = "magic_active_ambient",    gain = 0.6, length = 3},
+		ignite     = {name = "magic_ativate",     gain = 0.7},
+		extinguish = {name = "magic_fizzle", gain = 0.6},
+		teleport   = {name = "magic_poof",   gain = 0.3}
 	}
 }
 
