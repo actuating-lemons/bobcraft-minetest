@@ -290,7 +290,7 @@ portals.register_portal("hell_portal", {
 			return existing_portal_location, existing_portal_orientation
 		else
 			-- Do it from the sea level up, so we don't ever spawn in the lava (OOPS!)
-			local y = math.random(worldgen.hell_sealevel, worldgen.hell_top+25)
+			local y = math.random(worldgen.hell_sealevel, worldgen.hell_top-25)
 			dest.y = y
 			return dest
 		end
