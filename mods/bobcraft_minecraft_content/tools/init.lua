@@ -163,3 +163,12 @@ register_tool_tier("stone", "group:crafting_stone")
 register_tool_tier("iron", "bobcraft_items:iron_ingot")
 register_tool_tier("gold", "bobcraft_items:gold_ingot")
 register_tool_tier("diamond", "bobcraft_items:diamond")
+
+minetest.register_tool("bobcraft_tools:flint_and_steel", {
+	inventory_image = "flint_and_steel.png",
+	description = "flint and steel"
+})
+portals.register_portal_ignition_item(
+	"bobcraft_tools:flint_and_steel",
+	{name = "", gain = 0.3}
+)
