@@ -4,6 +4,9 @@ worldgen.overworld_top = 256
 worldgen.overworld_bottom = 0
 -- Doubles as the surface height too
 worldgen.overworld_sealevel = worldgen.overworld_bottom + 63
+-- sets where we will randomly plot a sturcture
+worldgen.overworld_struct_min = worldgen.overworld_bottom + 25
+worldgen.overworld_struct_max = worldgen.overworld_sealevel - 5
 
 worldgen.hell_top = worldgen.overworld_bottom - 128 -- 128 block seperation between biomes
 worldgen.hell_bottom = worldgen.hell_top - 128 -- 128 blocks tall hell
@@ -137,6 +140,7 @@ worldgen.np_rainfall = {
 }
 
 local mp = minetest.get_modpath("bobcraft_worldgen")
+dofile(mp.."/structures.lua")
 dofile(mp.."/biomes.lua")
 dofile(mp.."/dimensions.lua")
 dofile(mp.."/ores.lua")

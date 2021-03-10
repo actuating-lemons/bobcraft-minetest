@@ -157,13 +157,21 @@ worldgen.register_dimension({
 		end
 
 
+		-- caves, structures
 		local noise_caves = worldgen.get_perlin_map_3d(worldgen.np_caves, {x=sidelen, y=sidelen, z=sidelen}, minp)
 		local noise_caves2 = worldgen.get_perlin_map_3d(worldgen.np_caves2, {x=sidelen, y=sidelen, z=sidelen}, minp)
 		local noise_caves3 = worldgen.get_perlin_map_3d(worldgen.np_caves2, {x=sidelen, y=sidelen, z=sidelen}, minp)
+		local noise_structure = worldgen.get_perlin_map(worldgen.np_caves, {x=sidelen, y=sidelen, z=sidelen}, minp)
+		local rand = PcgRandom(blockseed)
 		local nixyz = 1
+		ni = 1
+
+		-- whether we should try generating a certain structure, given the chance
+		local gen_temple = true
+
 		for x = minp.x, maxp.x do
-			for y = minp.y, maxp.y do
-				for z = minp.z, maxp.z do
+			for z = minp.z, maxp.z do
+				for y = minp.y, maxp.y do
 					local vi = area:index(x, y, z)
 
 					local cave, cave2, cave3 = noise_caves[nixyz], noise_caves2[nixyz], noise_caves3[nixyz]
@@ -183,8 +191,19 @@ worldgen.register_dimension({
 
 					nixyz = nixyz + 1
 				end
+
+				local amount = math.floor(noise_structure[ni] * 9)
+				for i = 0, amount do
+					if gen_temple and rand:next(0,50000) == 0 then
+						worldgen.gen_struct({x=x,z=z, y=rand:next(worldgen.overworld_struct_min, worldgen.overworld_struct_max)}, "temple", "random", rand)
+						gen_temple = false -- one per chunk
+					end
+				end
+
+				ni = ni + 1
 			end
 		end
+
 		return data
 	end
 })
