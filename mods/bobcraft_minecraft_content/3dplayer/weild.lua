@@ -24,7 +24,7 @@ local function add_wield_entity(player)
 		if object then
 			object:set_attach(player, location[1], location[2], location[3])
 			object:set_properties({
-				textures = {"aeternitas"},
+				textures = {"tib"},
 				visual_size = location[4],
 			})
 			player_wielding[name] = {}

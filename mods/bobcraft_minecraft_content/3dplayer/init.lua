@@ -99,7 +99,7 @@ end)
 ----
 player_model.register_model("player.b3d", {
 	animation_speed = 15,
-	textures = {"aeternitas.png"},
+	textures = {"tib.png"},
 	animations = {
 		stand = {
 			x = 0,
