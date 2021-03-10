@@ -136,3 +136,12 @@ function bobutil.move_items_outta(player, inventory)
 		end
 	end
 end
+
+function bobutil.vector_to_colourstring(vector)
+	local str = "#"
+	str = str .. string.format("%02x", vector.x)
+	str = str .. string.format("%02x", vector.y)
+	str = str .. string.format("%02x", vector.z)
+
+	return str
+end
