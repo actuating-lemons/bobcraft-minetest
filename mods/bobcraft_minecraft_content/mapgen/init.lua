@@ -118,6 +118,8 @@ worldgen.np_caves_hell = {
 	octaves = 4,
 	seed = 410430084494322969, -- "SATANSATANSATAN"
 	persist = 0.6,
+	lacunarity = 2,
+	flags = "eased",
 }
 
 -- Temperature - How we generate temperature values
