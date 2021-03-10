@@ -56,3 +56,6 @@ break_metal.ogg - https://freesound.org/people/jorickhoofd/sounds/160045/
 place_metal.ogg - https://freesound.org/people/jorickhoofd/sounds/176676/
 dig_metal.ogg - https://freesound.org/people/jorickhoofd/sounds/178588/
 dig_metal.1.ogg - https://freesound.org/people/jorickhoofd/sounds/178590/
+
+CC-BY-NC:
+evaporate.ogg - https://freesound.org/people/DamianMinnie/sounds/327559/

@@ -161,21 +161,7 @@ function worldgen.y_at_point(x, z, ni, biome, tempdiff, noise1, noise2, noise3) 
 	return y
 end
 
-function worldgen.get_nearest_dimension(pos)
-	local closest_so_far
-	local key = -1
-	for dimid, def in ipairs(worldgen.registered_dimensions) do
-		if not closest_so_far or (math.abs(pos.y - def.y_min) < closest_so_far) then
-			closest_so_far = math.abs(pos.y - def.y_min)
-			key = dimid
-		elseif (math.abs(pos.y - def.y_max) < closest_so_far) then
-			closest_so_far = math.abs(pos.y - def.y_max)
-			key = dimid
-		end
-	end
-
-	return worldgen.registered_dimensions[key]
-end
+worldgen.get_nearest_dimension = bobutil.get_nearest_dimension
 
 -- Returns the biome at the pos.
 function worldgen.get_biome(pos)

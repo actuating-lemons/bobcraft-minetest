@@ -89,6 +89,27 @@ bobticles.presets = {
 			aspect_h = 8,
 			length = 1.5
 		}
+	},
+
+	-- No water in hell!
+	water_evaporation = {
+		amount = 100,
+		time = 0.1,
+		minsize = 0.5,
+		maxsize = 2.0,
+		minexptime = 0.5,
+		maxexptime = 1,
+		minpos = {x = 0.5, y = 0.5, z = 0.5},
+		maxpos = {x = -0.5, y = -0.5, z = -0.5},
+		minvel = { x = -0.2, y = 0.3, z = -0.2 },
+		maxvel = { x = 0.2, y = 0.3, z = 0.2 },
+		texture = "smoke_animated.png^[colorize:#000000:127",
+		animation = {
+			type = "vertical_frames",
+			aspect_w = 8,
+			aspect_h = 8,
+			length = 1.5
+		}
 	}
 }
 
@@ -131,4 +152,14 @@ end
 
 function bobticles.get_preset(presetname)
 	return table.copy(bobticles.presets[presetname])
+end
+
+function bobticles.create_particle_spawner_inplace(pos, particledef)
+	local minpos = particledef.minpos or {x=0,y=0,z=0}
+	local maxpos = particledef.maxpos or {x=0,y=0,z=0}
+
+	particledef.minpos = vector.add(pos, minpos)
+	particledef.maxpos = vector.add(pos, maxpos)
+
+	minetest.add_particlespawner(particledef)
 end

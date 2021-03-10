@@ -145,3 +145,20 @@ function bobutil.search_for_spawn(from, to)
 	local _, npos = minetest.line_of_sight(from, to)
 	return npos
 end
+
+-- functions originally in worldgen, but really useful elsewhere...
+function bobutil.get_nearest_dimension(pos)
+	local closest_so_far
+	local key = -1
+	for dimid, def in ipairs(worldgen.registered_dimensions) do
+		if not closest_so_far or (math.abs(pos.y - def.y_min) < closest_so_far) then
+			closest_so_far = math.abs(pos.y - def.y_min)
+			key = dimid
+		elseif (math.abs(pos.y - def.y_max) < closest_so_far) then
+			closest_so_far = math.abs(pos.y - def.y_max)
+			key = dimid
+		end
+	end
+
+	return worldgen.registered_dimensions[key] -- we don't depend on mapgen, I don't know HOW this works!
+end

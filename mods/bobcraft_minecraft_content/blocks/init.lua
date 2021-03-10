@@ -182,6 +182,14 @@ minetest.register_node("bobcraft_blocks:water_source",{
 	sounds = bobcraft_sounds.node_sound_water(),
 	groups = {not_in_creative_inventory=1, water=1, water_source=1},
 
+	on_construct = function(pos)
+		if bobutil.get_nearest_dimension(pos).name == "worldgen:dimension_hell" then
+			bobticles.create_particle_spawner_inplace(pos, bobticles.get_preset("water_evaporation"))
+			minetest.sound_play({name="evaporate", pos=pos, gain=0.5})
+			minetest.remove_node(pos)
+		end
+	end,
+
 	hardness = 100 -- minecraft sets this, why?
 })
 minetest.register_node("bobcraft_blocks:water_flowing",{
