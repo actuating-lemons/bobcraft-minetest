@@ -318,7 +318,30 @@ portals.register_portal("hell_portal", {
 	end,
 
 	on_ignite = function(portal_def, anchor_pos, orientation)
-		-- TODO: particles
+		local p1, p2 = portal_def.shape:get_p1_and_p2_from_anchorPos(anchor_pos, orientation)
+			local pos = vector.divide(vector.add(p1, p2), 2)
+
+			local textureName = portal_def.particle_texture
+			if type(textureName) == "table" then textureName = textureName.name end
+
+			minetest.add_particlespawner({
+				amount = 110,
+				time   = 0.1,
+				minpos = {x = pos.x - 0.5, y = pos.y - 1.2, z = pos.z - 0.5},
+				maxpos = {x = pos.x + 0.5, y = pos.y + 1.2, z = pos.z + 0.5},
+				minvel = {x = -5, y = -1, z = -5},
+				maxvel = {x =  5, y =  1, z =  5},
+				minacc = {x =  0, y =  0, z =  0},
+				maxacc = {x =  0, y =  0, z =  0},
+				minexptime = 0.1,
+				maxexptime = 0.5,
+				minsize = 0.2 * portal_def.particle_texture_scale,
+				maxsize = 0.8 * portal_def.particle_texture_scale,
+				collisiondetection = false,
+				texture = textureName .. "^[colorize:#0F4:alpha",
+				animation = portal_def.particle_texture_animation,
+				glow = 8
+			})
 	end,
 
 })
