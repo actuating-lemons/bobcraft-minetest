@@ -161,4 +161,12 @@ function bobutil.get_nearest_dimension(pos)
 	end
 
 	return worldgen.registered_dimensions[key] -- we don't depend on mapgen, I don't know HOW this works!
+
+function bobutil.vector_to_colourstring(vector)
+	local str = "#"
+	str = str .. string.format("%02x", vector.x)
+	str = str .. string.format("%02x", vector.y)
+	str = str .. string.format("%02x", vector.z)
+
+	return str
 end
