@@ -62,3 +62,6 @@ dyes.items = {}
 for i, colour in ipairs(dyes.colour_names) do
 	register_dye_item(colour)
 end
+
+local mp = minetest.get_modpath("bobcraft_dyes")
+dofile(mp.."/extra.lua")
