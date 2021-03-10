@@ -2,7 +2,7 @@
 
 minetest.register_node("3dplayer:3dhand", {
 	description = "",
-	tiles = {"aeternitas.png"},
+	tiles = {"tib.png"},
 	inventory_image = "",
 
 	visual_scale = 1,
