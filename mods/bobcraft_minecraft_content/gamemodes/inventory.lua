@@ -74,8 +74,10 @@ function creative.register_tab(name, title, items)
 			local inv = inventories[player_name]
 
 			return sfinv.make_formspec(player, context,
-			"list[detached:creative_" .. player_name .. ";main;0,0;8,8;]" ..
+			"list[detached:creative_" .. player_name .. ";main;0,0;8,8;" .. tostring(inv.start_i) .. "]" ..
 			"field[0.25,8.5;8,1;search;;]" ..
+			"button[8,0;1,1;go_up;^]" ..
+			"button[8,1;1,1;go_down;v]" ..
 			"", false)
 		end,
 		on_enter = function(self, player, context)
@@ -89,6 +91,28 @@ function creative.register_tab(name, title, items)
 			local player_name = player:get_player_name()
 			local inv = inventories[player_name]
 			assert(inv)
+			
+			local start_i = inv.start_i or 0
+			if fields.go_up then
+				start_i = start_i - 8 * 8
+
+				if start_i < 0 then
+					start_i = inv.size - (inv.size % (8*8))
+					if inv.size == start_i then
+						start_i = math.max(0, inv.size - (8*8))
+					end
+				end
+			end
+			if fields.go_down then
+				start_i = start_i + 8 * 8
+				
+				if start_i >= inv.size then
+					start_i = 0
+				end
+			end
+
+			inv.start_i = start_i
+			sfinv.set_player_inventory_formspec(player, context)
 		end
 	})
 end
