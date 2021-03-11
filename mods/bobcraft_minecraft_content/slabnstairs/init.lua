@@ -12,13 +12,17 @@ local function register_stair(name, blockdef)
 		}
 	}
 
+	blockdef.on_place = function(itemstack, placer, pointed_thing)
+		return bobutil.rotate_and_place(itemstack, placer, pointed_thing)
+	end
+
 	minetest.register_node(name,blockdef)
 
 end
 
 local function register_slab(name, blockdef)
 	blockdef.paramtype = "light"
-	blockdef.paramtype2 = "facedir"
+	blockdef.paramtype2 = "wallmounted"
 	blockdef.drawtype = "nodebox"
 	blockdef.node_box = {
 		type = "fixed",
@@ -60,7 +64,6 @@ local function register_extra_variants(namespace, blockname, blockdesc)
 		hardness = blockdef.hardness
 	})
 	bobcraft_crafting.register_slab_craft(namespace .. blockname .. "_slab", namespaced_blockname)
-
 
 end
 
