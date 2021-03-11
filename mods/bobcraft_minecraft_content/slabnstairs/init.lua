@@ -12,6 +12,14 @@ local function register_stair(name, blockdef)
 		}
 	}
 
+	for i, tile in ipairs(blockdef.tiles) do
+		if type(tile) == "string" then
+			blockdef.tiles[i] = {name = tile, align_style = "world"}			
+		elseif type(tile) == "table" then
+			blockdef.tiles[i].align_style = "world"
+		end
+	end
+
 	blockdef.on_place = function(itemstack, placer, pointed_thing)
 		return bobutil.rotate_and_place(itemstack, placer, pointed_thing)
 	end
