@@ -72,6 +72,7 @@ register_extra_variants("bobcraft_blocks_xtra:","stone_bricks", "Stone Brick")
 -- FIXME: these don't appear in the creative menu. Why?
 local stonedef = minetest.registered_nodes["bobcraft_blocks:stone"]
 register_stair("bobcraft_blocks_xtra:stone_stair",{
+	description = "Stone Stairs",
 	tiles = {"stone_slab_side.png","stone_slab_top.png",
 	"stone_stair_side.png","stone_stair_side.png^[transformfx", "stone_slab_side.png"},
 	sounds = stonedef.sounds,
@@ -80,6 +81,7 @@ register_stair("bobcraft_blocks_xtra:stone_stair",{
 })
 bobcraft_crafting.register_stair_craft("bobcraft_blocks_xtra:stone_stair", "bobcraft_blocks:stone")
 register_slab("bobcraft_blocks_xtra:stone_slab",{
+	description = "Stone Slab",
 	tiles = {"stone_slab_top.png","stone_slab_top.png","stone_slab_side.png"},
 	sounds = stonedef.sounds,
 	groups = stonedef.groups,
