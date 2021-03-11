@@ -31,6 +31,8 @@ function creative.init_inventory(player)
 		end,
 	}
 	, player_name)
+
+	return inventories[player_name]
 end
 
 function creative.update_inventory(player_name, content)
@@ -41,9 +43,14 @@ function creative.update_inventory(player_name, content)
 	
 	local items = creative_cache[content] or creative.cache(content)
 
-	player_inv:set_size("main", #items)
-	player_inv:set_list("main", items)
-	inv.size = #items
+	local list = {}
+	for name, def in pairs(items) do
+		table.insert(list, name)
+	end
+	
+	player_inv:set_size("main", #list)
+	player_inv:set_list("main", list)
+	inv.size = #list
 
 end
 
