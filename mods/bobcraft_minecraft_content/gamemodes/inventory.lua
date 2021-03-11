@@ -1,4 +1,7 @@
--- ""inspiration""" taken from the minetest_game's creative_mode mod
+--[[
+	Based on minetest_game's creative menu.
+	Modified heavily in some areas to make it better fit bobcraft.
+]]
 local creative = {}
 
 local inventories = {}
@@ -23,6 +26,7 @@ function creative.init_inventory(player)
 	inventories[player_name] = {
 		size = 0,
 		start_i = 0,
+		filter = "",
 	}
 
 	minetest.create_detached_inventory("creative_"..player_name, {
@@ -50,11 +54,21 @@ function creative.update_inventory(player_name, content)
 	local items = creative_cache[content] or creative.cache(content)
 
 	local list = {}
+	local list_order = {}
 	for name, def in pairs(items) do
-		table.insert(list, name)
+		local match = bobutil.match(def.description, inv.filter)
+		if match > 0 then
+			match = math.min(match, bobutil.match(name, inv.filter))
+		end
+
+		if match < bobutil.MATCH_NONE then
+			table.insert(list, name)
+			list_order[name] = string.format("%02d", match) .. name
+		end
+
 	end
 
-	table.sort(list)
+	table.sort(list, function(a, b) return list_order[a] < list_order[b] end)
 	
 	player_inv:set_size("main", #list)
 	player_inv:set_list("main", list)
@@ -77,7 +91,8 @@ function creative.register_tab(name, title, items)
 
 			return sfinv.make_formspec(player, context,
 			"list[detached:creative_" .. player_name .. ";main;0,0;8,8;" .. tostring(inv.start_i) .. "]" ..
-			"field[0.25,8.5;8,1;search;;]" ..
+			"field[0.25,8.5;8,1;search;;" .. minetest.formspec_escape(inv.filter) .."]" ..
+			"field_close_on_enter[search;false]" ..
 			"button[8,0;1,1;go_up;^]" ..
 			"button[8,1;1,1;go_down;v]" ..
 			"", false)
@@ -93,28 +108,35 @@ function creative.register_tab(name, title, items)
 			local player_name = player:get_player_name()
 			local inv = inventories[player_name]
 			assert(inv)
-			
-			local start_i = inv.start_i or 0
-			if fields.go_up then
-				start_i = start_i - 8 * 8
+	
+			if fields.key_enter_field == "search" then
+				inv.start_i = 0
+				inv.filter = fields.search:lower()
+				sfinv.set_player_inventory_formspec(player, context)
+			elseif not fields.quit then
+				local start_i = inv.start_i or 0
 
-				if start_i < 0 then
-					start_i = inv.size - (inv.size % (8*8))
-					if inv.size == start_i then
-						start_i = math.max(0, inv.size - (8*8))
+				if fields.go_up then
+					start_i = start_i - 8 * 8
+
+					if start_i < 0 then
+						start_i = inv.size - (inv.size % (8*8))
+						if inv.size == start_i then
+							start_i = math.max(0, inv.size - (8*8))
+						end
 					end
 				end
-			end
-			if fields.go_down then
-				start_i = start_i + 8 * 8
-				
-				if start_i >= inv.size then
-					start_i = 0
+				if fields.go_down then
+					start_i = start_i + 8 * 8
+					
+					if start_i >= inv.size then
+						start_i = 0
+					end
 				end
-			end
 
-			inv.start_i = start_i
-			sfinv.set_player_inventory_formspec(player, context)
+				inv.start_i = start_i
+				sfinv.set_player_inventory_formspec(player, context)
+			end
 		end
 	})
 end

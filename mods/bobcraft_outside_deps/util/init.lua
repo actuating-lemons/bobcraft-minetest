@@ -145,3 +145,14 @@ function bobutil.vector_to_colourstring(vector)
 
 	return str
 end
+
+-- matches two strings
+function bobutil.match(str, filter)
+	if filter == "" then return 0 end
+	if str:lower():find(filter, 1, true) then
+		return #str - #filter
+	end
+	return bobutil.MATCH_NONE
+end
+-- returned when there's no match in the match function
+bobutil.MATCH_NONE = 999
