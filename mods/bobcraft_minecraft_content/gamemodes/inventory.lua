@@ -53,6 +53,8 @@ function creative.update_inventory(player_name, content)
 	for name, def in pairs(items) do
 		table.insert(list, name)
 	end
+
+	table.sort(list)
 	
 	player_inv:set_size("main", #list)
 	player_inv:set_list("main", list)
