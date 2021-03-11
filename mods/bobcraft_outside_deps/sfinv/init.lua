@@ -9,7 +9,6 @@ sfinv.register_page("sfinv:crafting", {
 	title = S("Crafting"),
 	get = function(self, player, context)
 		return sfinv.make_formspec(player, context, [[
-				size[9,7.5;]
 				image[0.5,0.2;1.5,3;player.png]
 				list[current_player;craft;4,0.5;2,2;]
 				list[current_player;craftpreview;7,1;1,1;]
