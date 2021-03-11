@@ -76,7 +76,7 @@ function creative.update_inventory(playername, content)
 end
 
 function creative.register_tab(name, title, items)
-	brpdinv.register_page("creative:" .. name, {
+	sfinv.register_page("creative:" .. name, {
 		title = title,
 		is_in_nav = function(self, player, context)
 			return minetest.is_creative_enabled(player:get_player_name())
@@ -85,7 +85,7 @@ function creative.register_tab(name, title, items)
 			local player_name = player:get_player_name()
 			creative.update_inventory(player_name, items)
 			local inv = inventories[player_name]
-			return brpdinv.make_formspec(player, context,
+			return sfinv.make_formspec(player, context,
 			"list[current_player;main;0,4.5;9,3;9]" ..
 			"list[current_player;main;0,7.85;9,1;]" ..
 				"listring[detached:creative_" .. player_name .. ";main]" ..
@@ -112,6 +112,6 @@ end
 
 creative.register_tab("inventory", "All", minetest.registered_items)
 
-function brpdinv.get_homepage_name(player)
+function sfinv.get_homepage_name(player)
 	return "creative:inventory"
 end
