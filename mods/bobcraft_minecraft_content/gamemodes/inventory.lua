@@ -26,8 +26,14 @@ function creative.init_inventory(player)
 	}
 
 	minetest.create_detached_inventory("creative_"..player_name, {
-		allow_move = function(inv, from_list, from_index, to_list, to_index, count, player2)
+		allow_move = function(inv, from_list, from_index, to_list, to_index, count, player_)
+			if to_list == "main" then
+				return 0
+			end
 			return count
+		end,
+		allow_put = function(inv, listname, index, stack, player_)
+			return 0
 		end,
 	}
 	, player_name)
