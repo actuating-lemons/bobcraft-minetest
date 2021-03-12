@@ -635,29 +635,6 @@ minetest.register_node("bobcraft_blocks:chiseled_stone_bricks", {
 	stack_max = bobutil.stack_max,
 })
 
-minetest.register_node("bobcraft_blocks:iron_bars", {
-	description = S("Iron Bars"),
-	tiles = {"iron_bars_top.png", "iron_bars_top.png", "iron_bars.png"},
-	sounds = bobcraft_sounds.node_sound_metal(),
-
-	drawtype = "nodebox",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -1/16,
-			0.5, 0.5, 1/16}
-		}
-	},
-
-	paramtype = "light",
-	paramtype2 = "facedir", -- TODO: until we have panes, this is good enough.
-
-	hardness = 3,
-	groups = {pickaxe=1},
-	stack_max = bobutil.stack_max,
-})
-
-
 minetest.register_node("bobcraft_blocks:sponge", {
 	description = S("Sponge"),
 	tiles = {"sponge.png"},
