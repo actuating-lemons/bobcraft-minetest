@@ -2045,7 +2045,7 @@ local portaldef_default = {
 	particle_texture_scale       = 1,
 	sounds = {
 		ambient    = {name = "magic_portal_ambient",    gain = 0.6, length = 3},
-		ignite     = {name = "magic_portal_ativate",     gain = 0.7},
+		ignite     = {name = "magic_portal_activate",     gain = 0.7},
 		extinguish = {name = "magic_fizzle", gain = 0.6},
 		teleport   = {name = "magic_poof",   gain = 0.3}
 	}
