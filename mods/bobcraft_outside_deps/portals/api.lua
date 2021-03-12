@@ -1763,11 +1763,7 @@ local function create_book_of_portals()
 	local intro_text
 	intro_text = S("The multiverse is home to many layers of existence. Some of these layers are accessable through sacred ritual (Covered in 'Ritualism'), and some can be acessed through wormholes. These wormholes are volatile and should be treated respectfully.")
 
-	-- tell the player how to ignite portals
-	local ignition_item_description = "<error - ignition item not set>"
-	if ignition_item_name ~= nil and minetest.registered_items[ignition_item_name] ~= nil then
-		ignition_item_description = minetest.registered_items[ignition_item_name].description
-	end
+	-- hint about how to activate portals
 	intro_text = intro_text ..
 		S("\n\n"..[[
 Magic, Energy, Burgundy Stone, Greendust - It goes by many names, but there is one intrinsic value to it.
@@ -2160,22 +2156,25 @@ end
 
 function portals.register_portal_ignition_item(item_name, ignition_failure_sound)
 
+	local function ignition_item_use(stack, placer, pt)
+		local done = false
+		if pt.under and portals.is_frame_node[minetest.get_node(pt.under).name] then
+			done = ignite_portal(pt.under, placer:get_player_name())
+			if done and not minetest.settings:get_bool("creative_mode") then
+				stack:take_item()
+			end
+		end
+		if not done and ignition_failure_sound ~= nil then
+			minetest.sound_play(ignition_failure_sound, {pos = pt.under, max_hear_distance = 10})
+		end
+
+
+		return stack
+	end
+
 	minetest.override_item(item_name, {
-		on_place = function(stack, placer, pt)
-			local done = false
-			if pt.under and portals.is_frame_node[minetest.get_node(pt.under).name] then
-				done = ignite_portal(pt.under, placer:get_player_name())
-				if done and not minetest.settings:get_bool("creative_mode") then
-					stack:take_item()
-				end
-			end
-			if not done and ignition_failure_sound ~= nil then
-				minetest.sound_play(ignition_failure_sound, {pos = pt.under, max_hear_distance = 10})
-			end
-
-
-			return stack
-		end,
+		on_place = ignition_item_use,
+		on_use = ignition_item_use
 	})
 
 	ignition_item_name = item_name
