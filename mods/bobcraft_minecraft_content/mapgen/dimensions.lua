@@ -23,6 +23,8 @@ function worldgen.register_dimension(def)
 
 	-- The function we run when we're told to generate for a given minp/maxp
 	def.gen_func = def.gen_func or function(this, minp, maxp, blockseed, vm, area, data) return data end
+	-- init
+	def.init = def.init or function(this) end
 
 	-- The sealing
 	-- Done AFTER the gen_func is called
@@ -54,7 +56,6 @@ function worldgen.register_dimension(def)
 end
 
 -- Overworld
-local overworld_noise_buffer = {}
 worldgen.register_dimension({
 	name = "worldgen:dimension_overworld",
 	y_min = worldgen.overworld_bottom,
@@ -70,14 +71,26 @@ worldgen.register_dimension({
 	},
 
 	compression_factor = 1,
+	
+	init = function(this) 
+		-- Create the noise map variables to optimise
+		this.map_base = nil
+		
+		this.buffer_base = {}
+
+		this.buffer_cave1 = {}
+		this.buffer_cave2 = {}
+		this.buffer_cave3 = {}
+		this.buffer_structure = {}
+	end,
 
 	gen_func = function(this, minp, maxp, blockseed, vm, area, data)
 		-- Insight taken from https://www.youtube.com/watch?v=FE5S2NeD7uU
 		-- (Doing research and stumbled upon that)
 		local sidelen = maxp.x - minp.x + 1
 		-- local noise_base = worldgen.get_perlin_map_3d(worldgen.np_base, {x=sidelen, y=sidelen, z=sidelen}, minp)
-		local pm = minetest.get_perlin_map(worldgen.np_base, {x=sidelen,y=sidelen,z=sidelen})
-		local noise_base = pm:get_3d_map(minp, overworld_noise_buffer)
+		this.map_base = this.map_base or minetest.get_perlin_map(worldgen.np_base, {x=sidelen,y=sidelen,z=sidelen})
+		local noise_base = this.map_base:get_3d_map(minp, this.buffer_base)
 
 
 		-- The stone & water step
@@ -137,10 +150,10 @@ worldgen.register_dimension({
 
 
 		-- caves, structures
-		local noise_caves = worldgen.get_perlin_map_3d(worldgen.np_caves, {x=sidelen, y=sidelen, z=sidelen}, minp)
-		local noise_caves2 = worldgen.get_perlin_map_3d(worldgen.np_caves2, {x=sidelen, y=sidelen, z=sidelen}, minp)
-		local noise_caves3 = worldgen.get_perlin_map_3d(worldgen.np_caves2, {x=sidelen, y=sidelen, z=sidelen}, minp)
-		local noise_structure = worldgen.get_perlin_map(worldgen.np_caves, {x=sidelen, y=sidelen, z=sidelen}, minp)
+		local noise_caves = worldgen.get_perlin_map_3d(worldgen.np_caves, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_cave1)
+		local noise_caves2 = worldgen.get_perlin_map_3d(worldgen.np_caves2, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_cave2)
+		local noise_caves3 = worldgen.get_perlin_map_3d(worldgen.np_caves2, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_cave3)
+		local noise_structure = worldgen.get_perlin_map(worldgen.np_caves, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_structure)
 		local rand = PcgRandom(blockseed)
 		local nixyz = 1
 		nixz = 1

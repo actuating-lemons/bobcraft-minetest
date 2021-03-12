@@ -23,13 +23,13 @@ local c_stone = minetest.get_content_id("bobcraft_blocks:stone")
 local c_water = minetest.get_content_id("bobcraft_blocks:water_source")
 local c_bedrock = minetest.get_content_id("bobcraft_blocks:bedrock")
 
-function worldgen.get_perlin_map(noiseparam, sidelen, minp)
+function worldgen.get_perlin_map(noiseparam, sidelen, minp, buffer)
 	local pm = minetest.get_perlin_map(noiseparam, sidelen)
-    return pm:get_2d_map_flat({x = minp.x, y = minp.z, z = 0})
+    return pm:get_2d_map_flat({x = minp.x, y = minp.z, z = 0}, buffer)
 end
-function worldgen.get_perlin_map_3d(noiseparam, sidelen, minp)
+function worldgen.get_perlin_map_3d(noiseparam, sidelen, minp, buffer)
 	local pm = minetest.get_perlin_map(noiseparam, sidelen)
-    return pm:get_3d_map_flat({x = minp.x, y = minp.y, z = minp.z})
+    return pm:get_3d_map_flat({x = minp.x, y = minp.y, z = minp.z}, buffer)
 end
 
 -- Used for smittering the bedrock
@@ -180,9 +180,18 @@ function worldgen.get_biome(pos)
 	return biome
 end
 
+-- call the dimension's init
+for i = 1, #worldgen.registered_dimensions do
+	local dim = worldgen.registered_dimensions[i]
+	if dim.init ~= nil then
+		dim.init(dim)
+	end
+end
+
+local world_data_buffer = {}
 minetest.register_on_generated(function(minp, maxp, blockseed)
 	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
-	local data = vm:get_data()
+	local data = vm:get_data(world_data_buffer)
 	local area = VoxelArea:new({MinEdge=emin, MaxEdge=emax})
 
 	local function set_layers(block, noise, min, max, minp, maxp)
