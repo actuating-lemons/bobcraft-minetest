@@ -214,11 +214,17 @@ worldgen.register_dimension({
 	-- We are *more* compressed than the nether, as it makes sense in the minetest world, chunks being 5x5x5.
 	-- It also means that working out distances can be done in your head!
 	compression_factor = 10,
+	
+	init = function (this)
+		this.map_caves = nil
+
+		this.buffer_caves = {}
+	end,
 
 	gen_func = function(this, minp, maxp, blockseed, vm, area, data)
 		local sidelen = maxp.x - minp.x + 1
-		local pm = minetest.get_perlin_map(worldgen.np_caves_hell, {x=sidelen,y=sidelen,z=sidelen})
-		local noise_caves = pm:get_3d_map(minp, overworld_noise_buffer)
+		this.map_caves = this.map_caves or minetest.get_perlin_map(worldgen.np_caves_hell, {x=sidelen,y=sidelen,z=sidelen})
+		local noise_caves = this.map_caves:get_3d_map(minp, this.buffer_caves)
 
 		local nixyz = 1
 		for x = minp.x, maxp.x do
