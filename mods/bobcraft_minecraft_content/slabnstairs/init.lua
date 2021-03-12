@@ -12,13 +12,25 @@ local function register_stair(name, blockdef)
 		}
 	}
 
+	for i, tile in ipairs(blockdef.tiles) do
+		if type(tile) == "string" then
+			blockdef.tiles[i] = {name = tile, align_style = "world"}			
+		elseif type(tile) == "table" then
+			blockdef.tiles[i].align_style = "world"
+		end
+	end
+
+	blockdef.on_place = function(itemstack, placer, pointed_thing)
+		return bobutil.rotate_and_place(itemstack, placer, pointed_thing)
+	end
+
 	minetest.register_node(name,blockdef)
 
 end
 
 local function register_slab(name, blockdef)
 	blockdef.paramtype = "light"
-	blockdef.paramtype2 = "facedir"
+	blockdef.paramtype2 = "wallmounted"
 	blockdef.drawtype = "nodebox"
 	blockdef.node_box = {
 		type = "fixed",
@@ -61,7 +73,6 @@ local function register_extra_variants(namespace, blockname, blockdesc)
 	})
 	bobcraft_crafting.register_slab_craft(namespace .. blockname .. "_slab", namespaced_blockname)
 
-
 end
 
 register_extra_variants("bobcraft_blocks_xtra:","cobblestone", "Cobblestone")
@@ -72,6 +83,7 @@ register_extra_variants("bobcraft_blocks_xtra:","stone_bricks", "Stone Brick")
 -- FIXME: these don't appear in the creative menu. Why?
 local stonedef = minetest.registered_nodes["bobcraft_blocks:stone"]
 register_stair("bobcraft_blocks_xtra:stone_stair",{
+	description = "Stone Stairs",
 	tiles = {"stone_slab_side.png","stone_slab_top.png",
 	"stone_stair_side.png","stone_stair_side.png^[transformfx", "stone_slab_side.png"},
 	sounds = stonedef.sounds,
@@ -80,6 +92,7 @@ register_stair("bobcraft_blocks_xtra:stone_stair",{
 })
 bobcraft_crafting.register_stair_craft("bobcraft_blocks_xtra:stone_stair", "bobcraft_blocks:stone")
 register_slab("bobcraft_blocks_xtra:stone_slab",{
+	description = "Stone Slab",
 	tiles = {"stone_slab_top.png","stone_slab_top.png","stone_slab_side.png"},
 	sounds = stonedef.sounds,
 	groups = stonedef.groups,

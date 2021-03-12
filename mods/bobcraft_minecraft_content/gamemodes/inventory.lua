@@ -1,99 +1,101 @@
--- ""inspiration""" taken from the minetest_game's creative_mode mod
+--[[
+	Based on minetest_game's creative menu.
+	Modified heavily in some areas to make it better fit bobcraft.
+]]
 local creative = {}
 
 local inventories = {}
 local creative_cache = {}
 
+function creative.cache(items)
+	creative_cache[items] = {}
+	local i_cache = creative_cache[items]
+
+	for name, def in pairs(items) do
+		if def.groups.not_in_creative_inventory ~= 1 and
+				def.description and def.description ~= "" then
+			i_cache[name] = def
+		end
+	end
+	table.sort(i_cache)
+	return i_cache
+end
+
 function creative.init_inventory(player)
-	local name = player:get_player_name()
-	inventories[name] = {
+	local player_name = player:get_player_name()
+	inventories[player_name] = {
 		size = 0,
+		start_i = 0,
 		filter = "",
-		start_i = 0
 	}
 
-	minetest.create_detached_inventory("creative_"..name, 
-	{ 
-	allow_move = function(inv, from_list, from_index, to_list, to_index, count, player_) 
-		local name = player_:get_player_name() or ""
-		if not minetest.is_creative_enabled(player_) or to_list == "main" then
+	minetest.create_detached_inventory("creative_"..player_name, {
+		allow_move = function(inv, from_list, from_index, to_list, to_index, count, player_)
+			if to_list == "main" then
+				return 0
+			end
+			return count
+		end,
+		allow_put = function(inv, listname, index, stack, player_)
 			return 0
-		end
-		return count
-	end,
-	allow_put = function(inv, listname, index, stack, player_)
-		return -1
-	end,
-	allow_take = function(inv, listname, index, stack, player_)
-		local name = player_:get_player_name() or ""
-		if not minetest.is_creative_enabled(player_) or to_list == "main" then
-			return 0
-		end
-		return -1
-	end,
-	on_move = function(inv, from_list, from_index, to_list, to_index, count, player_) end,
-	},
-	name)
+		end,
+	}
+	, player_name)
 
-	return inventories[name]
+	return inventories[player_name]
 end
 
-function creative.init_cache(items)
-	creative_cache[items] = {}
-	local cache = {}
+function creative.update_inventory(player_name, content)
+
+	local inv = inventories[player_name] or
+				creative.init_inventory(minetest.get_player_by_name(player_name))
+	local player_inv = minetest.get_inventory({type = "detached", name = "creative_" .. player_name})
 	
+	local items = creative_cache[content] or creative.cache(content)
+
+	local list = {}
+	local list_order = {}
 	for name, def in pairs(items) do
-		if def.groups.not_in_creative_inventory ~= 1 and def.description and def.description ~= "" then
-			cache[name] = def
+		local match = bobutil.match(def.description, inv.filter)
+		if match > 0 then
+			match = math.min(match, bobutil.match(name, inv.filter))
 		end
+
+		if match < bobutil.MATCH_NONE then
+			table.insert(list, name)
+			list_order[name] = string.format("%02d", match) .. name
+		end
+
 	end
 
-	table.sort(cache)
-	return cache
-end
-
-function creative.get_creative_list(content)
-	local items = creative_cache[content] or creative.init_cache(content)
-	local creative_list = {}
-
-	for name, def in pairs(items) do
-		creative_list[#creative_list+1] = name
-	end
+	table.sort(list, function(a, b) return list_order[a] < list_order[b] end)
 	
-	table.sort(creative_list)
-	return creative_list
-end
+	player_inv:set_size("main", #list)
+	player_inv:set_list("main", list)
+	inv.size = #list
 
-function creative.update_inventory(playername, content)
-	local inventory = inventories[playername] or creative.init_inventory(minetest.get_player_by_name(playername))
-	local player_inventory = minetest.get_inventory({type = "detached", name = "creative_"..playername})
-
-	local creative_list = creative.get_creative_list(content)
-
-	player_inventory:set_size("main",#creative_list)
-	player_inventory:set_list("main",creative_list)
-	inventory.size = #creative_list
 end
 
 function creative.register_tab(name, title, items)
-	brpdinv.register_page("creative:" .. name, {
+	sfinv.register_page("creative:" .. name, {
 		title = title,
 		is_in_nav = function(self, player, context)
 			return minetest.is_creative_enabled(player:get_player_name())
 		end,
 		get = function(self, player, context)
 			local player_name = player:get_player_name()
+			
 			creative.update_inventory(player_name, items)
+
 			local inv = inventories[player_name]
-			return brpdinv.make_formspec(player, context,
-			"list[current_player;main;0,4.5;9,3;9]" ..
-			"list[current_player;main;0,7.85;9,1;]" ..
-				"listring[detached:creative_" .. player_name .. ";main]" ..
-				"scrollbar[7,0;1,4;vertical;creative_scroll;]" ..
-				"scroll_container[0,0;9,5;creative_scroll;vertical;]" ..
-				"list[detached:creative_" .. player_name .. ";main;0,0;7,20;]" .. -- TODO: 20? what if we go past that?
-				"scroll_container_end[]" ..
-				"", true)
+
+			return sfinv.make_formspec(player, context,
+			"list[detached:creative_" .. player_name .. ";main;0,0;8,8;" .. tostring(inv.start_i) .. "]" ..
+			"field[0.25,8.5;8,1;search;;" .. minetest.formspec_escape(inv.filter) .."]" ..
+			"field_close_on_enter[search;false]" ..
+			"button[8,0;1,1;go_up;^]" ..
+			"button[8,1;1,1;go_down;v]" ..
+			"", false)
 		end,
 		on_enter = function(self, player, context)
 			local player_name = player:get_player_name()
@@ -106,12 +108,41 @@ function creative.register_tab(name, title, items)
 			local player_name = player:get_player_name()
 			local inv = inventories[player_name]
 			assert(inv)
+	
+			if fields.key_enter_field == "search" then
+				inv.start_i = 0
+				inv.filter = fields.search:lower()
+				sfinv.set_player_inventory_formspec(player, context)
+			elseif not fields.quit then
+				local start_i = inv.start_i or 0
+
+				if fields.go_up then
+					start_i = start_i - 8 * 8
+
+					if start_i < 0 then
+						start_i = inv.size - (inv.size % (8*8))
+						if inv.size == start_i then
+							start_i = math.max(0, inv.size - (8*8))
+						end
+					end
+				end
+				if fields.go_down then
+					start_i = start_i + 8 * 8
+					
+					if start_i >= inv.size then
+						start_i = 0
+					end
+				end
+
+				inv.start_i = start_i
+				sfinv.set_player_inventory_formspec(player, context)
+			end
 		end
 	})
 end
 
-creative.register_tab("inventory", "All", minetest.registered_items)
+creative.register_tab("list", "Creative List", minetest.registered_items)
 
-function brpdinv.get_homepage_name(player)
-	return "creative:inventory"
+function sfinv.get_homepage_name(player)
+	return "creative:list"
 end
