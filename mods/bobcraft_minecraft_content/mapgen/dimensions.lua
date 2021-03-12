@@ -54,7 +54,7 @@ function worldgen.register_dimension(def)
 end
 
 -- Overworld
-local overworld_noise_base_cache
+local overworld_noise_buffer = {}
 worldgen.register_dimension({
 	name = "worldgen:dimension_overworld",
 	y_min = worldgen.overworld_bottom,
@@ -72,23 +72,37 @@ worldgen.register_dimension({
 	compression_factor = 1,
 
 	gen_func = function(this, minp, maxp, blockseed, vm, area, data)
+		-- Insight taken from https://www.youtube.com/watch?v=FE5S2NeD7uU
+		-- (Doing research and stumbled upon that)
 		local sidelen = maxp.x - minp.x + 1
 		-- local noise_base = worldgen.get_perlin_map_3d(worldgen.np_base, {x=sidelen, y=sidelen, z=sidelen}, minp)
 		local pm = minetest.get_perlin_map(worldgen.np_base, {x=sidelen,y=sidelen,z=sidelen})
-		local noise_base = pm:get_3d_map(minp, overworld_noise_base_cache)
+		local noise_base = pm:get_3d_map(minp, overworld_noise_buffer)
 
+
+		-- The stone & water step
 		local nixz = 1
 		local nixyz = 1
 		for x = minp.x, maxp.x do
 			for y = minp.y, maxp.y do
 				for z = minp.z, maxp.z do
+					-- Stone && water step
 					local vi = area:index(x,y,z)
 
 					local value = noise_base[z-minp.z+1][y-minp.y+1][x-minp.x+1]
 
+					if y <= worldgen.overworld_seafloor then
+						value = 0 -- always place under the sea floor
+					end
+
 					if value < 0.05 then
 						data[vi] = c_stone
+					elseif y <= worldgen.overworld_sealevel then
+						data[vi] = c_water
 					end
+
+					-- Grass, dirt step
+
 
 					nixyz = nixyz + 1
 				end

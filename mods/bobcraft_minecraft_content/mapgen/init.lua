@@ -4,6 +4,7 @@ worldgen.overworld_top = 256
 worldgen.overworld_bottom = 0
 -- Doubles as the surface height too
 worldgen.overworld_sealevel = worldgen.overworld_bottom + 63
+worldgen.overworld_seafloor = worldgen.overworld_bottom + 31
 -- sets where we will randomly plot a sturcture
 worldgen.overworld_struct_min = worldgen.overworld_bottom + 25
 worldgen.overworld_struct_max = worldgen.overworld_sealevel - 5
