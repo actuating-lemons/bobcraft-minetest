@@ -205,14 +205,16 @@ worldgen.register_dimension({
 
 	gen_func = function(this, minp, maxp, blockseed, vm, area, data)
 		local sidelen = maxp.x - minp.x + 1
-		local noise_caves = worldgen.get_perlin_map_3d(worldgen.np_caves_hell, {x=sidelen, y=sidelen, z=sidelen}, minp)
+		local pm = minetest.get_perlin_map(worldgen.np_caves_hell, {x=sidelen,y=sidelen,z=sidelen})
+		local noise_caves = pm:get_3d_map(minp, overworld_noise_buffer)
+
 		local nixyz = 1
 		for x = minp.x, maxp.x do
 			for y = minp.y, maxp.y do
 				for z = minp.z, maxp.z do
 					local vi = area:index(x, y, z)
 
-					local cave = noise_caves[nixyz]
+					local cave = noise_caves[z-minp.z+1][y-minp.y+1][x-minp.x+1]
 
 					if cave < 0.1 then
 						if y > worldgen.hell_bottom and y < worldgen.hell_top then
