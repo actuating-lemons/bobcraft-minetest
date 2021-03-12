@@ -227,14 +227,33 @@ worldgen.register_dimension({
 		local noise_caves = this.map_caves:get_3d_map(minp, this.buffer_caves)
 
 		local nixyz = 1
-		for x = minp.x, maxp.x do
-			for y = minp.y, maxp.y do
+		for y = minp.y, maxp.y do -- do y first to calculate the percent the least amount of times possible
+
+			-- Given x as a percentage of how close we are to the bottom,
+			-- the percentage is
+			-- min(((1 - x)^2)^2, 1)
+
+			-- first work out x
+			-- to get the % of a number between 0 and, say, +20
+			-- x = y / 20
+			-- But for between +5 and +20, we'd do
+			-- x = y / (20 - 5)
+			-- and we don't care about decimals so we just get the absolute value as that removes negatives
+			local n = math.abs(y-worldgen.hell_top) / (math.abs(worldgen.hell_bottom)-math.abs(worldgen.hell_top))
+
+			-- we now plug that into our caluclation
+			local mult = math.min( ((1-n)^2)^2, 1)
+			mult = 1 - mult
+
+			minetest.log(y .. " " .. n)
+
+			for x = minp.x, maxp.x do
 				for z = minp.z, maxp.z do
 					local vi = area:index(x, y, z)
 
 					local cave = noise_caves[z-minp.z+1][y-minp.y+1][x-minp.x+1]
 
-					if cave < 0.1 then
+					if cave*mult < 0.1 then
 						if y > worldgen.hell_bottom and y < worldgen.hell_top then
 							data[vi] = c_hellstone
 						end

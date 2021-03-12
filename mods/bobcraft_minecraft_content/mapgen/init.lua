@@ -10,7 +10,7 @@ worldgen.overworld_struct_min = worldgen.overworld_bottom + 25
 worldgen.overworld_struct_max = worldgen.overworld_sealevel - 5
 
 worldgen.hell_top = worldgen.overworld_bottom - 128 -- 128 block seperation between biomes
-worldgen.hell_bottom = worldgen.hell_top - 128 -- 128 blocks tall hell
+worldgen.hell_bottom = worldgen.hell_top - 256 -- 256 blocks tall hell
 worldgen.hell_sealevel = worldgen.hell_bottom + 63
 
 local c_wool = minetest.get_content_id("bobcraft_blocks:wool_green")
