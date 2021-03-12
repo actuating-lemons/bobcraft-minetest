@@ -54,6 +54,7 @@ function worldgen.register_dimension(def)
 end
 
 -- Overworld
+local overworld_noise_base_cache
 worldgen.register_dimension({
 	name = "worldgen:dimension_overworld",
 	y_min = worldgen.overworld_bottom,
@@ -72,18 +73,20 @@ worldgen.register_dimension({
 
 	gen_func = function(this, minp, maxp, blockseed, vm, area, data)
 		local sidelen = maxp.x - minp.x + 1
-		local noise_base = worldgen.get_perlin_map_3d(worldgen.np_base, {x=sidelen, y=sidelen, z=sidelen}, minp)
+		-- local noise_base = worldgen.get_perlin_map_3d(worldgen.np_base, {x=sidelen, y=sidelen, z=sidelen}, minp)
+		local pm = minetest.get_perlin_map(worldgen.np_base, {x=sidelen,y=sidelen,z=sidelen})
+		local noise_base = pm:get_3d_map(minp, overworld_noise_base_cache)
 
 		local nixz = 1
 		local nixyz = 1
-		for z = minp.z, maxp.z do
-			for x = minp.x, maxp.x do
-				for y = minp.y, maxp.y do
+		for x = minp.x, maxp.x do
+			for y = minp.y, maxp.y do
+				for z = minp.z, maxp.z do
 					local vi = area:index(x,y,z)
 
-					local value = noise_base[nixyz]
+					local value = noise_base[z-minp.z+1][y-minp.y+1][x-minp.x+1]
 
-					if value < 0.5 then
+					if value < 0.05 then
 						data[vi] = c_stone
 					end
 

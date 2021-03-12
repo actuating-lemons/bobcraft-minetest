@@ -47,11 +47,13 @@ worldgen.np_bedrock = {
 -- Base - the meat of the y height
 worldgen.np_base = {
 	offset = 0,
-	scale = 1,
+	scale = 5,
 	spread = {x=256, y=256, z=256},
 	seed = 69420,
-	octaves = 6,
-	persist = 0.5,
+	octaves = 4,
+	persist = 0.6,
+	lacunarity = 2.0,
+	flags = "defaults",
 }
 -- Overlay - multiplies on-top of the already set y height from Base
 worldgen.np_overlay = {
