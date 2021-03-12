@@ -1615,12 +1615,12 @@ local function create_book(item_name, inventory_description, inventory_image, ti
 	local display_book = function(itemstack, user, pointed_thing)
 		local player_name = user:get_player_name()
 
-		minetest.sound_play("nether_book_open", {to_player = player_name, gain = 0.25})
+		minetest.sound_play("page_turn", {to_player = player_name, gain = 0.25})
 
 		local formspec =
 		"size[18,12.122]" ..
-		"background[0,0;18,11;nether_book_background.png;true]"..
-		"image_button_exit[17.3,0;0.8,0.8;nether_book_close.png;;]"..
+		"background[0,0;18,11;bg_book.png;true]"..
+		"image_button_exit[17.3,0;0.8,0.8;book_close.png;;]"..
 
 		"label[3.1,0.5;" .. minetest.formspec_escape(title) .. "]" ..
 		"label[3.6,0.9;" .. author .. "]"
@@ -1630,7 +1630,7 @@ local function create_book(item_name, inventory_description, inventory_image, ti
 		local image_padding = 0.06
 
 		for i, chapter in ipairs(chapters) do
-			local left_margin = 0.9
+			local left_margin = 1.2
 			local top_margin = 1.7
 			local width = 7.9
 			local height = 12.0
@@ -1761,12 +1761,7 @@ local function create_book_of_portals()
 	local chapters = {}
 
 	local intro_text
-	-- tell the player how many portal types there are
-	if portals.registered_portals_count == 1 then
-		intro_text = S("In all my travels, and time spent in the Great Libraries, I have encountered no shortage of legends surrounding preternatural doorways said to open into other worlds, yet only one can I confirm as being more than merely a story.")
-	else
-		intro_text = S("In all my travels, and time spent in the Great Libraries, I have encountered no shortage of legends surrounding preternatural doorways said to open into other worlds, yet only @1 can I confirm as being more than merely stories.", portals.registered_portals_count)
-	end
+	intro_text = S("The multiverse is home to many layers of existence. Some of these layers are accessable through sacred ritual (Covered in 'Ritualism'), and some can be acessed through wormholes. These wormholes are volatile and should be treated respectfully.")
 
 	-- tell the player how to ignite portals
 	local ignition_item_description = "<error - ignition item not set>"
@@ -1774,21 +1769,20 @@ local function create_book_of_portals()
 		ignition_item_description = minetest.registered_items[ignition_item_name].description
 	end
 	intro_text = intro_text ..
-		S("\n\nThe key to opening such a doorway is to strike the frame with a @1, at which point the very air inside begins to crackle and glow.", ignition_item_description)
+		S("\n\n"..[[
+Magic, Energy, Burgundy Stone, Greendust - It goes by many names, but there is one intrinsic value to it.
+No matter the given dimension, it is always a powerful and violent substance.
+It alone has the power, when arranged in a certain way, to create a portal to other realms.
+A popular method of doing so, is to compress it into an almost stick-like shape, and then strike it against the frame of the portal.
+
+Despite the amount of ritualistic portals, we only know of @1 framed portals.
+		]], portals.registered_portals_count)
 
 	chapters[#chapters + 1] = {text = intro_text}
 
-	-- Describe how to create each type of portal, or perhaps just give clues or flavor text,
-	-- but ensure the Nether is always listed first on the first page so other definitions can
-	-- refer to it (pairs() returns order based on a random hash).
 	local portalDefs_in_order = {}
-	if portals.registered_portals["nether_portal"] then
-		portalDefs_in_order[#portalDefs_in_order + 1] = portals.registered_portals["nether_portal"]
-	end
 	for portalName, portalDef in pairs(portals.registered_portals) do
-		if portalName ~= "nether_portal" then
-			portalDefs_in_order[#portalDefs_in_order + 1] = portalDef
-		end
+		portalDefs_in_order[#portalDefs_in_order + 1] = portalDef
 	end
 	for _, portalDef in ipairs(portalDefs_in_order) do
 		chapters[#chapters + 1] = {
@@ -1802,9 +1796,9 @@ local function create_book_of_portals()
 	create_book(
 		":portal_api:book_of_portals",
 		S("Book of Portals"),
-		"nether_book_of_portals.png",
-		S("A definitive guide to Rifts and Portals"),
-		"Riccard F. Burton", -- perhaps a Richard F. Burton of an alternate universe
+		"book_of_portals.png",
+		S("Dimensions; Gateways and Wormholes"),
+		"",
 		chapters
 	)
 
