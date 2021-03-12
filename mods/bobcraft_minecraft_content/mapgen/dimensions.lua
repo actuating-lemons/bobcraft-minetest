@@ -89,10 +89,7 @@ worldgen.register_dimension({
 					-- Stone && water step
 					local vi = area:index(x,y,z)
 
-					local percent = 1 - (y / worldgen.overworld_top)
-					
-					percent = (math.cos(percent*3)/2) + 0.5
-
+					local percent = (y / worldgen.overworld_top)
 					local value = noise_base[z-minp.z+1][y-minp.y+1][x-minp.x+1]
 
 					if y <= worldgen.overworld_seafloor then
