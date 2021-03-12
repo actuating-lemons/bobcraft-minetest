@@ -1052,6 +1052,7 @@ minetest.register_node("bobcraft_blocks:hellstone", {
 	groups = {pickaxe=1},
 
 	hardness = 0.6,
+	light_source = 4,
 	stack_max = bobutil.stack_max,
 })
 -- Glowstone

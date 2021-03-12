@@ -210,7 +210,7 @@ worldgen.register_dimension({
 
 	seal_thickness = 4,
 	
-	min_light = 8,
+	min_light = 4,
 
 	biome_list = {
 		worldgen.biome("worldgen:biome_hell_wastes"),

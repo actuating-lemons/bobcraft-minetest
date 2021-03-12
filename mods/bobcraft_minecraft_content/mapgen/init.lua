@@ -249,7 +249,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 	minetest.generate_ores(vm)
 	minetest.generate_decorations(vm)
 	
-	vm:set_lighting({day=light, night=light})
+	vm:set_lighting({day=light, night=light}, false)
 	vm:calc_lighting()
 
 	vm:write_to_map()
