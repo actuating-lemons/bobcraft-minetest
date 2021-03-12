@@ -92,7 +92,8 @@ minetest.register_abm({
 		local node_def = minetest.registered_nodes[node_above]
 		if node_def and not ((node_def.sunlight_propagates or
 			node_def.paramtype == "light") and
-			node_def.liquidtype == "none") 
+			node_def.liquidtype == "none") and
+			not node_def.name == "ignore"
 		then
 			minetest.set_node(pos, {name = "bobcraft_blocks:dirt"})
 		end
