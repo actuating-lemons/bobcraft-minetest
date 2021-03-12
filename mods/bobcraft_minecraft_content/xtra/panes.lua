@@ -4,7 +4,7 @@ local function register_pane(name, blockdef)
 	blockdef.drawtype = "nodebox"
 	blockdef.node_box = {
 		type = "connected",
-		disconnected = -- ROD
+		disconnected_sides = -- ROD
 		{
 			-1/16, -0.5, -1/16,
 			1/16, 0.5, 1/16,
