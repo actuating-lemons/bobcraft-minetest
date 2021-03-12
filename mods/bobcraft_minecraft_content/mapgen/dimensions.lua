@@ -314,10 +314,8 @@ portals.register_portal("hell_portal", {
 	find_realm_anchorPos = function(surface_anchorPos, player_name)
 		-- divide x and z by hell's shrink factor
 		local factor = worldgen.named_dimensions["worldgen:dimension_hell"].compression_factor
-		local factor2 = worldgen.named_dimensions["worldgen:dimension_overworld"].compression_factor
 
-		local dest = vector.multiply(surface_anchorPos, factor2)
-		dest = vector.divide(dest, factor)
+		local dest = vector.divide(surface_anchorPos, factor)
 
 		dest.x = math.floor(dest.x)
 		dest.z = math.floor(dest.z)
@@ -339,15 +337,13 @@ portals.register_portal("hell_portal", {
 
 	find_surface_anchorPos = function (realm_anchorPos, player_name)
 		local factor = worldgen.named_dimensions["worldgen:dimension_hell"].compression_factor
-		local factor2 = worldgen.named_dimensions["worldgen:dimension_overworld"].compression_factor
 
-		local dest = vector.divide(realm_anchorPos, factor)
-		dest = vector.multiply(dest, factor2)
+		local dest = vector.multiply(realm_anchorPos, factor)
 
 		-- TODO: Clip to world
 		dest.y = math.floor((worldgen.overworld_top+worldgen.overworld_bottom)/2)
 
-		local existing_portal_location, existing_portal_orientation = portals.find_nearest_working_portal("hell_portal", dest, factor*factor2, 0)
+		local existing_portal_location, existing_portal_orientation = portals.find_nearest_working_portal("hell_portal", dest, factor, 0)
 
 		if existing_portal_location ~= nil then
 			return existing_portal_location, existing_portal_orientation
