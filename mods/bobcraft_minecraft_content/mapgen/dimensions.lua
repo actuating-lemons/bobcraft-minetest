@@ -101,12 +101,36 @@ worldgen.register_dimension({
 						data[vi] = c_water
 					end
 
-					-- Grass, dirt step
-
-
 					nixyz = nixyz + 1
 				end
 				nixz = nixz + 1
+			end
+		end
+
+		for z = minp.z, maxp.z do
+			for x = minp.x, maxp.x do
+				
+				local ground = false
+				local dirt_depth = 3 -- how many dirt blocks down
+				local y_of_surface = nil -- the y value of the surface block
+
+				for y = maxp.y, minp.y, -1 do
+					local vi = area:index(x, y, z)
+					local c = data[vi]
+
+					if c == c_stone then
+						if not y_of_surface then
+							y_of_surface = y
+							c = c_grass
+						else
+							if y > y_of_surface - dirt_depth then
+								c = c_dirt
+							end
+						end
+					end
+
+					data[vi] = c
+				end
 			end
 		end
 
