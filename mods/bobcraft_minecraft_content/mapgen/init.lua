@@ -220,11 +220,14 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 			end
 		end
 	end
+
+	local light = 0
 	
 	for i = 1, #worldgen.registered_dimensions do
 		local dim = worldgen.registered_dimensions[i]
 		if maxp.y >= dim.y_min and minp.y <= dim.y_max then
 			data = dim.gen_func(dim, minp, maxp, blockseed, vm, area, data)
+			light = dim.min_light
 		end
 
 		-- The very last step is to set the bedrock up
@@ -246,7 +249,7 @@ minetest.register_on_generated(function(minp, maxp, blockseed)
 	minetest.generate_ores(vm)
 	minetest.generate_decorations(vm)
 	
-	vm:set_lighting({day=0, night=0})
+	vm:set_lighting({day=light, night=light})
 	vm:calc_lighting()
 
 	vm:write_to_map()

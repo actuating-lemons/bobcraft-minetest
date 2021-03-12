@@ -21,6 +21,9 @@ function worldgen.register_dimension(def)
 	def.y_min = def.y_min or 0
 	def.y_max = def.y_max or 256
 
+	-- min_light is used to set the minimum light level for the dimension
+	def.min_light = def.min_light or 0
+
 	-- The function we run when we're told to generate for a given minp/maxp
 	def.gen_func = def.gen_func or function(this, minp, maxp, blockseed, vm, area, data) return data end
 	-- init
@@ -206,6 +209,8 @@ worldgen.register_dimension({
 	y_max = worldgen.hell_top,
 
 	seal_thickness = 4,
+	
+	min_light = 8,
 
 	biome_list = {
 		worldgen.biome("worldgen:biome_hell_wastes"),
@@ -244,8 +249,6 @@ worldgen.register_dimension({
 			-- we now plug that into our caluclation
 			local mult = math.min( ((1-n)^2)^2, 1)
 			mult = 1 - mult
-
-			minetest.log(y .. " " .. n)
 
 			for x = minp.x, maxp.x do
 				for z = minp.z, maxp.z do
