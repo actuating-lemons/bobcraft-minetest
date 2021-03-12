@@ -139,7 +139,6 @@ worldgen.register_dimension({
 		end
 
 
-		--[[
 		-- caves, structures
 		local noise_caves = worldgen.get_perlin_map_3d(worldgen.np_caves, {x=sidelen, y=sidelen, z=sidelen}, minp)
 		local noise_caves2 = worldgen.get_perlin_map_3d(worldgen.np_caves2, {x=sidelen, y=sidelen, z=sidelen}, minp)
@@ -186,7 +185,6 @@ worldgen.register_dimension({
 				nixz = nixz + 1
 			end
 		end
-		]]
 
 		return data
 	end
