@@ -34,6 +34,8 @@ local tool_types = {
 
 tool_values = {}
 tool_values.times = {}
+-- Where every value is zero
+tool_values.times.zeros = {}
 
 tool_values.material_mining_level =  {
 	wood = 0,
@@ -91,6 +93,9 @@ tool_values.setup_values = function()
 		end
 
 		table.insert(tool_values.times[toolstring], time)
+		if tool == "creative_hand" then
+			table.insert(tool_values.times.zeros, 0)			
+		end
 		newgroups[toolstring] = #tool_values.times[toolstring]
 		return newgroups
 	end

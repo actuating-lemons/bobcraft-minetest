@@ -30,12 +30,6 @@ end
 
 -- the hand
 -- used the devgame for reference
--- TODO: CREATIVE HAND
-local caps = {
-	times = {[1] = peak_digtime*3, [2] = peak_digtime*3, [3] = peak_digtime*2},
-	uses = 0,
-	maxlevel = 1
-}
 minetest.register_item(":", {
 	type = "none",
 	wield_image = "hand.png",
@@ -52,6 +46,20 @@ minetest.register_item(":", {
 		damage_groups = {fleshy = 1}
 	}
 })
+if minetest.settings:get_bool("creative_mode") then
+	minetest.override_item("", {
+		tool_capabilities = {
+			full_punch_interval = 0,
+			max_drop_level = 255,
+			groupcaps = {
+				hand = {
+					times = tool_values.times.zeros,
+					uses = 0
+				}
+			}
+		}
+	})
+end
 
 -- registers the various tools for me based on tier so I don't have to type out like 50 different tool registrations.
 -- material, if present, is the block/group to match against and do recipes for.
