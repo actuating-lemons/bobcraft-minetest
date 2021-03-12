@@ -81,7 +81,7 @@ worldgen.register_dimension({
 				for y = minp.y, maxp.y do
 					local vi = area:index(x,y,z)
 
-					local value = noise_base[vi]
+					local value = noise_base[nixyz]
 
 					if value < 0.5 then
 						data[vi] = c_stone
