@@ -40,6 +40,8 @@ function bobcraft_sounds.node_sound_earthy(table)
 	table = table or {}
 	table.footstep = table.footstep or {name = "step_dirt", gain = 0.2}
 	table.dig = table.dig or {name = "dig_dirt", gain = 0.3}
+	table.dug = table.dug or {name = "break_dirt", gain = 0.3}
+	table.place = table.place or {name = "place_dirt", gain = 1.0}
 	return bobcraft_sounds.node_sound_default(table)
 end
 

@@ -1,7 +1,6 @@
 CC-0:
 break_default.ogg - https://freesound.org/people/Kinoton/sounds/399080/
 break_glass.ogg - https://freesound.org/people/unfa/sounds/221528/
-break_sand.ogg - https://freesound.org/people/newagesoup/sounds/414310/ (i think)
 break_wood.ogg - https://freesound.org/people/egomassive/sounds/536736/
 item_pickup.[1-9].ogg - https://freesound.org/people/Neotone/sounds/75353/
 place_default.ogg - https://freesound.org/people/yatoimtop/sounds/479445/
@@ -12,14 +11,8 @@ step_default.[0-1].ogg - https://freesound.org/people/patchytherat/sounds/535052
 step_dirt.ogg - https://freesound.org/people/Fission9/sounds/521588/
 step_glass.ogg - https://freesound.org/people/Yoyodaman234/sounds/223152/
 step_glass.1.ogg - https://freesound.org/people/escobarrb26/sounds/538531/
-step_gravel.ogg - https://freesound.org/people/Ali_6868/sounds/384877/
-step_gravel.1.ogg - https://freesound.org/people/Ali_6868/sounds/384876/
-step_sand.ogg - https://freesound.org/people/savataivanov/sounds/384082/
 step_sandstone.ogg - https://freesound.org/people/savataivanov/sounds/384082/
 step_sandstone.1.ogg - https://freesound.org/people/savataivanov/sounds/384082/
-step_wood.ogg - https://freesound.org/people/yatoimtop/sounds/479445/
-step_wood.1.ogg - https://freesound.org/people/Rudmer_Rotteveel/sounds/502511/
-step_wood.2.ogg - https://freesound.org/people/yatoimtop/sounds/479445/
 
 step_metal.ogg - https://freesound.org/people/GiocoSound/sounds/421134/
 step_metal.1.ogg - https://freesound.org/people/GiocoSound/sounds/421133/
@@ -35,6 +28,16 @@ break_plant.ogg - https://freesound.org/people/PorkMuncher/sounds/263676/
 dig_dirt.[0-1].ogg - https://freesound.org/people/FocusBay/sounds/210865/
 dig_loose.ogg - https://freesound.org/people/martinimeniscus/sounds/199333/
 
+break_dirt.*.ogg - https://freesound.org/people/Nox_Sound/sounds/543806/
+place_dirt.ogg - https://freesound.org/people/Nox_Sound/sounds/543806/
+
+step_wood.*.ogg - https://freesound.org/people/Fission9/sounds/521589/
+
+break_sand.ogg - https://freesound.org/people/xenognosis/sounds/137245/
+step_sand.*.ogg - https://freesound.org/people/Ali_6868/sounds/384877/
+
+step_gravel.ogg - https://freesound.org/people/Ali_6868/sounds/384877/
+step_gravel.1.ogg - https://freesound.org/people/Ali_6868/sounds/384876/
 
 CC-BY:
 step_grass.ogg - https://freesound.org/people/Snoman/sounds/9904/
@@ -56,6 +59,8 @@ break_metal.ogg - https://freesound.org/people/jorickhoofd/sounds/160045/
 place_metal.ogg - https://freesound.org/people/jorickhoofd/sounds/176676/
 dig_metal.ogg - https://freesound.org/people/jorickhoofd/sounds/178588/
 dig_metal.1.ogg - https://freesound.org/people/jorickhoofd/sounds/178590/
+
+break_glass.1.ogg - https://freesound.org/people/datasoundsample/sounds/41348/
 
 CC-BY-NC:
 evaporate.ogg - https://freesound.org/people/DamianMinnie/sounds/327559/
