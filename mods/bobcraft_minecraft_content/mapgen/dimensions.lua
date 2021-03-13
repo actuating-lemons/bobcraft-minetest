@@ -284,6 +284,15 @@ worldgen.register_dimension({
 						end
 					end
 
+					if gen_pillar and y > worldgen.hell_bottom and y < worldgen.hell_top then
+						local dist = vector.distance({x=pillarx,y=pillarz,z=0}, {x=x,y=z,z=0})
+
+							if dist < 15/(2-mult) then
+								local vi = area:index(x,y,z)
+								data[vi] = c_hellstone
+							end
+					end
+
 					-- One final check, to make sure that certain y levels always have hellstone
 					-- (Looking at you, bedrock layer!)
 		
@@ -295,23 +304,6 @@ worldgen.register_dimension({
 		
 
 					nixyz = nixyz + 1
-				end
-			end
-
-			if gen_pillar then
-				-- pillar stage!
-				if y > worldgen.hell_bottom and y < worldgen.hell_top then
-					for x = minp.x, maxp.x do
-						for z = minp.z, maxp.z do
-							
-							local dist = vector.distance({x=pillarx,y=pillarz,z=0}, {x=x,y=z,z=0})
-
-							if dist < 15/(2-mult) then
-								local vi = area:index(x,y,z)
-								data[vi] = c_hellstone
-							end
-						end
-					end
 				end
 			end
 		end
