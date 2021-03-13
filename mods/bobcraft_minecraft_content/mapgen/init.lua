@@ -12,6 +12,7 @@ worldgen.overworld_struct_max = worldgen.overworld_sealevel - 5
 worldgen.hell_top = worldgen.overworld_bottom - 128 -- 128 block seperation between biomes
 worldgen.hell_bottom = worldgen.hell_top - 192 -- 192 blocks tall hell
 worldgen.hell_sealevel = worldgen.hell_bottom + 63
+worldgen.hell_pillarlevel = (worldgen.hell_bottom + worldgen.hell_top) / 2 -- HACK: don't touch, we do this to make sure only one y level gets tested for pillars.
 
 local c_wool = minetest.get_content_id("bobcraft_blocks:wool_green")
 
@@ -118,11 +119,21 @@ worldgen.np_hell_cavern = {
 	offset = 1.2,
 	scale = 1,
 	spread = {x=256, y=128, z=256},
-	octaves = 4,
+	octaves = 5,
 	seed = 410430084494322969, -- "SATANSATANSATAN"
 	persist = 0.6,
 	lacunarity = 2,
 	flags = "eased",
+}
+-- Pillars!
+worldgen.np_hell_pillar = {
+	offset = 0,
+	scale = 1,
+	spread = {x=256, y=256, z=256},
+	octaves = 3,
+	seed = 446846456165165, -- Keymash
+	persist = 0.6,
+	lacunarity = 2
 }
 
 -- Temperature - How we generate temperature values

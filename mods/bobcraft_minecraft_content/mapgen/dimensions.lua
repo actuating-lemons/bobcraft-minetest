@@ -222,14 +222,28 @@ worldgen.register_dimension({
 	
 	init = function (this)
 		this.map_caves = nil
+		this.map_pillars = nil
 
 		this.buffer_caves = {}
+		this.buffer_pillars = {}
 	end,
 
 	gen_func = function(this, minp, maxp, blockseed, vm, area, data)
 		local sidelen = maxp.x - minp.x + 1
 		this.map_caves = this.map_caves or minetest.get_perlin_map(worldgen.np_hell_cavern, {x=sidelen,y=sidelen,z=sidelen})
 		local noise_caves = this.map_caves:get_3d_map(minp, this.buffer_caves)
+
+		local gen_pillar = false
+
+		local pillarx = (minp.x + maxp.x) /2
+		local pillarz = (minp.z + maxp.z) /2
+
+		this.map_pillars = this.map_pillars or minetest.get_perlin(worldgen.np_hell_pillar)
+		local noise_pillars = this.map_pillars:get_2d({x=pillarx,y=pillarz})
+
+		if noise_pillars > 0.9 then
+			gen_pillar = true
+		end
 
 		local nixyz = 1
 		for y = minp.y, maxp.y do -- do y first to calculate the percent the least amount of times possible
@@ -273,6 +287,24 @@ worldgen.register_dimension({
 					nixyz = nixyz + 1
 				end
 			end
+
+			if gen_pillar then
+				-- pillar stage!
+				if y > worldgen.hell_bottom and y < worldgen.hell_top then
+					for x = minp.x, maxp.x do
+						for z = minp.z, maxp.z do
+							
+							local dist = vector.distance({x=pillarx,y=pillarz,z=0}, {x=x,y=z,z=0})
+
+							if dist < 15/(2-mult) then
+								local vi = area:index(x,y,z)
+								data[vi] = c_hellstone
+							end
+						end
+					end
+				end
+			end
+
 		end
 
 		return data
