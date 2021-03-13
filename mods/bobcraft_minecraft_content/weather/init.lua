@@ -185,8 +185,13 @@ minetest.register_globalstep(function(dtime)
 								collisiondetection = true,
 								collision_removal = true,
 								vertical = false,
-								texture = "snow_particle_" ..
-									math.random(1, 4) .. ".png",
+								texture = "snow_particle_animated.png",
+								animation = {
+									type = "vertical_frames",
+									aspect_w = 3,
+									aspect_h = 3,
+									length = 5,
+								},
 								playername = player:get_player_name()
 							})
 						end
