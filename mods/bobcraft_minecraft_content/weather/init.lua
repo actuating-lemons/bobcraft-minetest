@@ -139,31 +139,11 @@ minetest.register_globalstep(function(dtime)
 				nval_humid - grad * nval_temp > yint
 
 			-- Set sky
-			if precip and not skybox[player_name] then
-				-- Set overcast sky only if normal
-				local sval
-				local time = minetest.get_timeofday()
-				if time >= 0.5 then
-					time = 1 - time
-				end
-				-- Sky brightness transitions:
-				-- First transition (24000 -) 4500, (1 -) 0.1875
-				-- Last transition (24000 -) 5750, (1 -) 0.2396
-				if time <= 0.1875 then
-					sval = NISVAL
-				elseif time >= 0.2396 then
-					sval = DASVAL
-				else
-					sval = math.floor(NISVAL +
-						((time - 0.1875) / 0.0521) * difsval)
-				end
-				player:set_sky({r = sval, g = sval, b = sval + 16, a = 255},
-					"plain", {}, false)
-				skybox[player_name] = true
-			elseif not precip and skybox[player_name] then
+			if precip then
+				sky.set_sky_mode(player_name, "weather")
+			elseif not precip then
 				-- Set normal sky only if skybox
-				player:set_sky({}, "regular", {}, true)
-				skybox[player_name] = nil
+				sky.set_sky_mode(player_name, nil)
 			end
 
 			-- Stop looping sound.
