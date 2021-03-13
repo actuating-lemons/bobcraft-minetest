@@ -284,6 +284,16 @@ worldgen.register_dimension({
 						end
 					end
 
+					-- One final check, to make sure that certain y levels always have hellstone
+					-- (Looking at you, bedrock layer!)
+		
+					if y > worldgen.hell_top-10 then
+						data[vi] = c_hellstone
+					elseif y < worldgen.hell_bottom+10 then
+						data[vi] = c_hellstone
+					end
+		
+
 					nixyz = nixyz + 1
 				end
 			end
@@ -304,7 +314,6 @@ worldgen.register_dimension({
 					end
 				end
 			end
-
 		end
 
 		return data
