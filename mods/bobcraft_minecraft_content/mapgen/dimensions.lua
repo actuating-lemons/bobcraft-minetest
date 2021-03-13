@@ -247,7 +247,7 @@ worldgen.register_dimension({
 			local n = math.abs(y-worldgen.hell_top) / (math.abs(worldgen.hell_bottom)-math.abs(worldgen.hell_top))
 
 			-- we now plug that into our caluclation
-			local mult = math.min( ((1-n)^2)^2, 1)
+			local mult = ( ( 1 - n ) ^ 2) ^ 2
 			mult = 1 - mult
 
 			for x = minp.x, maxp.x do
