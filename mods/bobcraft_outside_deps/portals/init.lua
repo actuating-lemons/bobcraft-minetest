@@ -14,5 +14,6 @@ dofile(mp.."/api.lua")
 
 -- the default wormhole
 portals.register_wormhole_node("portal_api:portal", {
-	description = "portal"
+	description = "portal",
+	light_source = 8,
 })
