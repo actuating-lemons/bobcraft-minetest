@@ -6,11 +6,11 @@
 local audio_range = {x=16, y=16, z=16}
 
 local music = {
-	handler = {},
-	frequency = 1,
-	positioned = false,
-	{name="plainsong", length = 1*60 + 14, gain = 0.3}
+	-- CAVE MUSIC
+	{name="mineral", length = 5*60 + 1, gain = 0.3, y_max = worldgen.overworld_seafloor, y_min = worldgen.overworld_bottom}
 }
+local music_handler = {}
+local music_frequency = 1
 
 local lava_sounds = {
 	handler = {},
@@ -32,10 +32,22 @@ local waterfall_sounds = {
 }
 
 local function get_ambience(player)
-	local table = {}
+	local sndtable = {}
+
+	local ppos = player:get_pos()
 
 	-- Music
-	table.music = music
+	sndtable.music = {
+		frequency = music_frequency,
+		handler = music_handler
+	}
+	for i, musicdef in ipairs(music) do
+		local ymin = musicdef.y_min or -31000
+		local ymax = musicdef.y_max or 31000
+		if ppos.y > ymin and ppos.y < ymax then
+			table.insert(sndtable.music, musicdef)
+		end
+	end
 
 	-- Ambient Sounds
 	local ppos = player:get_pos()
@@ -45,7 +57,7 @@ local function get_ambience(player)
 
 	local lava = minetest.find_nodes_in_area(areamin, areamax, {"group:lava"}, true)
 	if next(lava) ~= nil then
-		table.lava = lava_sounds
+		sndtable.lava = lava_sounds
 		-- calculate avg. position
 		local avges = {}
 		for blocks, _ in pairs(lava) do
@@ -53,12 +65,12 @@ local function get_ambience(player)
 				avges[#avges+1] = pos
 			end
 		end
-		table.lava.position = bobutil.avg_pos(avges) -- the averages of the averages
+		sndtable.lava.position = bobutil.avg_pos(avges) -- the averages of the averages
 	end
 
 	local water = minetest.find_nodes_in_area(areamin, areamax, {"group:water_source"}, true)
 	if next(water) ~= nil then
-		table.water = water_sounds
+		sndtable.water = water_sounds
 		-- calculate avg. position
 		local avges = {}
 		for blocks, _ in pairs(water) do
@@ -66,12 +78,12 @@ local function get_ambience(player)
 				avges[#avges+1] = pos
 			end
 		end
-		table.water.position = bobutil.avg_pos(avges) -- the averages of the averages
+		sndtable.water.position = bobutil.avg_pos(avges) -- the averages of the averages
 	end
 
 	local waterfall = minetest.find_nodes_in_area(areamin, areamax, {"group:water_flow"}, true)
 	if next(waterfall) ~= nil then
-		table.waterfall = waterfall_sounds
+		sndtable.waterfall = waterfall_sounds
 		-- calculate avg. position
 		local avges = {}
 		for blocks, _ in pairs(waterfall) do
@@ -79,10 +91,10 @@ local function get_ambience(player)
 				avges[#avges+1] = pos
 			end
 		end
-		table.waterfall.position = bobutil.avg_pos(avges) -- the averages of the averages
+		sndtable.waterfall.position = bobutil.avg_pos(avges) -- the averages of the averages
 	end
 
-	return table
+	return sndtable
 end
 
 local function play_sound(player, list, number, pos)
@@ -122,7 +134,7 @@ minetest.register_globalstep(function(dtime)
 	for _,player in ipairs(minetest.get_connected_players()) do
 		local ambiences = get_ambience(player)
 		for _,ambience in pairs(ambiences) do
-			if math.random(1, 1000) <= ambience.frequency then
+			if math.random(1, 1000) <= ambience.frequency and #ambience > 0 then
 				play_sound(player, ambience, math.random(1, #ambience), ambience.position)
 			end
 		end
