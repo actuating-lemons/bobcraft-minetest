@@ -177,6 +177,12 @@ function worldgen.get_biome(pos)
 	return biome
 end
 
+function worldgen.get_temperature(pos)
+	local noise_temperature = worldgen.get_perlin_map(worldgen.np_temperature, {x=1, y=1, z=1}, pos)
+
+	return noise_temperature[1]
+end
+
 minetest.register_on_generated(function(minp, maxp, blockseed)
 	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
 	local data = vm:get_data()

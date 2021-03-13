@@ -120,7 +120,7 @@ minetest.register_globalstep(function(dtime)
 			local nobj_humid = nobj_humid or minetest.get_perlin(np_humid)
 			local nobj_prec = nobj_prec or minetest.get_perlin(np_prec)
 
-			local nval_temp = nobj_temp:get2d({x = pposx, y = pposz})
+			local nval_temp = worldgen.get_temperature(ppos) * 100
 			local nval_humid = nobj_humid:get2d({x = pposx, y = pposz})
 			local nval_prec = nobj_prec:get2d({x = time, y = 0})
 
