@@ -39,9 +39,9 @@ verify_time = verify_time and tonumber(verify_time) or 10
 wield_scale = wield_scale and tonumber(wield_scale) or 0.25 -- default scale
 
 local location = {
-	"Arm_Right",          -- default bone
-	{x=0, y=5.5, z=3},    -- default position
-	{x=-90, y=225, z=90}, -- default rotation
+	"arm_r",          -- default bone
+	{x=2, y=6, z=0},    -- default position
+	{x=0, y=0, z=-70}, -- default rotation
 	{x=wield_scale, y=wield_scale},
 }
 
