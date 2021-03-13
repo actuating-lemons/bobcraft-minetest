@@ -98,3 +98,14 @@ minetest.register_ore({
 	y_max = worldgen.hell_sealevel,
 	y_min = worldgen.hell_bottom,
 })
+-- Vibrant stone in hellstone
+minetest.register_ore({
+	ore_type       = "scatter",
+	ore            = "bobcraft_blocks:vibrantstone",
+	wherein        = "bobcraft_blocks:hellstone",
+	clust_scarcity = 32*32*32,
+	clust_num_ores = 10,
+	clust_size     = 4,
+	y_max = worldgen.hell_top,
+	y_min = worldgen.hell_sealevel,
+})
