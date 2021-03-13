@@ -185,8 +185,8 @@ minetest.register_globalstep(function(dtime)
 								collisiondetection = true,
 								collision_removal = true,
 								vertical = false,
-								texture = "snowdrift_snowflake" ..
-									math.random(1, 12) .. ".png",
+								texture = "snow_particle_" ..
+									math.random(1, 5) .. ".png",
 								playername = player:get_player_name()
 							})
 						end
