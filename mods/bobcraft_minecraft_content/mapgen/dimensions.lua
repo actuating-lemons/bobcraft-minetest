@@ -247,8 +247,7 @@ worldgen.register_dimension({
 			local n = math.abs(y-worldgen.hell_top) / (math.abs(worldgen.hell_bottom)-math.abs(worldgen.hell_top))
 
 			-- we now plug that into our caluclation
-			local mult = ( ( 1 - n ) ^ 2) ^ 2
-			mult = 1 - mult
+			local mult =  2 * ( 1 - n * 2 ) ^ 2 + 0.2
 
 			for x = minp.x, maxp.x do
 				for z = minp.z, maxp.z do
@@ -256,7 +255,11 @@ worldgen.register_dimension({
 
 					local cave = noise_caves[z-minp.z+1][y-minp.y+1][x-minp.x+1]
 
-					if cave*mult < 0.1 then
+					if cave < 0.5 then
+						cave = cave + 0.5
+					end
+
+					if cave*mult > 0.5 then
 						if y > worldgen.hell_bottom and y < worldgen.hell_top then
 							data[vi] = c_hellstone
 						end
