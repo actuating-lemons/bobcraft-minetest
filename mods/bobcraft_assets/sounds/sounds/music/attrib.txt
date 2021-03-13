@@ -2,3 +2,5 @@ CC-BY-NC:
 
 	Daosiz:
 		mineral.ogg - https://soundcloud.com/gyfpamcvtyzg/silence
+		caves2.ogg
+		beachcomber.ogg - https://soundcloud.com/gyfpamcvtyzg/beachcomber
