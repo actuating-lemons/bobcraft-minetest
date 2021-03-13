@@ -1,15 +1,15 @@
 -- Parameters
 
-local YWATER = 1 -- Normally set this to world's water level
+local YWATER = worldgen.overworld_sealevel -- Normally set this to world's water level
 				-- Particles are timed to disappear at this y
 				-- Particles are not spawned for players below this y
 				-- Rain sound is not played for players below this y
-local YMIN = -48 -- Normally set this to deepest ocean
-local YMAX = 120 -- Normally set this to cloud level
+local YMIN = worldgen.overworld_sealevel -- Normally set this to deepest ocean
+local YMAX = worldgen.overworld_top -- Normally set this to cloud level
 				-- Weather does not occur for players outside this y range
-local PRECTIM = 300 -- Precipitation noise 'spread'
+local PRECTIM = 1 -- Precipitation noise 'spread'
 				-- Time scale for precipitation variation, in seconds
-local PRECTHR = 0.2 -- Precipitation noise threshold, -1 to 1:
+local PRECTHR = -0.9 -- Precipitation noise threshold, -1 to 1:
 				-- -1 = precipitation all the time
 				-- 0 = precipitation half the time
 				-- 1 = no precipitation
@@ -113,7 +113,8 @@ minetest.register_globalstep(function(dtime)
 			-- Time in seconds.
 			-- Add the per-server-session random time offset to avoid identical behaviour
 			-- each server session.
-			local time = os.difftime(os.time(), os_time_0) - t_offset
+			-- local time = os.difftime(os.time(), os_time_0) - t_offset
+			local time = 0
 
 			local nobj_temp = nobj_temp or minetest.get_perlin(np_temp)
 			local nobj_humid = nobj_humid or minetest.get_perlin(np_humid)
