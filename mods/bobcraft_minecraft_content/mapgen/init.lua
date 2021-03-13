@@ -10,7 +10,7 @@ worldgen.overworld_struct_min = worldgen.overworld_bottom + 25
 worldgen.overworld_struct_max = worldgen.overworld_sealevel - 5
 
 worldgen.hell_top = worldgen.overworld_bottom - 128 -- 128 block seperation between biomes
-worldgen.hell_bottom = worldgen.hell_top - 128 -- 128 blocks tall hell
+worldgen.hell_bottom = worldgen.hell_top - 192 -- 192 blocks tall hell
 worldgen.hell_sealevel = worldgen.hell_bottom + 63
 
 local c_wool = minetest.get_content_id("bobcraft_blocks:wool_green")
@@ -113,9 +113,9 @@ worldgen.np_caves3 = {
 	persist = 0.5,
 	lacunarity = 2,
 }
--- The hell 'caves'
-worldgen.np_caves_hell = {
-	offset = 1,
+-- The main hell cavern.
+worldgen.np_hell_cavern = {
+	offset = 1.2,
 	scale = 1,
 	spread = {x=256, y=128, z=256},
 	octaves = 4,

@@ -228,7 +228,7 @@ worldgen.register_dimension({
 
 	gen_func = function(this, minp, maxp, blockseed, vm, area, data)
 		local sidelen = maxp.x - minp.x + 1
-		this.map_caves = this.map_caves or minetest.get_perlin_map(worldgen.np_caves_hell, {x=sidelen,y=sidelen,z=sidelen})
+		this.map_caves = this.map_caves or minetest.get_perlin_map(worldgen.np_hell_cavern, {x=sidelen,y=sidelen,z=sidelen})
 		local noise_caves = this.map_caves:get_3d_map(minp, this.buffer_caves)
 
 		local nixyz = 1
@@ -255,11 +255,7 @@ worldgen.register_dimension({
 
 					local cave = noise_caves[z-minp.z+1][y-minp.y+1][x-minp.x+1]
 
-					if cave < 0.5 then
-						cave = cave + 0.5
-					end
-
-					if cave*mult > 0.5 then
+					if cave*mult > 0.7 then
 						if y > worldgen.hell_bottom and y < worldgen.hell_top then
 							data[vi] = c_hellstone
 						end
