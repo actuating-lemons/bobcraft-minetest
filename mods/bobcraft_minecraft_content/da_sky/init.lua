@@ -123,6 +123,8 @@ local function set_player_skies()
 	for _, player in ipairs(minetest.get_connected_players()) do
 		local player_pos = player:get_pos()
 		local player_biome = worldgen.get_biome(player_pos)
+		local player_name = player:get_player_name()
+		local player_weather = weather.weather[player_name]
 
 		if player_biome then
 			local player_biome_temp = player_biome.temperature
@@ -154,13 +156,23 @@ local function set_player_skies()
 				sky_color = color_table
 			})
 
-			player:set_clouds({
-				density = 0.35,
-				color = "#ffffffcc",
-				height = 132,
-				thickness = 4,
-				speed = {x=2, z=0}
-			})
+			if player_weather == "clear" then
+				player:set_clouds({
+					density = 0.35,
+					color = "#ffffffcc",
+					height = 132,
+					thickness = 4,
+					speed = {x=2, z=0}
+				})
+			elseif player_weather == "rain" then
+				player:set_clouds({
+					density = 0.9,
+					color = "#ccccccff",
+					height = 132,
+					thickness = 4,
+					speed = {x=1, z=0}
+				})
+			end
 		end
 	end
 end
