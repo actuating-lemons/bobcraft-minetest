@@ -74,3 +74,15 @@ minetest.register_ore({
 	y_max = worldgen.overworld_bottom+16,
 	y_min = worldgen.overworld_bottom,
 })
+
+-- Make pockets of lava, in hell!
+minetest.register_ore({
+	ore_type       = "blob",
+	ore            = "bobcraft_blocks:lava_source",
+	wherein        = "bobcraft_blocks:hellstone",
+	clust_scarcity = 16*16*16,
+	clust_num_ores = 1,
+	clust_size     = 1,
+	y_max = worldgen.hell_top,
+	y_min = worldgen.hell_bottom,
+})

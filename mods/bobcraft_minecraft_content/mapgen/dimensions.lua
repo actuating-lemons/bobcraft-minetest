@@ -236,7 +236,7 @@ worldgen.register_dimension({
 
 			-- Given x as a percentage of how close we are to the bottom,
 			-- the percentage is
-			-- min(((1 - x)^2)^2, 1)
+			-- 2 (1-2x)^2 + 0.2
 
 			-- first work out x
 			-- to get the % of a number between 0 and, say, +20
