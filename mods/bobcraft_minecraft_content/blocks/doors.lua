@@ -5,7 +5,8 @@ doors.register_door("bobcraft_blocks:door", {
 	description = "Wooden Door",
 	inventory_image = "item_door.png",
 	groups = {hand=1, axe=1, door=1, attached_node=1},
-	tiles = {"door_wood.png"},
+	tiles_top = {"door_top.png"},
+	tiles_bottom = {"door_bottom.png"},
 	sounds = bobcraft_sounds.node_sound_wood(),
 	sunlight = false,
 	
@@ -34,7 +35,8 @@ doors.register_door("bobcraft_blocks:temple_door", {
 	description = "Temple Door",
 	inventory_image = "item_door_temple.png",
 	groups = {pickaxe=1, door=1, attached_node=1},
-	tiles = {"door_temple.png"},
+	tiles_top = {"door_temple.png^[verticalframe:2:0"},
+	tiles_bottom = {"door_temple.png^[verticalframe:2:1"},
 	sounds = bobcraft_sounds.node_sound_stone(),
 	sunlight = false,
 	

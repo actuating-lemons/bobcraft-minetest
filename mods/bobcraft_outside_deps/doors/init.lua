@@ -17,10 +17,19 @@ end
 function doors.register_door(name, def)
 	def.groups.not_in_creative_inventory = 1
 
-	local box = {{-0.5, -0.5, -0.5, 0.5, 1.5, -0.5+3/16}}
+	local box = {{-0.5, -0.5, -0.5, 0.5, 0.5, -0.5+3/16}}
 
-	if not def.selection_box then
-		def.selection_box = box
+	if not def.node_box_bottom then
+		def.node_box_bottom = box
+	end
+	if not def.node_box_top then
+		def.node_box_top = box
+	end
+	if not def.selection_box_bottom then
+		def.selection_box_bottom= box
+	end
+	if not def.selection_box_top then
+		def.selection_box_top = box
 	end
 
 	if not def.sound_close_door then
@@ -76,13 +85,13 @@ function doors.register_door(name, def)
 				pt3.z = pt3.z-1
 			end
 			if minetest.get_item_group(minetest.get_node(pt3).name, "door") == 0 then
-				minetest.set_node(pt, {name=name.."_closed", param2=p2})
-				-- minetest.set_node(pt2, {name=name.."_top_closed", param2=p2})
+				minetest.set_node(pt, {name=name.."_bottom_closed", param2=p2})
+				minetest.set_node(pt2, {name=name.."_top_closed", param2=p2})
 			else
-				minetest.set_node(pt, {name=name.."_open", param2=p2})
-				-- minetest.set_node(pt2, {name=name.."_top_open", param2=p2})
+				minetest.set_node(pt, {name=name.."_bottom_open", param2=p2})
+				minetest.set_node(pt2, {name=name.."_top_open", param2=p2})
 				minetest.get_meta(pt):set_int("right", 1)
-				-- minetest.get_meta(pt2):set_int("right", 1)
+				minetest.get_meta(pt2):set_int("right", 1)
 			end
 
 			if def.only_placer_can_open then
@@ -102,7 +111,8 @@ function doors.register_door(name, def)
 		end,
 	})
 
-	local tt = def.tiles
+	local tt = def.tiles_top
+	local tb = def.tiles_bottom
 	
 	local function after_dig_node(pos, name, digger)
 		local node = minetest.get_node(pos)
@@ -111,13 +121,15 @@ function doors.register_door(name, def)
 		end
 	end
 
-	local function on_rightclick(pos, dir, check_name, replace, params)
+	local function on_rightclick(pos, dir, check_name, replace, replace_dir, params)
 		pos.y = pos.y+dir
 		if not minetest.get_node(pos).name == check_name then
 			return
 		end
 		local p2 = minetest.get_node(pos).param2
 		p2 = params[p2+1]
+		
+		minetest.swap_node(pos, {name=replace_dir, param2=p2})
 		
 		pos.y = pos.y-dir
 		minetest.swap_node(pos, {name=replace, param2=p2})
@@ -136,27 +148,30 @@ function doors.register_door(name, def)
 		end
 	end
 
-	minetest.register_node(name.."_closed", {
-		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1], tt[1]},
+	minetest.register_node(name.."_bottom_closed", {
+		tiles = {tb[2], tb[2], tb[2], tb[2], tb[1], tb[1]},
 		paramtype = "light",
 		paramtype2 = "facedir",
 		drop = name,
-		drawtype = "mesh",
-		mesh = "door.obj",
+		drawtype = "nodebox",
+		node_box = {
+			type = "fixed",
+			fixed = def.node_box_bottom
+		},
 		selection_box = {
 			type = "fixed",
-			fixed = def.selection_box
+			fixed = def.selection_box_bottom
 		},
 		groups = def.groups,
 		
 		after_dig_node = function(pos, oldnode, oldmetadata, digger)
 			pos.y = pos.y+1
-			-- after_dig_node(pos, name.."_top_closed", digger)
+			after_dig_node(pos, name.."_top_closed", digger)
 		end,
 		
 		on_rightclick = function(pos, node, clicker)
 			if check_player_priv(pos, clicker) then
-				on_rightclick(pos, 1, name.."_closed", name.."_open", {1,2,3,0})
+				on_rightclick(pos, 1, name.."_top_closed", name.."_bottom_open", name.."_top_open", {1,2,3,0})
 			end
 		end,
 		
@@ -166,27 +181,96 @@ function doors.register_door(name, def)
 		hardness = def.hardness
 	})
 
-	minetest.register_node(name.."_open", {
-		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1], tt[1]},
+	minetest.register_node(name.."_top_closed", {
+		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1].."^[transformfx", tt[1]},
+		paramtype = "light",
+		paramtype2 = "facedir",
+		drop = "",
+		drawtype = "nodebox",
+		node_box = {
+			type = "fixed",
+			fixed = def.node_box_top
+		},
+		selection_box = {
+			type = "fixed",
+			fixed = def.selection_box_top
+		},
+		groups = def.groups,
+		
+		after_dig_node = function(pos, oldnode, oldmetadata, digger)
+			pos.y = pos.y-1
+			after_dig_node(pos, name.."_bottom_closed", digger)
+		end,
+		
+		on_rightclick = function(pos, node, clicker)
+			if check_player_priv(pos, clicker) then
+				on_rightclick(pos, -1, name.."_bottom_closed", name.."_top_open", name.."_bottom_open", {1,2,3,0})
+			end
+		end,
+		
+		can_dig = check_player_priv,
+		sounds = def.sounds,
+		sunlight_propagates = def.sunlight,
+		hardness = def.hardness
+	})
+
+	minetest.register_node(name.."_bottom_open", {
+		tiles = {tb[2], tb[2], tb[2], tb[2], tb[1], tb[1].."^[transformfx"},
 		paramtype = "light",
 		paramtype2 = "facedir",
 		drop = name,
-		drawtype = "mesh",
-		mesh = "door.obj",
+		drawtype = "nodebox",
+		node_box = {
+			type = "fixed",
+			fixed = def.node_box_bottom
+		},
 		selection_box = {
 			type = "fixed",
-			fixed = def.selection_box
+			fixed = def.selection_box_bottom
 		},
 		groups = def.groups,
 		
 		after_dig_node = function(pos, oldnode, oldmetadata, digger)
 			pos.y = pos.y+1
-			after_dig_node(pos, name.."_open", digger)
+			after_dig_node(pos, name.."_top_open", digger)
 		end,
 		
 		on_rightclick = function(pos, node, clicker)
 			if check_player_priv(pos, clicker) then
-				on_rightclick(pos, 1, name.."_open", name.."_closed", {3,0,1,2})
+				on_rightclick(pos, 1, name.."_top_open", name.."_bottom_closed", name.."_top_closed", {3,0,1,2})
+			end
+		end,
+		
+		can_dig = check_player_priv,
+		sounds = def.sounds,
+		sunlight_propagates = def.sunlight,
+		hardness = def.hardness
+	})
+
+	minetest.register_node(name.."_top_open", {
+		tiles = {tt[2], tt[2], tt[2], tt[2], tt[1], tt[1].."^[transformfx"},
+		paramtype = "light",
+		paramtype2 = "facedir",
+		drop = "",
+		drawtype = "nodebox",
+		node_box = {
+			type = "fixed",
+			fixed = def.node_box_top
+		},
+		selection_box = {
+			type = "fixed",
+			fixed = def.selection_box_top
+		},
+		groups = def.groups,
+		
+		after_dig_node = function(pos, oldnode, oldmetadata, digger)
+			pos.y = pos.y-1
+			after_dig_node(pos, name.."_bottom_open", digger)
+		end,
+		
+		on_rightclick = function(pos, node, clicker)
+			if check_player_priv(pos, clicker) then
+				on_rightclick(pos, -1, name.."_bottom_open", name.."_top_closed", name.."_bottom_closed", {3,0,1,2})
 			end
 		end,
 		
@@ -255,7 +339,7 @@ function doors.register_trapdoor(name, def)
 				pt3.z = pt3.z-1
 			end
 
-			minetest.set_node(pt, {name=name.."_closed", param2=p2})
+			minetest.set_node(pt, {name=name.."_bottom_closed", param2=p2})
 			
 			if def.only_placer_can_open then
 				local pn = placer:get_player_name()
@@ -274,18 +358,24 @@ function doors.register_trapdoor(name, def)
 		end,
 	})
 
-	minetest.register_node(name.."_closed", {
+	minetest.register_node(name.."_bottom_closed", {
 		tiles = {def.tiles[1]},
 		paramtype = "light",
 		paramtype2 = "facedir",
 		drop = def.drop,
-		drawtype = "mesh",
-		mesh = "door.obj",
+		drawtype = "nodebox",
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{ -0.5, -0.5, -0.5,
+				  0.5, -0.5 + 3/16, 0.5 }
+			}
+		},
 		groups = def.groups,
 		
 		on_rightclick = function(pos, node, clicker)
 			if check_player_priv(pos, clicker) then
-				on_rightclick(pos, name .. "_open", true)
+				on_rightclick(pos, name .. "_bottom_open", true)
 			end
 		end,
 		
@@ -294,7 +384,7 @@ function doors.register_trapdoor(name, def)
 		sunlight_propagates = def.sunlight,
 		hardness = def.hardness	
 	})
-	minetest.register_node(name.."_open", {
+	minetest.register_node(name.."_bottom_open", {
 		tiles = {def.tiles[1] .. "^[transformfy"}, -- transformify
 		paramtype = "light",
 		paramtype2 = "facedir",
