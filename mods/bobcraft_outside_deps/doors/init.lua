@@ -77,20 +77,14 @@ function doors.register_door(name, def)
 			end
 			if minetest.get_item_group(minetest.get_node(pt3).name, "door") == 0 then
 				minetest.set_node(pt, {name=name.."_closed", param2=p2})
-				-- minetest.set_node(pt2, {name=name.."_top_closed", param2=p2})
 			else
 				minetest.set_node(pt, {name=name.."_open", param2=p2})
-				-- minetest.set_node(pt2, {name=name.."_top_open", param2=p2})
 				minetest.get_meta(pt):set_int("right", 1)
-				-- minetest.get_meta(pt2):set_int("right", 1)
 			end
 
 			if def.only_placer_can_open then
 				local pn = placer:get_player_name()
 				local meta = minetest.get_meta(pt)
-				meta:set_string("doors_owner", pn)
-				meta:set_string("infotext", "Owned by "..pn)
-				meta = minetest.get_meta(pt2)
 				meta:set_string("doors_owner", pn)
 				meta:set_string("infotext", "Owned by "..pn)
 			end
@@ -111,29 +105,20 @@ function doors.register_door(name, def)
 		end
 	end
 
-	local function on_rightclick(pos, dir, check_name, replace, params)
-		pos.y = pos.y+dir
-		if not minetest.get_node(pos).name == check_name then
-			return
-		end
+	local function on_rightclick(pos, replace, closed, params)
 		local p2 = minetest.get_node(pos).param2
 		p2 = params[p2+1]
-		
-		pos.y = pos.y-dir
+
+		minetest.log(p2)
+
 		minetest.swap_node(pos, {name=replace, param2=p2})
 
 		local snd_1 = def.sound_close_door
-		local snd_2 = def.sound_open_door 
-		if params[1] == 3 then
+		if closed then
 			snd_1 = def.sound_open_door 
-			snd_2 = def.sound_close_door
 		end
 
-		if minetest.get_meta(pos):get_int("right") ~= 0 then
-			minetest.sound_play(snd_1, {pos = pos, gain = 0.3, max_hear_distance = 10})
-		else
-			minetest.sound_play(snd_2, {pos = pos, gain = 0.3, max_hear_distance = 10})
-		end
+		minetest.sound_play(snd_1, {pos = pos, gain = 0.3, max_hear_distance = 10})
 	end
 
 	minetest.register_node(name.."_closed", {
@@ -156,7 +141,7 @@ function doors.register_door(name, def)
 		
 		on_rightclick = function(pos, node, clicker)
 			if check_player_priv(pos, clicker) then
-				on_rightclick(pos, 1, name.."_closed", name.."_open", {1,2,3,0})
+				on_rightclick(pos, name.."_open", true, {3,0,1,2})
 			end
 		end,
 		
@@ -186,7 +171,7 @@ function doors.register_door(name, def)
 		
 		on_rightclick = function(pos, node, clicker)
 			if check_player_priv(pos, clicker) then
-				on_rightclick(pos, 1, name.."_open", name.."_closed", {3,0,1,2})
+				on_rightclick(pos, name.."_closed", false, {1,2,3,0})
 			end
 		end,
 		
