@@ -233,16 +233,20 @@ worldgen.register_dimension({
 		this.map_caves = this.map_caves or minetest.get_perlin_map(worldgen.np_hell_cavern, {x=sidelen,y=sidelen,z=sidelen})
 		local noise_caves = this.map_caves:get_3d_map(minp, this.buffer_caves)
 
+		-- will this chunk have a pillar?
 		local gen_pillar = false
-
+		-- Middle of the chunk
 		local pillarx = (minp.x + maxp.x) /2
 		local pillarz = (minp.z + maxp.z) /2
 
 		this.map_pillars = this.map_pillars or minetest.get_perlin(worldgen.np_hell_pillar)
 		local noise_pillars = this.map_pillars:get_2d({x=pillarx,y=pillarz})
 
+		local pillar_variator = 0
+
 		if noise_pillars > 0.9 then
 			gen_pillar = true
+			pillar_variator = math.max(0,this.map_pillars:get_2d({x=pillarx,y=pillarz}))
 		end
 
 		local nixyz = 1
@@ -287,10 +291,10 @@ worldgen.register_dimension({
 					if gen_pillar and y > worldgen.hell_bottom and y < worldgen.hell_top then
 						local dist = vector.distance({x=pillarx,y=pillarz,z=0}, {x=x,y=z,z=0})
 
-							if dist < 15/(2-mult) then
-								local vi = area:index(x,y,z)
-								data[vi] = c_hellstone
-							end
+						if dist < 15*pillar_variator/(2-mult) then
+							local vi = area:index(x,y,z)
+							data[vi] = c_hellstone
+						end
 					end
 
 					-- One final check, to make sure that certain y levels always have hellstone
