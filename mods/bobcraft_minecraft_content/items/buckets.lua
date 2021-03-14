@@ -59,7 +59,7 @@ register_bucketable_liquid({
 
 register_bucketable_liquid({
 	nodes = {"bobcraft_blocks:water_source"}, -- we always place the first in our list
-	color = "#000077", -- colour to tint the fill texture
+	color = "#000077cc", -- colour to tint the fill texture
 	bucket_desc = S("Water Bucket"), -- description in item def
 	bucket_name = "bobcraft_items:water_bucket", -- name
 })
