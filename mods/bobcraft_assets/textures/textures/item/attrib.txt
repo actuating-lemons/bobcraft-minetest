@@ -1,2 +1,3 @@
 CC-BY:
 diamond.png - JenTheFox / Jenifar Shifaketro / Jen The Fox#9535 - Basic shape
+bucket.png, bucket_fill.png - JenTheFox / Jenifar Shifaketro / Jen The Fox#9535 - Basic shape
