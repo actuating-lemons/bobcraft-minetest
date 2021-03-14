@@ -10,7 +10,7 @@ minetest.register_craftitem("bobcraft_items:bucket", {
 	inventory_image = "bucket.png",
 	liquids_pointable = true,
 
-	max_stack = 1,
+	stack_max = 1,
 
 	on_use = function(itemstack, user, pointed_thing)
 		local node = minetest.get_node(pointed_thing.under)
@@ -37,7 +37,7 @@ local function register_bucketable_liquid(def)
 
 		inventory_image = "bucket.png^(bucket_fill.png^[multiply:"..def.color..")",
 
-		max_stack = 1,
+		stack_max = 1,
 
 		on_place = function (itemstack, user, pointed_thing)
 			local pos = pointed_thing.above
