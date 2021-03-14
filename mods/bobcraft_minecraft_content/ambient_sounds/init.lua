@@ -6,8 +6,12 @@
 local audio_range = {x=16, y=16, z=16}
 
 local music = {
-	-- CAVE MUSIC
-	{name="mineral", length = 5*60 + 1, gain = 0.3, y_max = worldgen.overworld_seafloor, y_min = worldgen.overworld_bottom}
+	-- CAVE MUSIC, OVERWORLD
+	{name="mineral", length = 5*60 + 1, gain = 0.3, y_max = worldgen.overworld_seafloor, y_min = worldgen.overworld_bottom},
+	{name="caves2", length = 4*60 + 49, gain = 0.3, y_max = worldgen.overworld_seafloor, y_min = worldgen.overworld_bottom},
+
+	-- SURFACE MUSIC, OVERWORLD
+	{name="beachcomber", length = 5*60 + 21, gain = 0.3, y_min = worldgen.overworld_seafloor},
 }
 local music_handler = {}
 local music_frequency = 1
