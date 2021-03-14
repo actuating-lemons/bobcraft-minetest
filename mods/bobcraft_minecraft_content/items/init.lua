@@ -118,3 +118,6 @@ minetest.register_craftitem("bobcraft_items:melon_slice", {
 	stack_max = bobutil.stack_max,
 	wield_scale = bobutil.wield_scale,
 })
+
+local mp = minetest.get_modpath("bobcraft_items")
+dofile(mp .. "/buckets.lua")

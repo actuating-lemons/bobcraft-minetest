@@ -1,0 +1,48 @@
+local S = minetest.get_translator("bobcraft_items")
+
+local bucketable_liquids = {}
+local bucketable_nodes = {} -- list of nodes -> bucketable def
+
+minetest.register_craftitem("bobcraft_items:bucket", {
+	-- empty bucket
+
+	description = S("Bucket"),
+	inventory_image = "bucket.png",
+	liquids_pointable = true,
+
+	on_use = function(itemstack, user, pointed_thing)
+
+	end,
+})
+
+local function register_bucketable_liquid(def)
+	assert(def.nodes, "bucketable def without liquids!")
+
+	table.insert(bucketable_liquids, def)
+
+	for _, node in ipairs(def.nodes) do
+		bucketable_nodes[node] = def
+	end
+
+	minetest.register_craftitem(def.bucket_name, {
+		description = def.bucket_desc,
+
+		inventory_image = "bucket.png^bucket_fill.png^[colorize:"..def.color,
+
+		on_place = function (itemstack, user, pointed_thing)
+			local pos = pointed_thing.above
+			minetest.set_node(pos, {name = def.nodes[1]})
+			
+			return ItemStack("bobcraft_items:bucket")
+		end
+	})
+
+
+end
+
+register_bucketable_liquid({
+	nodes = {"bobcraft_blocks:lava_source"}, -- we always place the first in our list
+	color = "#ff0000", -- colour to tint the fill texture
+	bucket_desc = S("Lava Bucket"), -- description in item def
+	bucket_name = "bobcraft_items:lava_bucket", -- name
+})
