@@ -35,7 +35,7 @@ local function register_bucketable_liquid(def)
 	minetest.register_craftitem(def.bucket_name, {
 		description = def.bucket_desc,
 
-		inventory_image = "bucket.png^(bucket_fill.png^[colorize:"..def.color..")",
+		inventory_image = "bucket.png^(bucket_fill.png^[multiply:"..def.color..")",
 
 		max_stack = 1,
 
