@@ -209,3 +209,26 @@ function bobutil.rotate_and_place(itemstack, placer, pointed_thing)
 	end
 	return minetest.item_place(itemstack, placer, pointed_thing, param2)
 end
+
+-- https://gist.github.com/TeoTwawki/87d5dab7e4515f4a2981df7ea8e0a798
+function bobutil.weighted_random(table, weight_key)
+	local weight_key = weight_key or "weight"
+
+	local total_weight = 0
+
+	for _, subtable in ipairs(table) do
+		total_weight = total_weight + (subtable[weight_key] or 0)
+	end
+
+	local weight_selector = math.random(0, total_weight)
+	local this_thing = 0
+
+	for i, weight in ipairs(table) do
+        this_thing = this_thing + (table[i][weight_key])
+
+        if (weight_selector < this_thing) then
+            return table[i]
+        end
+    end
+
+end
