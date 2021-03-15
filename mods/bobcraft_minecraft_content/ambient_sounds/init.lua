@@ -17,9 +17,9 @@ local music_handler = {}
 local music_frequency = 25
 
 local hell_ambience = {
-	{name="hell_bells", length = 1*60 + 41, gain = 0.25, frequency = 100},
+	{name="hell_bells", length = 1*60 + 41, gain = 0.4, frequency = 100}, -- the bells ring loud.
 	{name="hell_wind", length = 3*60 + 20, gain = 0.25, frequency = 950},
-	{name="hell_children", length = 41, gain = 0.25, frequency = 50},
+	{name="hell_children", length = 41, gain = 0.45, frequency = 50}, -- children aren't quiet, let alone hell children!
 }
 local dimension_handler = {}
 
