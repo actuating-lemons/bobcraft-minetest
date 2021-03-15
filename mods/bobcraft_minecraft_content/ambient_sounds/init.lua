@@ -16,6 +16,13 @@ local music = {
 local music_handler = {}
 local music_frequency = 25
 
+local hell_ambience = {
+	{name="hell_bells", length = 1*60 + 41, gain = 0.25, frequency = 100},
+	{name="hell_wind", length = 3*60 + 20, gain = 0.25, frequency = 950},
+	{name="hell_children", length = 41, gain = 0.25, frequency = 50},
+}
+local dimension_handler = {}
+
 local lava_sounds = {
 	handler = {},
 	frequency = 900,
@@ -96,6 +103,21 @@ local function get_ambience(player)
 			end
 		end
 		sndtable.waterfall.position = bobutil.avg_pos(avges) -- the averages of the averages
+	end
+
+	-- dimensional ambient sounds, that which can always play in a dimension
+	local in_hell = ppos.y > worldgen.hell_bottom and ppos.y < worldgen.hell_top
+
+	if in_hell then
+		sndtable.hell = {
+			frequency = 1000,
+			handler = dimension_handler,
+		}
+
+		local snd = bobutil.weighted_random(hell_ambience, "frequency")
+
+		table.insert(sndtable.hell, snd)
+		
 	end
 
 	return sndtable
