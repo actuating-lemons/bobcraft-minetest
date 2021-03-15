@@ -14,7 +14,7 @@ local music = {
 	{name="beachcomber", length = 5*60 + 21, gain = 0.3, y_min = worldgen.overworld_seafloor},
 }
 local music_handler = {}
-local music_frequency = 250
+local music_frequency = 25
 
 local lava_sounds = {
 	handler = {},
