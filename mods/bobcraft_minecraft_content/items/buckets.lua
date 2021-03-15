@@ -18,7 +18,9 @@ minetest.register_craftitem("bobcraft_items:bucket", {
 
 		if bucketable_nodes[node.name] then
 			minetest.remove_node(pointed_thing.under)
-			return ItemStack(bucketable_nodes[node.name].bucket_name)
+			if not minetest.is_creative_enabled(user) then
+				return ItemStack(bucketable_nodes[node.name].bucket_name)
+			end
 		end
 	end,
 })
@@ -43,7 +45,9 @@ local function register_bucketable_liquid(def)
 			local pos = pointed_thing.above
 			minetest.set_node(pos, {name = def.nodes[1]})
 			
-			return ItemStack("bobcraft_items:bucket")
+			if not minetest.is_creative_enabled(user) then
+				return ItemStack("bobcraft_items:bucket")
+			end
 		end
 	})
 
