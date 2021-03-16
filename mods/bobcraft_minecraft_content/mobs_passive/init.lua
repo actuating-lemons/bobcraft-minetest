@@ -1,3 +1,28 @@
+local function sheep_brain(self)
+	mobkit.vitals(self)
+
+	if self.hp <= 0 then
+		mobkit.clear_queue_high(self)
+		mobkit.hq_die(self)
+		return		
+	end
+
+	if mobkit.timer(self, 1) then
+		local priority = mobkit.get_queue_priority(self)
+
+		local pos = self.object:get_pos()
+		local player = mobkit.get_nearby_player(self)
+		if player and vector.distance(pos, player:get_pos()) < 8 then
+			-- Run away!
+			mobkit.hq_runfrom(self, 10, player)				
+		end
+
+		if mobkit.is_queue_empty_high(self) then
+			mobkit.hq_roam(self, 0)
+		end
+	end
+end
+
 minetest.register_entity("bobcraft_mobs:sheep", {
 	physical = true,
 	stepheight = 0.6,
@@ -24,6 +49,10 @@ minetest.register_entity("bobcraft_mobs:sheep", {
 	sounds = {
 		idle = "pig_idle" -- PIG SOUND?
 	},
+
+	jump_height = 1,
+
+	brainfunc = sheep_brain,
 	
 	-- animations
 	animation = {
