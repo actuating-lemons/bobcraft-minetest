@@ -1,4 +1,4 @@
-local function brain(self)
+local function brain_violent(self)
 	mobkit.vitals(self)
 
 	if self.hp <= 0 then
@@ -9,6 +9,13 @@ local function brain(self)
 
 	if mobkit.timer(self, 1) then
 		local priority = mobkit.get_queue_priority(self)
+
+		if priority < 10 then
+			local prey = mobkit.get_nearby_player(self)
+			if prey then
+				mobkit.hq_hunt(self, 10, prey)
+			end
+		end
 
 		if mobkit.is_queue_empty_high(self) then
 			mobkit.hq_roam(self, 0)
@@ -41,13 +48,14 @@ minetest.register_entity("bobcraft_mobs:zombie", {
 	timeout = 600, -- TODO: Investigate
 	sounds = {
 		idle = "zombie_idle",
-		hurt = "mob_hit",
-		die = "zombie_death"
+		hurt = "zombie_hurt",
+		die = "zombie_death",
+		attack = "zombie_attack",
 	},
 
 	jump_height = 1,
 
-	brainfunc = brain,
+	brainfunc = brain_violent,
 
 	on_punch = function(self, puncher, time_from_last_punch, tool_capabilities, dir)
 		if mobkit.is_alive(self) then
@@ -58,6 +66,8 @@ minetest.register_entity("bobcraft_mobs:zombie", {
 			mobkit.make_sound(self,'hurt')
 		end
 	end,
+
+	attack={range=0.5,damage_groups={fleshy=7}},
 	
 	-- animations
 	animation = {

@@ -6,3 +6,8 @@ player_damage[0-2].ogg - https://freesound.org/people/kaldark/sounds/248269/
 player_death.ogg - https://freesound.org/people/kaldark/sounds/248269/
 
 mob_hit.ogg - https://freesound.org/people/minituffy/sounds/385966/
+
+zombie_hurt.*.ogg,
+zombie_die.*.ogg - https://freesound.org/people/haratman/sounds/393749/
+
+zombie_idle.ogg - https://freesound.org/people/ArriGD/sounds/144000/
