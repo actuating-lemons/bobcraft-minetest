@@ -93,7 +93,7 @@ minetest.register_entity("bobcraft_mobs:zombie", {
 				y = 40,
 			},
 			speed = 15,
-			loop = false,
+			loop = true,
 		}
 	}
 })
