@@ -117,7 +117,12 @@ local function get_ambience(player)
 		local snd = bobutil.weighted_random(hell_ambience, "frequency")
 
 		table.insert(sndtable.hell, snd)
-		
+	else -- HACK; we also disable the hell ambience if we're not in hell!
+		local player_name = player:get_player_name()
+		if dimension_handler[player_name] then
+			minetest.sound_stop(dimension_handler[player_name])
+			dimension_handler[player_name] = nil
+		end
 	end
 
 	return sndtable
