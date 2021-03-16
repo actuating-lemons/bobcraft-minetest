@@ -99,6 +99,15 @@ minetest.register_entity("bobcraft_mobs:pig", {
 	jump_height = 1,
 
 	brainfunc = brain,
+
+	on_punch = function(self, puncher, time_from_last_punch, tool_capabilities, dir)
+		if mobkit.is_alive(self) then
+			local hvel = vector.multiply(vector.normalize({x=dir.x,y=0,z=dir.z}),4)
+			self.object:set_velocity({x=hvel.x,y=2,z=hvel.z})
+			
+			mobkit.hurt(self,tool_capabilities.damage_groups.fleshy or 1)
+		end
+	end,
 	
 	-- animations
 	animation = {
