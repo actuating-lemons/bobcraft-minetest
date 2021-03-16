@@ -21,7 +21,7 @@ minetest.register_entity("bobcraft_mobs:pig", {
 	physical = true,
 	stepheight = 0.6,
 	collide_with_objects = true,
-	collisionbox = {-0.5,-0.5,-0.5, 0.5,0.5,0.5,},
+	collisionbox = {-0.5,0.0,-0.5, 0.5,1,0.5,},
 	visual = "mesh",
 	mesh = "pig.b3d",
 	textures = {"pig.png"},
