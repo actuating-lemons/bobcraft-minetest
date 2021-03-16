@@ -40,7 +40,8 @@ minetest.register_entity("bobcraft_mobs:sheep", {
 	max_hp = 8,
 	timeout = 600, -- TODO: Investigate
 	sounds = {
-		idle = "pig_idle" -- PIG SOUND?
+		idle = "pig_idle", -- PIG SOUND?
+		hurt = "mob_hit",
 	},
 
 	jump_height = 1,
@@ -93,7 +94,9 @@ minetest.register_entity("bobcraft_mobs:pig", {
 	max_hp = 8,
 	timeout = 600, -- TODO: Investigate
 	sounds = {
-		idle = "pig_idle"
+		idle = "pig_idle",
+		hurt = "mob_hit",
+		die = "pig_death"
 	},
 
 	jump_height = 1,
@@ -106,6 +109,7 @@ minetest.register_entity("bobcraft_mobs:pig", {
 			self.object:set_velocity({x=hvel.x,y=2,z=hvel.z})
 			
 			mobkit.hurt(self,tool_capabilities.damage_groups.fleshy or 1)
+			mobkit.make_sound(self,'hurt')
 		end
 	end,
 	

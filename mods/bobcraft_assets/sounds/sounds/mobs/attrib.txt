@@ -4,3 +4,5 @@ pig_idle.ogg - https://freesound.org/people/JarredGibb/sounds/233173/
 
 player_damage[0-2].ogg - https://freesound.org/people/kaldark/sounds/248269/
 player_death.ogg - https://freesound.org/people/kaldark/sounds/248269/
+
+mob_hit.ogg - https://freesound.org/people/minituffy/sounds/385966/
