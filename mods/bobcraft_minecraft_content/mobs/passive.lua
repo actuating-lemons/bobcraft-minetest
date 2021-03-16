@@ -38,7 +38,7 @@ minetest.register_entity("bobcraft_mobs:pig", {
 	max_speed = 5,
 	view_range = 16,
 	lung_capacity = 10,
-	max_hp = 8,
+	max_hp = 10,
 	timeout = 600, -- TODO: Investigate
 	sounds = {
 		idle = "pig_idle",
