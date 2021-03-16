@@ -49,7 +49,7 @@ minetest.register_entity("bobcraft_mobs:zombie", {
 	sounds = {
 		idle = "zombie_idle",
 		hurt = "zombie_hurt",
-		die = "zombie_death",
+		die = "zombie_die",
 		attack = "zombie_attack",
 	},
 
