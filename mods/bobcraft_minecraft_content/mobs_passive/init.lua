@@ -45,3 +45,13 @@ minetest.register_entity("bobcraft_mobs:sheep", {
 		}
 	}
 })
+
+-- debugging
+minetest.register_on_chat_message(function(name, message)
+	if message == "baa" then
+		local player = minetest.get_player_by_name(name)
+		local pos = player:get_pos()
+
+		minetest.add_entity(pos, "bobcraft_mobs:sheep")
+	end
+end)
