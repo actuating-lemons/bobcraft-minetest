@@ -357,6 +357,7 @@ function mobkit.lq_jumpattack(self,height,target)
 				self.object:set_velocity({x=dir.x*-3,y=vy,z=dir.z*-3})	
 					-- play attack sound if defined
 				mobkit.make_sound(self,'attack')
+				mobkit.animate(self,'attack')
 				return true
 			end
 		end
@@ -789,6 +790,7 @@ function mobkit.hq_aqua_attack(self,prty,tgtobj,speed)
 		if init then
 			mobkit.animate(self,'fast')
 			mobkit.make_sound(self,'attack')
+			mobkit.animate(self,'attack')
 			init = false
 		end
 		local pos = mobkit.get_stand_pos(self)
