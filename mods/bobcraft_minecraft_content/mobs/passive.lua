@@ -57,6 +57,10 @@ minetest.register_entity("bobcraft_mobs:pig", {
 			
 			mobkit.hurt(self,tool_capabilities.damage_groups.fleshy or 1)
 			mobkit.make_sound(self,'hurt')
+
+			-- abandon ship, run away!
+			mobkit.clear_queue_high(self)
+			mobkit.hq_runfrom(self, 10, puncher)
 		end
 	end,
 	
