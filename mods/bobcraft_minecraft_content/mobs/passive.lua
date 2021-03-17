@@ -30,6 +30,10 @@ local function water_brain(self)
 		if mobkit.is_queue_empty_high(self) then
 			mobkit.hq_aqua_roam(self, 0, 1)
 		end
+
+		if math.random(1,40) < 2 then
+			mobkit.make_sound(self, 'idle')
+		end
 	end
 end
 
@@ -116,6 +120,8 @@ minetest.register_entity("bobcraft_mobs:firefish", {
 	static_save = true,
 	makes_footstep_sound = false,
 	
+	gill_capacity = 3,
+	
 	-- Required Mobkit
 	on_step = mobkit.stepfunc,
 	on_activate = mobkit.actfunc,
@@ -128,6 +134,7 @@ minetest.register_entity("bobcraft_mobs:firefish", {
 	max_hp = 10,
 	timeout = 100, -- TODO: Investigate
 	sounds = {
+		idle = "firefish_blub",
 		hurt = "mob_hit",
 	},
 
