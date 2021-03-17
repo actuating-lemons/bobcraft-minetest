@@ -84,3 +84,4 @@ minetest.register_entity("bobcraft_mobs:pig", {
 		}
 	}
 })
+mobkit.register_spawn_egg("bobcraft_mobs:pig", "#eb9592", "#623637")
