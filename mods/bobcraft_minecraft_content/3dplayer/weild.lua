@@ -10,8 +10,8 @@ local timer = 0
 local player_wielding = {}
 local location = {
 	"RightArm",          -- default bone
-	{x=2, y=6, z=0},    -- default position
-	{x=0, y=0, z=-70}, -- default rotation
+	{x=0, y=13.75, z=0},    -- default position
+	{x=0, y=0, z=0}, -- default rotation
 	{x=0.25, y=0.25},     -- default scale
 }
 
