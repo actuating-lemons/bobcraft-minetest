@@ -114,7 +114,7 @@ minetest.register_entity("bobcraft_mobs:firefish", {
 	mesh = "firefish.b3d",
 	textures = {"firefish.png"},
 	static_save = true,
-	makes_footstep_sound = true,
+	makes_footstep_sound = false,
 	
 	-- Required Mobkit
 	on_step = mobkit.stepfunc,
@@ -125,7 +125,6 @@ minetest.register_entity("bobcraft_mobs:firefish", {
 	buoyancy = 1.0,
 	max_speed = 3,
 	view_range = 16,
-	lung_capacity = 10,
 	max_hp = 10,
 	timeout = 100, -- TODO: Investigate
 	sounds = {
