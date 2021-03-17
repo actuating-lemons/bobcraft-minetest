@@ -27,7 +27,7 @@ minetest.register_entity("bobcraft_mobs:zombie", {
 	physical = true,
 	stepheight = 0.6,
 	collide_with_objects = true,
-	collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
+	collisionbox = {-0.3, 0.0, -0.3, 0.3, 2, 0.3},
 	visual = "mesh",
 	mesh = "zombie.b3d",
 	textures = {"zombie.png"},
