@@ -21,14 +21,14 @@ local function water_brain(self)
 	if self.hp <= 0 then
 		mobkit.clear_queue_high(self)
 		mobkit.hq_die(self)
-		return		
+		return
 	end
 
 	if mobkit.timer(self, 1) then
 		local priority = mobkit.get_queue_priority(self)
 
 		if mobkit.is_queue_empty_high(self) then
-			mobkit.hq_roam(self, 0)
+			mobkit.hq_aqua_roam(self, 0, 1)
 		end
 	end
 end
@@ -144,9 +144,9 @@ minetest.register_entity("bobcraft_mobs:firefish", {
 			mobkit.hurt(self,tool_capabilities.damage_groups.fleshy or 1)
 			mobkit.make_sound(self,'hurt')
 
-			-- abandon ship, run away!
-			mobkit.clear_queue_high(self)
-			mobkit.hq_runfrom(self, 10, puncher)
+			-- -- abandon ship, run away!
+			-- mobkit.clear_queue_high(self)
+			-- mobkit.hq_swimt(self, 10, puncher)
 		end
 	end,
 	
