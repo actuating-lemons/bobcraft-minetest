@@ -751,6 +751,19 @@ function mobkit.vitals(self)
 			
 		if self.oxygen <= 0 then self.hp=0 end	-- drown
 	end
+
+	-- vitals: water oxygen - drown out of water
+	if self.gill_capacity then
+		local colbox = self.object:get_properties().collisionbox
+		local headnode = mobkit.nodeatpos(mobkit.pos_shift(self.object:get_pos(),{y=colbox[5]})) -- node at hitbox top
+		if headnode and headnode.drawtype == 'liquid' then 
+			self.oxygen = self.lung_capacity
+		else
+			self.oxygen = self.oxygen - self.dtime
+		end
+			
+		if self.oxygen <= 0 then self.hp=0 end	-- drown
+	end
 end
 
 function mobkit.statfunc(self)
