@@ -31,6 +31,11 @@ function player_model.set_player_animation(player, animation_name, speed)
 	player:set_animation(anim, model.animation_speed*speed, 0)
 end
 
+function player_model.get_player_animation(player)
+	local playername = player:get_player_name()
+	return player_model.players_animation[playername]
+end
+
 function player_model.set_model(player, modelname)
 	local playername = player:get_player_name()
 	local model = player_model.models[modelname]
@@ -66,7 +71,11 @@ minetest.register_globalstep(function()
 					if controls.sneak then
 						player_model.set_player_animation(player, "sneakwalk", speed)
 					else
-						player_model.set_player_animation(player, "walk", speed)
+						if controls.dig or controls.place then 
+							player_model.set_player_animation(player, "digwalk", speed)
+						else
+							player_model.set_player_animation(player, "walk", speed)
+						end
 					end
 				else
 					-- Standing Still
@@ -80,7 +89,7 @@ minetest.register_globalstep(function()
 					else
 						-- Not Sneaking
 						if controls.dig or controls.place then 
-							player_model.set_player_animation(player, "punch", speed)
+							player_model.set_player_animation(player, "digstand", speed)
 						else
 							player_model.set_player_animation(player, "stand", speed)
 						end
@@ -109,6 +118,16 @@ player_model.register_model("player.b3d", {
 		walk = {
 			x = 40,
 			y = 50
+		},
+
+		-- We mirror the non-dig, as we just use the look to set the arm.
+		digstand = {
+			x = 0,
+			y = 30,
+		},
+		digwalk = {
+			x = 40,
+			y = 50,
 		},
 
 		sneak = {
