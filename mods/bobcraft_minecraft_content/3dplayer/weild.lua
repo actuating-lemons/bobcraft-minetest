@@ -9,7 +9,7 @@ dofile(minetest.get_modpath(minetest.get_current_modname()).."/weild3dlocation.l
 local timer = 0
 local player_wielding = {}
 local location = {
-	"arm_r",          -- default bone
+	"RightArm",          -- default bone
 	{x=2, y=6, z=0},    -- default position
 	{x=0, y=0, z=-70}, -- default rotation
 	{x=0.25, y=0.25},     -- default scale

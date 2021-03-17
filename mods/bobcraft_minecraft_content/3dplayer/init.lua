@@ -109,28 +109,6 @@ player_model.register_model("player.b3d", {
 			x = 15,
 			y = 25
 		},
-		sneak = {
-			x = 30,
-			y = 40
-		},
-		sneakwalk = {
-			x = 45,
-			y = 55
-		},
-
-		punch = {
-			x = 65,
-			y = 70,
-		},
-		sneakpunch = {
-			x = 75,
-			y = 80,
-		},
-
-		lay = { -- death, sleeping
-			x = 85,
-			y = 85,
-		}
 	}
 })
 
