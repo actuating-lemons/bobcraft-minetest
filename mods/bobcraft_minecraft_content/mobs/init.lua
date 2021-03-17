@@ -14,7 +14,7 @@ minetest.register_on_chat_message(function(name, message)
 end)
 
 -- real spawning, copied from https://github.com/TheTermos/wildlife/blob/master/init.lua
-local spawn_rate = 1
+local spawn_rate = 0.1
 local spawn_reduction = 0.5
 local function spawnstep(dtime)
 
