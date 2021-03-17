@@ -138,6 +138,10 @@ function sfinv.get_page(player)
 	return context and context.page or sfinv.get_homepage_name(player)
 end
 
+function sfinv.get_theme(player)
+	return theme_inv
+end
+
 minetest.register_on_joinplayer(function(player)
 	if sfinv.enabled then
 		sfinv.set_player_inventory_formspec(player)
