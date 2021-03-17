@@ -757,7 +757,7 @@ function mobkit.vitals(self)
 		local colbox = self.object:get_properties().collisionbox
 		local headnode = mobkit.nodeatpos(mobkit.pos_shift(self.object:get_pos(),{y=colbox[5]})) -- node at hitbox top
 		if headnode and headnode.drawtype == 'liquid' then 
-			self.oxygen = self.lung_capacity
+			self.oxygen = self.gill_capacity
 		else
 			self.oxygen = self.oxygen - self.dtime
 		end
@@ -830,7 +830,7 @@ function mobkit.actfunc(self, staticdata, dtime_s)
 	self.object:set_armor_groups(self.armor_groups)
 	
 	self.buoyancy = self.buoyancy or 0
-	self.oxygen = self.oxygen or self.lung_capacity
+	self.oxygen = self.oxygen or self.lung_capacity or self.gill_capacity
 	self.lastvelocity = {x=0,y=0,z=0}
 	self.sensefunc=sensors()
 end
