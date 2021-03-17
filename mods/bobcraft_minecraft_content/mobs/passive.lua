@@ -15,6 +15,23 @@ local function brain(self)
 		end
 	end
 end
+local function water_brain(self)
+	mobkit.vitals(self)
+
+	if self.hp <= 0 then
+		mobkit.clear_queue_high(self)
+		mobkit.hq_die(self)
+		return		
+	end
+
+	if mobkit.timer(self, 1) then
+		local priority = mobkit.get_queue_priority(self)
+
+		if mobkit.is_queue_empty_high(self) then
+			mobkit.hq_roam(self, 0)
+		end
+	end
+end
 
 -- Pigge ;D
 minetest.register_entity("bobcraft_mobs:pig", {
@@ -93,8 +110,9 @@ minetest.register_entity("bobcraft_mobs:firefish", {
 	collide_with_objects = true,
 	collisionbox = {-0.15, 0.0, -0.15, 0.15, 0.3, 0.15,},
 	visual = "mesh",
-	mesh = "pig.b3d",
-	textures = {"pig.png"},
+	visual_size = {x=1, y=1},
+	mesh = "firefish.b3d",
+	textures = {"firefish.png"},
 	static_save = true,
 	makes_footstep_sound = true,
 	
@@ -104,19 +122,17 @@ minetest.register_entity("bobcraft_mobs:firefish", {
 	get_staticdata = mobkit.statfunc,
 
 	springiness = 0, -- TODO: Investigate
-	buoyancy = 0.75,
-	max_speed = 5,
+	buoyancy = 1.0,
+	max_speed = 3,
 	view_range = 16,
 	lung_capacity = 10,
 	max_hp = 10,
-	timeout = 600, -- TODO: Investigate
+	timeout = 100, -- TODO: Investigate
 	sounds = {
-		idle = "pig_idle",
 		hurt = "mob_hit",
-		die = "pig_death"
 	},
 
-	jump_height = 1,
+	jump_height = 0.5,
 
 	brainfunc = water_brain,
 
@@ -136,22 +152,30 @@ minetest.register_entity("bobcraft_mobs:firefish", {
 	
 	-- animations
 	animation = {
-		stand = {
+		idle = {
 			range = {
 				x = 0,
-				y = 0,
+				y = 20,
 			},
 			speed = 15,
 			loop = true,
 		},
-		walk = {
+		def = {
 			range = {
-				x = 15,
-				y = 25,
+				x = 30,
+				y = 50,
 			},
 			speed = 15,
+			loop = true,
+		},
+		fast = {
+			range = {
+				x = 60,
+				y = 80,
+			},
+			speed = 30,
 			loop = true,
 		}
 	}
 })
-mobkit.register_spawn_egg("bobcraft_mobs:pig", "#eb9592", "#623637")
+mobkit.register_spawn_egg("bobcraft_mobs:firefish", "#1e1d1d", "#eca000")
