@@ -854,6 +854,8 @@ end
 
 -- load example behaviors
 dofile(minetest.get_modpath("mobkit") .. "/builtin.lua")
+-- load extended functions
+dofile(minetest.get_modpath("mobkit") .. "/extend.lua")
 
 minetest.register_on_mods_loaded(function()
 	local mbkfuns = ''
