@@ -21,7 +21,7 @@ function player_model.set_player_animation(player, animation_name)
 		return
 	end
 
-	if animation_name == player_model.players_animation then
+	if animation_name == player_model.players_animation[playername] then
 		return
 	end
 
