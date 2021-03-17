@@ -5,23 +5,16 @@
 local S = minetest.get_translator("bobcraft_blocks")
 
 local function get_furnace_formspec()
-	return "size[9,8.5]"..
+	return "size[9,9]"..
 		"list[context;src;2.75,0.5;1,1;]"..
 		"list[context;fuel;2.75,2.5;1,1;]"..
 		"image[2.75,1.5;1,1;furnace_fire_bg.png]"..
 		"image[3.75,1.5;1,1;arrow_bg.png^[transformR270]"..
-		"list[context;dst;5,1.5;1,1;]"..
-		"list[current_player;main;0,4.5;9,3;9]" ..
-		"list[current_player;main;0,7.85;9,1;]" ..
-		"listring[context;dst]"..
-		"listring[current_player;main]"..
-		"listring[context;src]"..
-		"listring[current_player;main]"..
-		"listring[context;fuel]"..
-		"listring[current_player;main]"
+		"list[context;dst;5,1.5;1,1;]" ..
+		sfinv.get_theme()
 end
 local function get_active_furnace_formspec(fuel_percent, item_percent)
-	return "size[9,8.5]"..
+	return "size[9,9]"..
 		"list[context;src;2.75,0.5;1,1;]"..
 		"list[context;fuel;2.75,2.5;1,1;]"..
 		"image[2.75,1.5;1,1;furnace_fire_bg.png^[lowpart:"..
@@ -29,14 +22,7 @@ local function get_active_furnace_formspec(fuel_percent, item_percent)
 		"image[3.75,1.5;1,1;arrow_bg.png^[lowpart:"..
 		(item_percent)..":arrow_fg.png^[transformR270]"..
 		"list[context;dst;5,1.5;1,1;]"..
-		"list[current_player;main;0,4.5;9,3;9]" ..
-		"list[current_player;main;0,7.85;9,1;]" ..
-		"listring[context;dst]"..
-		"listring[current_player;main]"..
-		"listring[context;src]"..
-		"listring[current_player;main]"..
-		"listring[context;fuel]"..
-		"listring[current_player;main]"
+		sfinv.get_theme()
 end
 
 --[[ 

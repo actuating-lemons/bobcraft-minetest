@@ -2,11 +2,11 @@
 
 -- Used for the crafting table
 local table_formspec = function()
-	return "size[8,7.5;]" ..
-	"list[current_player;main;0,3.5;8,4;]" ..
+	return "size[8,9;]" ..
 	"list[current_player;craft;2,0;3,3;]" ..
 	"image[5,1;1,1;arrow_fg.png^[transformR270]"..
-	"list[current_player;craftpreview;6,1;1,1;]"
+	"list[current_player;craftpreview;6,1;1,1;]"..
+	sfinv.get_theme()
 end
 
 local S = minetest.get_translator("bobcraft_blocks")
