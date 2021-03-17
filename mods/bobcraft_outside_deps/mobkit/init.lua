@@ -853,7 +853,7 @@ function mobkit.stepfunc(self,dtime,colinfo)	-- not intended to be modified
 end
 
 -- load example behaviors
-dofile(minetest.get_modpath("mobkit") .. "/example_behaviors.lua")
+dofile(minetest.get_modpath("mobkit") .. "/builtin.lua")
 
 minetest.register_on_mods_loaded(function()
 	local mbkfuns = ''
