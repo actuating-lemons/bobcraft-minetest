@@ -37,7 +37,7 @@ function sfinv.get_nav_fs(player, context, nav, current_idx)
 end
 
 local theme_inv = [[
-		list[current_player;main;0,5;9,3;8]
+		list[current_player;main;0,5;9,3;9]
 		list[current_player;main;0,8.2;9,1;]
 	]]
 
