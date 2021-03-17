@@ -21,6 +21,8 @@ Bobcraft includes modified third-party mods unaffiliated with the project. They 
  - Rubenwardy's Simple Fast Inventory - MIT
  - Blockmen's Beds - MIT
  - stujones11's Wield 3d - MIT
+ - LoneWolfHT's headanim - MIT
+ - TheTermos' mobkit - MIT
 
 ## Contributing
 **TODO**
