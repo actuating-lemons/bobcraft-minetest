@@ -9,6 +9,9 @@
 	It's all a  massive headache. but hey, if I got it working, I got it working.
 ]]
 
+sky = {}
+sky.modes = {}
+
 local function hsv_rgb(H,S,V)
 	-- wow this is turning out to be an expensive operation.
 
@@ -124,6 +127,9 @@ local function set_player_skies()
 		local player_pos = player:get_pos()
 		local player_biome = worldgen.get_biome(player_pos)
 
+		local player_name = player:get_player_name()
+		local player_sky_mode = sky.modes[player_name]
+
 		if player_biome then
 			local player_biome_temp = player_biome.temperature
 
@@ -154,15 +160,29 @@ local function set_player_skies()
 				sky_color = color_table
 			})
 
-			player:set_clouds({
-				density = 0.35,
-				color = "#ffffffcc",
-				height = 132,
-				thickness = 4,
-				speed = {x=2, z=0}
-			})
+			if player_sky_mode == "weather" then
+				player:set_clouds({
+					density = 0.6,
+					color = "#ccccccff",
+					height = 132,
+					thickness = 6,
+					speed = {x=1, z=1}
+				})
+			else
+				player:set_clouds({
+					density = 0.35,
+					color = "#ffffffcc",
+					height = 132,
+					thickness = 4,
+					speed = {x=2, z=0}
+				})
+			end
 		end
 	end
+end
+
+sky.set_sky_mode = function(player, mode)
+	sky.modes[player] = mode
 end
 
 minetest.register_globalstep(function(dtime)

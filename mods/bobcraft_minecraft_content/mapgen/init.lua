@@ -200,6 +200,12 @@ for i = 1, #worldgen.registered_dimensions do
 end
 
 local world_data_buffer = {}
+function worldgen.get_temperature(pos)
+	local noise_temperature = worldgen.get_perlin_map(worldgen.np_temperature, {x=1, y=1, z=1}, pos)
+
+	return noise_temperature[1]
+end
+
 minetest.register_on_generated(function(minp, maxp, blockseed)
 	local vm, emin, emax = minetest.get_mapgen_object("voxelmanip")
 	local data = vm:get_data(world_data_buffer)
