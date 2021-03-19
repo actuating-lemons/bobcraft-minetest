@@ -97,7 +97,7 @@ worldgen.register_dimension({
 		this.buffer_structure = {}
 	end,
 
-	y_at_point = function (this, x, z, ni, biome, noise1, noise2, noise3)
+	base_y_at_point = function (this, x, z, ni, biome, noise1, noise2, noise3)
 		local y
 	
 		local effector = 1.1
@@ -107,7 +107,11 @@ worldgen.register_dimension({
 	
 		y = y - (noise3[ni] * effector) * 8
 	
-		y = y + worldgen.overworld_sealevel
+		y = y + biome.y_min
+
+		-- Scale between the min, max values
+		y = y / 256
+		y = y * (biome.y_min + biome.y_max)
 	
 		return y
 	end,
@@ -133,7 +137,7 @@ worldgen.register_dimension({
 					local rainfall = noise_rainfall[ni]
 					local biome = worldgen.get_biome_nearest(temperature, rainfall, this.biome_list)
 
-					local y = math.floor(this:y_at_point(x, z, ni, biome, noise_base, noise_overlay, noise_overlay2))
+					local y = math.floor(this:base_y_at_point(x, z, ni, biome, noise_base, noise_overlay, noise_overlay2))
 
 					above_node = biome.above
 					top_node = biome.top
