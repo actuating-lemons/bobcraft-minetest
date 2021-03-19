@@ -97,7 +97,7 @@ worldgen.register_dimension({
 		this.buffer_structure = {}
 	end,
 
-	y_at_point = function (this, x, z, ni, biome, tempdiff, noise1, noise2, noise3)
+	y_at_point = function (this, x, z, ni, biome, noise1, noise2, noise3)
 		local y
 	
 		local effector = 1.1
@@ -131,49 +131,26 @@ worldgen.register_dimension({
 					local top_node, mid_node, bottom_node, above_node
 					local temperature = noise_temperature[ni]
 					local rainfall = noise_rainfall[ni]
-					local biome, h = worldgen.get_biome_nearest(temperature, rainfall, this.biome_list)
-					local listwithoutbiome = table.copy(this.biome_list)
-					table.remove(listwithoutbiome, h)
+					local biome = worldgen.get_biome_nearest(temperature, rainfall, this.biome_list)
 
-					local tempdiff = worldgen.tempdiff(temperature, biome, listwithoutbiome)
-
-					if tempdiff < 0 then
-						tempdiff = 0
-					elseif tempdiff > 1 then
-						tempdiff = 1
-					end
-
-					local y = math.floor(this:y_at_point(x, z, ni, biome, tempdiff, noise_base, noise_overlay, noise_overlay2))
+					local y = math.floor(this:y_at_point(x, z, ni, biome, noise_base, noise_overlay, noise_overlay2))
 
 					above_node = biome.above
 					top_node = biome.top
 					mid_node = biome.middle
 					bottom_node = biome.bottom
 
-					if y <= maxp.y and y >= minp.y then
-						local vi = area:index(x, y, z)
-						local via = area:index(x, y+1, z) -- vi-above
-						if y < worldgen.overworld_sealevel then
-							data[vi] = mid_node
-						else
-							data[vi] = top_node
-							if above_node ~= c_air then
-								data[via] = above_node
-							end
-						end
-					end
+					--------------------------------------------------------
+					--                               _                    --
+					--	 _ __ ___  _ __ ___      ___| |_ ___  _ __   ___  --
+					--	| '_ ` _ \| '_ ` _ \    / __| __/ _ \| '_ \ / _ \ --
+					--	| | | | | | | | | | |_  \__ \ || (_) | | | |  __/ --
+					--	|_| |_| |_|_| |_| |_( ) |___/\__\___/|_| |_|\___| --
+					--						|/                            --
+					--------------------------------------------------------
 
-					local tl = math.floor((noise_top_layer[ni] + 1))
-					if y - tl - 1 <= maxp.y and y - 1 >= minp.y then
-						for yy = math.max(y - tl - 1, minp.y), math.min(y - 1, maxp.y) do
-							local vi = area:index(x, yy, z)
-							data[vi] = mid_node
-						end
-					end
-
-					local sl = math.floor((noise_second_layer[ni] + 1))
-					if y - sl - 2 >= minp.y then
-						for yy = minp.y, math.min(y - sl - 2, maxp.y) do
+					if y >= minp.y then
+						for yy = minp.y, math.min(y, maxp.y) do
 							local vi = area:index(x, yy, z)
 							if yy >= worldgen.overworld_bottom then
 								data[vi] = bottom_node
@@ -193,6 +170,7 @@ worldgen.register_dimension({
 							end
 						end
 					end
+					
 				end
 				ni = ni + 1
 			end
