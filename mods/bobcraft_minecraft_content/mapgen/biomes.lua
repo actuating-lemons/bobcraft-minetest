@@ -28,8 +28,8 @@ function worldgen.register_biome(def)
 	-- def.v_override
 	-- def.sky_force_underground -- If true, will force the sky to be the color, even indoors.
 
-	def.y_min = def.y_min or worldgen.overworld_sealevel
-	def.y_max = def.y_max or worldgen.overworld_top
+	def.y_min = def.y_min or 0
+	def.y_max = def.y_max or 1
 
 	-- Translate values into IDs
 	def.top = minetest.get_content_id(def.top)
@@ -92,8 +92,8 @@ worldgen.register_biome({
 	middle = "bobcraft_blocks:sand",
 	bottom = "bobcraft_blocks:sandstone",
 	
-	y_min = worldgen.overworld_sealevel,
-	y_max = worldgen.overworld_sealevel+5,
+	y_min = 0.1,
+	y_max = 0.2,
 })
 worldgen.register_biome({
 	name = "worldgen:biome_tundra",

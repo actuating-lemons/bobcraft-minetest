@@ -111,7 +111,9 @@ worldgen.register_dimension({
 
 		-- Scale between the min, max values
 		y = y / 256
-		y = y * (biome.y_min + biome.y_max)
+		y = y * ( (worldgen.overworld_sealevel*biome.y_min) + (worldgen.overworld_sealevel*biome.y_max) )
+
+		y = y + worldgen.overworld_sealevel
 	
 		return y
 	end,
