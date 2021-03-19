@@ -82,6 +82,14 @@ worldgen.register_dimension({
 		this.map_base = nil
 		
 		this.buffer_base = {}
+		this.buffer_overlay = {}
+		this.buffer_overlay2 = {}
+
+		this.buffer_top_layer = {}
+		this.buffer_second_layer = {}
+
+		this.buffer_temperature = {}
+		this.buffer_rainfall = {}
 
 		this.buffer_cave1 = {}
 		this.buffer_cave2 = {}
@@ -91,15 +99,15 @@ worldgen.register_dimension({
 
 	gen_func = function(this, minp, maxp, blockseed, vm, area, data)
 		local sidelen = maxp.x - minp.x + 1
-		local noise_base = worldgen.get_perlin_map(worldgen.np_base, {x=sidelen, y=sidelen, z=sidelen}, minp)
-		local noise_overlay = worldgen.get_perlin_map(worldgen.np_overlay, {x=sidelen, y=sidelen, z=sidelen}, minp)
-		local noise_overlay2 = worldgen.get_perlin_map(worldgen.np_overlay2, {x=sidelen, y=sidelen, z=sidelen}, minp)
+		local noise_base = worldgen.get_perlin_map(worldgen.np_base, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_base)
+		local noise_overlay = worldgen.get_perlin_map(worldgen.np_overlay, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_overlay)
+		local noise_overlay2 = worldgen.get_perlin_map(worldgen.np_overlay2, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_overlay2)
 	
-		local noise_top_layer = worldgen.get_perlin_map(worldgen.np_second_layer, {x=sidelen, y=sidelen, z=sidelen}, minp)
-		local noise_second_layer = worldgen.get_perlin_map(worldgen.np_second_layer, {x=sidelen, y=sidelen, z=sidelen}, minp)
+		local noise_top_layer = worldgen.get_perlin_map(worldgen.np_second_layer, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_top_layer)
+		local noise_second_layer = worldgen.get_perlin_map(worldgen.np_second_layer, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_second_layer)
 	
-		local noise_temperature = worldgen.get_perlin_map(worldgen.np_temperature, {x=sidelen, y=sidelen, z=sidelen}, minp)
-		local noise_rainfall = worldgen.get_perlin_map(worldgen.np_rainfall, {x=sidelen, y=sidelen, z=sidelen}, minp)
+		local noise_temperature = worldgen.get_perlin_map(worldgen.np_temperature, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_temperature)
+		local noise_rainfall = worldgen.get_perlin_map(worldgen.np_rainfall, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_rainfall)
 
 		local ni = 1
 		for z = minp.z, maxp.z do
