@@ -162,21 +162,6 @@ dofile(mp.."/dimensions.lua")
 dofile(mp.."/ores.lua")
 dofile(mp.."/decorations.lua")
 
-function worldgen.y_at_point(x, z, ni, biome, tempdiff, noise1, noise2, noise3) -- TODO: this is overworld specific, should we move this to dimensions?
-	local y
-
-	local effector = 1.1
-
-	y = 8 * (noise1[ni]*effector)
-	y = y * (noise2[ni]*effector) * 4
-
-	y = y - (noise3[ni] * effector) * 8
-
-	y = y + worldgen.overworld_sealevel
-
-	return y
-end
-
 worldgen.get_nearest_dimension = bobutil.get_nearest_dimension
 
 -- Returns the biome at the pos.

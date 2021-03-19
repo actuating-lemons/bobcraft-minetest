@@ -97,6 +97,21 @@ worldgen.register_dimension({
 		this.buffer_structure = {}
 	end,
 
+	y_at_point = function (this, x, z, ni, biome, tempdiff, noise1, noise2, noise3)
+		local y
+	
+		local effector = 1.1
+	
+		y = 8 * (noise1[ni]*effector)
+		y = y * (noise2[ni]*effector) * 4
+	
+		y = y - (noise3[ni] * effector) * 8
+	
+		y = y + worldgen.overworld_sealevel
+	
+		return y
+	end,
+
 	gen_func = function(this, minp, maxp, blockseed, vm, area, data)
 		local sidelen = maxp.x - minp.x + 1
 		local noise_base = worldgen.get_perlin_map(worldgen.np_base, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_base)
@@ -128,7 +143,7 @@ worldgen.register_dimension({
 						tempdiff = 1
 					end
 
-					local y = math.floor(worldgen.y_at_point(x, z, ni, biome, tempdiff, noise_base, noise_overlay, noise_overlay2))
+					local y = math.floor(this:y_at_point(x, z, ni, biome, tempdiff, noise_base, noise_overlay, noise_overlay2))
 
 					above_node = biome.above
 					top_node = biome.top
