@@ -232,3 +232,12 @@ function bobutil.weighted_random(table, weight_key)
     end
 
 end
+
+-- https://gist.github.com/mebens/938502
+function bobutil.lshift(x, by)
+	return x * 2 ^ by
+  end
+  
+  function bobutil.rshift(x, by)
+	return math.floor(x / 2 ^ by)
+  end
