@@ -80,6 +80,14 @@ worldgen.register_dimension({
 	init = function(this) 
 		-- Create the noise map variables to optimise
 		this.map_base = nil
+
+		this.noise_base = minetest.get_perlin(worldgen.np_base)
+		this.noise_a = minetest.get_perlin(worldgen.np_overlay)
+		this.noise_b = minetest.get_perlin(worldgen.np_overlay2)
+		this.noise_c = minetest.get_perlin(worldgen.np_overlay3)
+		this.noise_d = minetest.get_perlin(worldgen.np_overlay2)
+		this.noise_e = minetest.get_perlin(worldgen.np_overlay3)
+		this.noise_f = minetest.get_perlin(worldgen.np_overlay2)
 		
 		this.buffer_base = {}
 		this.buffer_overlay = {}
@@ -97,32 +105,49 @@ worldgen.register_dimension({
 		this.buffer_structure = {}
 	end,
 
-	base_y_at_point = function (this, x, z, ni, biome, noise1, noise2, noise3)
+	sample_heightmap = function (this, x, z, ni, biome, noise1, noise2, noise3)
+
+		-- TODO: AAAAAAAAAAAAAAAAAAA!
+
+		this.noise_a = minetest.get_perlin(worldgen.np_base16)
+		this.noise_b = minetest.get_perlin(worldgen.np_base16)
+		this.noise_c = minetest.get_perlin(worldgen.np_base8)
+		this.noise_d = minetest.get_perlin(worldgen.np_base4)
+		this.noise_e = minetest.get_perlin(worldgen.np_base4)
+		this.noise_f = minetest.get_perlin(worldgen.np_base5)
 		local y
-	
-		local effector = 1.1
-	
-		y = 8 * (noise1[ni]*effector)
-		y = y * (noise2[ni]*effector) * 4
-	
-		y = y - (noise3[ni] * effector) * 8
-	
-		y = y + biome.y_min
 
-		-- Scale between the min, max values
-		y = y / 256
-		y = y * ( (worldgen.overworld_sealevel*biome.y_min) + (worldgen.overworld_sealevel*biome.y_max) )
+		local startx = x
+		local startz = x
 
-		y = y + worldgen.overworld_sealevel
-	
+		local x = startx + math.abs(x)
+		local z = startz + math.abs(z)
+
+		local noisea = 
+			this.noise_a:get_3d(vector.new(x / 0.03125, 0, z / 0.03125)) -
+			this.noise_b:get_3d(vector.new(x / 0.015625, 0, z / 0.15625)) / 256
+		local noiseb = this.noise_e:get_3d(vector.new(x, z, 0))
+		local noisec = this.noise_f:get_3d(vector.new(x / 4, z / 4, 0)) / 4
+
+		if noiseb > 0 then
+            noiseb = (this.noise_c:get_3d(vector.new(x * 0.25714284 * 1.0, z * 0.25714284 * 1.0, 0)) * noisec / 2.0)
+		else
+            noiseb = (this.noise_d:get_3d(vector.new(x * 0.25714284, z * 0.25714284, 0)) * noisec)
+		end
+
+		y = noisea + worldgen.overworld_sealevel + noiseb
+		if this.noise_e:get_3d(vector.new(x, z, 0)) < 0 then
+			y = y / 2
+			if this.noise_e:get_3d(vector.new(x / 5, z / 5, 0)) < 0.0 then
+                y = y + 1
+			end
+		end
+
 		return y
 	end,
 
 	gen_func = function(this, minp, maxp, blockseed, vm, area, data)
 		local sidelen = maxp.x - minp.x + 1
-		local noise_base = worldgen.get_perlin_map(worldgen.np_base, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_base)
-		local noise_overlay = worldgen.get_perlin_map(worldgen.np_overlay, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_overlay)
-		local noise_overlay2 = worldgen.get_perlin_map(worldgen.np_overlay2, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_overlay2)
 	
 		local noise_top_layer = worldgen.get_perlin_map(worldgen.np_second_layer, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_top_layer)
 		local noise_second_layer = worldgen.get_perlin_map(worldgen.np_second_layer, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_second_layer)
@@ -139,7 +164,7 @@ worldgen.register_dimension({
 					local rainfall = noise_rainfall[ni]
 					local biome = worldgen.get_biome_nearest(temperature, rainfall, this.biome_list)
 
-					local y = math.floor(this:base_y_at_point(x, z, ni, biome, noise_base, noise_overlay, noise_overlay2))
+					local y = this.sample_heightmap(this, x, z, ni, biome)
 
 					above_node = biome.above
 					top_node = biome.top
@@ -178,54 +203,6 @@ worldgen.register_dimension({
 					end
 					
 				end
-				ni = ni + 1
-			end
-		end
-
-
-		-- caves, structures
-		local noise_caves = worldgen.get_perlin_map_3d(worldgen.np_caves, {x=sidelen, y=sidelen, z=sidelen}, minp)
-		local noise_caves2 = worldgen.get_perlin_map_3d(worldgen.np_caves2, {x=sidelen, y=sidelen, z=sidelen}, minp)
-		local noise_caves3 = worldgen.get_perlin_map_3d(worldgen.np_caves2, {x=sidelen, y=sidelen, z=sidelen}, minp)
-		local noise_structure = worldgen.get_perlin_map(worldgen.np_caves, {x=sidelen, y=sidelen, z=sidelen}, minp)
-		local rand = PcgRandom(blockseed)
-		local nixyz = 1
-		ni = 1
-
-		-- whether we should try generating a certain structure, given the chance
-		local gen_temple = true
-
-		for x = minp.x, maxp.x do
-			for z = minp.z, maxp.z do
-				for y = minp.y, maxp.y do
-					local vi = area:index(x, y, z)
-
-					local cave, cave2, cave3 = noise_caves[nixyz], noise_caves2[nixyz], noise_caves3[nixyz]
-
-					if (cave ^ 2 + cave2 ^ 2 + cave3 ^ 2) < 0.04 then
-						if data[vi] ~= air then
-							-- If it's ground content, smash our way through it
-							if data[vi] == c_stone or
-							data[vi] == c_dirt or
-							data[vi] == c_grass or
-							data[vi] == c_sand or
-							data[vi] == c_sandstone then
-								data[vi] = c_air
-							end
-						end
-					end
-
-					nixyz = nixyz + 1
-				end
-
-				local amount = math.floor(noise_structure[ni] * 9)
-				for i = 0, amount do
-					if gen_temple and rand:next(0,50000) == 0 then
-						worldgen.gen_struct({x=x,z=z, y=rand:next(worldgen.overworld_struct_min, worldgen.overworld_struct_max)}, "temple", "random", rand)
-						gen_temple = false -- one per chunk
-					end
-				end
-
 				ni = ni + 1
 			end
 		end
@@ -271,13 +248,13 @@ worldgen.register_dimension({
 		local pillarz = (minp.z + maxp.z) /2
 
 		this.map_pillars = this.map_pillars or minetest.get_perlin(worldgen.np_hell_pillar)
-		local noise_pillars = this.map_pillars:get_2d({x=pillarx,y=pillarz})
+		local noise_pillars = this.map_pillars:get_3d({x=pillarx,y=pillarz})
 
 		local pillar_variator = 0
 
 		if noise_pillars > 0.9 then
 			gen_pillar = true
-			pillar_variator = math.max(0,this.map_pillars:get_2d({x=pillarx,y=pillarz}))
+			pillar_variator = math.max(0,this.map_pillars:get_3d({x=pillarx,y=pillarz}))
 		end
 
 		local nixyz = 1

@@ -47,33 +47,45 @@ worldgen.np_bedrock = {
 -- This doesn't seem right with the concept of dimensions, so we need to move them to dimension specific areas.
 
 -- Base - the meat of the y height
-worldgen.np_base = {
+worldgen.np_base16 = {
 	offset = 0,
 	scale = 5,
 	spread = {x=256, y=256, z=256},
-	seed = 69420,
+	seed = 0,
+	octaves = 16,
+	persist = 0.6,
+	lacunarity = 2.0,
+	flags = "defaults",
+}
+worldgen.np_base8 = {
+	offset = 0,
+	scale = 5,
+	spread = {x=256, y=256, z=256},
+	seed = 0,
+	octaves = 8,
+	persist = 0.6,
+	lacunarity = 2.0,
+	flags = "defaults",
+}
+worldgen.np_base4 = {
+	offset = 0,
+	scale = 5,
+	spread = {x=256, y=256, z=256},
+	seed = 0,
 	octaves = 4,
 	persist = 0.6,
 	lacunarity = 2.0,
 	flags = "defaults",
 }
--- Overlay - multiplies on-top of the already set y height from Base
-worldgen.np_overlay = {
+worldgen.np_base5 = {
 	offset = 0,
-	scale = 1,
-	spread = {x=512, y=512, z=512},
-	seed = 42078,
-	octaves = 6,
-	persist = 0.5,
-}
--- Overlay2 - removes from the base + overlay1
-worldgen.np_overlay2 = {
-	offset = 0,
-	scale = 1,
-	spread = {x=512, y=512, z=512},
-	seed = 47238239, -- key mash
-	octaves = 6,
-	persist = 0.5,
+	scale = 5,
+	spread = {x=256, y=256, z=256},
+	seed = 0,
+	octaves = 4,
+	persist = 0.6,
+	lacunarity = 2.0,
+	flags = "defaults",
 }
 
 -- second layer - the shape of the dirt/stone mix, irrespective of surface
