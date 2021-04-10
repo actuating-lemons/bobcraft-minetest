@@ -105,7 +105,7 @@ worldgen.register_dimension({
 		this.buffer_structure = {}
 	end,
 
-	sample_heightmap = function (this, x, z, ni, biome, noise1, noise2, noise3)
+	sample_heightmap = function (this, inx, inz, ni, biome, noise1, noise2, noise3)
 
 		-- TODO: AAAAAAAAAAAAAAAAAAA!
 
@@ -117,28 +117,28 @@ worldgen.register_dimension({
 		this.noise_f = minetest.get_perlin(worldgen.np_base5)
 		local y
 
-		local startx = x
-		local startz = x
+		local startx = bobutil.lshift(bobutil.rshift(inx, 4), 4)
+		local startz = bobutil.lshift(bobutil.rshift(inz, 4), 4)
 
-		local x = startx + math.abs(x)
-		local z = startz + math.abs(z)
+		local x = startx + math.abs(inx) % 16
+		local z = startz + math.abs(inz) % 16
 
 		local noisea = 
-			this.noise_a:get_3d(vector.new(x / 0.03125, 0, z / 0.03125)) -
-			this.noise_b:get_3d(vector.new(x / 0.015625, 0, z / 0.15625)) / 256
-		local noiseb = this.noise_e:get_3d(vector.new(x, z, 0))
-		local noisec = this.noise_f:get_3d(vector.new(x / 4, z / 4, 0)) / 4
+			this.noise_a:get_3d({x = x / 0.03125, y = 0, z = z / 0.03125}) -
+			this.noise_b:get_3d({x = x / 0.015625,y = 0, z = z / 0.15625}) / 512 / 4
+		local noiseb = this.noise_e:get_2d({x = x / 4, y = z / 4})
+		local noisec = this.noise_f:get_2d({x = x / 8, y = z / 8}) / 8
 
 		if noiseb > 0 then
-            noiseb = (this.noise_c:get_3d(vector.new(x * 0.25714284 * 1.0, z * 0.25714284 * 1.0, 0)) * noisec / 2.0)
+            noiseb = (this.noise_c:get_2d({x = x * 0.25714284 * 1.0, y = z * 0.25714284 * 2.0}) * noisec / 4.0)
 		else
-            noiseb = (this.noise_d:get_3d(vector.new(x * 0.25714284, z * 0.25714284, 0)) * noisec)
+            noiseb = (this.noise_d:get_2d({x = x * 0.25714284, y = z * 0.25714284}) * noisec)
 		end
 
 		y = noisea + worldgen.overworld_sealevel + noiseb
-		if this.noise_e:get_3d(vector.new(x, z, 0)) < 0 then
-			y = y / 2
-			if this.noise_e:get_3d(vector.new(x / 5, z / 5, 0)) < 0.0 then
+		if this.noise_e:get_2d({x = x, y = z}) < 0 then
+			y = y / bobutil.lshift(2, 1)
+			if this.noise_e:get_2d({x = x / 5, y = z /5}) < 0.0 then
                 y = y + 1
 			end
 		end
@@ -148,28 +148,18 @@ worldgen.register_dimension({
 
 	gen_func = function(this, minp, maxp, blockseed, vm, area, data)
 		local sidelen = maxp.x - minp.x + 1
-	
-		local noise_top_layer = worldgen.get_perlin_map(worldgen.np_second_layer, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_top_layer)
-		local noise_second_layer = worldgen.get_perlin_map(worldgen.np_second_layer, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_second_layer)
-	
-		local noise_temperature = worldgen.get_perlin_map(worldgen.np_temperature, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_temperature)
-		local noise_rainfall = worldgen.get_perlin_map(worldgen.np_rainfall, {x=sidelen, y=sidelen, z=sidelen}, minp, this.buffer_rainfall)
-
 		local ni = 1
 		for z = minp.z, maxp.z do
 			for x = minp.x, maxp.x do
 				if maxp.y >= worldgen.overworld_bottom then 
 					local top_node, mid_node, bottom_node, above_node
-					local temperature = noise_temperature[ni]
-					local rainfall = noise_rainfall[ni]
-					local biome = worldgen.get_biome_nearest(temperature, rainfall, this.biome_list)
 
-					local y = this.sample_heightmap(this, x, z, ni, biome)
+					local y = this.sample_heightmap(this, x, z, ni, {})
 
-					above_node = biome.above
-					top_node = biome.top
-					mid_node = biome.middle
-					bottom_node = biome.bottom
+					above_node = c_air
+					top_node = c_grass
+					mid_node = c_dirt
+					bottom_node = c_stone
 
 					--------------------------------------------------------
 					--                               _                    --
@@ -189,18 +179,18 @@ worldgen.register_dimension({
 						end
 					end
 
-					for yy = minp.y, maxp.y do
-						local vi = area:index(x, yy, z)
-						-- the sea
-						if yy <= worldgen.overworld_sealevel and yy >= worldgen.overworld_bottom then
-							if data[vi] == c_air then
-								data[vi] = biome.liquid
-								if yy == worldgen.overworld_sealevel then
-									data[vi] = biome.liquid_top
-								end
-							end
-						end
-					end
+					-- for yy = minp.y, maxp.y do
+					-- 	local vi = area:index(x, yy, z)
+					-- 	-- the sea
+					-- 	if yy <= worldgen.overworld_sealevel and yy >= worldgen.overworld_bottom then
+					-- 		if data[vi] == c_air then
+					-- 			-- data[vi] = biome.liquid
+					-- 			if yy == worldgen.overworld_sealevel then
+					-- 				-- data[vi] = biome.liquid_top
+					-- 			end
+					-- 		end
+					-- 	end
+					-- end
 					
 				end
 				ni = ni + 1
@@ -229,6 +219,7 @@ worldgen.register_dimension({
 	compression_factor = 10,
 	
 	init = function (this)
+		minetest.log("warn", "Hell is disabled!")
 		this.map_caves = nil
 		this.map_pillars = nil
 
@@ -237,90 +228,91 @@ worldgen.register_dimension({
 	end,
 
 	gen_func = function(this, minp, maxp, blockseed, vm, area, data)
-		local sidelen = maxp.x - minp.x + 1
-		this.map_caves = this.map_caves or minetest.get_perlin_map(worldgen.np_hell_cavern, {x=sidelen,y=sidelen,z=sidelen})
-		local noise_caves = this.map_caves:get_3d_map(minp, this.buffer_caves)
-
-		-- will this chunk have a pillar?
-		local gen_pillar = false
-		-- Middle of the chunk
-		local pillarx = (minp.x + maxp.x) /2
-		local pillarz = (minp.z + maxp.z) /2
-
-		this.map_pillars = this.map_pillars or minetest.get_perlin(worldgen.np_hell_pillar)
-		local noise_pillars = this.map_pillars:get_3d({x=pillarx,y=pillarz})
-
-		local pillar_variator = 0
-
-		if noise_pillars > 0.9 then
-			gen_pillar = true
-			pillar_variator = math.max(0,this.map_pillars:get_3d({x=pillarx,y=pillarz}))
-		end
-
-		local nixyz = 1
-		for y = minp.y, maxp.y do -- do y first to calculate the percent the least amount of times possible
-
-			-- Given x as a percentage of how close we are to the bottom,
-			-- the percentage is
-			-- 2 (1-2x)^2 + 0.2
-
-			-- first work out x
-			-- to get the % of a number between 0 and, say, +20
-			-- x = y / 20
-			-- But for between +5 and +20, we'd do
-			-- x = y / (20 - 5)
-			-- and we don't care about decimals so we just get the absolute value as that removes negatives
-			local n = math.abs(y-worldgen.hell_top) / (math.abs(worldgen.hell_bottom)-math.abs(worldgen.hell_top))
-
-			-- we now plug that into our caluclation
-			local mult =  2 * ( 1 - n * 2 ) ^ 2 + 0.2
-
-			for x = minp.x, maxp.x do
-				for z = minp.z, maxp.z do
-					local vi = area:index(x, y, z)
-
-					local cave = noise_caves[z-minp.z+1][y-minp.y+1][x-minp.x+1]
-
-					if cave*mult > 0.7 then
-						if y > worldgen.hell_bottom and y < worldgen.hell_top then
-							data[vi] = c_hellstone
-						end
-					end
-
-					if y <= worldgen.hell_sealevel and y >= worldgen.hell_bottom then
-						if data[vi] == c_air then
-							data[vi] = c_lava
-							if y == worldgen.overworld_sealevel then
-								data[vi] = c_lava
-							end
-						end
-					end
-
-					if gen_pillar and y > worldgen.hell_bottom and y < worldgen.hell_top then
-						local dist = vector.distance({x=pillarx,y=pillarz,z=0}, {x=x,y=z,z=0})
-
-						if dist < 15*pillar_variator/(2-mult) then
-							local vi = area:index(x,y,z)
-							data[vi] = c_hellstone
-						end
-					end
-
-					-- One final check, to make sure that certain y levels always have hellstone
-					-- (Looking at you, bedrock layer!)
-		
-					if y > worldgen.hell_top-10 and y < worldgen.hell_top then
-						data[vi] = c_hellstone
-					elseif y < worldgen.hell_bottom+10 and y > worldgen.hell_bottom then
-						data[vi] = c_hellstone
-					end
-		
-
-					nixyz = nixyz + 1
-				end
-			end
-		end
-
 		return data
+		-- local sidelen = maxp.x - minp.x + 1
+		-- this.map_caves = this.map_caves or minetest.get_perlin_map(worldgen.np_hell_cavern, {x=sidelen,y=sidelen,z=sidelen})
+		-- local noise_caves = this.map_caves:get_3d_map(minp, this.buffer_caves)
+
+		-- -- will this chunk have a pillar?
+		-- local gen_pillar = false
+		-- -- Middle of the chunk
+		-- local pillarx = (minp.x + maxp.x) /2
+		-- local pillarz = (minp.z + maxp.z) /2
+
+		-- this.map_pillars = this.map_pillars or minetest.get_perlin(worldgen.np_hell_pillar)
+		-- local noise_pillars = this.map_pillars:get_3d({x=pillarx,y=pillarz})
+
+		-- local pillar_variator = 0
+
+		-- if noise_pillars > 0.9 then
+		-- 	gen_pillar = true
+		-- 	pillar_variator = math.max(0,this.map_pillars:get_3d({x=pillarx,y=pillarz}))
+		-- end
+
+		-- local nixyz = 1
+		-- for y = minp.y, maxp.y do -- do y first to calculate the percent the least amount of times possible
+
+		-- 	-- Given x as a percentage of how close we are to the bottom,
+		-- 	-- the percentage is
+		-- 	-- 2 (1-2x)^2 + 0.2
+
+		-- 	-- first work out x
+		-- 	-- to get the % of a number between 0 and, say, +20
+		-- 	-- x = y / 20
+		-- 	-- But for between +5 and +20, we'd do
+		-- 	-- x = y / (20 - 5)
+		-- 	-- and we don't care about decimals so we just get the absolute value as that removes negatives
+		-- 	local n = math.abs(y-worldgen.hell_top) / (math.abs(worldgen.hell_bottom)-math.abs(worldgen.hell_top))
+
+		-- 	-- we now plug that into our caluclation
+		-- 	local mult =  2 * ( 1 - n * 2 ) ^ 2 + 0.2
+
+		-- 	for x = minp.x, maxp.x do
+		-- 		for z = minp.z, maxp.z do
+		-- 			local vi = area:index(x, y, z)
+
+		-- 			local cave = noise_caves[z-minp.z+1][y-minp.y+1][x-minp.x+1]
+
+		-- 			if cave*mult > 0.7 then
+		-- 				if y > worldgen.hell_bottom and y < worldgen.hell_top then
+		-- 					data[vi] = c_hellstone
+		-- 				end
+		-- 			end
+
+		-- 			if y <= worldgen.hell_sealevel and y >= worldgen.hell_bottom then
+		-- 				if data[vi] == c_air then
+		-- 					data[vi] = c_lava
+		-- 					if y == worldgen.overworld_sealevel then
+		-- 						data[vi] = c_lava
+		-- 					end
+		-- 				end
+		-- 			end
+
+		-- 			if gen_pillar and y > worldgen.hell_bottom and y < worldgen.hell_top then
+		-- 				local dist = vector.distance({x=pillarx,y=pillarz,z=0}, {x=x,y=z,z=0})
+
+		-- 				if dist < 15*pillar_variator/(2-mult) then
+		-- 					local vi = area:index(x,y,z)
+		-- 					data[vi] = c_hellstone
+		-- 				end
+		-- 			end
+
+		-- 			-- One final check, to make sure that certain y levels always have hellstone
+		-- 			-- (Looking at you, bedrock layer!)
+		
+		-- 			if y > worldgen.hell_top-10 and y < worldgen.hell_top then
+		-- 				data[vi] = c_hellstone
+		-- 			elseif y < worldgen.hell_bottom+10 and y > worldgen.hell_bottom then
+		-- 				data[vi] = c_hellstone
+		-- 			end
+		
+
+		-- 			nixyz = nixyz + 1
+		-- 		end
+		-- 	end
+		-- end
+
+		-- return data
 	end
 })
 
