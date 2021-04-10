@@ -78,88 +78,35 @@ worldgen.register_dimension({
 	compression_factor = 1,
 	
 	init = function(this) 
-		-- Create the noise map variables to optimise
-		this.map_base = nil
-
-		this.noise_base = minetest.get_perlin(worldgen.np_base)
-		this.noise_a = minetest.get_perlin(worldgen.np_overlay)
-		this.noise_b = minetest.get_perlin(worldgen.np_overlay2)
-		this.noise_c = minetest.get_perlin(worldgen.np_overlay3)
-		this.noise_d = minetest.get_perlin(worldgen.np_overlay2)
-		this.noise_e = minetest.get_perlin(worldgen.np_overlay3)
-		this.noise_f = minetest.get_perlin(worldgen.np_overlay2)
-		
-		this.buffer_base = {}
-		this.buffer_overlay = {}
-		this.buffer_overlay2 = {}
-
-		this.buffer_top_layer = {}
-		this.buffer_second_layer = {}
-
-		this.buffer_temperature = {}
-		this.buffer_rainfall = {}
-
-		this.buffer_cave1 = {}
-		this.buffer_cave2 = {}
-		this.buffer_cave3 = {}
-		this.buffer_structure = {}
+		this.np_base = {
+			offset = 1.2,
+			scale = 1,
+			spread = {x=256, y=128, z=256},
+			octaves = 5,
+			seed = 69420,
+			persist = 0.6,
+			lacunarity = 2,
+			flags = "eased",
+		}
+		this.np_base1 = table.copy(this.np_base)
+		this.np_base1.seed = 42069
 	end,
 
-	sample_heightmap = function (this, inx, inz, ni, biome, noise1, noise2, noise3)
-
-
-		-- Raising!
-
-		-- TODO: AAAAAAAAAAAAAAAAAAA!
-		-- DON'T DEFINE EVERY SAMPLE! THAT'S POTENTIALLY 512 TIMES PER GEN FUNC! FUCK!
-		this.noise_a = minetest.get_perlin(worldgen.np_base16)
-		this.noise_b = minetest.get_perlin(worldgen.np_base16)
-		this.noise_c = minetest.get_perlin(worldgen.np_base8)
-		this.noise_d = minetest.get_perlin(worldgen.np_base4)
-		this.noise_e = minetest.get_perlin(worldgen.np_base4)
-		this.noise_f = minetest.get_perlin(worldgen.np_base5)
-
-		this.erode1 = minetest.get_perlin(worldgen.np_base8)
-		this.erode2 = minetest.get_perlin(worldgen.np_base8)
-
-		local startx = bobutil.lshift(bobutil.rshift(inx, 4), 4)
-		local startz = bobutil.lshift(bobutil.rshift(inz, 4), 4)
-
-		local x = startx + math.abs(inx) % 16
-		local z = startz + math.abs(inz) % 16
+	sample_heightmap = function (this, x, z, ni, noise_base, noise_base1)
+		local startx = x
+		local startz = z
+		x = startx + math.abs(x)
+		z = startz + math.abs(z)
 
 		local noisea = 
-			this.noise_a:get_3d({x = x / 0.03125, y = 0, z = z / 0.03125}) -
-			this.noise_b:get_3d({x = x / 0.015625,y = 0, z = z / 0.15625}) / 512 / 4
-		local noiseb = this.noise_e:get_2d({x = x / 4, y = z / 4})
-		local noisec = this.noise_f:get_2d({x = x / 8, y = z / 8}) / 8
+			noise_base:get_3d({x = x / 0.03125, y = 0, z = z / 0.03125}) -
+			noise_base1:get_3d({x = x / 0.015625,y = 0, z = z / 0.15625}) / 128
 
-		if noiseb > 0 then
-            noiseb = (this.noise_c:get_2d({x = x * 0.25714284 * 1.0, y = z * 0.25714284 * 2.0}) * noisec / 4.0)
-		else
-            noiseb = (this.noise_d:get_2d({x = x * 0.25714284, y = z * 0.25714284}) * noisec)
-		end
-
-		local y = noisea + worldgen.overworld_sealevel + noiseb
-		if this.noise_e:get_2d({x = x, y = z}) < 0 then
-			y = y / bobutil.lshift(2, 1)
-			if this.noise_e:get_2d({x = x / 5, y = z /5}) < 0.0 then
-                y = y + 1
-			end
-		end
+		local y = noisea + worldgen.overworld_sealevel
 
 		if y < 0.0 then
 			y = y * 0.8
 		end
-
-		-- Eroding
-		local erosion = (this.erode1:get_2d({x = bobutil.lshift(x,1), y = bobutil.lshift(z, 1)}) + this.erode1:get_2d({x = bobutil.lshift(x,1), y = bobutil.lshift(z, 1)})) / 8
-		local something = this.erode2:get_2d({x = bobutil.lshift(x,1), y = bobutil.lshift(z, 1)}) > 0 and 1 or 0
-
-		if erosion > 1.0 then
-			y = bobutil.lshift((y - something) / 2, 1) + erosion
-		end
-
 
 		return y
 	end,
@@ -167,12 +114,16 @@ worldgen.register_dimension({
 	gen_func = function(this, minp, maxp, blockseed, vm, area, data)
 		local sidelen = maxp.x - minp.x + 1
 		local ni = 1
+
+		local noise_base = minetest.get_perlin(this.np_base)
+		local noise_base1 = minetest.get_perlin(this.np_base1)
+
 		for z = minp.z, maxp.z do
 			for x = minp.x, maxp.x do
 				if maxp.y >= worldgen.overworld_bottom then 
 					local top_node, mid_node, bottom_node, above_node
 
-					local y = this.sample_heightmap(this, x, z, ni, {})
+					local y = this.sample_heightmap(this, x, z, ni, noise_base, noise_base1)
 
 					above_node = c_air
 					top_node = c_grass
@@ -197,18 +148,18 @@ worldgen.register_dimension({
 						end
 					end
 
-					-- for yy = minp.y, maxp.y do
-					-- 	local vi = area:index(x, yy, z)
-					-- 	-- the sea
-					-- 	if yy <= worldgen.overworld_sealevel and yy >= worldgen.overworld_bottom then
-					-- 		if data[vi] == c_air then
-					-- 			-- data[vi] = biome.liquid
-					-- 			if yy == worldgen.overworld_sealevel then
-					-- 				-- data[vi] = biome.liquid_top
-					-- 			end
-					-- 		end
-					-- 	end
-					-- end
+					for yy = minp.y, maxp.y do
+						local vi = area:index(x, yy, z)
+						-- the sea
+						if yy <= worldgen.overworld_sealevel and yy >= worldgen.overworld_bottom then
+							if data[vi] == c_air then
+								-- data[vi] = biome.liquid
+								if yy == worldgen.overworld_sealevel then
+									-- data[vi] = biome.liquid_top
+								end
+							end
+						end
+					end
 					
 				end
 				ni = ni + 1
