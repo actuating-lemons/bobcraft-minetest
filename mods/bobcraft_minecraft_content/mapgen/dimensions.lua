@@ -107,15 +107,20 @@ worldgen.register_dimension({
 
 	sample_heightmap = function (this, inx, inz, ni, biome, noise1, noise2, noise3)
 
-		-- TODO: AAAAAAAAAAAAAAAAAAA!
 
+		-- Raising!
+
+		-- TODO: AAAAAAAAAAAAAAAAAAA!
+		-- DON'T DEFINE EVERY SAMPLE! THAT'S POTENTIALLY 512 TIMES PER GEN FUNC! FUCK!
 		this.noise_a = minetest.get_perlin(worldgen.np_base16)
 		this.noise_b = minetest.get_perlin(worldgen.np_base16)
 		this.noise_c = minetest.get_perlin(worldgen.np_base8)
 		this.noise_d = minetest.get_perlin(worldgen.np_base4)
 		this.noise_e = minetest.get_perlin(worldgen.np_base4)
 		this.noise_f = minetest.get_perlin(worldgen.np_base5)
-		local y
+
+		this.erode1 = minetest.get_perlin(worldgen.np_base8)
+		this.erode2 = minetest.get_perlin(worldgen.np_base8)
 
 		local startx = bobutil.lshift(bobutil.rshift(inx, 4), 4)
 		local startz = bobutil.lshift(bobutil.rshift(inz, 4), 4)
@@ -135,13 +140,26 @@ worldgen.register_dimension({
             noiseb = (this.noise_d:get_2d({x = x * 0.25714284, y = z * 0.25714284}) * noisec)
 		end
 
-		y = noisea + worldgen.overworld_sealevel + noiseb
+		local y = noisea + worldgen.overworld_sealevel + noiseb
 		if this.noise_e:get_2d({x = x, y = z}) < 0 then
 			y = y / bobutil.lshift(2, 1)
 			if this.noise_e:get_2d({x = x / 5, y = z /5}) < 0.0 then
                 y = y + 1
 			end
 		end
+
+		if y < 0.0 then
+			y = y * 0.8
+		end
+
+		-- Eroding
+		local erosion = (this.erode1:get_2d({x = bobutil.lshift(x,1), y = bobutil.lshift(z, 1)}) + this.erode1:get_2d({x = bobutil.lshift(x,1), y = bobutil.lshift(z, 1)})) / 8
+		local something = this.erode2:get_2d({x = bobutil.lshift(x,1), y = bobutil.lshift(z, 1)}) > 0 and 1 or 0
+
+		if erosion > 1.0 then
+			y = bobutil.lshift((y - something) / 2, 1) + erosion
+		end
+
 
 		return y
 	end,
