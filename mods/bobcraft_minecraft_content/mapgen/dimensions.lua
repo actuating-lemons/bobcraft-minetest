@@ -121,7 +121,7 @@ worldgen.register_dimension({
 		for z = minp.z, maxp.z do
 			for x = minp.x, maxp.x do
 				if maxp.y >= worldgen.overworld_bottom then 
-					local top_node, mid_node, bottom_node, above_node
+					local top_node, mid_node, bottom_node, above_node, liquid_node
 
 					local y = this.sample_heightmap(this, x, z, ni, noise_base, noise_base1)
 
@@ -129,6 +129,7 @@ worldgen.register_dimension({
 					top_node = c_grass
 					mid_node = c_dirt
 					bottom_node = c_stone
+					liquid_node = c_water
 
 					--------------------------------------------------------
 					--                               _                    --
@@ -143,7 +144,13 @@ worldgen.register_dimension({
 						for yy = minp.y, math.min(y, maxp.y) do
 							local vi = area:index(x, yy, z)
 							if yy >= worldgen.overworld_bottom then
-								data[vi] = bottom_node
+								if yy > y - 1 then
+									data[vi] = top_node
+								elseif yy >= y - 3 then
+									data[vi] = mid_node
+								else
+									data[vi] = bottom_node
+								end
 							end
 						end
 					end
@@ -153,7 +160,7 @@ worldgen.register_dimension({
 						-- the sea
 						if yy <= worldgen.overworld_sealevel and yy >= worldgen.overworld_bottom then
 							if data[vi] == c_air then
-								-- data[vi] = biome.liquid
+								data[vi] = liquid_node
 								if yy == worldgen.overworld_sealevel then
 									-- data[vi] = biome.liquid_top
 								end
