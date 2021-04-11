@@ -1,23 +1,17 @@
 local S = minetest.get_translator("bobcraft_blocks")
 
-wools = {}
+minetest.register_node("bobcraft_blocks:wool", {
+	description = "Wool",
+	tiles = {"wool_white.png"},
+	palette = "dyepalette.png",
+	param2 = 0,
+	palette_index = 0,
+	sounds = bobcraft_sounds.node_sound_wool(),
+	groups = {shears=1, hand=1, crafting_wool=1},
+	hardness = 0.8,
+})
 
--- Because I'm lazy...
-function register_wool_colour(colour)
-	minetest.register_node("bobcraft_blocks:wool_"..colour, {
-		description = S(bobutil.titleize(colour) .. " Wool"),
-		tiles = {"wool_"..colour..".png"},
-		sounds = bobcraft_sounds.node_sound_wool(),
-		groups = {shears=1, hand=1, crafting_wool=1},
-		hardness = 0.8,
-	})
-
-	wools[colour] = "bobcraft_blocks:wool_"..colour
-end
-
--- TODO: currently not all of these are obtainable.
-local colours = dyes.colour_names
-
-for i, colour in ipairs(colours) do
-	register_wool_colour(colour)
+-- Compatability
+for _, color in ipairs(dyes.colour_names) do
+	minetest.register_alias("bobcraft_blocks:wool_"..color, "bobcraft_blocks:wool")
 end

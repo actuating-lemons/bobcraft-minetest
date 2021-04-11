@@ -143,5 +143,38 @@ local function dye_craft(itemstack, player, old_craft_grid, craft_inv)
 	return itemstack
 end
 
+local function dye_wool(itemstack, player, old_craft_grid, craft_inv)
+	local list_colors = {}
+	local wools = 0
+	for _, stack in ipairs(old_craft_grid) do
+		if not stack:is_empty() then
+			if stack:get_name() == "256_dyes:dye" then
+				local meta = stack:get_meta()
+				table.insert(list_colors, meta:get_int("palette_index"))
+			elseif stack:get_name() == "bobcraft_blocks:wool" then
+				local meta = stack:get_meta()
+				if meta:get_int("palette_index") then
+					table.insert(list_colors, meta:get_int("palette_index"))
+				end
+				wools = wools + 1
+			else
+				minetest.log("no wool")
+				return
+			end
+		end
+	end
+	if #list_colors == 0 or wools == 0 then
+		minetest.log("Not enough wools")
+		return
+	end
+	itemstack = ItemStack("bobcraft_blocks:wool", wools)
+	local new_color = mix(unpack(list_colors))
+	local meta = itemstack:get_meta()
+	set_color(meta, new_color)
+	return itemstack
+end
+
 minetest.register_craft_predict(dye_craft)
 minetest.register_on_craft(dye_craft)
+minetest.register_craft_predict(dye_wool)
+minetest.register_on_craft(dye_wool)
