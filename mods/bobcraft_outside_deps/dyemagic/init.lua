@@ -1,8 +1,14 @@
 local modpath = minetest.get_modpath(minetest.get_current_modname())
 
+local color_names = {}
+
 local function set_color(meta, color)
 	meta:set_int("palette_index", color)
-	meta:set_string("description", "Dye (color #" .. color .. ")")
+
+	-- colour naming is handled by the color.dat file, which I extended.
+	local color_name = color_names[color] or "WHAT"
+
+	meta:set_string("description", color_name .. " Dye")
 end
 
 local function change_variation(itemstack)
@@ -56,6 +62,10 @@ minetest.register_craftitem("256_dyes:dye", {
 local file = io.open(modpath .. "/colors.dat", "r")
 local raw_colors = minetest.decompress(file:read("*all"))
 file:close()
+
+for line in io.lines(modpath .. "/names.txt") do
+	color_names[#color_names+1] = line
+end
 
 local colors = {}
 for i=0, 255 do
