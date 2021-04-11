@@ -80,9 +80,9 @@ worldgen.register_dimension({
 	init = function(this) 
 		this.np_base = {
 			offset = 1.2,
-			scale = 1,
+			scale = 16,
 			spread = {x=256, y=128, z=256},
-			octaves = 5,
+			octaves = 16,
 			seed = 69420,
 			persist = 0.6,
 			lacunarity = 2,
@@ -90,20 +90,20 @@ worldgen.register_dimension({
 		}
 		this.np_base1 = table.copy(this.np_base)
 		this.np_base1.seed = 42069
+		this.np_base2 = table.copy(this.np_base)
+		this.np_base2.seed = 92839
 	end,
 
-	sample_heightmap = function (this, x, z, ni, noise_base, noise_base1)
-		local startx = x
-		local startz = z
-		x = startx + math.abs(x)
-		z = startz + math.abs(z)
+	sample_heightmap = function (this, x, z, ni, noise_base, noise_base1, noise_base3)
+		local heightlow = noise_base:get_2d({x = x * 1.3, y = z * 1.3}) / 6 - 4
+		local heighthigh = noise_base1:get_2d({x = x * 1.3, y = z * 1.3}) / 5 + 10 - 4
 
-		local noisea = 
-			noise_base:get_3d({x = x / 0.3, y = 0, z = z / 0.3}) -
-			noise_base1:get_3d({x = x / 0.1,y = 0, z = z / 0.1}) / 128
+		local heightselector = noise_base3:get_2d({x = x, y = z}) / 8
+		if heightselector > 0.0 then
+			heighthigh = heightlow	
+		end
 
-		-- this is the "base" Y level
-		local y = noisea
+		local y = math.max(heightlow, heighthigh) / 2
 
 		if y < 0.0 then
 			y = y * 0.8
@@ -120,6 +120,7 @@ worldgen.register_dimension({
 
 		local noise_base = minetest.get_perlin(this.np_base)
 		local noise_base1 = minetest.get_perlin(this.np_base1)
+		local noise_base2 = minetest.get_perlin(this.np_base2)
 
 
 		local noise_temperature = worldgen.get_perlin_map(worldgen.np_temperature, {x=sidelen, y=sidelen, z=sidelen}, minp)
@@ -135,7 +136,7 @@ worldgen.register_dimension({
 
 					local biome = worldgen.get_biome_nearest(temperature, rainfall, this.biome_list)
 
-					local y = this.sample_heightmap(this, x, z, ni, noise_base, noise_base1)
+					local y = this.sample_heightmap(this, x, z, ni, noise_base, noise_base1, noise_base2)
 
 					above_node = biome.above
 					top_node = biome.top
@@ -159,9 +160,15 @@ worldgen.register_dimension({
 							if yy >= worldgen.overworld_bottom then
 								data[vi] = bottom_node
 								if yy == y + 1 then
-									data[vi] = above_node
+									if yy > worldgen.overworld_sealevel then
+										data[vi] = above_node
+									end
 								elseif yy > y - 1 then
-									data[vi] = top_node
+									if yy >= worldgen.overworld_sealevel then
+										data[vi] = top_node
+									else
+										data[vi] = mid_node
+									end
 								elseif yy >= y - 3 then
 									data[vi] = mid_node
 								end
