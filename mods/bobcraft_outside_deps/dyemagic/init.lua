@@ -158,13 +158,11 @@ local function dye_wool(itemstack, player, old_craft_grid, craft_inv)
 				end
 				wools = wools + 1
 			else
-				minetest.log("no wool")
 				return
 			end
 		end
 	end
 	if #list_colors == 0 or wools == 0 then
-		minetest.log("Not enough wools")
 		return
 	end
 	itemstack = ItemStack("bobcraft_blocks:wool", wools)

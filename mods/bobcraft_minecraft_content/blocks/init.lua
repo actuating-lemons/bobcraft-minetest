@@ -656,7 +656,7 @@ minetest.register_node("bobcraft_blocks:sponge", {
 			minetest.remove_node(water_near_us[i])
 		end
 
-		return minetest.item_place_node(itemstack, player, pointed_thing)
+		return minetest.item_place_node(itemstack, placer, pointed_thing)
 	end,
 
 	hardness = 1,
