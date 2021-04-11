@@ -99,14 +99,17 @@ worldgen.register_dimension({
 		z = startz + math.abs(z)
 
 		local noisea = 
-			noise_base:get_3d({x = x / 0.03125, y = 0, z = z / 0.03125}) -
-			noise_base1:get_3d({x = x / 0.015625,y = 0, z = z / 0.15625}) / 128
+			noise_base:get_3d({x = x / 0.3, y = 0, z = z / 0.3}) -
+			noise_base1:get_3d({x = x / 0.1,y = 0, z = z / 0.1}) / 128
 
-		local y = noisea + worldgen.overworld_sealevel
+		-- this is the "base" Y level
+		local y = noisea
 
 		if y < 0.0 then
 			y = y * 0.8
 		end
+
+		y = y + worldgen.overworld_sealevel
 
 		return y
 	end,
@@ -118,18 +121,28 @@ worldgen.register_dimension({
 		local noise_base = minetest.get_perlin(this.np_base)
 		local noise_base1 = minetest.get_perlin(this.np_base1)
 
+
+		local noise_temperature = worldgen.get_perlin_map(worldgen.np_temperature, {x=sidelen, y=sidelen, z=sidelen}, minp)
+		local noise_rainfall = worldgen.get_perlin_map(worldgen.np_rainfall, {x=sidelen, y=sidelen, z=sidelen}, minp)
+
 		for z = minp.z, maxp.z do
 			for x = minp.x, maxp.x do
 				if maxp.y >= worldgen.overworld_bottom then 
-					local top_node, mid_node, bottom_node, above_node, liquid_node
+					local top_node, mid_node, bottom_node, above_node, liquid_node, liquid_top_node
+
+					local temperature = noise_temperature[ni]
+					local rainfall = noise_rainfall[ni]
+
+					local biome = worldgen.get_biome_nearest(temperature, rainfall, this.biome_list)
 
 					local y = this.sample_heightmap(this, x, z, ni, noise_base, noise_base1)
 
-					above_node = c_air
-					top_node = c_grass
-					mid_node = c_dirt
-					bottom_node = c_stone
-					liquid_node = c_water
+					above_node = biome.above
+					top_node = biome.top
+					mid_node = biome.middle
+					bottom_node = biome.bottom
+					liquid_node = biome.liquid
+					liquid_top_node = biome.liquid_top
 
 					--------------------------------------------------------
 					--                               _                    --
@@ -144,12 +157,13 @@ worldgen.register_dimension({
 						for yy = minp.y, math.min(y, maxp.y) do
 							local vi = area:index(x, yy, z)
 							if yy >= worldgen.overworld_bottom then
-								if yy > y - 1 then
+								data[vi] = bottom_node
+								if yy == y + 1 then
+									data[vi] = above_node
+								elseif yy > y - 1 then
 									data[vi] = top_node
 								elseif yy >= y - 3 then
 									data[vi] = mid_node
-								else
-									data[vi] = bottom_node
 								end
 							end
 						end
@@ -162,7 +176,7 @@ worldgen.register_dimension({
 							if data[vi] == c_air then
 								data[vi] = liquid_node
 								if yy == worldgen.overworld_sealevel then
-									-- data[vi] = biome.liquid_top
+									data[vi] = liquid_top_node
 								end
 							end
 						end
