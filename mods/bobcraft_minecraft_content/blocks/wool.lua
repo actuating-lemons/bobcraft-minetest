@@ -16,13 +16,12 @@ minetest.register_node("bobcraft_blocks:wool", {
 	on_place = function(itemstack, placer, pointed_thing)		
 		local meta = itemstack:get_meta()
 		local index = meta:get_int("palette_index")
-		minetest.log(index)
 
 		return minetest.item_place_node(itemstack, placer, pointed_thing, index)
 	end
 })
 
--- Compatability
+-- Compatability, dying is handled by 256_dyes
 for _, color in ipairs(dyes.colour_names) do
 	minetest.register_alias("bobcraft_blocks:wool_"..color, "bobcraft_blocks:wool")
 end

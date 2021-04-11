@@ -2,13 +2,14 @@ local modpath = minetest.get_modpath(minetest.get_current_modname())
 
 local color_names = {}
 
-local function set_color(meta, color)
+local function set_color(meta, color, is_wool)
 	meta:set_int("palette_index", color)
 
 	-- colour naming is handled by the color.dat file, which I extended.
-	local color_name = color_names[color] or "WHAT"
+	local color_name = color_names[color] or "Greyscale" -- TODO: the greyscale names
+	local thingname = is_wool and " Wool" or " Dye"
 
-	meta:set_string("description", color_name .. " Dye")
+	meta:set_string("description", color_name .. thingname)
 end
 
 local function change_variation(itemstack)
@@ -156,7 +157,7 @@ local function dye_wool(itemstack, player, old_craft_grid, craft_inv)
 				if meta:get_int("palette_index") then
 					table.insert(list_colors, meta:get_int("palette_index"))
 				end
-				wools = wools + 1
+				wools = wools + stack:get_count()
 			else
 				return
 			end
@@ -165,10 +166,10 @@ local function dye_wool(itemstack, player, old_craft_grid, craft_inv)
 	if #list_colors == 0 or wools == 0 then
 		return
 	end
-	itemstack = ItemStack("bobcraft_blocks:wool", wools)
+	itemstack = ItemStack("bobcraft_blocks:wool " .. wools)
 	local new_color = mix(unpack(list_colors))
 	local meta = itemstack:get_meta()
-	set_color(meta, new_color)
+	set_color(meta, new_color, true)
 	return itemstack
 end
 
