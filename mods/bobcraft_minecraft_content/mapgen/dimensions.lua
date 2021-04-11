@@ -95,6 +95,11 @@ worldgen.register_dimension({
 	end,
 
 	sample_heightmap = function (this, x, z, ni, noise_base, noise_base1, noise_base3)
+		-- snap to these to create farlands-like things.
+		-- Just for that extra bit of spice!
+		x = math.min(29000, math.max(x, -29000))
+		z = math.min(29000, math.max(z, -29000))
+
 		local heightlow = noise_base:get_2d({x = x * 1.3, y = z * 1.3}) / 6 - 4
 		local heighthigh = noise_base1:get_2d({x = x * 1.3, y = z * 1.3}) / 5 + 10 - 4
 
