@@ -123,7 +123,18 @@ minetest.register_node("bobcraft_blocks:snow_layer", {
 		},
 	},
 
-	groups = {shovel=1},
+	on_construct = function(pos)
+		local under = table.copy(pos)
+		under.y = under.y - 1
+		if minetest.get_node(under).name == "bobcraft_blocks:grass_block" then
+			minetest.set_node(under, {name="bobcraft_blocks:snowy_grass_block"})
+			minetest.remove_node(pos) -- we delete ourselves, as in bobtest, snowy grass is different to grass!
+		end
+	end,
+
+	drop = "",
+
+	groups = {shovel=1, attached_node=1},
 	hardness = 0.1,
 	stack_max = bobutil.stack_max,
 })
@@ -134,15 +145,6 @@ minetest.register_node("bobcraft_blocks:snowy_grass_block", {
 	"grass_block_side_snow.png"},
 	is_ground_content = true,
 	sounds = bobcraft_sounds.node_sound_planty(),
-
-	on_place = function(pos)
-		local under = pos
-		under.y = under.y - 1
-		if minetest.get_node(under).name == "bobcraft_blocks:grass_block" then
-			minetest.set_node(under, {name="bobcraft_blocks:snowy_grass_block"})
-			minetest.remove_node(pos) -- we delete ourselves, as in bobtest, snowy grass is different to grass!
-		end
-	end,
 
 	groups = {shovel=1, hand=1},
 	hardness = 0.6,
