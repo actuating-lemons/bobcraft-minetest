@@ -92,18 +92,24 @@ worldgen.register_dimension({
 		this.np_base1.seed = 42069
 		this.np_base2 = table.copy(this.np_base)
 		this.np_base2.seed = 92839
+		this.np_erosion = table.copy(this.np_base)
+		this.np_erosion.seed = 238392
+		this.np_erosion1 = table.copy(this.np_base)
+		this.np_erosion1.seed = 213342
 	end,
 
-	sample_heightmap = function (this, x, z, ni, noise_base, noise_base1, noise_base3)
+	sample_heightmap = function (this, x, z, ni, noise_base, noise_base1, noise_base2, noise_erosion, noise_erosion1)
 		-- snap to these to create farlands-like things.
 		-- Just for that extra bit of spice!
 		x = math.min(29000, math.max(x, -29000))
 		z = math.min(29000, math.max(z, -29000))
 
+		-- Raising!
+
 		local heightlow = noise_base:get_2d({x = x * 1.3, y = z * 1.3}) / 6 - 4
 		local heighthigh = noise_base1:get_2d({x = x * 1.3, y = z * 1.3}) / 5 + 10 - 4
 
-		local heightselector = noise_base3:get_2d({x = x, y = z}) / 8
+		local heightselector = noise_base2:get_2d({x = x, y = z}) / 8
 		if heightselector > 0.0 then
 			heighthigh = heightlow	
 		end
@@ -116,6 +122,13 @@ worldgen.register_dimension({
 
 		y = y + worldgen.overworld_sealevel
 
+		-- Eroding!
+		local erosion = noise_erosion:get_2d({x = bobutil.lshift(x, 1), y = bobutil.lshift(z, 1)}) / 8
+		local erosionselector = (noise_erosion:get_2d({x = bobutil.lshift(x, 1), y = bobutil.lshift(z, 1)}) > 0) and 1 or 0
+		if erosion > 2 then
+			y = bobutil.lshift((y - erosionselector) / 2, 1)
+		end
+
 		return y
 	end,
 
@@ -126,6 +139,8 @@ worldgen.register_dimension({
 		local noise_base = minetest.get_perlin(this.np_base)
 		local noise_base1 = minetest.get_perlin(this.np_base1)
 		local noise_base2 = minetest.get_perlin(this.np_base2)
+		local noise_erosion = minetest.get_perlin(this.np_erosion)
+		local noise_erosion1 = minetest.get_perlin(this.np_erosion1)
 
 
 		local noise_temperature = worldgen.get_perlin_map(worldgen.np_temperature, {x=sidelen, y=sidelen, z=sidelen}, minp)
@@ -141,7 +156,7 @@ worldgen.register_dimension({
 
 					local biome = worldgen.get_biome_nearest(temperature, rainfall, this.biome_list)
 
-					local y = this.sample_heightmap(this, x, z, ni, noise_base, noise_base1, noise_base2)
+					local y = this.sample_heightmap(this, x, z, ni, noise_base, noise_base1, noise_base2, noise_erosion, noise_erosion1)
 
 					above_node = biome.above
 					top_node = biome.top
@@ -164,7 +179,7 @@ worldgen.register_dimension({
 							local vi = area:index(x, yy, z)
 							if yy >= worldgen.overworld_bottom then
 								data[vi] = bottom_node
-								if yy == y + 1 then
+								if yy > y + 1 then
 									if yy > worldgen.overworld_sealevel then
 										data[vi] = above_node
 									end
