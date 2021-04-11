@@ -47,11 +47,11 @@ local function change_hue(itemstack)
 end
 
 minetest.register_craftitem("256_dyes:dye", {
-	description = "Dye",
+	description = "Magical Dye", -- we can take this to be the creative item's name
 	groups = {},
 	inventory_image = "dye_white.png",
 	wield_image = "dye_white.png",
-	palette = "DYE.png",
+	palette = "dyepalette.png",
 	stack_max = 99,
 	color = "#400000",
 	on_use = change_variation,

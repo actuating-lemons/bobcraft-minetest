@@ -119,7 +119,7 @@ for g in range(16):
 palette = (palette_raw * 255 + 0.5).astype(np.uint8)
 print(palette)
 
-imageio.imwrite("palette.png", palette.reshape(16,16,3))
+imageio.imwrite("textures/dyepalette.png", palette.reshape(16,16,3))
 
 color_list = open("colors.dat", "wb")
 color_list.write(compress(bytes(palette)))
