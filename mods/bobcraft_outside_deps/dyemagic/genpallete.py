@@ -116,6 +116,18 @@ for g in range(16):
 	palette_raw[i] = g / 15
 	i += 1
 
+	name = ""
+	if g < 4:
+		name = "Black"
+	elif g < 8:
+		name = "Dark Grey"
+	elif g < 14:
+		name = "Grey"
+	else:
+		name = "White"
+	
+	names.append(name)
+
 palette = (palette_raw * 255 + 0.5).astype(np.uint8)
 print(palette)
 
