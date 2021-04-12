@@ -97,3 +97,4 @@ minetest.register_entity("bobcraft_mobs:zombie", {
 		}
 	}
 })
+mobkit.register_spawn_egg("bobcraft_mobs:zombie", "#3478b0", "#347806")
