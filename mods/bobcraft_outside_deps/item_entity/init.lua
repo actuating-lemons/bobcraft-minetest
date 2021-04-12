@@ -199,13 +199,14 @@ local function should_drop(nodename, tool_capabilities)
 
 	local tool_group_caps = tool_capabilities.groupcaps
 
-	for i=1, #tool_types do -- TODO: this ignores the tool's level in the node's groups. This means we can mine iron ore with wood!
+	for i=1, #tool_types do
 		local tool_type = tool_types[i]
 		local in_group = minetest.get_item_group(nodename, tool_type)
 		if in_group ~= 0 then
-			for m=1, #materials do
+			for m=in_group, #materials do
 				local material = tool_type .. "_" .. materials[m]
 				if tool_group_caps[material] then
+					minetest.log(material)
 					return true
 				end
 			end
