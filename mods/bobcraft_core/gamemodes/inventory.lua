@@ -106,6 +106,7 @@ function creative.register_tab(name, title, items)
 			"list[detached:creative_" .. player_name .. ";main;0,0;8,8;" .. tostring(inv.start_i) .. "]" ..
 			"field[0.3,8.35;8,1;search;;" .. minetest.formspec_escape(inv.filter) .."]" ..
 			"list[current_player;main;0,9.2;9,1;]" ..
+			"image[8,8;1,1;guitrash.png]" ..
 			"list[detached:creative_trash;main;8,8;1,1;]" ..
 			"field_close_on_enter[search;false]" ..
 			"button[8,0;1,1;go_up;^]" ..
