@@ -2,242 +2,242 @@ Desaturated Red
 Light Red
 Red
 Vibrant Red
-Weak Red
-Hint of Red
-Dull Red
 Dark Red
 Red
-Red
+Light Red
+Dull Red
+Gloomy Red
+Dark Red
 Desaturated Red
 Light Red
 Red
 Vibrant Red
-Weak Red
-Hint of Red
-Dull Red
 Dark Red
 Red
-Red
+Light Red
+Dull Red
+Gloomy Red
+Dark Red
 Desaturated Orange
 Light Orange
 Orange
 Vibrant Orange
-Weak Orange
-Hint of Orange
-Dull Orange
 Dark Orange
 Orange
-Orange
+Light Orange
+Dull Orange
+Gloomy Orange
+Dark Orange
 Desaturated Yellow
 Light Yellow
 Yellow
 Vibrant Yellow
-Weak Yellow
-Hint of Yellow
-Dull Yellow
 Dark Yellow
 Yellow
-Yellow
+Light Yellow
+Dull Yellow
+Gloomy Yellow
+Dark Yellow
 Desaturated Yellow
 Light Yellow
 Yellow
 Vibrant Yellow
-Weak Yellow
-Hint of Yellow
-Dull Yellow
 Dark Yellow
 Yellow
-Yellow
+Light Yellow
+Dull Yellow
+Gloomy Yellow
+Dark Yellow
 Desaturated Green
 Light Green
 Green
 Vibrant Green
-Weak Green
-Hint of Green
-Dull Green
 Dark Green
 Green
-Green
+Light Green
+Dull Green
+Gloomy Green
+Dark Green
 Desaturated Lime
 Light Lime
 Lime
 Vibrant Lime
-Weak Lime
-Hint of Lime
-Dull Lime
 Dark Lime
 Lime
-Lime
+Light Lime
+Dull Lime
+Gloomy Lime
+Dark Lime
 Desaturated Green
 Light Green
 Green
 Vibrant Green
-Weak Green
-Hint of Green
-Dull Green
 Dark Green
 Green
-Green
+Light Green
+Dull Green
+Gloomy Green
+Dark Green
 Desaturated Green
 Light Green
 Green
 Vibrant Green
-Weak Green
-Hint of Green
-Dull Green
 Dark Green
 Green
-Green
+Light Green
+Dull Green
+Gloomy Green
+Dark Green
 Desaturated Green
 Light Green
 Green
 Vibrant Green
-Weak Green
-Hint of Green
-Dull Green
 Dark Green
 Green
-Green
+Light Green
+Dull Green
+Gloomy Green
+Dark Green
 Desaturated Cyan
 Light Cyan
 Cyan
 Vibrant Cyan
-Weak Cyan
-Hint of Cyan
-Dull Cyan
 Dark Cyan
 Cyan
-Cyan
+Light Cyan
+Dull Cyan
+Gloomy Cyan
+Dark Cyan
 Desaturated Cyan
 Light Cyan
 Cyan
 Vibrant Cyan
-Weak Cyan
-Hint of Cyan
-Dull Cyan
 Dark Cyan
 Cyan
-Cyan
+Light Cyan
+Dull Cyan
+Gloomy Cyan
+Dark Cyan
 Desaturated Blue
 Light Blue
 Blue
 Vibrant Blue
-Weak Blue
-Hint of Blue
-Dull Blue
 Dark Blue
 Blue
-Blue
+Light Blue
+Dull Blue
+Gloomy Blue
+Dark Blue
 Desaturated Blue
 Light Blue
 Blue
 Vibrant Blue
-Weak Blue
-Hint of Blue
-Dull Blue
 Dark Blue
 Blue
-Blue
+Light Blue
+Dull Blue
+Gloomy Blue
+Dark Blue
 Desaturated Blue
 Light Blue
 Blue
 Vibrant Blue
-Weak Blue
-Hint of Blue
-Dull Blue
 Dark Blue
 Blue
-Blue
+Light Blue
+Dull Blue
+Gloomy Blue
+Dark Blue
 Desaturated Blue
 Light Blue
 Blue
 Vibrant Blue
-Weak Blue
-Hint of Blue
-Dull Blue
 Dark Blue
 Blue
-Blue
+Light Blue
+Dull Blue
+Gloomy Blue
+Dark Blue
 Desaturated Blue
 Light Blue
 Blue
 Vibrant Blue
-Weak Blue
-Hint of Blue
-Dull Blue
 Dark Blue
 Blue
-Blue
+Light Blue
+Dull Blue
+Gloomy Blue
+Dark Blue
 Desaturated Blue
 Light Blue
 Blue
 Vibrant Blue
-Weak Blue
-Hint of Blue
-Dull Blue
 Dark Blue
 Blue
-Blue
+Light Blue
+Dull Blue
+Gloomy Blue
+Dark Blue
 Desaturated Purple
 Light Purple
 Purple
 Vibrant Purple
-Weak Purple
-Hint of Purple
-Dull Purple
 Dark Purple
 Purple
-Purple
+Light Purple
+Dull Purple
+Gloomy Purple
+Dark Purple
 Desaturated Purple
 Light Purple
 Purple
 Vibrant Purple
-Weak Purple
-Hint of Purple
-Dull Purple
 Dark Purple
 Purple
-Purple
+Light Purple
+Dull Purple
+Gloomy Purple
+Dark Purple
 Desaturated Magenta
 Light Magenta
 Magenta
 Vibrant Magenta
-Weak Magenta
-Hint of Magenta
-Dull Magenta
 Dark Magenta
 Magenta
-Magenta
+Light Magenta
+Dull Magenta
+Gloomy Magenta
+Dark Magenta
 Desaturated Pink
 Light Pink
 Pink
 Vibrant Pink
-Weak Pink
-Hint of Pink
-Dull Pink
 Dark Pink
 Pink
-Pink
+Light Pink
+Dull Pink
+Gloomy Pink
+Dark Pink
 Desaturated Pink
 Light Pink
 Pink
 Vibrant Pink
-Weak Pink
-Hint of Pink
-Dull Pink
 Dark Pink
 Pink
-Pink
+Light Pink
+Dull Pink
+Gloomy Pink
+Dark Pink
 Desaturated Pink
 Light Pink
 Pink
 Vibrant Pink
-Weak Pink
-Hint of Pink
-Dull Pink
 Dark Pink
 Pink
-Pink
+Light Pink
+Dull Pink
+Gloomy Pink
+Dark Pink
 Black
 Black
 Black
