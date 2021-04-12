@@ -137,6 +137,11 @@ player_model.register_model("player.b3d", {
 		sneakwalk = {
 			x = 80,
 			y = 90,
+		},
+
+		lay = {
+			x = 97,
+			y = 97
 		}
 	}
 })
