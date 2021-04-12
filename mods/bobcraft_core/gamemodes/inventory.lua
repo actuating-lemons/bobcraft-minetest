@@ -76,6 +76,19 @@ function creative.update_inventory(player_name, content)
 
 end
 
+-- Create the trash field
+local trash = minetest.create_detached_inventory("creative_trash", {
+	-- Allow the stack to be placed and remove it in on_put()
+	-- This allows the creative inventory to restore the stack
+	allow_put = function(inv, listname, index, stack, player)
+		return stack:get_count()
+	end,
+	on_put = function(inv, listname)
+		inv:set_list(listname, {})
+	end,
+})
+trash:set_size("main", 1)
+
 function creative.register_tab(name, title, items)
 	sfinv.register_page("creative:" .. name, {
 		title = title,
@@ -91,11 +104,13 @@ function creative.register_tab(name, title, items)
 
 			return sfinv.make_formspec(player, context,
 			"list[detached:creative_" .. player_name .. ";main;0,0;8,8;" .. tostring(inv.start_i) .. "]" ..
-			"field[0.25,8.5;8,1;search;;" .. minetest.formspec_escape(inv.filter) .."]" ..
+			"field[0.3,8.35;8,1;search;;" .. minetest.formspec_escape(inv.filter) .."]" ..
+			"list[current_player;main;0,9.2;9,1;]" ..
+			"list[detached:creative_trash;main;8,8;1,1;]" ..
 			"field_close_on_enter[search;false]" ..
 			"button[8,0;1,1;go_up;^]" ..
 			"button[8,1;1,1;go_down;v]" ..
-			"", false)
+			"", false, "size[9,10]")
 		end,
 		on_enter = function(self, player, context)
 			local player_name = player:get_player_name()
