@@ -1,6 +1,6 @@
 -- Small mod to display a warning that bobcraft isn't finished
 
-if minetest.settings:get("bobcraft_nag_screen") then
+if minetest.settings:get_bool("bobcraft_nag_screen") then
 
 	minetest.register_on_joinplayer(function(player)
 
