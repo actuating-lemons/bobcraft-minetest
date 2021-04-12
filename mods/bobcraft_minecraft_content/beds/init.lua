@@ -213,6 +213,12 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	end
 end)
 
+minetest.register_on_dieplayer(function(player) -- Kick dead players from their beds
+	if beds.player[player:get_player_name()] then
+		lay_down(player, nil, nil, false)
+	end
+end)
+
 
 -- nodes and respawn function
 dofile(minetest.get_modpath("bobcraft_beds").."/nodes.lua")
