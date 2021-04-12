@@ -1,0 +1,2 @@
+# Enable/Disable the nag screen you get when you're a new player
+bobcraft_nag_screen (Enable Nag Screen) bool true
