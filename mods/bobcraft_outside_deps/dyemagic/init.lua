@@ -6,7 +6,7 @@ local function set_color(meta, color, is_wool)
 	meta:set_int("palette_index", color)
 
 	-- colour naming is handled by the color.dat file, which I extended.
-	local color_name = color_names[color] or "Greyscale" -- TODO: the greyscale names
+	local color_name = color_names[color]
 	local thingname = is_wool and " Wool" or " Dye"
 
 	meta:set_string("description", color_name .. thingname)
@@ -106,6 +106,7 @@ local function mix(...)
 	return nearest
 end
 
+-- Mixing Dyes
 for i=1, 9 do
 	recipe = {}
 	for j=1, i do
@@ -115,6 +116,20 @@ for i=1, 9 do
 	minetest.register_craft({
 		type = "shapeless",
 		output = "256_dyes:dye",
+		recipe = recipe,
+	})
+end
+
+-- Dying Wool
+for i=1, 8 do
+	recipe = {"bobcraft_blocks:wool"}
+	for j=1, i do
+		table.insert(recipe, "256_dyes:dye")
+	end
+
+	minetest.register_craft({
+		type = "shapeless",
+		output = "bobcraft_blocks:wool",
 		recipe = recipe,
 	})
 end
@@ -145,13 +160,18 @@ local function dye_craft(itemstack, player, old_craft_grid, craft_inv)
 end
 
 local function dye_wool(itemstack, player, old_craft_grid, craft_inv)
+	if itemstack:get_name() ~= "bobcraft_blocks:wool" then
+		return
+	end
 	local list_colors = {}
 	local wools = 0
+	local dyes = 0
 	for _, stack in ipairs(old_craft_grid) do
 		if not stack:is_empty() then
 			if stack:get_name() == "256_dyes:dye" then
 				local meta = stack:get_meta()
 				table.insert(list_colors, meta:get_int("palette_index"))
+				dyes = dyes + stack:get_count()
 			elseif stack:get_name() == "bobcraft_blocks:wool" then
 				local meta = stack:get_meta()
 				if meta:get_int("palette_index") then
@@ -163,10 +183,10 @@ local function dye_wool(itemstack, player, old_craft_grid, craft_inv)
 			end
 		end
 	end
-	if #list_colors == 0 or wools == 0 then
+	if #list_colors == 0 or wools == 0 or dyes == 0 then
 		return
 	end
-	itemstack = ItemStack("bobcraft_blocks:wool " .. wools)
+	itemstack = ItemStack("bobcraft_blocks:wool")
 	local new_color = mix(unpack(list_colors))
 	local meta = itemstack:get_meta()
 	set_color(meta, new_color, true)
