@@ -12,6 +12,10 @@ local function set_color(meta, color, is_wool)
 	meta:set_string("description", color_name .. thingname)
 end
 
+local function undye(meta, is_wool)
+	set_color(meta, 255, is_wool)
+end
+
 local function change_variation(itemstack)
 	local meta = itemstack:get_meta()
 	local color = meta:get_int("palette_index")
@@ -133,6 +137,12 @@ for i=1, 8 do
 		recipe = recipe,
 	})
 end
+-- Undying wool
+minetest.register_craft({
+	type = "shapeless",
+	output = "bobcraft_blocks:wool",
+	recipe = {"bobcraft_blocks:wool"},
+})
 
 local function dye_craft(itemstack, player, old_craft_grid, craft_inv)
 	if itemstack:get_name() ~= "256_dyes:dye" then
@@ -183,13 +193,17 @@ local function dye_wool(itemstack, player, old_craft_grid, craft_inv)
 			end
 		end
 	end
-	if #list_colors == 0 or wools == 0 or dyes == 0 then
+	if #list_colors == 0 or wools == 0 then
 		return
 	end
 	itemstack = ItemStack("bobcraft_blocks:wool")
 	local new_color = mix(unpack(list_colors))
 	local meta = itemstack:get_meta()
-	set_color(meta, new_color, true)
+	if dyes == 0 then
+		set_color(meta, 255, true)
+	else
+		set_color(meta, new_color, true)
+	end
 	return itemstack
 end
 
