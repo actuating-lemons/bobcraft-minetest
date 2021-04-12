@@ -706,19 +706,6 @@ minetest.register_craft({
 	}
 })
 
--- Shapeless wool dying
--- TODO: should we move this to wool.lua?
-for i, colour in ipairs(dyes.colour_names) do
-	minetest.register_craft({
-		type = "shapeless",
-		output = "bobcraft_blocks:wool_"..colour,
-		recipe = {
-			dyes.items[colour],
-			"bobcraft_blocks:wool_white"
-		}
-	})
-end
-
 local modpath = minetest.get_modpath("bobcraft_crafting")
 dofile(modpath.."/cooking.lua")
 dofile(modpath.."/grid.lua") -- modify the player's grid

@@ -21,8 +21,31 @@ minetest.register_node("bobcraft_blocks:wool", {
 	end
 })
 
+local old_colour_names = {
+	"black",
+	"dark_grey",
+	"grey",
+	"white",
+
+	"blue",
+	"cyan",
+	"picton", -- fancy blue
+
+	"green",
+	"lime",
+
+	"purple",
+	"pink",
+	"red",
+	"magenta",
+
+	"yellow",
+	"orange",
+	"brown",
+}
+
 -- Compatability, dying is handled by 256_dyes
-for _, color in ipairs(dyes.colour_names) do
+for _, color in ipairs(old_colour_names) do
 	minetest.register_alias("bobcraft_blocks:wool_"..color, "bobcraft_blocks:wool")
 	-- TODO: Possibly convert to closest default dyepalette?
 end

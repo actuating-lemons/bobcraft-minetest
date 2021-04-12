@@ -1,5 +1,7 @@
 local modpath = minetest.get_modpath(minetest.get_current_modname())
 
+dyes = {}
+
 local color_names = {}
 
 local function set_color(meta, color, is_wool)
@@ -160,7 +162,7 @@ local function dye_craft(itemstack, player, old_craft_grid, craft_inv)
 		end
 	end
 	if #list_colors == 0 then
-		return
+		return make_dye(itemstack, player, old_craft_grid, craft_inv)
 	end
 	itemstack = ItemStack("256_dyes:dye " .. #list_colors)
 	local new_color = mix(unpack(list_colors))
@@ -205,6 +207,20 @@ local function dye_wool(itemstack, player, old_craft_grid, craft_inv)
 		set_color(meta, new_color, true)
 	end
 	return itemstack
+end
+
+-- Crafts a dye of a certain colour
+local function make_dye(itemstack, player, old_craft_grid, craft_inv)
+	minetest.log(dump(old_craft_grid))
+end
+
+-- function that returns a pre-dyed dye item
+function dyes.get_dye_itemstack(color)
+	local stack = ItemStack("256_dyes:dye")
+
+	set_color(stack:get_meta(), color)
+	
+	return stack
 end
 
 minetest.register_craft_predict(dye_craft)

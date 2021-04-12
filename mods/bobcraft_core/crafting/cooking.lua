@@ -81,7 +81,8 @@ minetest.register_craft({
 -- get green dye
 minetest.register_craft({
 	type = "cooking",
-	output = dyes.items.green,
+	output = "256_dyes:dye",
+	_dye_colour = 81,
 	recipe = "bobcraft_blocks:cactus",
 	cooktime = 10,
 })
