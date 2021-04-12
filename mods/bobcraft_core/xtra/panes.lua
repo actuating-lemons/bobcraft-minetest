@@ -57,7 +57,6 @@ register_pane("bobcraft_blocks_xtra:iron_bars", {
 	wield_image = "iron_bars.png",
 
 	paramtype = "light",
-	paramtype2 = "facedir", -- TODO: until we have panes, this is good enough.
 
 	hardness = 3,
 	groups = {pickaxe=1},
@@ -70,7 +69,9 @@ register_pane("bobcraft_blocks_xtra:glass_pane", {
 	sounds = bobcraft_sounds.node_sound_glass(),
 
 	paramtype = "light",
-	paramtype2 = "facedir", -- TODO: until we have panes, this is good enough.
+
+	inventory_image = "glass.png",
+	wield_image = "glass.png",
 
 	hardness = 0.8,
 	groups = {pickaxe=1, hand=1},
