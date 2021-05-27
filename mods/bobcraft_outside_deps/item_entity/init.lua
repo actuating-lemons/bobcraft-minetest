@@ -71,8 +71,7 @@ local item_entity = { -- reference https://rubenwardy.com/minetest_modding_book/
 		return core.serialize({
 			itemstring = self.itemstring,
 			age = self.age,
-			dropped_by = self.dropped_by,
-			_following = self._following
+			dropped_by = self.dropped_by
 		})
 	end,
 
@@ -100,8 +99,6 @@ local item_entity = { -- reference https://rubenwardy.com/minetest_modding_book/
 		self.object:set_velocity({x = 0, y = 2, z = 0})
 		self.object:set_acceleration({x = 0, y = -(gravity or 9.81), z = 0})
 		self:set_item()
-
-		self._following = nil
 	end,
 
 	on_step = function(self, dtime, moveresult)
@@ -149,13 +146,8 @@ minetest.register_globalstep(function(dtime)
 		for j, object in ipairs(minetest.get_objects_inside_radius(pos, 16)) do
 			if not object:is_player() and object:get_luaentity() and object:get_luaentity().name == "__builtin:item" and player:get_hp() > 0 then
 				if object:get_luaentity().magnetting and vector.distance(pos, object:get_pos()) <= item_flyto_radius and
-					inv:room_for_item("main", ItemStack(object:get_luaentity().itemstring))
-					and (object._following == player or object._following == nil)  then -- we pretend to not be in the radius if the player doesn't have space
+					inv:room_for_item("main", ItemStack(object:get_luaentity().itemstring)) then -- we pretend to not be in the radius if the player doesn't have space
 				disable_physics(object, object:get_luaentity())
-				
-				if object._following == nil then
-					object._following = player
-				end
 
 				local old_pos = object:get_pos()
 				local vec = vector.subtract(pos, old_pos)
