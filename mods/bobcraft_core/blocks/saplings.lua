@@ -2,7 +2,7 @@ local S = minetest.get_translator("bobcraft_blocks")
 
 local function can_grow_sapling(pos)
 	local lightlevel = minetest.get_node_light(pos)
-	minetest.log(dump(lightlevel))
+	-- minetest.log(dump(lightlevel))
 	if not lightlevel or lightlevel < 9 then
 		return true --HACK: this forces trees to grow. For some reason, the light level is always 0!
 	end

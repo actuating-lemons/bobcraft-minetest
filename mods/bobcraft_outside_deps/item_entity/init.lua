@@ -206,7 +206,7 @@ local function should_drop(nodename, tool_capabilities)
 			for m=in_group, #materials do
 				local material = tool_type .. "_" .. materials[m]
 				if tool_group_caps[material] then
-					minetest.log(material)
+					-- minetest.log(material)
 					return true
 				end
 			end
