@@ -236,7 +236,7 @@ worldgen.register_dimension({
 	compression_factor = 10,
 	
 	init = function (this)
-		minetest.log("warn", "Hell is disabled!")
+		-- minetest.log("warn", "Hell is disabled!")
 		this.map_caves = nil
 		this.map_pillars = nil
 
@@ -245,91 +245,91 @@ worldgen.register_dimension({
 	end,
 
 	gen_func = function(this, minp, maxp, blockseed, vm, area, data)
-		return data
-		-- local sidelen = maxp.x - minp.x + 1
-		-- this.map_caves = this.map_caves or minetest.get_perlin_map(worldgen.np_hell_cavern, {x=sidelen,y=sidelen,z=sidelen})
-		-- local noise_caves = this.map_caves:get_3d_map(minp, this.buffer_caves)
-
-		-- -- will this chunk have a pillar?
-		-- local gen_pillar = false
-		-- -- Middle of the chunk
-		-- local pillarx = (minp.x + maxp.x) /2
-		-- local pillarz = (minp.z + maxp.z) /2
-
-		-- this.map_pillars = this.map_pillars or minetest.get_perlin(worldgen.np_hell_pillar)
-		-- local noise_pillars = this.map_pillars:get_3d({x=pillarx,y=pillarz})
-
-		-- local pillar_variator = 0
-
-		-- if noise_pillars > 0.9 then
-		-- 	gen_pillar = true
-		-- 	pillar_variator = math.max(0,this.map_pillars:get_3d({x=pillarx,y=pillarz}))
-		-- end
-
-		-- local nixyz = 1
-		-- for y = minp.y, maxp.y do -- do y first to calculate the percent the least amount of times possible
-
-		-- 	-- Given x as a percentage of how close we are to the bottom,
-		-- 	-- the percentage is
-		-- 	-- 2 (1-2x)^2 + 0.2
-
-		-- 	-- first work out x
-		-- 	-- to get the % of a number between 0 and, say, +20
-		-- 	-- x = y / 20
-		-- 	-- But for between +5 and +20, we'd do
-		-- 	-- x = y / (20 - 5)
-		-- 	-- and we don't care about decimals so we just get the absolute value as that removes negatives
-		-- 	local n = math.abs(y-worldgen.hell_top) / (math.abs(worldgen.hell_bottom)-math.abs(worldgen.hell_top))
-
-		-- 	-- we now plug that into our caluclation
-		-- 	local mult =  2 * ( 1 - n * 2 ) ^ 2 + 0.2
-
-		-- 	for x = minp.x, maxp.x do
-		-- 		for z = minp.z, maxp.z do
-		-- 			local vi = area:index(x, y, z)
-
-		-- 			local cave = noise_caves[z-minp.z+1][y-minp.y+1][x-minp.x+1]
-
-		-- 			if cave*mult > 0.7 then
-		-- 				if y > worldgen.hell_bottom and y < worldgen.hell_top then
-		-- 					data[vi] = c_hellstone
-		-- 				end
-		-- 			end
-
-		-- 			if y <= worldgen.hell_sealevel and y >= worldgen.hell_bottom then
-		-- 				if data[vi] == c_air then
-		-- 					data[vi] = c_lava
-		-- 					if y == worldgen.overworld_sealevel then
-		-- 						data[vi] = c_lava
-		-- 					end
-		-- 				end
-		-- 			end
-
-		-- 			if gen_pillar and y > worldgen.hell_bottom and y < worldgen.hell_top then
-		-- 				local dist = vector.distance({x=pillarx,y=pillarz,z=0}, {x=x,y=z,z=0})
-
-		-- 				if dist < 15*pillar_variator/(2-mult) then
-		-- 					local vi = area:index(x,y,z)
-		-- 					data[vi] = c_hellstone
-		-- 				end
-		-- 			end
-
-		-- 			-- One final check, to make sure that certain y levels always have hellstone
-		-- 			-- (Looking at you, bedrock layer!)
-		
-		-- 			if y > worldgen.hell_top-10 and y < worldgen.hell_top then
-		-- 				data[vi] = c_hellstone
-		-- 			elseif y < worldgen.hell_bottom+10 and y > worldgen.hell_bottom then
-		-- 				data[vi] = c_hellstone
-		-- 			end
-		
-
-		-- 			nixyz = nixyz + 1
-		-- 		end
-		-- 	end
-		-- end
-
 		-- return data
+		local sidelen = maxp.x - minp.x + 1
+		this.map_caves = this.map_caves or minetest.get_perlin_map(worldgen.np_hell_cavern, {x=sidelen,y=sidelen,z=sidelen})
+		local noise_caves = this.map_caves:get_3d_map(minp, this.buffer_caves)
+
+		-- will this chunk have a pillar?
+		local gen_pillar = false
+		-- Middle of the chunk
+		local pillarx = (minp.x + maxp.x) /2
+		local pillarz = (minp.z + maxp.z) /2
+
+		this.map_pillars = this.map_pillars or minetest.get_perlin(worldgen.np_hell_pillar)
+		local noise_pillars = this.map_pillars:get_3d({x=pillarx,y=pillarz, z=0})
+
+		local pillar_variator = 0
+
+		if noise_pillars > 0.9 then
+			gen_pillar = true
+			pillar_variator = math.max(0,this.map_pillars:get_3d({x=pillarx,y=pillarz,z=0}))
+		end
+
+		local nixyz = 1
+		for y = minp.y, maxp.y do -- do y first to calculate the percent the least amount of times possible
+
+			-- Given x as a percentage of how close we are to the bottom,
+			-- the percentage is
+			-- 2 (1-2x)^2 + 0.2
+
+			-- first work out x
+			-- to get the % of a number between 0 and, say, +20
+			-- x = y / 20
+			-- But for between +5 and +20, we'd do
+			-- x = y / (20 - 5)
+			-- and we don't care about decimals so we just get the absolute value as that removes negatives
+			local n = math.abs(y-worldgen.hell_top) / (math.abs(worldgen.hell_bottom)-math.abs(worldgen.hell_top))
+
+			-- we now plug that into our caluclation
+			local mult =  2 * ( 1 - n * 2 ) ^ 2 + 0.2
+
+			for x = minp.x, maxp.x do
+				for z = minp.z, maxp.z do
+					local vi = area:index(x, y, z)
+
+					local cave = noise_caves[z-minp.z+1][y-minp.y+1][x-minp.x+1]
+
+					if cave*mult > 0.7 then
+						if y > worldgen.hell_bottom and y < worldgen.hell_top then
+							data[vi] = c_hellstone
+						end
+					end
+
+					if y <= worldgen.hell_sealevel and y >= worldgen.hell_bottom then
+						if data[vi] == c_air then
+							data[vi] = c_lava
+							if y == worldgen.overworld_sealevel then
+								data[vi] = c_lava
+							end
+						end
+					end
+
+					if gen_pillar and y > worldgen.hell_bottom and y < worldgen.hell_top then
+						local dist = vector.distance({x=pillarx,y=pillarz,z=0}, {x=x,y=z,z=0})
+
+						if dist < 15*pillar_variator/(2-mult) then
+							local vi = area:index(x,y,z)
+							data[vi] = c_hellstone
+						end
+					end
+
+					-- One final check, to make sure that certain y levels always have hellstone
+					-- (Looking at you, bedrock layer!)
+		
+					if y > worldgen.hell_top-10 and y < worldgen.hell_top then
+						data[vi] = c_hellstone
+					elseif y < worldgen.hell_bottom+10 and y > worldgen.hell_bottom then
+						data[vi] = c_hellstone
+					end
+		
+
+					nixyz = nixyz + 1
+				end
+			end
+		end
+
+		return data
 	end
 })
 
