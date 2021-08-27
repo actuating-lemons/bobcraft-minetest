@@ -1,3 +1,6 @@
+# DEPRECATION NOTICE
+## This is no longer being worked on. It is bad.
+
 # What is this?
 A re-imagining of Minecraft 1.2.5, On the minetest game engine.\
 This project aims to;
@@ -21,6 +24,3 @@ Bobcraft includes modified third-party mods unaffiliated with the project. They 
  - Rubenwardy's Simple Fast Inventory - MIT
  - Blockmen's Beds - MIT
  - stujones11's Wield 3d - MIT
-
-## Contributing
-**TODO**
